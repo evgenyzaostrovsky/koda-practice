@@ -105,14 +105,14 @@ def submit(body:CodeIn):
         actual.update(error_type='WrongMethod',error='Результат верный, но задача проверяет конкретный приём.',difference=f"Используйте вызов {calls}, не раскрывая готовое решение.")
     details=explain(actual)
     if not passed:
-        details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)])
-    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e.get('explanation',f"Результат сохранён в {e['result_variable']}."),'explanation':None if passed else details}
+        details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)]['text'])
+    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e['completion_summary'],'completion_summary':e['completion_summary'],'explanation':None if passed else details}
 @app.post('/exercises/{eid}/hints/{level}')
 def hint(eid:str,level:int):
     e=EXERCISES.get(eid)
     if not e or level not in (1,2,3): raise HTTPException(404,'Подсказка не найдена')
     with connect() as c:c.execute('INSERT OR IGNORE INTO hints VALUES(?,?,?)',(eid,level,now()))
-    return {'level':level,'content':e['hints'][level-1]}
+    return {'level':level,'content':e['hints'][level-1]['text']}
 @app.post('/exercises/{eid}/solution')
 def reveal_solution(eid:str):
     e=EXERCISES.get(eid)

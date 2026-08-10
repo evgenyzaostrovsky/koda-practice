@@ -1,4 +1,5 @@
 """Build the deterministic KODA catalog from content/task_bank.md."""
+import ast
 import json
 import re
 from pathlib import Path
@@ -9,7 +10,7 @@ TARGET = ROOT / "content" / "catalog.json"
 
 
 SOLUTIONS = {
-"start": ["result = pd.DataFrame(data)", "result = pd.DataFrame(data)", "result = pd.DataFrame(records)", "result = pd.DataFrame(data, columns=column_order)", "result = pd.DataFrame(data, index=row_labels)", "result = pd.DataFrame(rows, columns=column_names)", "result = pd.DataFrame(columns=column_names)", "result = pd.DataFrame({'score': scores})", "result = pd.DataFrame(data, columns=column_order)", "result = pd.DataFrame(records, columns=column_order, index=row_labels)"],
+"start": ["result = pd.DataFrame(data)", "result = pd.DataFrame.from_records(records)", "result = pd.DataFrame(rows, columns=column_names)", "result = pd.DataFrame(data, columns=column_order)", "result = pd.DataFrame(data, index=row_labels)", "result = pd.DataFrame.from_records(rows, columns=column_names)", "result = pd.DataFrame(columns=column_names)", "result = pd.DataFrame({'score': scores})", "result = pd.DataFrame(data, columns=column_order)", "result = pd.DataFrame(records, columns=column_order, index=row_labels)"],
 "reading": ["result = pd.read_csv(csv_path)", "result = pd.read_csv(csv_path, sep=';')", "result = pd.read_csv(csv_path, sep='\\t')", "result = pd.read_csv(csv_path, header=None)", "result = pd.read_csv(csv_path, header=None, names=column_names)", "result = pd.read_csv(csv_path, usecols=needed_columns)", "result = pd.read_csv(csv_path, index_col='id')", "result = pd.read_csv(csv_path, dtype={'client_id': 'string'})", "result = pd.read_csv(csv_path, parse_dates=['date'])", "result = pd.read_csv(csv_path, na_values=['нет', '-'])"],
 "columns": ["result = df['name']", "result = df[['name']]", "result = df[['name', 'score']]", "result = df[['score', 'name']]", "result = df[selected_columns]", "result = df[['price', 'quantity', 'discount']]", "result = df[selected_columns]", "result = df[['score', 'score']]", "result = df[['client name', 'total sales']]", "result = df[report_columns]"],
 "change-columns": ["result = df.copy()\nresult['status'] = 'new'", "result = df.copy()\nresult['price_copy'] = result['price']", "result = df.copy()\nresult['total'] = result['online'] + result['offline']", "result = df.copy()\nresult['change'] = result['current'] - result['previous']", "result = df.copy()\nresult['revenue'] = result['price'] * result['quantity']", "result = df.copy()\nresult['unit_price'] = result['amount'] / result['quantity']", "result = df.copy()\nresult['discount_amount'] = result['price'] * result['discount_pct'] / 100", "result = df.copy()\nresult['is_expensive'] = result['price'] >= price_limit", "result = df.copy()\nresult['name'] = names", "result = df.copy()\nresult['net'] = result['price'] * result['quantity'] - result['discount']"],
@@ -64,13 +65,58 @@ def available_names(data):
     return list(data.get("variables",{}))+list(data.get("series",{}))+[k for k in data if k not in {"variables","series","files"}]
 
 
+NUANCES={
+ "start":"В конструкторе важны форма входных данных, одинаковая длина столбцов и явный порядок меток.",
+ "reading":"`pd.read_csv()` возвращает DataFrame; параметры чтения должны соответствовать реальному формату файла.",
+ "columns":"Одинарные скобки возвращают Series, а список имён — DataFrame с сохранённым порядком.",
+ "change-columns":"Работа через копию защищает исходный DataFrame от случайного изменения.",
+ "vectorization":"Векторные операции учитывают индекс Series и обычно не требуют циклов.",
+ "attributes":"Атрибуты формы описывают объект и не вызываются как методы.",
+ "inspection":"`head()` и `tail()` сохраняют исходные столбцы и индекс выбранных строк.",
+ "dataframe-methods":"Агрегации учитывают ось вычисления и правила обработки пропусков.",
+ "series-methods":"Результат метода Series сохраняет метки и может менять порядок значений.",
+ "groupby":"Группировка сначала разбивает строки по ключу, затем агрегирует выбранные столбцы.",
+ "filtering":"Условие фильтра должно возвращать только нужные строки, не меняя исходную таблицу.",
+ "sorting":"Параметры сортировки определяют направление, стабильность и положение пропусков.",
+ "merge":"Тип соединения определяет, какие ключи и строки останутся в результате.",
+ "pivot":"Сводная таблица группирует значения по строкам и столбцам, применяя выбранную агрегацию.",
+ "dtypes":"Преобразование типа может изменить допустимые значения и способ представления пропусков.",
+ "datetime":"Параметры парсинга определяют формат, единицы времени и обработку ошибок.",
+ "recipes":"Методы очистки возвращают новый объект, если результат явно не записан обратно.",
+ "pandas-plots":"Метод `.plot()` возвращает объект осей, который нужно сохранить в `result`.",
+ "seaborn":"Seaborn получает DataFrame через `data` и связывает его столбцы с визуальными каналами.",
+ "matplotlib":"Объект `Axes` хранит линии, подписи и параметры построенного графика.",
+}
+
+def task_hints(slug,name,instructions,focus,solution,data):
+    names=available_names(data)
+    objects=", ".join(f"`{item}`" for item in names) or "подготовленные данные"
+    direction=f"В «{name}» сначала определите ожидаемую форму результата. Ориентир по теме: {NUANCES[slug]}"
+    instrument=f"Для «{name}» используйте `{focus}`: этот приём pandas отвечает за требуемое поведение."
+    params=[]
+    for node in ast.walk(ast.parse(solution)):
+        if isinstance(node,ast.keyword): params.append(node.arg)
+    detail=f"Работайте с {objects}"
+    if params: detail+=f" и проверьте параметры `{', '.join(dict.fromkeys(params))}`"
+    first_line=solution.splitlines()[0]
+    rhs=first_line.split('=',1)[1].strip() if '=' in first_line else first_line.strip()
+    skeleton=rhs
+    for object_name in names:
+        if re.search(rf'\b{re.escape(object_name)}\b',skeleton):
+            skeleton=re.sub(rf'\b{re.escape(object_name)}\b','___',skeleton,count=1)
+            break
+    if skeleton==rhs: skeleton=f"{focus}(...)"
+    almost=f"В задаче «{name}» {detail.lower()}. Почти готовый каркас: `result = {skeleton}` — заполните пропуск подходящим входным объектом или аргументом."
+    return [{"level":1,"text":direction},{"level":2,"text":instrument},{"level":3,"text":almost}]
+
+
 def dataset(slug, n):
     k = n
     if slug == "start":
         variants = [
             {"variables":{"data":{"name":["Аня","Борис","Вера"],"score":[7,9,8]}}},
-            {"variables":{"data":{"product":["Курс","Книга","Видео"],"price":[1200,600,900]}}},
-            {"variables":{"records":[{"city":"Москва","sales":12},{"city":"Казань","sales":8}]}},
+            {"variables":{"records":[{"product":"Курс","price":1200},{"product":"Книга","price":600},{"product":"Видео","price":900}]}},
+            {"variables":{"rows":[["Москва",12],["Казань",8]],"column_names":["city","sales"]}},
             {"variables":{"data":{"score":[9,7],"name":["Ира","Лев"],"group":["A","B"]},"column_order":["name","score"]}},
             {"variables":{"data":{"name":["Олег","Мила"],"score":[6,10]},"row_labels":["u-1","u-2"]}},
             {"variables":{"rows":[["Москва",15],["Тула",9]],"column_names":["city","sales"]}},
@@ -157,10 +203,12 @@ def parse_bank():
             first=re.match(r"`([^`]+)` — (.+)",cells[0]); eid,name=first.groups()
             difficulty=cells[1].count("★"); focus=cells[2].replace("`",""); instructions=cells[3].replace("`","")
             slug=eid.rsplit("-",1)[0]; solution=SOLUTIONS[slug][position-1]
-            method_name=focus.split("(")[0].strip() or method
             data=dataset(slug,position); prepared=setup_code(data,slug)
             starter=f"{prepared}\n\nresult = None"
-            exercises.append({"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":name,"instructions":instructions,"focus":focus,"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":prepared,"starter_code":starter,"solution_code":solution,"required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":[f"Сосредоточьтесь на приёме «{focus}» и не изменяйте входные данные.",f"Используйте {method_name} с переменными, названными в условии.","Форма ответа: result = ____  # подставьте нужное выражение"],"explanation":f"Здесь используется {focus}. Результат сохраняется в result; порядок, индекс и параметры сохраняют смысл исходных данных.","is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]})
+            objective=f"Применить {focus} в сценарии «{name}» и получить результат нужной структуры"
+            summary=f"Вы отработали {focus} в задаче «{name}». {NUANCES[slug]}"
+            hints=task_hints(slug,name,instructions,focus,solution,data)
+            exercises.append({"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":name,"instructions":instructions,"focus":focus,"learning_objective":objective,"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":prepared,"starter_code":starter,"solution_code":solution,"required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":hints,"completion_summary":summary,"explanation":summary,"is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]})
         slug=exercises[0]["id"].rsplit("-",1)[0]
         topics.append({"id":int(order),"slug":slug,"title":title,"summary":f"10 упражнений на {method}","theory":f"Практическая серия на {method}: от прямого применения к параметрам и пограничным случаям.","syntax":method,"example":exercises[0]["solution_code"],"mistakes":["Изменён исходный объект","Ответ не сохранён в result","Не использован приём серии"],"methods":[method],"exercises":exercises})
     return topics

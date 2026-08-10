@@ -1,6 +1,7 @@
 import ast
 import json
 import sys
+from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -12,6 +13,8 @@ catalog=json.loads((ROOT/'content/catalog.json').read_text(encoding='utf-8'))
 topics=[t for m in catalog['modules'] for t in m['topics']]
 exercises=[e for t in topics for e in t['exercises']]
 errors=[]
+BANNED_HINT_PHRASES=('Сосредоточьтесь на приёме','с переменными, названными в условии','Форма ответа: result =','Проверьте синтаксис метода и входные данные')
+all_hint_texts=[]
 
 def check(ok, eid, message):
     if not ok: errors.append(f'{eid}: {message}')
@@ -31,7 +34,14 @@ for topic in topics:
     for position,e in enumerate(topic['exercises'],1):
         check(e['id'].endswith(f'-{position:03d}'),e['id'],'wrong order/ID')
         check(bool(e['starter_code'].strip()),e['id'],'starter code is empty')
-        check(len(e['hints'])==3 and all(h.strip() for h in e['hints']),e['id'],'must have exactly three hints')
+        hints=e['hints']
+        check(len(hints)==3 and all(isinstance(h,dict) and h.get('level')==i and h.get('text','').strip() for i,h in enumerate(hints,1)),e['id'],'must have three structured hints with levels 1..3')
+        hint_texts=[h.get('text','') for h in hints if isinstance(h,dict)]
+        all_hint_texts.extend(hint_texts)
+        check(not any(phrase in text for text in hint_texts for phrase in BANNED_HINT_PHRASES),e['id'],'contains a banned template hint')
+        check(e['solution_code'].strip() not in '\n'.join(hint_texts),e['id'],'hint reveals the full solution')
+        check(bool(e.get('learning_objective','').strip()),e['id'],'learning objective is empty')
+        check(bool(e.get('completion_summary','').strip()),e['id'],'completion summary is empty')
         check(bool(e.get('explanation','').strip()),e['id'],'explanation is empty')
         files=e['dataset'].get('files',{})
         csv_path=e['dataset'].get('variables',{}).get('csv_path')
@@ -42,6 +52,12 @@ for topic in topics:
         used={n.id for n in ast.walk(tree) if isinstance(n,ast.Name)}-local_args
         builtins={'True','False','None'}
         check(not (used-available-builtins),e['id'],f"unknown variables: {sorted(used-available-builtins)}")
+
+check(len(all_hint_texts)==len(set(all_hint_texts)),'catalog','hint texts are duplicated')
+objectives=[e['learning_objective'] for e in exercises]
+summaries=[e['completion_summary'] for e in exercises]
+check(len(objectives)==len(set(objectives)),'catalog','learning objectives are duplicated')
+check(len(summaries)==len(set(summaries)),'catalog','completion summaries are duplicated')
 
 def execute(e):
     data=e['dataset']; setup=e['setup_code']
@@ -83,4 +99,37 @@ with ThreadPoolExecutor(max_workers=8) as pool:
 if errors:
     print('\n'.join(errors))
     raise SystemExit(f'AUDIT FAILED: {len(errors)} error(s)')
-print('AUDIT PASSED: 200 exercises; setup variables and previews match runtime; starters run without NameError and do not pass; files exist; solutions pass; inputs restore between runs')
+
+def normalized_solution(code, structural=False):
+    tree=ast.parse(code)
+    if structural:
+        for node in ast.walk(tree):
+            if isinstance(node,ast.Name): node.id='VAR'
+            elif isinstance(node,ast.Constant): node.value='CONST'
+    return ast.dump(tree,include_attributes=False)
+
+def duplicate_groups(structural=False):
+    groups=defaultdict(list)
+    for exercise in exercises: groups[normalized_solution(exercise['solution_code'],structural)].append(exercise['id'])
+    return [ids for ids in groups.values() if len(ids)>1]
+
+exact_groups=duplicate_groups()
+structural_groups=duplicate_groups(True)
+report={
+    'total_exercises':len(exercises),
+    'final_exercises':len(exercises),
+    'removed_exercises':[],
+    'reworked_exercises':['start-002','start-003','start-006'],
+    'exact_solution_groups_reviewed':exact_groups,
+    'structural_similarity_groups_reviewed':structural_groups,
+    'processing_note':'Совпадающие короткие выражения сохранены только там, где различаются учебная цель, входные данные или проверяемое поведение API.',
+    'unique_learning_objectives':len(set(objectives)),
+    'unique_hints':len(set(all_hint_texts)),
+    'completion_summaries':sum(bool(e.get('completion_summary')) for e in exercises),
+    'runtime_input_checks_passed':len(exercises),
+    'reference_solutions_passed':len(exercises),
+}
+report_path=ROOT/'reports'/'task-bank-audit.json'
+report_path.parent.mkdir(exist_ok=True)
+report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+print('AUDIT PASSED: 200 exercises; objectives, completion summaries, and 600 structured hints are present and unique; banned templates and full-solution hints are absent; setup variables and previews match runtime; starters run without NameError and do not pass; files exist; solutions pass; inputs restore between runs')

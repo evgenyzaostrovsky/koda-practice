@@ -8,7 +8,7 @@ TOPICS={t['slug']:t for m in MODULES for t in m['topics']}
 EXERCISES={e['id']:e for t in TOPICS.values() for e in t['exercises']}
 
 def validate_catalog():
-    required={'id','topic_id','title','difficulty','instructions','dataset','setup_code','starter_code','expected_type','solution_code','required_tokens','tests','hints','explanation','xp'}
+    required={'id','topic_id','title','difficulty','instructions','dataset','setup_code','starter_code','expected_type','solution_code','required_tokens','tests','hints','learning_objective','completion_summary','explanation','xp'}
     if CATALOG.get('bank_version')!=2: raise ValueError('Unsupported content bank version')
     if len(TOPICS)!=20 or len(EXERCISES)!=200: raise ValueError('Catalog must contain 20 topics and 200 exercises')
     for topic in TOPICS.values():
@@ -16,7 +16,7 @@ def validate_catalog():
         for exercise in topic['exercises']:
             missing=required-set(exercise)
             if missing: raise ValueError(f"{exercise.get('id','unknown')}: missing {sorted(missing)}")
-            if len(exercise['hints'])!=3 or not all(x.strip() for x in exercise['hints']): raise ValueError(f"{exercise['id']}: invalid hints")
+            if len(exercise['hints'])!=3 or not all(x.get('level')==i and x.get('text','').strip() for i,x in enumerate(exercise['hints'],1)): raise ValueError(f"{exercise['id']}: invalid hints")
 
 validate_catalog()
 
