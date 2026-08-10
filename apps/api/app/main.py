@@ -138,8 +138,8 @@ def progress():
     module_progress=[]
     for m in MODULES:
         ids=[e['id'] for t in m['topics'] for e in t['exercises']]; done=len(set(ids)&solved); mastery=round(100*(.5*(sum(first.get(i,{}).get('status')=='passed' for i in ids)/len(ids))+.3*(sum(any(a['exercise_id']==i and a['status']=='passed' and not a['hints_used'] for a in attempts) for i in ids)/len(ids))+.2*(done/len(ids))))
-        module_progress.append({'slug':m['slug'],'title':m['title'],'solved':done,'total':len(ids),'mastery':mastery,'status':'mastered' if mastery>=80 else 'learning' if done else 'not_started'})
-    return {'solved':len(solved),'total':len(EXERCISES),'attempts':len(attempts),'first_try_accuracy':round(first_acc*100),'independent_rate':round(independent*100),'hints_used':hints,'xp':sum(EXERCISES[i]['xp'] for i in solved),'due':due_n,'modules':module_progress,'activity':activity,'recent_errors':[x for x in reversed(attempts) if x['status']=='failed'][:20]}
+        module_progress.append({'slug':m['slug'],'title':m['title'],'solved':done,'solved_ids':[i for i in ids if i in solved],'total':len(ids),'mastery':mastery,'status':'mastered' if mastery>=80 else 'learning' if done else 'not_started'})
+    return {'solved':len(solved),'solved_ids':sorted(solved),'total':len(EXERCISES),'attempts':len(attempts),'first_try_accuracy':round(first_acc*100),'independent_rate':round(independent*100),'hints_used':hints,'xp':sum(EXERCISES[i]['xp'] for i in solved),'due':due_n,'modules':module_progress,'activity':activity,'recent_errors':[x for x in reversed(attempts) if x['status']=='failed'][:20]}
 
 WEB_DIST=Path(__file__).parents[2]/'web'/'dist'
 if WEB_DIST.is_dir():

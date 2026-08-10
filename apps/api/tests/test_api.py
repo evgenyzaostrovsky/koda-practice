@@ -48,3 +48,12 @@ def test_dataframe_creation_contract_and_precise_diff():
         assert client.post('/exercises/start-001/solution').json()['solution']=='result = pd.DataFrame(data)'
         good=client.post('/attempts/submit',json={'exercise_id':'start-001','code':prepared('start-001','result = pd.DataFrame(data)')}).json()
         assert good['passed'] is True and good['result']['data']==[['Аня',7],['Борис',9],['Вера',8]]
+
+def test_progress_tracks_exact_exercise_ids():
+    with TestClient(app) as client:
+        eid='start-003'
+        passed=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,EXERCISES[eid]['solution_code'])}).json()
+        assert passed['passed'] is True
+        progress=client.get('/progress').json()
+        start=next(module for module in progress['modules'] if module['slug']=='start')
+        assert eid in progress['solved_ids'] and eid in start['solved_ids']
