@@ -1,4 +1,10 @@
 FROM node:22-bookworm-slim AS web-build
+ARG VITE_KODA_AUTH_ENABLED=false
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+ENV VITE_KODA_AUTH_ENABLED=$VITE_KODA_AUTH_ENABLED \
+    VITE_SUPABASE_URL=$VITE_SUPABASE_URL \
+    VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
 WORKDIR /app
 COPY package.json package-lock.json ./
 COPY apps/web/package.json apps/web/package-lock.json ./apps/web/

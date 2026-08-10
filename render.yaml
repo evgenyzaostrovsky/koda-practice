@@ -10,6 +10,20 @@ services:
         value: /data/koda.db
       - key: KODA_CORS_ORIGINS
         value: https://koda-practice.onrender.com
+      - key: KODA_AUTH_ENABLED
+        value: "false"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_JWT_AUDIENCE
+        value: authenticated
+      - key: VITE_KODA_AUTH_ENABLED
+        value: "false"
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
     disk:
       name: koda-practice-data
       mountPath: /data

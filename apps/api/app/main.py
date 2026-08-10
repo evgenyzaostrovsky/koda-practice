@@ -3,7 +3,7 @@ import ast
 import json
 import os
 from pathlib import Path
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from .content import MODULES,TOPICS,EXERCISES,public_module,public_exercise
 from .db import init_db,connect,now
 from .runner import run,explain,compare_results,warmup
+from .auth_backend import AUTH_ENABLED,current_user,record_attempt,rest
 
 class ApiPrefixMiddleware:
     def __init__(self,app): self.app=app
@@ -72,14 +73,16 @@ def exercise(eid:str):
     if eid not in EXERCISES: raise HTTPException(404,'Задача не найдена')
     return public_exercise(EXERCISES[eid])
 @app.post('/executions/run')
-def execute(body:CodeIn):
+def execute(body:CodeIn,request:Request):
+    current_user(request)
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
     r=run(body.code,attempt_dataset(e),e['result_variable']);
     if not r.get('ok'): r['explanation']=explain(r)
     return r
 @app.post('/attempts/submit')
-def submit(body:CodeIn):
+def submit(body:CodeIn,request:Request):
+    account=current_user(request)
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
     actual=run(body.code,attempt_dataset(e),e['result_variable'])
@@ -100,6 +103,9 @@ def submit(body:CodeIn):
         if passed:
             delay=2 if hints else (7 if num==1 else 4); due=(datetime.now(timezone.utc)+timedelta(days=delay)).isoformat()
             c.execute('INSERT INTO reviews(exercise_id,interval_days,due_at) VALUES(?,?,?) ON CONFLICT(exercise_id) DO UPDATE SET interval_days=excluded.interval_days,due_at=excluded.due_at',(body.exercise_id,delay,due))
+    if account:
+        feedback=None if passed else explain(actual)
+        num,hints=record_attempt(account,body.exercise_id,body.code,passed,actual.get('result',{}).get('kind',actual.get('error_type','error')),feedback,actual.get('execution_ms',0))
     if missing and actual.get('ok') and equal:
         calls=', '.join(f"pd.{name}()" if name.startswith('read_') else f"{name}()" for name in sorted(missing))
         actual.update(error_type='WrongMethod',error='Результат верный, но задача проверяет конкретный приём.',difference=f"Используйте вызов {calls}, не раскрывая готовое решение.")
@@ -108,10 +114,16 @@ def submit(body:CodeIn):
         details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)]['text'])
     return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e['completion_summary'],'completion_summary':e['completion_summary'],'explanation':None if passed else details}
 @app.post('/exercises/{eid}/hints/{level}')
-def hint(eid:str,level:int):
+def hint(eid:str,level:int,request:Request):
+    account=current_user(request)
     e=EXERCISES.get(eid)
     if not e or level not in (1,2,3): raise HTTPException(404,'Подсказка не найдена')
     with connect() as c:c.execute('INSERT OR IGNORE INTO hints VALUES(?,?,?)',(eid,level,now()))
+    if account:
+        rows=rest(account,'task_progress','GET',params={'user_id':f"eq.{account['id']}",'task_id':f'eq.{eid}','select':'*'}) or []
+        payload=rows[0] if rows else {'user_id':account['id'],'task_id':eid,'code':'','status':'not_started','attempts_count':0}
+        payload['hints_opened']=max(payload.get('hints_opened',0),level)
+        rest(account,'task_progress?on_conflict=user_id,task_id','POST',payload,prefer='resolution=merge-duplicates,return=minimal')
     return {'level':level,'content':e['hints'][level-1]['text']}
 @app.post('/exercises/{eid}/solution')
 def reveal_solution(eid:str):
@@ -129,7 +141,16 @@ def complete(rid:int,body:ReviewIn):
     with connect() as c:c.execute('UPDATE reviews SET completed_at=?,result=? WHERE id=?',(now(),body.result,rid))
     return {'ok':True}
 @app.get('/progress')
-def progress():
+def progress(request:Request):
+    account=current_user(request)
+    if account:
+        cloud=rest(account,'task_progress','GET',params={'user_id':f"eq.{account['id']}",'select':'*'}) or []
+        attempts=rest(account,'solution_attempts','GET',params={'user_id':f"eq.{account['id']}",'select':'task_id,passed,created_at','order':'created_at.asc'}) or []
+        solved={x['task_id'] for x in cloud if x['status']=='completed'}; module_progress=[]
+        for m in MODULES:
+            ids=[e['id'] for t in m['topics'] for e in t['exercises']];done=len(set(ids)&solved);mastery=round(done/len(ids)*100)
+            module_progress.append({'slug':m['slug'],'title':m['title'],'solved':done,'solved_ids':[i for i in ids if i in solved],'total':len(ids),'mastery':mastery,'status':'mastered' if mastery>=80 else 'learning' if done else 'not_started'})
+        return {'solved':len(solved),'solved_ids':sorted(solved),'total':len(EXERCISES),'attempts':len(attempts),'first_try_accuracy':0,'independent_rate':0,'hints_used':sum(x.get('hints_opened',0) for x in cloud),'xp':sum(EXERCISES[i]['xp'] for i in solved),'due':0,'modules':module_progress,'activity':[],'recent_errors':[]}
     with connect() as c:
         rows=c.execute('SELECT * FROM attempts ORDER BY id').fetchall(); hints=c.execute("SELECT COUNT(*) FROM hints WHERE exercise_id NOT LIKE 'v1:%'").fetchone()[0]; activity=[dict(x) for x in c.execute('SELECT * FROM activity ORDER BY day DESC LIMIT 28')]; due_n=c.execute("SELECT COUNT(*) FROM reviews WHERE exercise_id NOT LIKE 'v1:%' AND completed_at IS NULL AND due_at<=?",(now(),)).fetchone()[0]
     attempts=[dict(x) for x in rows if x['exercise_id'] in EXERCISES]; solved={x['exercise_id'] for x in attempts if x['status']=='passed'}; first={}
