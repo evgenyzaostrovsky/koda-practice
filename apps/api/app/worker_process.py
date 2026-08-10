@@ -6,8 +6,13 @@ import numpy as np
 import pandas as pd
 IMPORT_MS=round((time.perf_counter()-started)*1000)
 
+def safe_import(name,globals=None,locals=None,fromlist=(),level=0):
+    if name.split('.')[0] not in {'pandas','numpy','matplotlib','seaborn'}:
+        raise ImportError(f'Импорт {name} запрещён в учебном runner.')
+    return __import__(name,globals,locals,fromlist,level)
+
 SAFE_BUILTINS={"print":print,"len":len,"range":range,"sum":sum,"min":min,"max":max,"abs":abs,"round":round,
- "list":list,"dict":dict,"tuple":tuple,"set":set,"str":str,"int":int,"float":float,"bool":bool,"enumerate":enumerate,"zip":zip}
+ "list":list,"dict":dict,"tuple":tuple,"set":set,"str":str,"int":int,"float":float,"bool":bool,"enumerate":enumerate,"zip":zip,"__import__":safe_import}
 
 def clean(value):
     if isinstance(value,np.ndarray):return [clean(x) for x in value.tolist()]

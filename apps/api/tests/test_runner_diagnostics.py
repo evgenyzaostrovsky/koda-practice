@@ -8,7 +8,8 @@ from app.runner import run
 from app.content import EXERCISES
 
 def submit(client,eid,code):
-    return client.post('/attempts/submit',json={'exercise_id':eid,'code':code}).json()
+    full=f"{EXERCISES[eid]['setup_code']}\n\n{code}"
+    return client.post('/attempts/submit',json={'exercise_id':eid,'code':full}).json()
 
 def test_required_runner_scenarios():
     with TestClient(app) as client:
@@ -19,7 +20,8 @@ def test_required_runner_scenarios():
         assert missing_method['passed'] is False
 
         syntax=submit(client,'start-001','result = pd.DataFrame(data')
-        assert syntax['explanation']['kind']=='syntax_error' and syntax['explanation']['line']==1
+        assert syntax['explanation']['kind']=='syntax_error' and syntax['explanation']['line']>1
+        assert syntax['explanation']['code_line']=='result = pd.DataFrame(data'
 
         name=submit(client,'start-001','result = missing_name')
         assert name['explanation']['kind']=='runtime_error' and 'missing_name' in name['error']
@@ -48,10 +50,10 @@ def test_required_runner_scenarios():
 def test_setup_code_and_representative_course_inputs():
     with TestClient(app) as client:
         task=client.get('/exercises/start-001').json()
-        assert task['starter_code']=="# Переменная data уже создана\nresult = None"
+        assert task['starter_code'].endswith("\n\nresult = None")
+        assert task['starter_code'].startswith("import pandas as pd\ndata = ")
         assert "import pandas as pd" in task['setup_code']
         assert "data = {'name': ['Аня', 'Борис', 'Вера'], 'score': [7, 9, 8]}" in task['setup_code']
-        assert task['dataset']['_setup_code']==task['setup_code']
         scenarios=[
           'start-001','reading-001','columns-003','series-methods-001','merge-001',
           'filtering-007','sorting-004','pivot-006','datetime-007','seaborn-001'

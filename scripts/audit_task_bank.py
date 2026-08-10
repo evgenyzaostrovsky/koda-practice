@@ -51,7 +51,8 @@ def execute(e):
     imported={a.asname or a.name.split('.')[0] for n in ast.walk(setup_tree) if isinstance(n,(ast.Import,ast.ImportFrom)) for a in n.names}
     local=[]
     if not expected_names <= assigned|imported: local.append(f"setup_code misses variables: {sorted(expected_names-assigned-imported)}")
-    starter=run(e['starter_code'],data,e['result_variable'],setup_code=setup)
+    attempt_data={'files':data.get('files',{})} if data.get('files') else {}
+    starter=run(e['starter_code'],attempt_data,e['result_variable'])
     if not starter.get('ok'): local.append(f"starter failed before solution: {starter.get('error_type')}: {starter.get('error')}")
     elif starter.get('result',{}).get('data') is not None: local.append('starter already produces a non-empty result')
     solution=run(e['solution_code'],data,e['result_variable'],setup_code=setup)

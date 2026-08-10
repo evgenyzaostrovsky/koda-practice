@@ -57,8 +57,6 @@ def setup_code(data, slug):
     for name,value in data.items():
         if name not in {"variables","series","files"}:
             lines.append(f"{name} = pd.DataFrame({py(value)})")
-    if data.get("files"):
-        lines.append("# CSV-файлы уже созданы runner во временной директории")
     return "\n".join(lines)
 
 
@@ -160,10 +158,9 @@ def parse_bank():
             difficulty=cells[1].count("★"); focus=cells[2].replace("`",""); instructions=cells[3].replace("`","")
             slug=eid.rsplit("-",1)[0]; solution=SOLUTIONS[slug][position-1]
             method_name=focus.split("(")[0].strip() or method
-            data=dataset(slug,position); names=available_names(data)
-            prepared="Переменная" if len(names)==1 else "Переменные"
-            starter=f"# {prepared} {', '.join(names)} уже {'создана' if len(names)==1 else 'созданы'}\nresult = None"
-            exercises.append({"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":name,"instructions":instructions,"focus":focus,"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":setup_code(data,slug),"starter_code":starter,"solution_code":solution,"required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":[f"Сосредоточьтесь на приёме «{focus}» и не изменяйте входные данные.",f"Используйте {method_name} с переменными, названными в условии.","Форма ответа: result = ____  # подставьте нужное выражение"],"explanation":f"Здесь используется {focus}. Результат сохраняется в result; порядок, индекс и параметры сохраняют смысл исходных данных.","is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]})
+            data=dataset(slug,position); prepared=setup_code(data,slug)
+            starter=f"{prepared}\n\nresult = None"
+            exercises.append({"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":name,"instructions":instructions,"focus":focus,"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":prepared,"starter_code":starter,"solution_code":solution,"required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":[f"Сосредоточьтесь на приёме «{focus}» и не изменяйте входные данные.",f"Используйте {method_name} с переменными, названными в условии.","Форма ответа: result = ____  # подставьте нужное выражение"],"explanation":f"Здесь используется {focus}. Результат сохраняется в result; порядок, индекс и параметры сохраняют смысл исходных данных.","is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]})
         slug=exercises[0]["id"].rsplit("-",1)[0]
         topics.append({"id":int(order),"slug":slug,"title":title,"summary":f"10 упражнений на {method}","theory":f"Практическая серия на {method}: от прямого применения к параметрам и пограничным случаям.","syntax":method,"example":exercises[0]["solution_code"],"mistakes":["Изменён исходный объект","Ответ не сохранён в result","Не использован приём серии"],"methods":[method],"exercises":exercises})
     return topics

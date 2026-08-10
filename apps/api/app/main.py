@@ -52,6 +52,9 @@ def json_preview(value):
     if value is None:return None
     return json.dumps(value,ensure_ascii=False,default=str)[:1200]
 
+def attempt_dataset(e):
+    return {'files':e['dataset'].get('files',{})} if e['dataset'].get('files') else {}
+
 @app.get('/health')
 def health(): return {'status':'ok'}
 @app.get('/modules')
@@ -72,14 +75,14 @@ def exercise(eid:str):
 def execute(body:CodeIn):
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    r=run(body.code,e['dataset'],e['result_variable'],setup_code=e['setup_code']);
+    r=run(body.code,attempt_dataset(e),e['result_variable']);
     if not r.get('ok'): r['explanation']=explain(r)
     return r
 @app.post('/attempts/submit')
 def submit(body:CodeIn):
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    actual=run(body.code,e['dataset'],e['result_variable'],setup_code=e['setup_code'])
+    actual=run(body.code,attempt_dataset(e),e['result_variable'])
     expected=EXPECTED_RESULTS.get(body.exercise_id)
     if expected is None:
         expected=run(e['solution_code'],e['dataset'],e['result_variable'],setup_code=e['setup_code']);EXPECTED_RESULTS[body.exercise_id]=expected

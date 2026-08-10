@@ -21,9 +21,7 @@ def validate_catalog():
 validate_catalog()
 
 def public_exercise(e):
-    public={k:v for k,v in e.items() if k not in ('solution_code',)}
-    public['dataset']={**e['dataset'],'_setup_code':e['setup_code']}
-    return public
+    return {k:v for k,v in e.items() if k not in ('solution_code',)}
 
 def public_module(m):
     return {**m,'topics':[{**t,'exercises':[public_exercise(e) for e in t['exercises']]} for t in m['topics']]}
