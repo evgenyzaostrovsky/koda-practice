@@ -1,0 +1,32 @@
+{
+  "name": "KODA Reference Dark",
+  "id": "reference-dark",
+  "colors": {
+    "appBackground": "#101010",
+    "sidebarBackground": "#0D0D0D",
+    "headerBackground": "#121212",
+    "surfacePrimary": "#171717",
+    "surfaceSecondary": "#1C1C1C",
+    "surfaceElevated": "#242424",
+    "editorBackground": "#333333",
+    "border": "#303030",
+    "borderStrong": "#414141",
+    "textPrimary": "#F5F5F5",
+    "textSecondary": "#A2A2A2",
+    "textMuted": "#747474",
+    "accent": "#2F7DF6",
+    "accentSoft": "#15243D",
+    "activeBackground": "#F1F1F1",
+    "activeText": "#111111",
+    "success": "#60B98A",
+    "successSoft": "#16251E",
+    "error": "#D97875",
+    "errorSoft": "#2B1919",
+    "warning": "#D3A05E"
+  },
+  "typography": {
+    "ui": "Inter, system-ui, sans-serif",
+    "code": "JetBrains Mono, monospace"
+  },
+  "radii": { "small": "5px", "medium": "8px", "large": "10px" }
+}

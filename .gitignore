@@ -1,0 +1,12 @@
+node_modules/
+.venv/
+dist/
+__pycache__/
+*.pyc
+*.db
+.pytest_cache/
+playwright-report/
+test-results/
+screenshots/
+.api-dev*.log
+.web-preview*.log

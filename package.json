@@ -1,0 +1,16 @@
+{
+  "name": "koda-practice",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "concurrently -n API,WEB -c yellow,cyan \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "node scripts/python.mjs -m uvicorn app.main:app --reload --app-dir apps/api --port 8000",
+    "dev:web": "npm --prefix apps/web run dev",
+    "test": "npm run test:content && npm run test:api && npm run test:web",
+    "test:content": "node scripts/python.mjs scripts/audit_task_bank.py",
+    "test:api": "node scripts/python.mjs -m pytest apps/api/tests -q",
+    "test:web": "npm --prefix apps/web run test -- --run",
+    "verify": "npm run test && npm --prefix apps/web run typecheck && npm --prefix apps/web run build"
+  },
+  "devDependencies": { "concurrently": "^9.1.2" }
+}

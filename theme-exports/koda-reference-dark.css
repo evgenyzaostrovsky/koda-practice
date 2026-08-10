@@ -1,0 +1,24 @@
+:root,
+[data-theme="reference-dark"] {
+  --app-bg: #101010;
+  --sidebar-bg: #0d0d0d;
+  --header-bg: #121212;
+  --surface-1: #171717;
+  --surface-2: #1c1c1c;
+  --surface-3: #242424;
+  --editor-bg: #333333;
+  --border: #303030;
+  --border-strong: #414141;
+  --text: #f5f5f5;
+  --text-secondary: #a2a2a2;
+  --text-muted: #747474;
+  --accent: #2f7df6;
+  --accent-soft: #15243d;
+  --active-bg: #f1f1f1;
+  --active-text: #111111;
+  --success: #60b98a;
+  --success-soft: #16251e;
+  --error: #d97875;
+  --error-soft: #2b1919;
+  --warning: #d3a05e;
+}

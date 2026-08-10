@@ -1,0 +1,164 @@
+/*
+ * KODA theme registry.
+ * Add a new theme by declaring the same semantic tokens under
+ * html[data-theme="your-theme"] and registering its id in theme/index.ts.
+ */
+html[data-theme="reference-dark"] {
+  --theme-app-bg: #101010;
+  --theme-sidebar-bg: #0d0d0d;
+  --theme-header-bg: #121212;
+  --theme-surface-1: #171717;
+  --theme-surface-2: #1c1c1c;
+  --theme-surface-3: #242424;
+  --theme-editor-bg: #333333;
+  --theme-border: #303030;
+  --theme-border-strong: #414141;
+  --theme-text: #f5f5f5;
+  --theme-text-secondary: #a2a2a2;
+  --theme-text-muted: #747474;
+  --theme-accent: #2f7df6;
+  --theme-accent-soft: #15243d;
+  --theme-active-bg: #f1f1f1;
+  --theme-active-text: #111111;
+  --theme-success: #60b98a;
+  --theme-success-soft: #16251e;
+  --theme-error: #d97875;
+  --theme-error-soft: #2b1919;
+  --theme-warning: #d3a05e;
+}
+
+html[data-theme="neutral-light"] {
+  --theme-app-bg: #eef1f4;
+  --theme-sidebar-bg: #303741;
+  --theme-header-bg: #fafbfc;
+  --theme-surface-1: #ffffff;
+  --theme-surface-2: #f5f6f8;
+  --theme-surface-3: #e9edf1;
+  --theme-editor-bg: #252b33;
+  --theme-border: #d9dde3;
+  --theme-border-strong: #c7ccd3;
+  --theme-text: #252a31;
+  --theme-text-secondary: #6f7782;
+  --theme-text-muted: #9ba2ac;
+  --theme-accent: #e87524;
+  --theme-accent-soft: #fff2e8;
+  --theme-active-bg: #ffffff;
+  --theme-active-text: #252a31;
+  --theme-success: #318968;
+  --theme-success-soft: #edf8f3;
+  --theme-error: #bd5653;
+  --theme-error-soft: #fcf1f0;
+  --theme-warning: #a9752c;
+}
+
+html[data-theme="midnight-blue"] {
+  --theme-app-bg: #0b1220;
+  --theme-sidebar-bg: #0a101b;
+  --theme-header-bg: #101927;
+  --theme-surface-1: #131e2d;
+  --theme-surface-2: #182638;
+  --theme-surface-3: #213248;
+  --theme-editor-bg: #1d2938;
+  --theme-border: #2b3d53;
+  --theme-border-strong: #405570;
+  --theme-text: #edf4ff;
+  --theme-text-secondary: #9fb0c6;
+  --theme-text-muted: #687c96;
+  --theme-accent: #61a7ff;
+  --theme-accent-soft: #163458;
+  --theme-active-bg: #dcecff;
+  --theme-active-text: #102038;
+  --theme-success: #67c69a;
+  --theme-success-soft: #163329;
+  --theme-error: #e0807c;
+  --theme-error-soft: #3a2024;
+  --theme-warning: #d7ab67;
+}
+
+/* Map semantic theme tokens to the legacy component tokens. */
+:root {
+  --bg: var(--theme-app-bg);
+  --surface: var(--theme-surface-1);
+  --surface-subtle: var(--theme-surface-2);
+  --surface-muted: var(--theme-surface-3);
+  --graphite: var(--theme-sidebar-bg);
+  --graphite-2: var(--theme-surface-2);
+  --editor: var(--theme-editor-bg);
+  --card: var(--theme-surface-1);
+  --card2: var(--theme-surface-2);
+  --line: var(--theme-border);
+  --line-strong: var(--theme-border-strong);
+  --orange: var(--theme-accent);
+  --orange-soft: var(--theme-accent-soft);
+  --text: var(--theme-text);
+  --muted: var(--theme-text-secondary);
+  --muted-light: var(--theme-text-muted);
+  --green: var(--theme-success);
+  --green-soft: var(--theme-success-soft);
+  --red: var(--theme-error);
+  --red-soft: var(--theme-error-soft);
+  --warning: var(--theme-warning);
+}
+
+/* Final semantic bridge; imported after the component stylesheet. */
+html, body, #root, .app { background: var(--theme-app-bg); color: var(--theme-text); }
+.app > aside, .app:not(.focus-mode) > aside { background: var(--theme-sidebar-bg); border-color: var(--theme-border); }
+header, .topic-topbar, .focus-header { background: var(--theme-header-bg); border-color: var(--theme-border); color: var(--theme-text); }
+.hero, .card, .module-card, .module-row, .theory-grid > div, .exercise-list a,
+.topic-hero, .topic-theory, .practice-route, .topic-outcomes, .topic-summary,
+.data-block, .hints, .result { background: var(--theme-surface-1); border-color: var(--theme-border); color: var(--theme-text); }
+
+/* Practice hints: neutral reference styling. These selectors intentionally live
+   in the theme layer so legacy component colors cannot leak through. */
+.hints {
+  background: transparent;
+  border-color: var(--theme-border);
+}
+
+.hint-head,
+.hint-head svg {
+  color: var(--theme-text-secondary);
+}
+
+.hints .hint-item {
+  background: var(--theme-surface-2);
+  border-color: var(--theme-border-strong);
+  border-left-color: var(--theme-border-strong);
+}
+
+.hints .hint-item > b {
+  color: var(--theme-text-secondary);
+}
+
+.hints .hint-item > p {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--theme-text);
+}
+
+.hints .hint-next,
+.hints .show-solution,
+.hints .ghost {
+  background: transparent;
+  border-color: var(--theme-border);
+  color: var(--theme-text-secondary);
+}
+
+.hints .hint-next:hover,
+.hints .show-solution:hover,
+.hints .ghost:hover {
+  background: var(--theme-surface-2);
+  border-color: var(--theme-border-strong);
+  color: var(--theme-text);
+}
+.theory-secondary, .data-toolbar, .result-meta span, .stdout b { background: var(--theme-surface-2); border-color: var(--theme-border); }
+.topic-code, .revealed-solution { background: var(--theme-surface-3); border-color: var(--theme-border-strong); color: var(--theme-text); }
+.editor-area, .monaco-editor, .monaco-editor-background, .monaco-editor .margin { background-color: var(--theme-editor-bg) !important; }
+.topic-hero-progress i, .route-progress i, .bar span, .bar i, .topic-progress i { background: var(--theme-accent); }
+.app nav a.active, .app:has(.topic-page) aside nav a:nth-child(3) { background: var(--theme-active-bg); color: var(--theme-active-text); }
+.app nav a.active svg, .app:has(.topic-page) aside nav a:nth-child(3) svg { color: var(--theme-active-text); }
+.topic-kicker, .crumbs b { color: color-mix(in srgb, var(--theme-accent) 65%, var(--theme-text)); }
+.feedback.success, .feedback.solved { background: var(--theme-success-soft); border-color: var(--theme-success); }
+.feedback.error, .feedback.detailed { background: var(--theme-error-soft); border-color: var(--theme-error); }
