@@ -44,3 +44,22 @@ def test_required_runner_scenarios():
 
         plot=submit(client,'pandas-plots-001',EXERCISES['pandas-plots-001']['solution_code'])
         assert plot['passed'] is True and plot['result']['kind']=='plot'
+
+def test_setup_code_and_representative_course_inputs():
+    with TestClient(app) as client:
+        task=client.get('/exercises/start-001').json()
+        assert task['starter_code']=="# Переменная data уже создана\nresult = None"
+        assert "import pandas as pd" in task['setup_code']
+        assert "data = {'name': ['Аня', 'Борис', 'Вера'], 'score': [7, 9, 8]}" in task['setup_code']
+        assert task['dataset']['_setup_code']==task['setup_code']
+        scenarios=[
+          'start-001','reading-001','columns-003','series-methods-001','merge-001',
+          'filtering-007','sorting-004','pivot-006','datetime-007','seaborn-001'
+        ]
+        for eid in scenarios:
+            response=submit(client,eid,EXERCISES[eid]['solution_code'])
+            assert response['passed'] is True,(eid,response.get('error'),response.get('explanation'))
+        csv=client.get('/exercises/reading-001').json()
+        assert "csv_path = 'data.csv'" in csv['setup_code']
+        merged=client.get('/exercises/merge-001').json()
+        assert 'left = pd.DataFrame' in merged['setup_code'] and 'right = pd.DataFrame' in merged['setup_code']

@@ -9,6 +9,14 @@ IMPORT_MS=round((time.perf_counter()-started)*1000)
 SAFE_BUILTINS={"print":print,"len":len,"range":range,"sum":sum,"min":min,"max":max,"abs":abs,"round":round,
  "list":list,"dict":dict,"tuple":tuple,"set":set,"str":str,"int":int,"float":float,"bool":bool,"enumerate":enumerate,"zip":zip}
 
+def clean(value):
+    if isinstance(value,np.ndarray):return [clean(x) for x in value.tolist()]
+    if isinstance(value,np.generic):value=value.item()
+    if isinstance(value,float) and (np.isnan(value) or np.isinf(value)):return None
+    if isinstance(value,(list,tuple)):return [clean(x) for x in value]
+    if isinstance(value,dict):return {str(k):clean(v) for k,v in value.items()}
+    return value
+
 def serialize(value,plot=False,plt=None):
     if isinstance(value,pd.DataFrame):
         return {"kind":"dataframe","columns":[str(x) for x in value.columns],"index":[str(x) for x in value.index],
@@ -19,10 +27,10 @@ def serialize(value,plot=False,plt=None):
     if plot and plt is not None:
         ax=value if hasattr(value,"get_title") else plt.gca()
         return {"kind":"plot","created":True,"title":ax.get_title(),"xlabel":ax.get_xlabel(),"ylabel":ax.get_ylabel(),
-          "lines":[{"x":list(line.get_xdata()),"y":list(line.get_ydata())} for line in ax.lines],"patches":len(ax.patches)}
-    return {"kind":"scalar","data":list(value) if isinstance(value,tuple) else value}
+          "lines":[{"x":clean(line.get_xdata()),"y":clean(line.get_ydata())} for line in ax.lines],"patches":len(ax.patches)}
+    return {"kind":"scalar","data":clean(value)}
 
-def execute(code,dataset,result_variable,needs_plot=False):
+def execute(code,dataset,result_variable,needs_plot=False,setup_code=""):
     t0=time.perf_counter(); plt=None; sns=None
     if needs_plot:
         import matplotlib; matplotlib.use("Agg")
@@ -44,6 +52,8 @@ def execute(code,dataset,result_variable,needs_plot=False):
                     for key,spec in val.items():
                         ns[key]=pd.Series(spec.get("data",[]),index=spec.get("index"),name=spec.get("name"),dtype=spec.get("dtype")); input_names.append(key)
                 else: ns[name]=pd.DataFrame(copy.deepcopy(val)) if isinstance(val,dict) else copy.deepcopy(val); input_names.append(name)
+            if setup_code:
+                exec(setup_code,{"__builtins__":{"__import__":__import__}},ns)
             originals={key:copy.deepcopy(ns[key]) for key in input_names}; prep_ms=round((time.perf_counter()-prep)*1000)
             buf=io.StringIO(); run_at=time.perf_counter()
             with contextlib.redirect_stdout(buf): exec(code,{"__builtins__":SAFE_BUILTINS},ns)
@@ -71,6 +81,6 @@ def execute(code,dataset,result_variable,needs_plot=False):
 print(json.dumps({"ready":True,"import_ms":IMPORT_MS}),flush=True)
 for line in sys.stdin:
     try:
-        request=json.loads(line); response=execute(request["code"],request.get("dataset",{}),request.get("result_variable","result"),request.get("needs_plot",False))
+        request=json.loads(line); response=execute(request["code"],request.get("dataset",{}),request.get("result_variable","result"),request.get("needs_plot",False),request.get("setup_code",""))
     except Exception as exc: response={"ok":False,"error_type":"InternalError","error":"Внутренняя ошибка runner."}
     print(json.dumps(response,ensure_ascii=True,default=str),flush=True)

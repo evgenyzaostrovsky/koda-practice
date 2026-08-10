@@ -44,11 +44,35 @@ for topic in topics:
         check(not (used-available-builtins),e['id'],f"unknown variables: {sorted(used-available-builtins)}")
 
 def execute(e):
-    solution=run(e['solution_code'],e['dataset'],e['result_variable'])
+    data=e['dataset']; setup=e['setup_code']
+    expected_names=set(data.get('variables',{}))|set(data.get('series',{}))|(set(data)-{'variables','series','files'})
+    setup_tree=ast.parse(setup)
+    assigned={n.id for n in ast.walk(setup_tree) if isinstance(n,ast.Name) and isinstance(n.ctx,ast.Store)}
+    imported={a.asname or a.name.split('.')[0] for n in ast.walk(setup_tree) if isinstance(n,(ast.Import,ast.ImportFrom)) for a in n.names}
     local=[]
+    if not expected_names <= assigned|imported: local.append(f"setup_code misses variables: {sorted(expected_names-assigned-imported)}")
+    starter=run(e['starter_code'],data,e['result_variable'],setup_code=setup)
+    if not starter.get('ok'): local.append(f"starter failed before solution: {starter.get('error_type')}: {starter.get('error')}")
+    elif starter.get('result',{}).get('data') is not None: local.append('starter already produces a non-empty result')
+    solution=run(e['solution_code'],data,e['result_variable'],setup_code=setup)
     if not solution.get('ok'): local.append(f"solution failed: {solution.get('error')}")
     if solution.get('mutated_inputs'): local.append(f"solution mutated inputs: {solution['mutated_inputs']}")
     if e['starter_code'].strip()==e['solution_code'].strip(): local.append('starter already equals solution')
+    for name,frame in [(k,v) for k,v in data.items() if k not in {'variables','series','files'}]:
+        preview=run(f'result = {name}',data,'result',setup_code=setup)
+        expected_rows=[[frame[col][i] for col in frame] for i in range(len(next(iter(frame.values()),[])))]
+        if preview.get('result',{}).get('columns')!=list(frame) or preview.get('result',{}).get('data')!=expected_rows:
+            local.append(f'preview differs from runtime DataFrame {name}')
+    for name,spec in data.get('series',{}).items():
+        preview=run(f'result = {name}',data,'result',setup_code=setup)
+        if preview.get('result',{}).get('data')!=spec.get('data',[]): local.append(f'preview differs from runtime Series {name}')
+    target=next(iter([k for k in data if k not in {'variables','series','files'}]),None) or next(iter(data.get('series',{})),None)
+    if target:
+        mutation=run(f'{target}.iloc[0] = None\nresult = {target}',data,'result',setup_code=setup)
+        if not mutation.get('mutated_inputs'):local.append(f'input mutation was not detected for {target}')
+        restored=run(f'result = {target}',data,'result',setup_code=setup)
+        baseline=run(f'result = {target}',data,'result',setup_code=setup)
+        if restored.get('result')!=baseline.get('result'):local.append(f'input {target} was not restored between runs')
     return e['id'],local
 
 with ThreadPoolExecutor(max_workers=8) as pool:
@@ -58,4 +82,4 @@ with ThreadPoolExecutor(max_workers=8) as pool:
 if errors:
     print('\n'.join(errors))
     raise SystemExit(f'AUDIT FAILED: {len(errors)} error(s)')
-print('AUDIT PASSED: bank v2; 20 topics; 200 unique executable exercises; all starters fail; inputs unchanged')
+print('AUDIT PASSED: 200 exercises; setup variables and previews match runtime; starters run without NameError and do not pass; files exist; solutions pass; inputs restore between runs')

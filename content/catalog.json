@@ -35,7 +35,8 @@
               "focus": "pd.DataFrame(data)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndata = {'name': ['Аня', 'Борис', 'Вера'], 'score': [7, 9, 8]}",
+              "starter_code": "# Переменная data уже создана\nresult = None",
               "solution_code": "result = pd.DataFrame(data)",
               "required_tokens": [
                 "DataFrame"
@@ -84,7 +85,8 @@
               "focus": "разные типы столбцов",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndata = {'product': ['Курс', 'Книга', 'Видео'], 'price': [1200, 600, 900]}",
+              "starter_code": "# Переменная data уже создана\nresult = None",
               "solution_code": "result = pd.DataFrame(data)",
               "required_tokens": [
                 "DataFrame"
@@ -133,7 +135,8 @@
               "focus": "список словарей",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nrecords = [{'city': 'Москва', 'sales': 12}, {'city': 'Казань', 'sales': 8}]",
+              "starter_code": "# Переменная records уже создана\nresult = None",
               "solution_code": "result = pd.DataFrame(records)",
               "required_tokens": [
                 "DataFrame"
@@ -180,7 +183,8 @@
               "focus": "columns=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndata = {'score': [9, 7], 'name': ['Ира', 'Лев'], 'group': ['A', 'B']}\ncolumn_order = ['name', 'score']",
+              "starter_code": "# Переменные data, column_order уже созданы\nresult = None",
               "solution_code": "result = pd.DataFrame(data, columns=column_order)",
               "required_tokens": [
                 "DataFrame"
@@ -235,7 +239,8 @@
               "focus": "index=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndata = {'name': ['Олег', 'Мила'], 'score': [6, 10]}\nrow_labels = ['u-1', 'u-2']",
+              "starter_code": "# Переменные data, row_labels уже созданы\nresult = None",
               "solution_code": "result = pd.DataFrame(data, index=row_labels)",
               "required_tokens": [
                 "DataFrame"
@@ -286,7 +291,8 @@
               "focus": "данные + columns=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nrows = [['Москва', 15], ['Тула', 9]]\ncolumn_names = ['city', 'sales']",
+              "starter_code": "# Переменные rows, column_names уже созданы\nresult = None",
               "solution_code": "result = pd.DataFrame(rows, columns=column_names)",
               "required_tokens": [
                 "DataFrame"
@@ -337,7 +343,8 @@
               "focus": "пустой DataFrame",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncolumn_names = ['id', 'name', 'score']",
+              "starter_code": "# Переменная column_names уже создана\nresult = None",
               "solution_code": "result = pd.DataFrame(columns=column_names)",
               "required_tokens": [
                 "DataFrame"
@@ -379,7 +386,8 @@
               "focus": "словарь с Series",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nscores = pd.Series([4, 8, 6], index=['a', 'b', 'c'])",
+              "starter_code": "# Переменная scores уже создана\nresult = None",
               "solution_code": "result = pd.DataFrame({'score': scores})",
               "required_tokens": [
                 "DataFrame"
@@ -428,7 +436,8 @@
               "focus": "columns= как отбор",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndata = {'id': [1, 2], 'name': ['А', 'Б'], 'score': [5, 9], 'note': ['x', 'y']}\ncolumn_order = ['id', 'score']",
+              "starter_code": "# Переменные data, column_order уже созданы\nresult = None",
               "solution_code": "result = pd.DataFrame(data, columns=column_order)",
               "required_tokens": [
                 "DataFrame"
@@ -487,7 +496,8 @@
               "focus": "pd.DataFrame()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nrecords = [{'name': 'Нина', 'score': 8, 'city': 'Пермь'}, {'name': 'Роман', 'score': 7, 'city': 'Омск'}]\ncolumn_order = ['city', 'name', 'score']\nrow_labels = ['r1', 'r2']",
+              "starter_code": "# Переменные records, column_order, row_labels уже созданы\nresult = None",
               "solution_code": "result = pd.DataFrame(records, columns=column_order, index=row_labels)",
               "required_tokens": [
                 "DataFrame"
@@ -574,7 +584,8 @@
               "focus": "pd.read_csv(csv_path)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path)",
               "required_tokens": [
                 "read_csv"
@@ -615,7 +626,8 @@
               "focus": "sep=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, sep=';')",
               "required_tokens": [
                 "read_csv"
@@ -656,7 +668,8 @@
               "focus": "sep=\"\\t\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, sep='\\t')",
               "required_tokens": [
                 "read_csv"
@@ -697,7 +710,8 @@
               "focus": "header=None",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, header=None)",
               "required_tokens": [
                 "read_csv"
@@ -738,7 +752,8 @@
               "focus": "names=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\ncolumn_names = ['city', 'sales']\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменные csv_path, column_names уже созданы\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, header=None, names=column_names)",
               "required_tokens": [
                 "read_csv"
@@ -783,7 +798,8 @@
               "focus": "usecols=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\nneeded_columns = ['name', 'score']\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменные csv_path, needed_columns уже созданы\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, usecols=needed_columns)",
               "required_tokens": [
                 "read_csv"
@@ -828,7 +844,8 @@
               "focus": "index_col=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, index_col='id')",
               "required_tokens": [
                 "read_csv"
@@ -869,7 +886,8 @@
               "focus": "dtype=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, dtype={'client_id': 'string'})",
               "required_tokens": [
                 "read_csv"
@@ -910,7 +928,8 @@
               "focus": "parse_dates=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, parse_dates=['date'])",
               "required_tokens": [
                 "read_csv"
@@ -951,7 +970,8 @@
               "focus": "na_values=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\n# CSV-файлы уже созданы runner во временной директории",
+              "starter_code": "# Переменная csv_path уже создана\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, na_values=['нет', '-'])",
               "required_tokens": [
                 "read_csv"
@@ -1021,7 +1041,8 @@
               "focus": "df[\"name\"]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df['name']",
               "required_tokens": [],
               "tests": [
@@ -1175,7 +1196,8 @@
               "focus": "df[[\"name\"]]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[['name']]",
               "required_tokens": [],
               "tests": [
@@ -1329,7 +1351,8 @@
               "focus": "список названий",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[['name', 'score']]",
               "required_tokens": [],
               "tests": [
@@ -1483,7 +1506,8 @@
               "focus": "порядок списка",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[['score', 'name']]",
               "required_tokens": [],
               "tests": [
@@ -1637,7 +1661,8 @@
               "focus": "df[selected_columns]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[selected_columns]",
               "required_tokens": [],
               "tests": [
@@ -1791,7 +1816,8 @@
               "focus": "явный список",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[['price', 'quantity', 'discount']]",
               "required_tokens": [],
               "tests": [
@@ -1945,7 +1971,8 @@
               "focus": "пустой список",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = []\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[selected_columns]",
               "required_tokens": [],
               "tests": [
@@ -2096,7 +2123,8 @@
               "focus": "повтор имени в списке",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[['score', 'score']]",
               "required_tokens": [],
               "tests": [
@@ -2250,7 +2278,8 @@
               "focus": "точное имя",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[['client name', 'total sales']]",
               "required_tokens": [],
               "tests": [
@@ -2404,7 +2433,8 @@
               "focus": "выбор и порядок",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные selected_columns, report_columns, df уже созданы\nresult = None",
               "solution_code": "result = df[report_columns]",
               "required_tokens": [],
               "tests": [
@@ -2587,7 +2617,8 @@
               "focus": "result[\"status\"] = ...",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['status'] = 'new'",
               "required_tokens": [
                 "copy"
@@ -2741,7 +2772,8 @@
               "focus": "присваивание Series",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['price_copy'] = result['price']",
               "required_tokens": [
                 "copy"
@@ -2895,7 +2927,8 @@
               "focus": "+",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['total'] = result['online'] + result['offline']",
               "required_tokens": [
                 "copy"
@@ -3049,7 +3082,8 @@
               "focus": "-",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['change'] = result['current'] - result['previous']",
               "required_tokens": [
                 "copy"
@@ -3203,7 +3237,8 @@
               "focus": "*",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['revenue'] = result['price'] * result['quantity']",
               "required_tokens": [
                 "copy"
@@ -3357,7 +3392,8 @@
               "focus": "/",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['unit_price'] = result['amount'] / result['quantity']",
               "required_tokens": [
                 "copy"
@@ -3511,7 +3547,8 @@
               "focus": "одно выражение",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['discount_amount'] = result['price'] * result['discount_pct'] / 100",
               "required_tokens": [
                 "copy"
@@ -3665,7 +3702,8 @@
               "focus": "сравнение Series",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['is_expensive'] = result['price'] >= price_limit",
               "required_tokens": [
                 "copy"
@@ -3819,7 +3857,8 @@
               "focus": "присваивание в колонку",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['name'] = names",
               "required_tokens": [
                 "copy"
@@ -3973,7 +4012,8 @@
               "focus": "векторная формула",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные price_limit, names, df уже созданы\nresult = None",
               "solution_code": "result = df.copy()\nresult['net'] = result['price'] * result['quantity'] - result['discount']",
               "required_tokens": [
                 "copy"
@@ -4156,7 +4196,8 @@
               "focus": "Series + scalar",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\noffset = 1\nvalues = pd.Series([1, 3, 5])",
+              "starter_code": "# Переменные offset, values уже созданы\nresult = None",
               "solution_code": "result = values + offset",
               "required_tokens": [],
               "tests": [
@@ -4201,7 +4242,8 @@
               "focus": "Series - scalar",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\noffset = 2\nvalues = pd.Series([10, 20, 30])",
+              "starter_code": "# Переменные offset, values уже созданы\nresult = None",
               "solution_code": "result = values - offset",
               "required_tokens": [],
               "tests": [
@@ -4246,7 +4288,8 @@
               "focus": "Series * scalar",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nfactor = 4\nvalues = pd.Series([2, 4, 6])",
+              "starter_code": "# Переменные factor, values уже созданы\nresult = None",
               "solution_code": "result = values * factor",
               "required_tokens": [],
               "tests": [
@@ -4291,7 +4334,8 @@
               "focus": "Series / scalar",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndivisor = 3\nvalues = pd.Series([12, 18, 24])",
+              "starter_code": "# Переменные divisor, values уже созданы\nresult = None",
               "solution_code": "result = values / divisor",
               "required_tokens": [],
               "tests": [
@@ -4336,7 +4380,8 @@
               "focus": "выравнивание по индексу",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.Series([15, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = left + right",
               "required_tokens": [],
               "tests": [
@@ -4395,7 +4440,8 @@
               "focus": "автоматическое выравнивание",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.Series([16, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = left * right",
               "required_tokens": [],
               "tests": [
@@ -4454,7 +4500,8 @@
               "focus": "появление NaN",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.Series([17, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['b', 'c', 'd'])",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = left + right",
               "required_tokens": [],
               "tests": [
@@ -4513,7 +4560,8 @@
               "focus": ".add(fill_value=0)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.Series([18, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['b', 'c', 'd'])",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = left.add(right, fill_value=0)",
               "required_tokens": [
                 "add"
@@ -4574,7 +4622,8 @@
               "focus": "Series >= scalar",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nthreshold = 8\nvalues = pd.Series([4, 8, 12])",
+              "starter_code": "# Переменные threshold, values уже созданы\nresult = None",
               "solution_code": "result = values >= threshold",
               "required_tokens": [],
               "tests": [
@@ -4619,7 +4668,8 @@
               "focus": "векторная формула",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nprices = pd.Series([100, 200, 150])\nquantities = pd.Series([2, 1, 3])\ndiscount_rate = pd.Series([0.1, 0.2, 0])",
+              "starter_code": "# Переменные prices, quantities, discount_rate уже созданы\nresult = None",
               "solution_code": "result = (prices * quantities) * (1 - discount_rate)",
               "required_tokens": [],
               "tests": [
@@ -4704,7 +4754,8 @@
               "focus": "df.shape",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "# Переменные expected_rows, df уже созданы\nresult = None",
               "solution_code": "result = df.shape",
               "required_tokens": [
                 "shape"
@@ -4754,7 +4805,8 @@
               "focus": "df.shape[0]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "# Переменные expected_rows, df уже созданы\nresult = None",
               "solution_code": "result = df.shape[0]",
               "required_tokens": [
                 "shape"
@@ -4804,7 +4856,8 @@
               "focus": "df.shape[1]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "# Переменные expected_rows, df уже созданы\nresult = None",
               "solution_code": "result = df.shape[1]",
               "required_tokens": [
                 "shape"
@@ -4854,7 +4907,8 @@
               "focus": "проверка shape[0]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "# Переменные expected_rows, df уже созданы\nresult = None",
               "solution_code": "result = df.shape[0] == expected_rows",
               "required_tokens": [
                 "shape"
@@ -4904,7 +4958,8 @@
               "focus": "сравнение .shape",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\nleft = pd.DataFrame({'a': [1, 2]})\nright = pd.DataFrame({'b': [3, 4]})",
+              "starter_code": "# Переменные expected_rows, left, right уже созданы\nresult = None",
               "solution_code": "result = left.shape == right.shape",
               "required_tokens": [
                 "shape",
@@ -4955,7 +5010,8 @@
               "focus": "два shape[0]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\norders = pd.DataFrame({'id': [1, 2, 3]})\nreturns = pd.DataFrame({'id': [2]})",
+              "starter_code": "# Переменные expected_rows, orders, returns уже созданы\nresult = None",
               "solution_code": "result = orders.shape[0] + returns.shape[0]",
               "required_tokens": [
                 "shape",
@@ -5006,7 +5062,8 @@
               "focus": "произведение shape",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "# Переменные expected_rows, df уже созданы\nresult = None",
               "solution_code": "result = df.shape[0] * df.shape[1]",
               "required_tokens": [
                 "shape",
@@ -5057,7 +5114,8 @@
               "focus": "shape[1]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "# Переменные expected_rows, df уже созданы\nresult = None",
               "solution_code": "result = df.shape[1]",
               "required_tokens": [
                 "shape"
@@ -5107,7 +5165,8 @@
               "focus": "сравнение shape[0]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ntrain = pd.DataFrame({'x': [1, 2, 3, 4]})\ntest = pd.DataFrame({'x': [5, 6]})",
+              "starter_code": "# Переменные expected_rows, train, test уже созданы\nresult = None",
               "solution_code": "result = train.shape[0] > test.shape[0]",
               "required_tokens": [
                 "shape",
@@ -5160,7 +5219,8 @@
               "focus": "части .shape",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "# Переменные expected_rows, df уже созданы\nresult = None",
               "solution_code": "result = {'rows': df.shape[0], 'columns': df.shape[1]}",
               "required_tokens": [
                 "shape",
@@ -5240,7 +5300,8 @@
               "focus": ".head()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [1, 2, 3, 4, 5, 6, 7, 8]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.head()",
               "required_tokens": [
                 "head"
@@ -5300,7 +5361,8 @@
               "focus": ".head(3)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 4\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [2, 4, 6, 8, 10, 12, 14, 16]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.head(3)",
               "required_tokens": [
                 "head"
@@ -5360,7 +5422,8 @@
               "focus": ".head(1)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 5\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [3, 6, 9, 12, 15, 18, 21, 24]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.head(1)",
               "required_tokens": [
                 "head"
@@ -5420,7 +5483,8 @@
               "focus": ".head(n)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 2\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [4, 8, 12, 16, 20, 24, 28, 32]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.head(n)",
               "required_tokens": [
                 "head"
@@ -5480,7 +5544,8 @@
               "focus": ".head(0)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [5, 10, 15, 20, 25, 30, 35, 40]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.head(0)",
               "required_tokens": [
                 "head"
@@ -5540,7 +5605,8 @@
               "focus": ".tail()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 4\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [6, 12, 18, 24, 30, 36, 42, 48]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.tail()",
               "required_tokens": [
                 "tail"
@@ -5600,7 +5666,8 @@
               "focus": ".tail(2)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 5\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [7, 14, 21, 28, 35, 42, 49, 56]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.tail(2)",
               "required_tokens": [
                 "tail"
@@ -5660,7 +5727,8 @@
               "focus": ".tail(1)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 2\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [8, 16, 24, 32, 40, 48, 56, 64]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.tail(1)",
               "required_tokens": [
                 "tail"
@@ -5720,7 +5788,8 @@
               "focus": ".tail(n)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [9, 18, 27, 36, 45, 54, 63, 72]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.tail(n)",
               "required_tokens": [
                 "tail"
@@ -5780,7 +5849,8 @@
               "focus": "поведение при n > len(df)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nn = 12\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [10, 20, 30, 40, 50, 60, 70, 80]})",
+              "starter_code": "# Переменные n, df уже созданы\nresult = None",
               "solution_code": "result = df.head(n)",
               "required_tokens": [
                 "head"
@@ -5869,7 +5939,8 @@
               "focus": "series.sum()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.sum()",
               "required_tokens": [
                 "sum"
@@ -5920,7 +5991,8 @@
               "focus": "df[\"sales\"].sum()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'sales': [10, 20, 30]})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df['sales'].sum()",
               "required_tokens": [
                 "sum"
@@ -5962,7 +6034,8 @@
               "focus": "обычная сумма",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.sum()",
               "required_tokens": [
                 "sum"
@@ -6013,7 +6086,8 @@
               "focus": "сумма float",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.sum()",
               "required_tokens": [
                 "sum"
@@ -6064,7 +6138,8 @@
               "focus": "skipna=True по умолчанию",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.sum(skipna=True)",
               "required_tokens": [
                 "sum"
@@ -6115,7 +6190,8 @@
               "focus": "skipna=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.sum(skipna=False)",
               "required_tokens": [
                 "sum"
@@ -6166,7 +6242,8 @@
               "focus": "min_count=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.sum(min_count=min_required)",
               "required_tokens": [
                 "sum"
@@ -6217,7 +6294,8 @@
               "focus": "DataFrame .sum()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'sales': [10, 20, 30], 'profit': [2, 5, 7]})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sum()",
               "required_tokens": [
                 "sum"
@@ -6264,7 +6342,8 @@
               "focus": "axis=1",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'q1': [1, 2, 3], 'q2': [4, 5, 6]})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sum(axis=1)",
               "required_tokens": [
                 "sum"
@@ -6311,7 +6390,8 @@
               "focus": "сумма boolean Series",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nflags = pd.Series([True, False, True, True])",
+              "starter_code": "# Переменные min_required, bin_count, flags уже созданы\nresult = None",
               "solution_code": "result = flags.sum()",
               "required_tokens": [
                 "sum"
@@ -6389,7 +6469,8 @@
               "focus": ".value_counts()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts()",
               "required_tokens": [
                 "value_counts"
@@ -6440,7 +6521,8 @@
               "focus": "числа",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts()",
               "required_tokens": [
                 "value_counts"
@@ -6491,7 +6573,8 @@
               "focus": "повторяющиеся значения",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts()",
               "required_tokens": [
                 "value_counts"
@@ -6542,7 +6625,8 @@
               "focus": "стандартный dropna=True",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts()",
               "required_tokens": [
                 "value_counts"
@@ -6593,7 +6677,8 @@
               "focus": "dropna=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts(dropna=False)",
               "required_tokens": [
                 "value_counts"
@@ -6644,7 +6729,8 @@
               "focus": "normalize=True",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts(normalize=True)",
               "required_tokens": [
                 "value_counts"
@@ -6695,7 +6781,8 @@
               "focus": "sort=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts(sort=False)",
               "required_tokens": [
                 "value_counts"
@@ -6746,7 +6833,8 @@
               "focus": "ascending=True",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts(ascending=True)",
               "required_tokens": [
                 "value_counts"
@@ -6797,7 +6885,8 @@
               "focus": "bins=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, 2, 4, 7, 9])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts(bins=bin_count)",
               "required_tokens": [
                 "value_counts"
@@ -6848,7 +6937,8 @@
               "focus": "dropna=False на новых данных",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
+              "starter_code": "# Переменные min_required, bin_count, values уже созданы\nresult = None",
               "solution_code": "result = values.value_counts(dropna=False)",
               "required_tokens": [
                 "value_counts"
@@ -6928,7 +7018,8 @@
               "focus": "одна группа + .sum()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('category')['sales'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7023,7 +7114,8 @@
               "focus": "другой набор данных",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('city')['revenue'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7118,7 +7210,8 @@
               "focus": "числовой итог",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('team')['points'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7213,7 +7306,8 @@
               "focus": "выбор списка столбцов",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('category')[['sales', 'profit']].sum()",
               "required_tokens": [
                 "groupby",
@@ -7308,7 +7402,8 @@
               "focus": "список ключей",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby(['city', 'category'])['sales'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7403,7 +7498,8 @@
               "focus": "as_index=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('category', as_index=False)['sales'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7498,7 +7594,8 @@
               "focus": "sort=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('category', sort=False)['sales'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7593,7 +7690,8 @@
               "focus": "dropna=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('category', dropna=False)['sales'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7688,7 +7786,8 @@
               "focus": "min_count=1",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('category')['sales'].sum(min_count=1)",
               "required_tokens": [
                 "groupby",
@@ -7783,7 +7882,8 @@
               "focus": "сумма boolean по группам",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.groupby('team')['won'].sum()",
               "required_tokens": [
                 "groupby",
@@ -7907,7 +8007,8 @@
               "focus": "score > 80",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query('score > 80')",
               "required_tokens": [
                 "query"
@@ -8061,7 +8162,8 @@
               "focus": "score >= 60",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query('score >= 60')",
               "required_tokens": [
                 "query"
@@ -8215,7 +8317,8 @@
               "focus": "строковое условие",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query(\"city == 'Москва'\")",
               "required_tokens": [
                 "query"
@@ -8369,7 +8472,8 @@
               "focus": "status != ...",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query(\"status != 'closed'\")",
               "required_tokens": [
                 "query"
@@ -8523,7 +8627,8 @@
               "focus": "логическое И",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query('score >= 60 and attempts <= 2')",
               "required_tokens": [
                 "query"
@@ -8677,7 +8782,8 @@
               "focus": "логическое ИЛИ",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query(\"city == 'Москва' or city == 'Казань'\")",
               "required_tokens": [
                 "query"
@@ -8831,7 +8937,8 @@
               "focus": "@min_score",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query('score >= @min_score')",
               "required_tokens": [
                 "query"
@@ -8985,7 +9092,8 @@
               "focus": "in @allowed_cities",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query('city in @allowed_cities')",
               "required_tokens": [
                 "query"
@@ -9139,7 +9247,8 @@
               "focus": "обратные кавычки",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query('`total sales` > 1000')",
               "required_tokens": [
                 "query"
@@ -9293,7 +9402,8 @@
               "focus": "два сравнения",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменные min_score, allowed_cities, min_price, max_price, df уже созданы\nresult = None",
               "solution_code": "result = df.query('price >= @min_price and price <= @max_price')",
               "required_tokens": [
                 "query"
@@ -9476,7 +9586,8 @@
               "focus": "sort_values(\"score\")",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values('score')",
               "required_tokens": [
                 "sort_values"
@@ -9622,7 +9733,8 @@
               "focus": "ascending=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values('score', ascending=False)",
               "required_tokens": [
                 "sort_values"
@@ -9768,7 +9880,8 @@
               "focus": "строковый столбец",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values('name')",
               "required_tokens": [
                 "sort_values"
@@ -9914,7 +10027,8 @@
               "focus": "by=[...]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values(['city', 'score'])",
               "required_tokens": [
                 "sort_values"
@@ -10060,7 +10174,8 @@
               "focus": "список ascending",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values(['city', 'score'], ascending=[True, False])",
               "required_tokens": [
                 "sort_values"
@@ -10206,7 +10321,8 @@
               "focus": "na_position=\"first\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values('score', na_position='first')",
               "required_tokens": [
                 "sort_values"
@@ -10352,7 +10468,8 @@
               "focus": "ignore_index=True",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values('score', ignore_index=True)",
               "required_tokens": [
                 "sort_values"
@@ -10498,7 +10615,8 @@
               "focus": "key=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values('name', key=lambda s: s.str.lower())",
               "required_tokens": [
                 "sort_values",
@@ -10645,7 +10763,8 @@
               "focus": "kind=\"stable\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values('score', kind='stable')",
               "required_tokens": [
                 "sort_values"
@@ -10791,7 +10910,8 @@
               "focus": "два ключа и направления",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.sort_values(['priority', 'created_at'], ascending=[False, True])",
               "required_tokens": [
                 "sort_values"
@@ -10966,7 +11086,8 @@
               "focus": "on=\"id\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id')",
               "required_tokens": [
                 "merge"
@@ -11045,7 +11166,8 @@
               "focus": "how=\"left\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='left')",
               "required_tokens": [
                 "merge"
@@ -11124,7 +11246,8 @@
               "focus": "how=\"right\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='right')",
               "required_tokens": [
                 "merge"
@@ -11203,7 +11326,8 @@
               "focus": "how=\"outer\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='outer')",
               "required_tokens": [
                 "merge"
@@ -11282,7 +11406,8 @@
               "focus": "left_on / right_on",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, left_on='client_id', right_on='id')",
               "required_tokens": [
                 "merge"
@@ -11381,7 +11506,8 @@
               "focus": "on=[...]",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'sales': [10, 20]})\nright = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'plan': [12, 18]})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on=['city', 'year'])",
               "required_tokens": [
                 "merge"
@@ -11444,7 +11570,8 @@
               "focus": "suffixes=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', suffixes=('_old', '_new'))",
               "required_tokens": [
                 "merge"
@@ -11543,7 +11670,8 @@
               "focus": "indicator=True",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='outer', indicator=True)",
               "required_tokens": [
                 "merge"
@@ -11642,7 +11770,8 @@
               "focus": "validate=\"many_to_one\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'category_id': [100, 200], 'category': ['A', 'B']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='category_id', validate='many_to_one')",
               "required_tokens": [
                 "merge"
@@ -11719,7 +11848,8 @@
               "focus": "left_index / right_index",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'value': [10, 20]})\nright = pd.DataFrame({'label': ['A', 'B']})",
+              "starter_code": "# Переменные left, right уже созданы\nresult = None",
               "solution_code": "result = pd.merge(left, right, left_index=True, right_index=True)",
               "required_tokens": [
                 "merge"
@@ -11795,7 +11925,8 @@
               "focus": "index, values",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales')",
               "required_tokens": [
                 "pivot_table"
@@ -11889,7 +12020,8 @@
               "focus": "aggfunc=\"sum\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum')",
               "required_tokens": [
                 "pivot_table"
@@ -11983,7 +12115,8 @@
               "focus": "columns=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum')",
               "required_tokens": [
                 "pivot_table"
@@ -12077,7 +12210,8 @@
               "focus": "список index",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index=['city', 'year'], values='sales', aggfunc='sum')",
               "required_tokens": [
                 "pivot_table"
@@ -12171,7 +12305,8 @@
               "focus": "список values",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values=['sales', 'profit'], aggfunc='sum')",
               "required_tokens": [
                 "pivot_table"
@@ -12265,7 +12400,8 @@
               "focus": "fill_value=0",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', fill_value=0)",
               "required_tokens": [
                 "pivot_table"
@@ -12359,7 +12495,8 @@
               "focus": "margins=True",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True)",
               "required_tokens": [
                 "pivot_table"
@@ -12453,7 +12590,8 @@
               "focus": "margins_name=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True, margins_name=total_label)",
               "required_tokens": [
                 "pivot_table"
@@ -12547,7 +12685,8 @@
               "focus": "sort=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', sort=False)",
               "required_tokens": [
                 "pivot_table"
@@ -12641,7 +12780,8 @@
               "focus": "observed=False",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
+              "starter_code": "# Переменные total_label, df уже созданы\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', observed=False)",
               "required_tokens": [
                 "pivot_table"
@@ -12764,7 +12904,8 @@
               "focus": ".astype(\"int64\")",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
+              "starter_code": "# Переменная values уже создана\nresult = None",
               "solution_code": "result = values.astype('int64')",
               "required_tokens": [
                 "astype"
@@ -12808,7 +12949,8 @@
               "focus": ".astype(\"float64\")",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
+              "starter_code": "# Переменная values уже создана\nresult = None",
               "solution_code": "result = values.astype('float64')",
               "required_tokens": [
                 "astype"
@@ -12852,7 +12994,8 @@
               "focus": ".astype(\"string\")",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
+              "starter_code": "# Переменная values уже создана\nresult = None",
               "solution_code": "result = values.astype('string')",
               "required_tokens": [
                 "astype"
@@ -12896,7 +13039,8 @@
               "focus": ".astype(\"bool\")",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nvalues = pd.Series([0, 1, 1])",
+              "starter_code": "# Переменная values уже создана\nresult = None",
               "solution_code": "result = values.astype('bool')",
               "required_tokens": [
                 "astype"
@@ -12940,7 +13084,8 @@
               "focus": "присваивание после astype",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.copy()\nresult['score'] = result['score'].astype('int64')",
               "required_tokens": [
                 "copy",
@@ -12993,7 +13138,8 @@
               "focus": "словарь типов",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.astype({'count': 'int64', 'price': 'float64'})",
               "required_tokens": [
                 "astype"
@@ -13045,7 +13191,8 @@
               "focus": ".astype(\"category\")",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
+              "starter_code": "# Переменная values уже создана\nresult = None",
               "solution_code": "result = values.astype('category')",
               "required_tokens": [
                 "astype"
@@ -13089,7 +13236,8 @@
               "focus": ".astype(\"Int64\")",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nvalues = pd.Series([1, None, 3])",
+              "starter_code": "# Переменная values уже создана\nresult = None",
               "solution_code": "result = values.astype('Int64')",
               "required_tokens": [
                 "astype"
@@ -13133,7 +13281,8 @@
               "focus": "index.astype()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.copy()\nresult.index = result.index.astype('string')",
               "required_tokens": [
                 "copy",
@@ -13186,7 +13335,8 @@
               "focus": "точное сохранение строк",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
+              "starter_code": "# Переменная values уже создана\nresult = None",
               "solution_code": "result = values.astype('string')",
               "required_tokens": [
                 "astype"
@@ -13259,7 +13409,8 @@
               "focus": "pd.to_datetime()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = ['2026-01-05', '2026-04-12', '2026-10-20']\ndate_format = '%Y-%m-%d'",
+              "starter_code": "# Переменные dates, date_format уже созданы\nresult = None",
               "solution_code": "result = pd.to_datetime(dates)",
               "required_tokens": [
                 "to_datetime"
@@ -13302,7 +13453,8 @@
               "focus": "dayfirst=True",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = ['31/01/2026', '15/02/2026', '28/03/2026']\ndate_format = '%Y-%m-%d'",
+              "starter_code": "# Переменные dates, date_format уже созданы\nresult = None",
               "solution_code": "result = pd.to_datetime(dates, dayfirst=True)",
               "required_tokens": [
                 "to_datetime"
@@ -13345,7 +13497,8 @@
               "focus": "format=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = ['2026-01-05', '2026-04-12', '2026-10-20']\ndate_format = '%Y-%m-%d'",
+              "starter_code": "# Переменные dates, date_format уже созданы\nresult = None",
               "solution_code": "result = pd.to_datetime(dates, format=date_format)",
               "required_tokens": [
                 "to_datetime"
@@ -13388,7 +13541,8 @@
               "focus": "errors=\"coerce\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = ['2026-01-05', 'bad', '2026-10-20']\ndate_format = '%Y-%m-%d'",
+              "starter_code": "# Переменные dates, date_format уже созданы\nresult = None",
               "solution_code": "result = pd.to_datetime(dates, errors='coerce')",
               "required_tokens": [
                 "to_datetime"
@@ -13431,7 +13585,8 @@
               "focus": "unit=\"s\"",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ntimestamps = [0, 86400, 172800]",
+              "starter_code": "# Переменная timestamps уже создана\nresult = None",
               "solution_code": "result = pd.to_datetime(timestamps, unit='s')",
               "required_tokens": [
                 "to_datetime"
@@ -13473,7 +13628,8 @@
               "focus": ".dt.year",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
+              "starter_code": "# Переменная dates уже создана\nresult = None",
               "solution_code": "result = dates.dt.year",
               "required_tokens": [
                 "dt",
@@ -13493,9 +13649,9 @@
                 "series": {
                   "dates": {
                     "data": [
-                      "2026-01-05",
-                      "2026-04-12",
-                      "2026-10-20"
+                      "2026-01-05T00:00:00.000",
+                      "2026-04-12T00:00:00.000",
+                      "2026-10-20T00:00:00.000"
                     ],
                     "dtype": "datetime64[ns]"
                   }
@@ -13519,7 +13675,8 @@
               "focus": ".dt.month",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
+              "starter_code": "# Переменная dates уже создана\nresult = None",
               "solution_code": "result = dates.dt.month",
               "required_tokens": [
                 "dt",
@@ -13539,9 +13696,9 @@
                 "series": {
                   "dates": {
                     "data": [
-                      "2026-01-05",
-                      "2026-04-12",
-                      "2026-10-20"
+                      "2026-01-05T00:00:00.000",
+                      "2026-04-12T00:00:00.000",
+                      "2026-10-20T00:00:00.000"
                     ],
                     "dtype": "datetime64[ns]"
                   }
@@ -13565,7 +13722,8 @@
               "focus": ".dt.day",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
+              "starter_code": "# Переменная dates уже создана\nresult = None",
               "solution_code": "result = dates.dt.day",
               "required_tokens": [
                 "dt",
@@ -13585,9 +13743,9 @@
                 "series": {
                   "dates": {
                     "data": [
-                      "2026-01-05",
-                      "2026-04-12",
-                      "2026-10-20"
+                      "2026-01-05T00:00:00.000",
+                      "2026-04-12T00:00:00.000",
+                      "2026-10-20T00:00:00.000"
                     ],
                     "dtype": "datetime64[ns]"
                   }
@@ -13611,7 +13769,8 @@
               "focus": ".dt.day_name()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
+              "starter_code": "# Переменная dates уже создана\nresult = None",
               "solution_code": "result = dates.dt.day_name()",
               "required_tokens": [
                 "dt",
@@ -13631,9 +13790,9 @@
                 "series": {
                   "dates": {
                     "data": [
-                      "2026-01-05",
-                      "2026-04-12",
-                      "2026-10-20"
+                      "2026-01-05T00:00:00.000",
+                      "2026-04-12T00:00:00.000",
+                      "2026-10-20T00:00:00.000"
                     ],
                     "dtype": "datetime64[ns]"
                   }
@@ -13657,7 +13816,8 @@
               "focus": ".dt.quarter",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
+              "starter_code": "# Переменная dates уже создана\nresult = None",
               "solution_code": "result = dates.dt.quarter",
               "required_tokens": [
                 "dt",
@@ -13677,9 +13837,9 @@
                 "series": {
                   "dates": {
                     "data": [
-                      "2026-01-05",
-                      "2026-04-12",
-                      "2026-10-20"
+                      "2026-01-05T00:00:00.000",
+                      "2026-04-12T00:00:00.000",
+                      "2026-10-20T00:00:00.000"
                     ],
                     "dtype": "datetime64[ns]"
                   }
@@ -13732,7 +13892,8 @@
               "focus": ".fillna(0)",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nvalues = pd.Series([1, None, None, 4])",
+              "starter_code": "# Переменные fill_value, fill_limit, values уже созданы\nresult = None",
               "solution_code": "result = values.fillna(0)",
               "required_tokens": [
                 "fillna"
@@ -13781,7 +13942,8 @@
               "focus": "строковое значение",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\ncities = pd.Series(['Москва', None, 'Тула'])",
+              "starter_code": "# Переменные fill_value, fill_limit, cities уже созданы\nresult = None",
               "solution_code": "result = cities.fillna('Неизвестно')",
               "required_tokens": [
                 "fillna"
@@ -13829,7 +13991,8 @@
               "focus": "scalar variable",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nscores = pd.Series([1, None, None, 4])",
+              "starter_code": "# Переменные fill_value, fill_limit, scores уже созданы\nresult = None",
               "solution_code": "result = scores.fillna(fill_value)",
               "required_tokens": [
                 "fillna"
@@ -13878,7 +14041,8 @@
               "focus": "заполнение выбранной Series",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.copy()\nresult['discount'] = result['discount'].fillna(0)",
               "required_tokens": [
                 "copy",
@@ -13941,7 +14105,8 @@
               "focus": "fillna(series.mean())",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.copy()\nresult['age'] = result['age'].fillna(result['age'].mean())",
               "required_tokens": [
                 "copy",
@@ -14004,7 +14169,8 @@
               "focus": "fillna(series.median())",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.copy()\nresult['salary'] = result['salary'].fillna(result['salary'].median())",
               "required_tokens": [
                 "copy",
@@ -14067,7 +14233,8 @@
               "focus": "словарь в fillna",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
+              "starter_code": "# Переменная df уже создана\nresult = None",
               "solution_code": "result = df.fillna({'city': 'Неизвестно', 'score': 0})",
               "required_tokens": [
                 "fillna"
@@ -14129,7 +14296,8 @@
               "focus": ".ffill()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nprices = pd.Series([1, None, None, 4])",
+              "starter_code": "# Переменные fill_value, fill_limit, prices уже созданы\nresult = None",
               "solution_code": "result = prices.ffill()",
               "required_tokens": [
                 "ffill"
@@ -14178,7 +14346,8 @@
               "focus": ".bfill()",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nprices = pd.Series([1, None, None, 4])",
+              "starter_code": "# Переменные fill_value, fill_limit, prices уже созданы\nresult = None",
               "solution_code": "result = prices.bfill()",
               "required_tokens": [
                 "bfill"
@@ -14227,7 +14396,8 @@
               "focus": "limit=",
               "result_variable": "result",
               "expected_type": "auto",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nvalues = pd.Series([1, None, None, 4])",
+              "starter_code": "# Переменные fill_value, fill_limit, values уже созданы\nresult = None",
               "solution_code": "result = values.fillna(0, limit=fill_limit)",
               "required_tokens": [
                 "fillna"
@@ -14305,7 +14475,8 @@
               "focus": "df.plot()",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [11, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot()",
               "required_tokens": [
                 "plot"
@@ -14424,7 +14595,8 @@
               "focus": "y=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [12, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(y='sales')",
               "required_tokens": [
                 "plot"
@@ -14543,7 +14715,8 @@
               "focus": "x=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [13, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(x='date', y='sales')",
               "required_tokens": [
                 "plot"
@@ -14662,7 +14835,8 @@
               "focus": "kind=\"bar\"",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [14, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(x='category', y='sales', kind='bar')",
               "required_tokens": [
                 "plot"
@@ -14781,7 +14955,8 @@
               "focus": "kind=\"barh\"",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [15, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(x='category', y='sales', kind='barh')",
               "required_tokens": [
                 "plot"
@@ -14900,7 +15075,8 @@
               "focus": "kind=\"hist\"",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [16, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(y='score', kind='hist')",
               "required_tokens": [
                 "plot"
@@ -15019,7 +15195,8 @@
               "focus": "title=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [17, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(y='sales', title=chart_title)",
               "required_tokens": [
                 "plot"
@@ -15138,7 +15315,8 @@
               "focus": "figsize=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [18, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(y='sales', figsize=figure_size)",
               "required_tokens": [
                 "plot"
@@ -15257,7 +15435,8 @@
               "focus": "marker=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [19, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(y='sales', marker='o')",
               "required_tokens": [
                 "plot"
@@ -15376,7 +15555,8 @@
               "focus": "список y",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [20, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = df.plot(x='month', y=['plan', 'fact'])",
               "required_tokens": [
                 "plot"
@@ -15524,7 +15704,8 @@
               "focus": "sns.barplot(data=, x=, y=)",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [11, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales')",
               "required_tokens": [
                 "barplot"
@@ -15643,7 +15824,8 @@
               "focus": "estimator=\"sum\"",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [12, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', estimator='sum')",
               "required_tokens": [
                 "barplot"
@@ -15762,7 +15944,8 @@
               "focus": "color=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [13, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', color=bar_color)",
               "required_tokens": [
                 "barplot"
@@ -15881,7 +16064,8 @@
               "focus": "hue=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [14, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', hue='region')",
               "required_tokens": [
                 "barplot"
@@ -16000,7 +16184,8 @@
               "focus": "order=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [15, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', order=category_order)",
               "required_tokens": [
                 "barplot"
@@ -16119,7 +16304,8 @@
               "focus": "hue_order=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [16, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', hue='region', hue_order=region_order)",
               "required_tokens": [
                 "barplot"
@@ -16238,7 +16424,8 @@
               "focus": "errorbar=None",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [17, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', errorbar=None)",
               "required_tokens": [
                 "barplot"
@@ -16357,7 +16544,8 @@
               "focus": "перестановка x и y",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [18, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='sales', y='category')",
               "required_tokens": [
                 "barplot"
@@ -16476,7 +16664,8 @@
               "focus": "dodge=False",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [19, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', hue='region', dodge=False)",
               "required_tokens": [
                 "barplot"
@@ -16595,7 +16784,8 @@
               "focus": "order= на новых данных",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [20, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
+              "starter_code": "# Переменные chart_title, figure_size, bar_color, category_order, region_order, status_order, df уже созданы\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='status', y='amount', estimator='sum', order=status_order)",
               "required_tokens": [
                 "barplot"
@@ -16743,7 +16933,8 @@
               "focus": "ax.plot(y)",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [3, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(y)\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -16810,7 +17001,8 @@
               "focus": "ax.plot(x, y)",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [4, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y)\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -16877,7 +17069,8 @@
               "focus": "marker=\"o\"",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [5, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, marker='o')\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -16944,7 +17137,8 @@
               "focus": "linestyle=\"--\"",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [6, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, linestyle='--')\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -17011,7 +17205,8 @@
               "focus": "color=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [7, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, color=line_color)\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -17078,7 +17273,8 @@
               "focus": "linewidth=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [8, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, linewidth=line_width)\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -17145,7 +17341,8 @@
               "focus": "alpha=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [9, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, alpha=line_alpha)\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -17212,7 +17409,8 @@
               "focus": "label=",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [10, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, label=series_label)\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -17279,7 +17477,8 @@
               "focus": "два вызова ax.plot()",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [11, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, plan)\nax.plot(x, fact)\nresult = ax",
               "required_tokens": [
                 "subplots",
@@ -17346,7 +17545,8 @@
               "focus": "ax.set_title()",
               "result_variable": "result",
               "expected_type": "plot",
-              "starter_code": "# Сохраните ответ в result\nresult = None",
+              "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [12, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
+              "starter_code": "# Переменные x, y, plan, fact, line_color, line_width, line_alpha, series_label, chart_title уже созданы\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y)\nax.set_title(chart_title)\nresult = ax",
               "required_tokens": [
                 "subplots",

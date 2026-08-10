@@ -8,7 +8,7 @@ TOPICS={t['slug']:t for m in MODULES for t in m['topics']}
 EXERCISES={e['id']:e for t in TOPICS.values() for e in t['exercises']}
 
 def validate_catalog():
-    required={'id','topic_id','title','difficulty','instructions','dataset','starter_code','expected_type','solution_code','required_tokens','tests','hints','explanation','xp'}
+    required={'id','topic_id','title','difficulty','instructions','dataset','setup_code','starter_code','expected_type','solution_code','required_tokens','tests','hints','explanation','xp'}
     if CATALOG.get('bank_version')!=2: raise ValueError('Unsupported content bank version')
     if len(TOPICS)!=20 or len(EXERCISES)!=200: raise ValueError('Catalog must contain 20 topics and 200 exercises')
     for topic in TOPICS.values():
@@ -21,7 +21,9 @@ def validate_catalog():
 validate_catalog()
 
 def public_exercise(e):
-    return {k:v for k,v in e.items() if k not in ('solution_code',)}
+    public={k:v for k,v in e.items() if k not in ('solution_code',)}
+    public['dataset']={**e['dataset'],'_setup_code':e['setup_code']}
+    return public
 
 def public_module(m):
     return {**m,'topics':[{**t,'exercises':[public_exercise(e) for e in t['exercises']]} for t in m['topics']]}

@@ -49,7 +49,7 @@ try:
 except Exception as e:
  print(json.dumps({"ok":False,"stdout":buf.getvalue(),"error_type":type(e).__name__,"error":str(e),"traceback":traceback.format_exc(limit=2)},ensure_ascii=True))
 '''
-def run(code,dataset,result_variable='result',timeout_ms=10000):
+def run(code,dataset,result_variable='result',timeout_ms=10000,setup_code=''):
     err=validate(code)
     if err:return {'ok':False,'error_type':'SecurityError','error':err,'execution_ms':0}
     started=time.perf_counter()
@@ -104,7 +104,7 @@ WORKER=PersistentWorker();atexit.register(WORKER.stop)
 def warmup():
     started=time.perf_counter();WORKER.start();return {'ready':True,'import_ms':WORKER.import_ms,'warmup_ms':round((time.perf_counter()-started)*1000)}
 
-def run(code,dataset,result_variable='result',timeout_ms=10000):
+def run(code,dataset,result_variable='result',timeout_ms=10000,setup_code=''):
     started=time.perf_counter()
     if len(code)>50_000:return {'ok':False,'error_type':'SecurityError','error':'Код превышает допустимый размер.','execution_ms':0}
     try:ast.parse(code)
@@ -115,7 +115,7 @@ def run(code,dataset,result_variable='result',timeout_ms=10000):
     err=validate(code)
     if err:return {'ok':False,'error_type':'SecurityError','error':err,'execution_ms':round((time.perf_counter()-started)*1000)}
     needs_plot=any(token in code for token in ('plt.','sns.','.plot(','hist(','scatter('))
-    data=WORKER.execute({'code':code,'dataset':dataset,'result_variable':result_variable,'needs_plot':needs_plot},timeout_ms)
+    data=WORKER.execute({'code':code,'dataset':dataset,'setup_code':setup_code,'result_variable':result_variable,'needs_plot':needs_plot},timeout_ms)
     data['execution_ms']=round((time.perf_counter()-started)*1000)
     return data
 

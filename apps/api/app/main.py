@@ -72,17 +72,17 @@ def exercise(eid:str):
 def execute(body:CodeIn):
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    r=run(body.code,e['dataset'],e['result_variable']);
+    r=run(body.code,e['dataset'],e['result_variable'],setup_code=e['setup_code']);
     if not r.get('ok'): r['explanation']=explain(r)
     return r
 @app.post('/attempts/submit')
 def submit(body:CodeIn):
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    actual=run(body.code,e['dataset'],e['result_variable'])
+    actual=run(body.code,e['dataset'],e['result_variable'],setup_code=e['setup_code'])
     expected=EXPECTED_RESULTS.get(body.exercise_id)
     if expected is None:
-        expected=run(e['solution_code'],e['dataset'],e['result_variable']);EXPECTED_RESULTS[body.exercise_id]=expected
+        expected=run(e['solution_code'],e['dataset'],e['result_variable'],setup_code=e['setup_code']);EXPECTED_RESULTS[body.exercise_id]=expected
     equal,diff=compare_results(actual,expected) if actual.get('ok') else (False,{})
     missing=set(e.get('required_tokens',[]))-used_methods(body.code)
     passed=actual.get('ok') and equal and not actual.get('mutated_inputs') and not missing

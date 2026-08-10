@@ -38,6 +38,34 @@ def series(name, values, index=None):
     return {"series": {name: spec}}
 
 
+def py(value):
+    return repr(value)
+
+
+def setup_code(data, slug):
+    lines=["import pandas as pd"]
+    if slug=="seaborn": lines.append("import seaborn as sns")
+    if slug in {"pandas-plots","matplotlib"}: lines.append("import matplotlib.pyplot as plt")
+    for name,value in data.get("variables",{}).items():
+        lines.append(f"{name} = {py(value)}")
+    for name,spec in data.get("series",{}).items():
+        args=[py(spec.get("data",[]))]
+        if spec.get("index") is not None: args.append(f"index={py(spec['index'])}")
+        if spec.get("name") is not None: args.append(f"name={py(spec['name'])}")
+        if spec.get("dtype") is not None: args.append(f"dtype={py(spec['dtype'])}")
+        lines.append(f"{name} = pd.Series({', '.join(args)})")
+    for name,value in data.items():
+        if name not in {"variables","series","files"}:
+            lines.append(f"{name} = pd.DataFrame({py(value)})")
+    if data.get("files"):
+        lines.append("# CSV-файлы уже созданы runner во временной директории")
+    return "\n".join(lines)
+
+
+def available_names(data):
+    return list(data.get("variables",{}))+list(data.get("series",{}))+[k for k in data if k not in {"variables","series","files"}]
+
+
 def dataset(slug, n):
     k = n
     if slug == "start":
@@ -105,7 +133,7 @@ def dataset(slug, n):
     if slug == "datetime":
         if n==5:return {"variables":{"timestamps":[0,86400,172800]}}
         raw=["31/01/2026","15/02/2026","28/03/2026"] if n==2 else (["2026-01-05","bad","2026-10-20"] if n==4 else ["2026-01-05","2026-04-12","2026-10-20"])
-        if n>=6:return {"series":{"dates":{"data":raw,"dtype":"datetime64[ns]"}}}
+        if n>=6:return {"series":{"dates":{"data":[f"{value}T00:00:00.000" for value in raw],"dtype":"datetime64[ns]"}}}
         return {"variables":{"dates":raw,"date_format":"%Y-%m-%d"}}
     if slug == "recipes":
         if n in (4,5,6,7): return {"df":{"discount":[10,None,0],"age":[20,None,40],"salary":[50,None,90],"city":["Москва",None,"Тула"],"score":[8,None,6]}}
@@ -132,7 +160,10 @@ def parse_bank():
             difficulty=cells[1].count("★"); focus=cells[2].replace("`",""); instructions=cells[3].replace("`","")
             slug=eid.rsplit("-",1)[0]; solution=SOLUTIONS[slug][position-1]
             method_name=focus.split("(")[0].strip() or method
-            exercises.append({"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":name,"instructions":instructions,"focus":focus,"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","starter_code":"# Сохраните ответ в result\nresult = None","solution_code":solution,"required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":dataset(slug,position),"hints":[f"Сосредоточьтесь на приёме «{focus}» и не изменяйте входные данные.",f"Используйте {method_name} с переменными, названными в условии.","Форма ответа: result = ____  # подставьте нужное выражение"],"explanation":f"Здесь используется {focus}. Результат сохраняется в result; порядок, индекс и параметры сохраняют смысл исходных данных.","is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]})
+            data=dataset(slug,position); names=available_names(data)
+            prepared="Переменная" if len(names)==1 else "Переменные"
+            starter=f"# {prepared} {', '.join(names)} уже {'создана' if len(names)==1 else 'созданы'}\nresult = None"
+            exercises.append({"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":name,"instructions":instructions,"focus":focus,"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":setup_code(data,slug),"starter_code":starter,"solution_code":solution,"required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":[f"Сосредоточьтесь на приёме «{focus}» и не изменяйте входные данные.",f"Используйте {method_name} с переменными, названными в условии.","Форма ответа: result = ____  # подставьте нужное выражение"],"explanation":f"Здесь используется {focus}. Результат сохраняется в result; порядок, индекс и параметры сохраняют смысл исходных данных.","is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]})
         slug=exercises[0]["id"].rsplit("-",1)[0]
         topics.append({"id":int(order),"slug":slug,"title":title,"summary":f"10 упражнений на {method}","theory":f"Практическая серия на {method}: от прямого применения к параметрам и пограничным случаям.","syntax":method,"example":exercises[0]["solution_code"],"mistakes":["Изменён исходный объект","Ответ не сохранён в result","Не использован приём серии"],"methods":[method],"exercises":exercises})
     return topics
