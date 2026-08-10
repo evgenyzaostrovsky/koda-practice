@@ -1,14 +1,41 @@
 from datetime import datetime, timedelta, timezone
 import ast
+import os
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 from .content import MODULES,TOPICS,EXERCISES,public_module,public_exercise
 from .db import init_db,connect,now
 from .runner import run,explain,compare_results
 
+class ApiPrefixMiddleware:
+    def __init__(self,app): self.app=app
+    async def __call__(self,scope,receive,send):
+        if scope['type']=='http' and scope.get('path','').startswith('/api/'):
+            scope=dict(scope)
+            scope['path']=scope['path'][4:]
+            scope['raw_path']=scope['path'].encode('utf-8')
+        await self.app(scope,receive,send)
+
+class SpaStaticFiles(StaticFiles):
+    async def get_response(self,path,scope):
+        try:
+            response=await super().get_response(path,scope)
+        except StarletteHTTPException as exc:
+            if exc.status_code==404 and scope['method']=='GET':
+                return await super().get_response('index.html',scope)
+            raise
+        if response.status_code==404 and scope['method']=='GET':
+            return await super().get_response('index.html',scope)
+        return response
+
 app=FastAPI(title='KODA Practice API',version='1.0.0')
-app.add_middleware(CORSMiddleware,allow_origins=['http://localhost:5173','http://127.0.0.1:5173'],allow_methods=['*'],allow_headers=['*'])
+origins=[x.strip() for x in os.environ.get('KODA_CORS_ORIGINS','http://localhost:5173,http://127.0.0.1:5173').split(',') if x.strip()]
+app.add_middleware(CORSMiddleware,allow_origins=origins,allow_methods=['*'],allow_headers=['*'])
+app.add_middleware(ApiPrefixMiddleware)
 @app.on_event('startup')
 def startup(): init_db()
 class CodeIn(BaseModel): exercise_id:str; code:str
@@ -98,3 +125,7 @@ def progress():
         ids=[e['id'] for t in m['topics'] for e in t['exercises']]; done=len(set(ids)&solved); mastery=round(100*(.5*(sum(first.get(i,{}).get('status')=='passed' for i in ids)/len(ids))+.3*(sum(any(a['exercise_id']==i and a['status']=='passed' and not a['hints_used'] for a in attempts) for i in ids)/len(ids))+.2*(done/len(ids))))
         module_progress.append({'slug':m['slug'],'title':m['title'],'solved':done,'total':len(ids),'mastery':mastery,'status':'mastered' if mastery>=80 else 'learning' if done else 'not_started'})
     return {'solved':len(solved),'total':len(EXERCISES),'attempts':len(attempts),'first_try_accuracy':round(first_acc*100),'independent_rate':round(independent*100),'hints_used':hints,'xp':sum(EXERCISES[i]['xp'] for i in solved),'due':due_n,'modules':module_progress,'activity':activity,'recent_errors':[x for x in reversed(attempts) if x['status']=='failed'][:20]}
+
+WEB_DIST=Path(__file__).parents[2]/'web'/'dist'
+if WEB_DIST.is_dir():
+    app.mount('/',SpaStaticFiles(directory=WEB_DIST,html=True),name='web')

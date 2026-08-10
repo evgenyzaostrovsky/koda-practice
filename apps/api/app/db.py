@@ -1,9 +1,11 @@
+import os
 import sqlite3
 from pathlib import Path
 from datetime import datetime, timezone
 
-DB=Path(__file__).parents[1]/'koda.db'
+DB=Path(os.environ.get('KODA_DB_PATH',Path(__file__).parents[1]/'koda.db'))
 def connect():
+    DB.parent.mkdir(parents=True,exist_ok=True)
     c=sqlite3.connect(DB); c.row_factory=sqlite3.Row; return c
 def init_db():
     with connect() as c:

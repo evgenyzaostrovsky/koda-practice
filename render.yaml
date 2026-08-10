@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: koda-practice
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: KODA_DB_PATH
+        value: /data/koda.db
+      - key: KODA_CORS_ORIGINS
+        value: https://koda-practice.onrender.com
+    disk:
+      name: koda-practice-data
+      mountPath: /data
+      sizeGB: 1

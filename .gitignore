@@ -10,3 +10,4 @@ test-results/
 screenshots/
 .api-dev*.log
 .web-preview*.log
+*.zip
