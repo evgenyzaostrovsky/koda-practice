@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 import ast
+import json
 import os
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
@@ -9,7 +10,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
 from .content import MODULES,TOPICS,EXERCISES,public_module,public_exercise
 from .db import init_db,connect,now
-from .runner import run,explain,compare_results
+from .runner import run,explain,compare_results,warmup
 
 class ApiPrefixMiddleware:
     def __init__(self,app): self.app=app
@@ -37,7 +38,8 @@ origins=[x.strip() for x in os.environ.get('KODA_CORS_ORIGINS','http://localhost
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_methods=['*'],allow_headers=['*'])
 app.add_middleware(ApiPrefixMiddleware)
 @app.on_event('startup')
-def startup(): init_db()
+def startup(): init_db(); app.state.runner=warmup()
+EXPECTED_RESULTS={}
 class CodeIn(BaseModel): exercise_id:str; code:str
 class ReviewIn(BaseModel): result:str='success'
 
@@ -45,6 +47,10 @@ def used_methods(code:str)->set[str]:
     try: tree=ast.parse(code)
     except SyntaxError: return set()
     return {n.attr for n in ast.walk(tree) if isinstance(n,ast.Attribute)} | {n.id for n in ast.walk(tree) if isinstance(n,ast.Name)}
+
+def json_preview(value):
+    if value is None:return None
+    return json.dumps(value,ensure_ascii=False,default=str)[:1200]
 
 @app.get('/health')
 def health(): return {'status':'ok'}
@@ -73,7 +79,10 @@ def execute(body:CodeIn):
 def submit(body:CodeIn):
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    actual=run(body.code,e['dataset'],e['result_variable']); expected=run(e['solution_code'],e['dataset'],e['result_variable'])
+    actual=run(body.code,e['dataset'],e['result_variable'])
+    expected=EXPECTED_RESULTS.get(body.exercise_id)
+    if expected is None:
+        expected=run(e['solution_code'],e['dataset'],e['result_variable']);EXPECTED_RESULTS[body.exercise_id]=expected
     equal,diff=compare_results(actual,expected) if actual.get('ok') else (False,{})
     missing=set(e.get('required_tokens',[]))-used_methods(body.code)
     passed=actual.get('ok') and equal and not actual.get('mutated_inputs') and not missing
@@ -88,10 +97,13 @@ def submit(body:CodeIn):
         if passed:
             delay=2 if hints else (7 if num==1 else 4); due=(datetime.now(timezone.utc)+timedelta(days=delay)).isoformat()
             c.execute('INSERT INTO reviews(exercise_id,interval_days,due_at) VALUES(?,?,?) ON CONFLICT(exercise_id) DO UPDATE SET interval_days=excluded.interval_days,due_at=excluded.due_at',(body.exercise_id,delay,due))
-    if missing:
-        actual.update(error_type='WrongMethod',error='Используйте основной метод задания.',difference=f"Не найден обязательный приём: {', '.join(sorted(missing))}.")
-    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e.get('explanation',f"Результат сохранён в {e['result_variable']}."),'explanation':None if passed else {**explain(actual),'expected':actual.get('expected','Эталонный результат задачи'),'actual':actual.get('actual','Результат выполнения')}}
-    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':f"Решение использует конструкцию из темы и сохраняет результат в {e['result_variable']}.",'explanation':None if passed else {**explain(actual),'expected':actual.get('expected','Эталонный результат задачи'),'actual':actual.get('actual','Результат выполнения')}}
+    if missing and actual.get('ok') and equal:
+        calls=', '.join(f"pd.{name}()" if name.startswith('read_') else f"{name}()" for name in sorted(missing))
+        actual.update(error_type='WrongMethod',error='Результат верный, но задача проверяет конкретный приём.',difference=f"Используйте вызов {calls}, не раскрывая готовое решение.")
+    details=explain(actual)
+    if not passed:
+        details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)])
+    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e.get('explanation',f"Результат сохранён в {e['result_variable']}."),'explanation':None if passed else details}
 @app.post('/exercises/{eid}/hints/{level}')
 def hint(eid:str,level:int):
     e=EXERCISES.get(eid)

@@ -1,4 +1,4 @@
-import ast, json, os, subprocess, sys, tempfile, time
+import ast, atexit, json, os, queue, subprocess, sys, tempfile, threading, time
 from pathlib import Path
 
 BLOCKED={'os','sys','subprocess','socket','pathlib','shutil','requests','urllib','http','ctypes','multiprocessing'}
@@ -64,6 +64,61 @@ def run(code,dataset,result_variable='result',timeout_ms=10000):
         except Exception as e: data={'ok':False,'error_type':'RunnerError','error':str(e)}
     data['execution_ms']=round((time.perf_counter()-started)*1000); return data
 
+class PersistentWorker:
+    def __init__(self):
+        self.process=None; self.lock=threading.Lock(); self.import_ms=0
+    def start(self):
+        if self.process and self.process.poll() is None:return
+        script=Path(__file__).with_name('worker_process.py')
+        self.process=subprocess.Popen([sys.executable,'-I',str(script)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,
+          stderr=subprocess.DEVNULL,text=True,encoding='utf-8',errors='replace',bufsize=1,
+          env={**os.environ,'PYTHONUNBUFFERED':'1','PYTHONIOENCODING':'utf-8','PYTHONUTF8':'1','MPLCONFIGDIR':'/tmp/matplotlib'})
+        ready=self._readline(30)
+        if not ready or not ready.get('ready'):raise RuntimeError('Runner worker failed to start')
+        self.import_ms=ready.get('import_ms',0)
+    def _readline(self,timeout):
+        output=queue.Queue(maxsize=1)
+        threading.Thread(target=lambda:output.put(self.process.stdout.readline()),daemon=True).start()
+        try:line=output.get(timeout=timeout)
+        except queue.Empty:return None
+        try:return json.loads(line)
+        except Exception:return None
+    def execute(self,payload,timeout_ms):
+        with self.lock:
+            started=time.perf_counter()
+            try:
+                self.start(); worker_start=round((time.perf_counter()-started)*1000)
+                self.process.stdin.write(json.dumps(payload,ensure_ascii=True)+'\n');self.process.stdin.flush()
+                data=self._readline(timeout_ms/1000)
+                if data is None:
+                    self.stop();return {'ok':False,'error_type':'TimeoutError','error':f'Код выполнялся дольше {timeout_ms/1000:g} секунд.'}
+                data.setdefault('timings',{}).update(worker_start=worker_start,worker_import=self.import_ms)
+                return data
+            except Exception:
+                self.stop();return {'ok':False,'error_type':'InternalError','error':'Не удалось выполнить код. Runner автоматически перезапущен.'}
+    def stop(self):
+        if self.process and self.process.poll() is None:self.process.kill()
+        self.process=None
+
+WORKER=PersistentWorker();atexit.register(WORKER.stop)
+def warmup():
+    started=time.perf_counter();WORKER.start();return {'ready':True,'import_ms':WORKER.import_ms,'warmup_ms':round((time.perf_counter()-started)*1000)}
+
+def run(code,dataset,result_variable='result',timeout_ms=10000):
+    started=time.perf_counter()
+    if len(code)>50_000:return {'ok':False,'error_type':'SecurityError','error':'Код превышает допустимый размер.','execution_ms':0}
+    try:ast.parse(code)
+    except SyntaxError as exc:
+        lines=code.splitlines();line=lines[exc.lineno-1] if exc.lineno and exc.lineno<=len(lines) else ''
+        return {'ok':False,'error_type':'SyntaxError','error':exc.msg,'line':exc.lineno,'offset':exc.offset,'code_line':line,
+          'execution_ms':round((time.perf_counter()-started)*1000),'timings':{'validation':0}}
+    err=validate(code)
+    if err:return {'ok':False,'error_type':'SecurityError','error':err,'execution_ms':round((time.perf_counter()-started)*1000)}
+    needs_plot=any(token in code for token in ('plt.','sns.','.plot(','hist(','scatter('))
+    data=WORKER.execute({'code':code,'dataset':dataset,'result_variable':result_variable,'needs_plot':needs_plot},timeout_ms)
+    data['execution_ms']=round((time.perf_counter()-started)*1000)
+    return data
+
 def explain(result):
     typ=result.get('error_type','WrongAnswer'); msg=result.get('error','Результат отличается от ожидаемого.')
     advice={'SyntaxError':'Проверьте скобки, кавычки и двоеточия рядом с указанной строкой.','KeyError':'Такого столбца нет. Сверьте регистр и написание с таблицей данных.','NameError':'Имя не определено. Используйте переменные из условия и сохраните ответ в result.','TypeError':'Операция получила неподходящий тип данных. Проверьте dtypes и аргументы метода.','TimeoutError':'Вероятен бесконечный цикл или слишком тяжёлая операция. Упростите вычисление.','WrongAnswer':'Сравните форму, порядок столбцов, индекс и значения результата.'}.get(typ,'Проверьте синтаксис метода и входные данные.')
@@ -89,3 +144,33 @@ def compare_results(actual, expected):
             if va!=ve:return False,{'expected':str(ve),'actual':str(va),'difference':f'Значение Series в позиции {i}: ожидалось {ve}, получено {va}.'}
     elif a!=e: return False,{'expected':str(e.get('data')),'actual':str(a.get('data')),'difference':'Значение result не совпадает с ожидаемым.'}
     return True,{}
+
+def explain(result):
+    raw=result.get('error_type','WrongAnswer')
+    kind={'SyntaxError':'syntax_error','TimeoutError':'timeout','MissingResult':'missing_result','WrongMethod':'wrong_method',
+      'InternalError':'internal_error','RunnerError':'internal_error','WrongAnswer':'wrong_value'}.get(raw,'runtime_error' if not result.get('ok') else 'wrong_value')
+    difference=result.get('difference') or ''
+    if kind=='wrong_value':
+        if 'размером' in difference or 'Длина' in difference:kind='wrong_shape'
+        elif 'Столбц' in difference:kind='wrong_columns'
+        elif 'Индекс' in difference or 'индекс' in difference:kind='wrong_index'
+        elif 'тип' in difference:kind='wrong_type'
+    titles={'syntax_error':'Синтаксическая ошибка','runtime_error':f'Ошибка Python: {raw}','timeout':'Превышено время выполнения',
+      'missing_result':'Не создана переменная result','wrong_method':'Использован другой метод','wrong_value':'Результат отличается',
+      'wrong_shape':'Неверный размер результата','wrong_columns':'Не совпадают столбцы','wrong_index':'Не совпадает индекс',
+      'wrong_type':'Неверный тип результата','internal_error':'Runner временно недоступен'}
+    line=result.get('line'); code_line=result.get('code_line')
+    where=f'Строка {line}: {code_line}' if line else None
+    what=result.get('error') or 'Полученный результат не совпадает с ожидаемым.'
+    if kind=='missing_result': check='Сохраните итог вычисления в переменную result.'
+    elif kind=='timeout': check='Проверьте бесконечный цикл или слишком тяжёлую операцию.'
+    elif raw=='NameError': check=f"Проверьте имя переменной. Доступны: {', '.join(result.get('available_variables',[])[:12])}."
+    elif raw=='FileNotFoundError': check=f"Проверьте имя CSV-файла. Доступны: {', '.join(result.get('available_files',[])[:12]) or 'файлы не предоставлены'}."
+    elif kind=='syntax_error':
+        pointer=' '*(max(1,result.get('offset') or 1)-1)+'^'
+        check=f"{code_line or ''}\n{pointer}".strip()
+    elif kind=='wrong_method': check='Исправьте способ вычисления, сохранив результат в result.'
+    else: check=result.get('difference') or 'Сравните тип, форму, индекс и значения результата.'
+    return {'kind':kind,'title':titles[kind],'what':what,'where':where,'python_error':raw if kind in ('syntax_error','runtime_error') else None,
+      'line':line,'code_line':code_line,'difference':result.get('difference'),'check':check,
+      'nudge':'Исправьте указанное место и запустите проверку снова.'}
