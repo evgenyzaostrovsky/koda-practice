@@ -175,5 +175,9 @@
   "unique_hints": 600,
   "completion_summaries": 200,
   "runtime_input_checks_passed": 200,
-  "reference_solutions_passed": 200
+  "reference_solutions_passed": 200,
+  "theory_articles": 200,
+  "theory_articles_word_range": "150-350",
+  "theory_official_links_checked": 212,
+  "theory_duplicate_articles": 0
 }

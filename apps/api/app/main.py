@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
 from pydantic import BaseModel
-from .content import MODULES,TOPICS,EXERCISES,public_module,public_exercise
+from .content import MODULES,TOPICS,EXERCISES,THEORY_ARTICLES,public_module,public_exercise
 from .db import init_db,connect,now
 from .runner import run,explain,compare_results,warmup
 from .auth_backend import AUTH_ENABLED,current_user,record_attempt,rest
@@ -72,6 +72,11 @@ def topic_exercises(slug:str):
 def exercise(eid:str):
     if eid not in EXERCISES: raise HTTPException(404,'Задача не найдена')
     return public_exercise(EXERCISES[eid])
+@app.get('/theory/{article_id}')
+def theory_article(article_id:str):
+    article=THEORY_ARTICLES.get(article_id)
+    if not article: raise HTTPException(404,'Материал не найден')
+    return article
 @app.post('/executions/run')
 def execute(body:CodeIn,request:Request):
     current_user(request)

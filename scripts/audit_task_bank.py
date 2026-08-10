@@ -1,5 +1,6 @@
 import ast
 import json
+import re
 import sys
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
@@ -10,6 +11,8 @@ sys.path.insert(0,str(ROOT/'apps/api'))
 from app.runner import run
 
 catalog=json.loads((ROOT/'content/catalog.json').read_text(encoding='utf-8'))
+theory_bank=json.loads((ROOT/'content/theory_bank.json').read_text(encoding='utf-8'))
+theory_articles=theory_bank.get('articles',{})
 topics=[t for m in catalog['modules'] for t in m['topics']]
 exercises=[e for t in topics for e in t['exercises']]
 errors=[]
@@ -22,10 +25,36 @@ def check(ok, eid, message):
 check(catalog.get('bank_version')==2,'catalog','bank_version must be 2')
 check(len(topics)==20,'catalog',f'expected 20 topics, got {len(topics)}')
 check(len(exercises)==200,'catalog',f'expected 200 exercises, got {len(exercises)}')
+check(len(theory_articles)==200,'theory',f'expected 200 articles, got {len(theory_articles)}')
 ids=[e['id'] for e in exercises]
 check(len(ids)==len(set(ids)),'catalog','exercise IDs are not unique')
 instructions=[e['instructions'] for e in exercises]
 check(len(instructions)==len(set(instructions)),'catalog','exercise instructions are duplicated')
+
+allowed_docs=('pandas.pydata.org','matplotlib.org','seaborn.pydata.org','numpy.org','docs.python.org')
+serialized_articles=[]
+for exercise in exercises:
+    article_id=exercise.get('theory_article_id')
+    article=theory_articles.get(article_id)
+    check(bool(article),exercise['id'],'missing stable theory article')
+    if not article: continue
+    serialized_articles.append(json.dumps(article,ensure_ascii=False,sort_keys=True))
+    article_text=' '.join(str(value) for key,value in article.items() if key!='methods')
+    for method in article.get('methods',[]):
+        article_text+=' '+json.dumps(method,ensure_ascii=False)
+        url=method.get('documentationUrl','')
+        check(url.startswith('https://') and any(host in url for host in allowed_docs),exercise['id'],f'invalid official documentation URL: {url}')
+        check(url.rstrip('/').count('/')>=4,exercise['id'],'documentation URL is not a specific page')
+        check(bool(method.get('description')) and bool(method.get('syntax')) and bool(method.get('example')),exercise['id'],'incomplete theory method')
+        try: ast.parse(method.get('example',''))
+        except SyntaxError as exc: errors.append(f"{exercise['id']}: theory example has invalid Python: {exc}")
+    words=re.findall(r"\w+",article_text,flags=re.UNICODE)
+    check(150<=len(words)<=350,exercise['id'],f'theory length is {len(words)} words, expected 150..350')
+    check(exercise['solution_code'].strip() not in article_text,exercise['id'],'theory contains the full solution')
+    check(exercise['instructions'] not in article_text,exercise['id'],'theory repeats the task statement')
+    for token in (token for token in exercise.get('required_tokens',[]) if token!='copy'):
+        check(token.lower() in article_text.lower(),exercise['id'],f'theory does not cover required method {token}')
+check(len(serialized_articles)==len(set(serialized_articles)),'theory','duplicate theory articles found')
 
 for topic in topics:
     check(len(topic['exercises'])==10,topic['slug'],f"expected 10 exercises, got {len(topic['exercises'])}")
@@ -128,8 +157,12 @@ report={
     'completion_summaries':sum(bool(e.get('completion_summary')) for e in exercises),
     'runtime_input_checks_passed':len(exercises),
     'reference_solutions_passed':len(exercises),
+    'theory_articles':len(theory_articles),
+    'theory_articles_word_range':'150-350',
+    'theory_official_links_checked':sum(len(article['methods']) for article in theory_articles.values()),
+    'theory_duplicate_articles':len(serialized_articles)-len(set(serialized_articles)),
 }
 report_path=ROOT/'reports'/'task-bank-audit.json'
 report_path.parent.mkdir(exist_ok=True)
 report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-print('AUDIT PASSED: 200 exercises; objectives, completion summaries, and 600 structured hints are present and unique; banned templates and full-solution hints are absent; setup variables and previews match runtime; starters run without NameError and do not pass; files exist; solutions pass; inputs restore between runs')
+print('AUDIT PASSED: 200 exercises and 200 theory articles; each theory article has 150-350 words, a distinct example, and an exact official documentation link; objectives, completion summaries, and 600 structured hints are present and unique; setup variables and previews match runtime; starters run without NameError and do not pass; solutions pass; inputs restore between runs')

@@ -39,6 +39,7 @@
               "setup_code": "import pandas as pd\ndata = {'name': ['Аня', 'Борис', 'Вера'], 'score': [7, 9, 8]}",
               "starter_code": "import pandas as pd\ndata = {'name': ['Аня', 'Борис', 'Вера'], 'score': [7, 9, 8]}\n\nresult = None",
               "solution_code": "result = pd.DataFrame(data)",
+              "theory_article_id": "theory-start-001",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -100,6 +101,7 @@
               "setup_code": "import pandas as pd\nrecords = [{'product': 'Курс', 'price': 1200}, {'product': 'Книга', 'price': 600}, {'product': 'Видео', 'price': 900}]",
               "starter_code": "import pandas as pd\nrecords = [{'product': 'Курс', 'price': 1200}, {'product': 'Книга', 'price': 600}, {'product': 'Видео', 'price': 900}]\n\nresult = None",
               "solution_code": "result = pd.DataFrame.from_records(records)",
+              "theory_article_id": "theory-start-002",
               "required_tokens": [
                 "DataFrame",
                 "from_records"
@@ -164,6 +166,7 @@
               "setup_code": "import pandas as pd\nrows = [['Москва', 12], ['Казань', 8]]\ncolumn_names = ['city', 'sales']",
               "starter_code": "import pandas as pd\nrows = [['Москва', 12], ['Казань', 8]]\ncolumn_names = ['city', 'sales']\n\nresult = None",
               "solution_code": "result = pd.DataFrame(rows, columns=column_names)",
+              "theory_article_id": "theory-start-003",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -227,6 +230,7 @@
               "setup_code": "import pandas as pd\ndata = {'score': [9, 7], 'name': ['Ира', 'Лев'], 'group': ['A', 'B']}\ncolumn_order = ['name', 'score']",
               "starter_code": "import pandas as pd\ndata = {'score': [9, 7], 'name': ['Ира', 'Лев'], 'group': ['A', 'B']}\ncolumn_order = ['name', 'score']\n\nresult = None",
               "solution_code": "result = pd.DataFrame(data, columns=column_order)",
+              "theory_article_id": "theory-start-004",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -294,6 +298,7 @@
               "setup_code": "import pandas as pd\ndata = {'name': ['Олег', 'Мила'], 'score': [6, 10]}\nrow_labels = ['u-1', 'u-2']",
               "starter_code": "import pandas as pd\ndata = {'name': ['Олег', 'Мила'], 'score': [6, 10]}\nrow_labels = ['u-1', 'u-2']\n\nresult = None",
               "solution_code": "result = pd.DataFrame(data, index=row_labels)",
+              "theory_article_id": "theory-start-005",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -357,6 +362,7 @@
               "setup_code": "import pandas as pd\nrows = [['Москва', 15], ['Тула', 9]]\ncolumn_names = ['city', 'sales']",
               "starter_code": "import pandas as pd\nrows = [['Москва', 15], ['Тула', 9]]\ncolumn_names = ['city', 'sales']\n\nresult = None",
               "solution_code": "result = pd.DataFrame.from_records(rows, columns=column_names)",
+              "theory_article_id": "theory-start-006",
               "required_tokens": [
                 "DataFrame",
                 "from_records"
@@ -421,6 +427,7 @@
               "setup_code": "import pandas as pd\ncolumn_names = ['id', 'name', 'score']",
               "starter_code": "import pandas as pd\ncolumn_names = ['id', 'name', 'score']\n\nresult = None",
               "solution_code": "result = pd.DataFrame(columns=column_names)",
+              "theory_article_id": "theory-start-007",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -475,6 +482,7 @@
               "setup_code": "import pandas as pd\nscores = pd.Series([4, 8, 6], index=['a', 'b', 'c'])",
               "starter_code": "import pandas as pd\nscores = pd.Series([4, 8, 6], index=['a', 'b', 'c'])\n\nresult = None",
               "solution_code": "result = pd.DataFrame({'score': scores})",
+              "theory_article_id": "theory-start-008",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -536,6 +544,7 @@
               "setup_code": "import pandas as pd\ndata = {'id': [1, 2], 'name': ['А', 'Б'], 'score': [5, 9], 'note': ['x', 'y']}\ncolumn_order = ['id', 'score']",
               "starter_code": "import pandas as pd\ndata = {'id': [1, 2], 'name': ['А', 'Б'], 'score': [5, 9], 'note': ['x', 'y']}\ncolumn_order = ['id', 'score']\n\nresult = None",
               "solution_code": "result = pd.DataFrame(data, columns=column_order)",
+              "theory_article_id": "theory-start-009",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -607,6 +616,7 @@
               "setup_code": "import pandas as pd\nrecords = [{'name': 'Нина', 'score': 8, 'city': 'Пермь'}, {'name': 'Роман', 'score': 7, 'city': 'Омск'}]\ncolumn_order = ['city', 'name', 'score']\nrow_labels = ['r1', 'r2']",
               "starter_code": "import pandas as pd\nrecords = [{'name': 'Нина', 'score': 8, 'city': 'Пермь'}, {'name': 'Роман', 'score': 7, 'city': 'Омск'}]\ncolumn_order = ['city', 'name', 'score']\nrow_labels = ['r1', 'r2']\n\nresult = None",
               "solution_code": "result = pd.DataFrame(records, columns=column_order, index=row_labels)",
+              "theory_article_id": "theory-start-010",
               "required_tokens": [
                 "DataFrame"
               ],
@@ -706,6 +716,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path)",
+              "theory_article_id": "theory-reading-001",
               "required_tokens": [
                 "read_csv"
               ],
@@ -759,6 +770,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, sep=';')",
+              "theory_article_id": "theory-reading-002",
               "required_tokens": [
                 "read_csv"
               ],
@@ -812,6 +824,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, sep='\\t')",
+              "theory_article_id": "theory-reading-003",
               "required_tokens": [
                 "read_csv"
               ],
@@ -865,6 +878,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, header=None)",
+              "theory_article_id": "theory-reading-004",
               "required_tokens": [
                 "read_csv"
               ],
@@ -918,6 +932,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\ncolumn_names = ['city', 'sales']",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\ncolumn_names = ['city', 'sales']\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, header=None, names=column_names)",
+              "theory_article_id": "theory-reading-005",
               "required_tokens": [
                 "read_csv"
               ],
@@ -975,6 +990,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'\nneeded_columns = ['name', 'score']",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\nneeded_columns = ['name', 'score']\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, usecols=needed_columns)",
+              "theory_article_id": "theory-reading-006",
               "required_tokens": [
                 "read_csv"
               ],
@@ -1032,6 +1048,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, index_col='id')",
+              "theory_article_id": "theory-reading-007",
               "required_tokens": [
                 "read_csv"
               ],
@@ -1085,6 +1102,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, dtype={'client_id': 'string'})",
+              "theory_article_id": "theory-reading-008",
               "required_tokens": [
                 "read_csv"
               ],
@@ -1138,6 +1156,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, parse_dates=['date'])",
+              "theory_article_id": "theory-reading-009",
               "required_tokens": [
                 "read_csv"
               ],
@@ -1191,6 +1210,7 @@
               "setup_code": "import pandas as pd\ncsv_path = 'data.csv'",
               "starter_code": "import pandas as pd\ncsv_path = 'data.csv'\n\nresult = None",
               "solution_code": "result = pd.read_csv(csv_path, na_values=['нет', '-'])",
+              "theory_article_id": "theory-reading-010",
               "required_tokens": [
                 "read_csv"
               ],
@@ -1273,6 +1293,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df['name']",
+              "theory_article_id": "theory-columns-001",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -1439,6 +1460,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[['name']]",
+              "theory_article_id": "theory-columns-002",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -1605,6 +1627,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[['name', 'score']]",
+              "theory_article_id": "theory-columns-003",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -1771,6 +1794,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[['score', 'name']]",
+              "theory_article_id": "theory-columns-004",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -1937,6 +1961,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[selected_columns]",
+              "theory_article_id": "theory-columns-005",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -2103,6 +2128,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[['price', 'quantity', 'discount']]",
+              "theory_article_id": "theory-columns-006",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -2269,6 +2295,7 @@
               "setup_code": "import pandas as pd\nselected_columns = []\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = []\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[selected_columns]",
+              "theory_article_id": "theory-columns-007",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -2432,6 +2459,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[['score', 'score']]",
+              "theory_article_id": "theory-columns-008",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -2598,6 +2626,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[['client name', 'total sales']]",
+              "theory_article_id": "theory-columns-009",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -2764,6 +2793,7 @@
               "setup_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nselected_columns = ['city', 'score']\nreport_columns = ['name', 'city', 'score']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df[report_columns]",
+              "theory_article_id": "theory-columns-010",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -2959,6 +2989,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['status'] = 'new'",
+              "theory_article_id": "theory-change-columns-001",
               "required_tokens": [
                 "copy"
               ],
@@ -3125,6 +3156,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['price_copy'] = result['price']",
+              "theory_article_id": "theory-change-columns-002",
               "required_tokens": [
                 "copy"
               ],
@@ -3291,6 +3323,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['total'] = result['online'] + result['offline']",
+              "theory_article_id": "theory-change-columns-003",
               "required_tokens": [
                 "copy"
               ],
@@ -3457,6 +3490,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['change'] = result['current'] - result['previous']",
+              "theory_article_id": "theory-change-columns-004",
               "required_tokens": [
                 "copy"
               ],
@@ -3623,6 +3657,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['revenue'] = result['price'] * result['quantity']",
+              "theory_article_id": "theory-change-columns-005",
               "required_tokens": [
                 "copy"
               ],
@@ -3789,6 +3824,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['unit_price'] = result['amount'] / result['quantity']",
+              "theory_article_id": "theory-change-columns-006",
               "required_tokens": [
                 "copy"
               ],
@@ -3955,6 +3991,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['discount_amount'] = result['price'] * result['discount_pct'] / 100",
+              "theory_article_id": "theory-change-columns-007",
               "required_tokens": [
                 "copy"
               ],
@@ -4121,6 +4158,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['is_expensive'] = result['price'] >= price_limit",
+              "theory_article_id": "theory-change-columns-008",
               "required_tokens": [
                 "copy"
               ],
@@ -4287,6 +4325,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['name'] = names",
+              "theory_article_id": "theory-change-columns-009",
               "required_tokens": [
                 "copy"
               ],
@@ -4453,6 +4492,7 @@
               "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['net'] = result['price'] * result['quantity'] - result['discount']",
+              "theory_article_id": "theory-change-columns-010",
               "required_tokens": [
                 "copy"
               ],
@@ -4648,6 +4688,7 @@
               "setup_code": "import pandas as pd\noffset = 1\nvalues = pd.Series([1, 3, 5])",
               "starter_code": "import pandas as pd\noffset = 1\nvalues = pd.Series([1, 3, 5])\n\nresult = None",
               "solution_code": "result = values + offset",
+              "theory_article_id": "theory-vectorization-001",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -4705,6 +4746,7 @@
               "setup_code": "import pandas as pd\noffset = 2\nvalues = pd.Series([10, 20, 30])",
               "starter_code": "import pandas as pd\noffset = 2\nvalues = pd.Series([10, 20, 30])\n\nresult = None",
               "solution_code": "result = values - offset",
+              "theory_article_id": "theory-vectorization-002",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -4762,6 +4804,7 @@
               "setup_code": "import pandas as pd\nfactor = 4\nvalues = pd.Series([2, 4, 6])",
               "starter_code": "import pandas as pd\nfactor = 4\nvalues = pd.Series([2, 4, 6])\n\nresult = None",
               "solution_code": "result = values * factor",
+              "theory_article_id": "theory-vectorization-003",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -4819,6 +4862,7 @@
               "setup_code": "import pandas as pd\ndivisor = 3\nvalues = pd.Series([12, 18, 24])",
               "starter_code": "import pandas as pd\ndivisor = 3\nvalues = pd.Series([12, 18, 24])\n\nresult = None",
               "solution_code": "result = values / divisor",
+              "theory_article_id": "theory-vectorization-004",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -4876,6 +4920,7 @@
               "setup_code": "import pandas as pd\nleft = pd.Series([15, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])",
               "starter_code": "import pandas as pd\nleft = pd.Series([15, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])\n\nresult = None",
               "solution_code": "result = left + right",
+              "theory_article_id": "theory-vectorization-005",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -4947,6 +4992,7 @@
               "setup_code": "import pandas as pd\nleft = pd.Series([16, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])",
               "starter_code": "import pandas as pd\nleft = pd.Series([16, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])\n\nresult = None",
               "solution_code": "result = left * right",
+              "theory_article_id": "theory-vectorization-006",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -5018,6 +5064,7 @@
               "setup_code": "import pandas as pd\nleft = pd.Series([17, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['b', 'c', 'd'])",
               "starter_code": "import pandas as pd\nleft = pd.Series([17, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['b', 'c', 'd'])\n\nresult = None",
               "solution_code": "result = left + right",
+              "theory_article_id": "theory-vectorization-007",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -5089,6 +5136,7 @@
               "setup_code": "import pandas as pd\nleft = pd.Series([18, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['b', 'c', 'd'])",
               "starter_code": "import pandas as pd\nleft = pd.Series([18, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['b', 'c', 'd'])\n\nresult = None",
               "solution_code": "result = left.add(right, fill_value=0)",
+              "theory_article_id": "theory-vectorization-008",
               "required_tokens": [
                 "add"
               ],
@@ -5162,6 +5210,7 @@
               "setup_code": "import pandas as pd\nthreshold = 8\nvalues = pd.Series([4, 8, 12])",
               "starter_code": "import pandas as pd\nthreshold = 8\nvalues = pd.Series([4, 8, 12])\n\nresult = None",
               "solution_code": "result = values >= threshold",
+              "theory_article_id": "theory-vectorization-009",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -5219,6 +5268,7 @@
               "setup_code": "import pandas as pd\nprices = pd.Series([100, 200, 150])\nquantities = pd.Series([2, 1, 3])\ndiscount_rate = pd.Series([0.1, 0.2, 0])",
               "starter_code": "import pandas as pd\nprices = pd.Series([100, 200, 150])\nquantities = pd.Series([2, 1, 3])\ndiscount_rate = pd.Series([0.1, 0.2, 0])\n\nresult = None",
               "solution_code": "result = (prices * quantities) * (1 - discount_rate)",
+              "theory_article_id": "theory-vectorization-010",
               "required_tokens": [],
               "tests": [
                 "result_type",
@@ -5316,6 +5366,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = df.shape",
+              "theory_article_id": "theory-attributes-001",
               "required_tokens": [
                 "shape"
               ],
@@ -5378,6 +5429,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = df.shape[0]",
+              "theory_article_id": "theory-attributes-002",
               "required_tokens": [
                 "shape"
               ],
@@ -5440,6 +5492,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = df.shape[1]",
+              "theory_article_id": "theory-attributes-003",
               "required_tokens": [
                 "shape"
               ],
@@ -5502,6 +5555,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = df.shape[0] == expected_rows",
+              "theory_article_id": "theory-attributes-004",
               "required_tokens": [
                 "shape"
               ],
@@ -5564,6 +5618,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\nleft = pd.DataFrame({'a': [1, 2]})\nright = pd.DataFrame({'b': [3, 4]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\nleft = pd.DataFrame({'a': [1, 2]})\nright = pd.DataFrame({'b': [3, 4]})\n\nresult = None",
               "solution_code": "result = left.shape == right.shape",
+              "theory_article_id": "theory-attributes-005",
               "required_tokens": [
                 "shape",
                 "shape"
@@ -5627,6 +5682,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\norders = pd.DataFrame({'id': [1, 2, 3]})\nreturns = pd.DataFrame({'id': [2]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\norders = pd.DataFrame({'id': [1, 2, 3]})\nreturns = pd.DataFrame({'id': [2]})\n\nresult = None",
               "solution_code": "result = orders.shape[0] + returns.shape[0]",
+              "theory_article_id": "theory-attributes-006",
               "required_tokens": [
                 "shape",
                 "shape"
@@ -5690,6 +5746,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = df.shape[0] * df.shape[1]",
+              "theory_article_id": "theory-attributes-007",
               "required_tokens": [
                 "shape",
                 "shape"
@@ -5753,6 +5810,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = df.shape[1]",
+              "theory_article_id": "theory-attributes-008",
               "required_tokens": [
                 "shape"
               ],
@@ -5815,6 +5873,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ntrain = pd.DataFrame({'x': [1, 2, 3, 4]})\ntest = pd.DataFrame({'x': [5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ntrain = pd.DataFrame({'x': [1, 2, 3, 4]})\ntest = pd.DataFrame({'x': [5, 6]})\n\nresult = None",
               "solution_code": "result = train.shape[0] > test.shape[0]",
+              "theory_article_id": "theory-attributes-009",
               "required_tokens": [
                 "shape",
                 "shape"
@@ -5880,6 +5939,7 @@
               "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
               "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = {'rows': df.shape[0], 'columns': df.shape[1]}",
+              "theory_article_id": "theory-attributes-010",
               "required_tokens": [
                 "shape",
                 "shape"
@@ -5972,6 +6032,7 @@
               "setup_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [1, 2, 3, 4, 5, 6, 7, 8]})",
               "starter_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [1, 2, 3, 4, 5, 6, 7, 8]})\n\nresult = None",
               "solution_code": "result = df.head()",
+              "theory_article_id": "theory-inspection-001",
               "required_tokens": [
                 "head"
               ],
@@ -6044,6 +6105,7 @@
               "setup_code": "import pandas as pd\nn = 4\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [2, 4, 6, 8, 10, 12, 14, 16]})",
               "starter_code": "import pandas as pd\nn = 4\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [2, 4, 6, 8, 10, 12, 14, 16]})\n\nresult = None",
               "solution_code": "result = df.head(3)",
+              "theory_article_id": "theory-inspection-002",
               "required_tokens": [
                 "head"
               ],
@@ -6116,6 +6178,7 @@
               "setup_code": "import pandas as pd\nn = 5\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [3, 6, 9, 12, 15, 18, 21, 24]})",
               "starter_code": "import pandas as pd\nn = 5\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [3, 6, 9, 12, 15, 18, 21, 24]})\n\nresult = None",
               "solution_code": "result = df.head(1)",
+              "theory_article_id": "theory-inspection-003",
               "required_tokens": [
                 "head"
               ],
@@ -6188,6 +6251,7 @@
               "setup_code": "import pandas as pd\nn = 2\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [4, 8, 12, 16, 20, 24, 28, 32]})",
               "starter_code": "import pandas as pd\nn = 2\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [4, 8, 12, 16, 20, 24, 28, 32]})\n\nresult = None",
               "solution_code": "result = df.head(n)",
+              "theory_article_id": "theory-inspection-004",
               "required_tokens": [
                 "head"
               ],
@@ -6260,6 +6324,7 @@
               "setup_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [5, 10, 15, 20, 25, 30, 35, 40]})",
               "starter_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [5, 10, 15, 20, 25, 30, 35, 40]})\n\nresult = None",
               "solution_code": "result = df.head(0)",
+              "theory_article_id": "theory-inspection-005",
               "required_tokens": [
                 "head"
               ],
@@ -6332,6 +6397,7 @@
               "setup_code": "import pandas as pd\nn = 4\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [6, 12, 18, 24, 30, 36, 42, 48]})",
               "starter_code": "import pandas as pd\nn = 4\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [6, 12, 18, 24, 30, 36, 42, 48]})\n\nresult = None",
               "solution_code": "result = df.tail()",
+              "theory_article_id": "theory-inspection-006",
               "required_tokens": [
                 "tail"
               ],
@@ -6404,6 +6470,7 @@
               "setup_code": "import pandas as pd\nn = 5\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [7, 14, 21, 28, 35, 42, 49, 56]})",
               "starter_code": "import pandas as pd\nn = 5\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [7, 14, 21, 28, 35, 42, 49, 56]})\n\nresult = None",
               "solution_code": "result = df.tail(2)",
+              "theory_article_id": "theory-inspection-007",
               "required_tokens": [
                 "tail"
               ],
@@ -6476,6 +6543,7 @@
               "setup_code": "import pandas as pd\nn = 2\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [8, 16, 24, 32, 40, 48, 56, 64]})",
               "starter_code": "import pandas as pd\nn = 2\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [8, 16, 24, 32, 40, 48, 56, 64]})\n\nresult = None",
               "solution_code": "result = df.tail(1)",
+              "theory_article_id": "theory-inspection-008",
               "required_tokens": [
                 "tail"
               ],
@@ -6548,6 +6616,7 @@
               "setup_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [9, 18, 27, 36, 45, 54, 63, 72]})",
               "starter_code": "import pandas as pd\nn = 3\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [9, 18, 27, 36, 45, 54, 63, 72]})\n\nresult = None",
               "solution_code": "result = df.tail(n)",
+              "theory_article_id": "theory-inspection-009",
               "required_tokens": [
                 "tail"
               ],
@@ -6620,6 +6689,7 @@
               "setup_code": "import pandas as pd\nn = 12\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [10, 20, 30, 40, 50, 60, 70, 80]})",
               "starter_code": "import pandas as pd\nn = 12\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [10, 20, 30, 40, 50, 60, 70, 80]})\n\nresult = None",
               "solution_code": "result = df.head(n)",
+              "theory_article_id": "theory-inspection-010",
               "required_tokens": [
                 "head"
               ],
@@ -6721,6 +6791,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
               "solution_code": "result = values.sum()",
+              "theory_article_id": "theory-dataframe-methods-001",
               "required_tokens": [
                 "sum"
               ],
@@ -6784,6 +6855,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'sales': [10, 20, 30]})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'sales': [10, 20, 30]})\n\nresult = None",
               "solution_code": "result = df['sales'].sum()",
+              "theory_article_id": "theory-dataframe-methods-002",
               "required_tokens": [
                 "sum"
               ],
@@ -6838,6 +6910,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
               "solution_code": "result = values.sum()",
+              "theory_article_id": "theory-dataframe-methods-003",
               "required_tokens": [
                 "sum"
               ],
@@ -6901,6 +6974,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
               "solution_code": "result = values.sum()",
+              "theory_article_id": "theory-dataframe-methods-004",
               "required_tokens": [
                 "sum"
               ],
@@ -6964,6 +7038,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
               "solution_code": "result = values.sum(skipna=True)",
+              "theory_article_id": "theory-dataframe-methods-005",
               "required_tokens": [
                 "sum"
               ],
@@ -7027,6 +7102,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
               "solution_code": "result = values.sum(skipna=False)",
+              "theory_article_id": "theory-dataframe-methods-006",
               "required_tokens": [
                 "sum"
               ],
@@ -7090,6 +7166,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
               "solution_code": "result = values.sum(min_count=min_required)",
+              "theory_article_id": "theory-dataframe-methods-007",
               "required_tokens": [
                 "sum"
               ],
@@ -7153,6 +7230,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'sales': [10, 20, 30], 'profit': [2, 5, 7]})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'sales': [10, 20, 30], 'profit': [2, 5, 7]})\n\nresult = None",
               "solution_code": "result = df.sum()",
+              "theory_article_id": "theory-dataframe-methods-008",
               "required_tokens": [
                 "sum"
               ],
@@ -7212,6 +7290,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'q1': [1, 2, 3], 'q2': [4, 5, 6]})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'q1': [1, 2, 3], 'q2': [4, 5, 6]})\n\nresult = None",
               "solution_code": "result = df.sum(axis=1)",
+              "theory_article_id": "theory-dataframe-methods-009",
               "required_tokens": [
                 "sum"
               ],
@@ -7271,6 +7350,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nflags = pd.Series([True, False, True, True])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nflags = pd.Series([True, False, True, True])\n\nresult = None",
               "solution_code": "result = flags.sum()",
+              "theory_article_id": "theory-dataframe-methods-010",
               "required_tokens": [
                 "sum"
               ],
@@ -7361,6 +7441,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts()",
+              "theory_article_id": "theory-series-methods-001",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7424,6 +7505,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts()",
+              "theory_article_id": "theory-series-methods-002",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7487,6 +7569,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts()",
+              "theory_article_id": "theory-series-methods-003",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7550,6 +7633,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts()",
+              "theory_article_id": "theory-series-methods-004",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7613,6 +7697,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts(dropna=False)",
+              "theory_article_id": "theory-series-methods-005",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7676,6 +7761,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts(normalize=True)",
+              "theory_article_id": "theory-series-methods-006",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7739,6 +7825,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts(sort=False)",
+              "theory_article_id": "theory-series-methods-007",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7802,6 +7889,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts(ascending=True)",
+              "theory_article_id": "theory-series-methods-008",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7865,6 +7953,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, 2, 4, 7, 9])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, 2, 4, 7, 9])\n\nresult = None",
               "solution_code": "result = values.value_counts(bins=bin_count)",
+              "theory_article_id": "theory-series-methods-009",
               "required_tokens": [
                 "value_counts"
               ],
@@ -7928,6 +8017,7 @@
               "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
               "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
               "solution_code": "result = values.value_counts(dropna=False)",
+              "theory_article_id": "theory-series-methods-010",
               "required_tokens": [
                 "value_counts"
               ],
@@ -8020,6 +8110,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('category')['sales'].sum()",
+              "theory_article_id": "theory-groupby-001",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8127,6 +8218,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('city')['revenue'].sum()",
+              "theory_article_id": "theory-groupby-002",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8234,6 +8326,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('team')['points'].sum()",
+              "theory_article_id": "theory-groupby-003",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8341,6 +8434,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('category')[['sales', 'profit']].sum()",
+              "theory_article_id": "theory-groupby-004",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8448,6 +8542,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby(['city', 'category'])['sales'].sum()",
+              "theory_article_id": "theory-groupby-005",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8555,6 +8650,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('category', as_index=False)['sales'].sum()",
+              "theory_article_id": "theory-groupby-006",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8662,6 +8758,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('category', sort=False)['sales'].sum()",
+              "theory_article_id": "theory-groupby-007",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8769,6 +8866,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('category', dropna=False)['sales'].sum()",
+              "theory_article_id": "theory-groupby-008",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8876,6 +8974,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('category')['sales'].sum(min_count=1)",
+              "theory_article_id": "theory-groupby-009",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -8983,6 +9082,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.groupby('team')['won'].sum()",
+              "theory_article_id": "theory-groupby-010",
               "required_tokens": [
                 "groupby",
                 "sum"
@@ -9119,6 +9219,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query('score > 80')",
+              "theory_article_id": "theory-filtering-001",
               "required_tokens": [
                 "query"
               ],
@@ -9285,6 +9386,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query('score >= 60')",
+              "theory_article_id": "theory-filtering-002",
               "required_tokens": [
                 "query"
               ],
@@ -9451,6 +9553,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query(\"city == 'Москва'\")",
+              "theory_article_id": "theory-filtering-003",
               "required_tokens": [
                 "query"
               ],
@@ -9617,6 +9720,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query(\"status != 'closed'\")",
+              "theory_article_id": "theory-filtering-004",
               "required_tokens": [
                 "query"
               ],
@@ -9783,6 +9887,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query('score >= 60 and attempts <= 2')",
+              "theory_article_id": "theory-filtering-005",
               "required_tokens": [
                 "query"
               ],
@@ -9949,6 +10054,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query(\"city == 'Москва' or city == 'Казань'\")",
+              "theory_article_id": "theory-filtering-006",
               "required_tokens": [
                 "query"
               ],
@@ -10115,6 +10221,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query('score >= @min_score')",
+              "theory_article_id": "theory-filtering-007",
               "required_tokens": [
                 "query"
               ],
@@ -10281,6 +10388,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query('city in @allowed_cities')",
+              "theory_article_id": "theory-filtering-008",
               "required_tokens": [
                 "query"
               ],
@@ -10447,6 +10555,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query('`total sales` > 1000')",
+              "theory_article_id": "theory-filtering-009",
               "required_tokens": [
                 "query"
               ],
@@ -10613,6 +10722,7 @@
               "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.query('price >= @min_price and price <= @max_price')",
+              "theory_article_id": "theory-filtering-010",
               "required_tokens": [
                 "query"
               ],
@@ -10808,6 +10918,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [73, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [101, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values('score')",
+              "theory_article_id": "theory-sorting-001",
               "required_tokens": [
                 "sort_values"
               ],
@@ -10966,6 +11077,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [74, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [102, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values('score', ascending=False)",
+              "theory_article_id": "theory-sorting-002",
               "required_tokens": [
                 "sort_values"
               ],
@@ -11124,6 +11236,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values('name')",
+              "theory_article_id": "theory-sorting-003",
               "required_tokens": [
                 "sort_values"
               ],
@@ -11282,6 +11395,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values(['city', 'score'])",
+              "theory_article_id": "theory-sorting-004",
               "required_tokens": [
                 "sort_values"
               ],
@@ -11440,6 +11554,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [77, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [105, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values(['city', 'score'], ascending=[True, False])",
+              "theory_article_id": "theory-sorting-005",
               "required_tokens": [
                 "sort_values"
               ],
@@ -11598,6 +11713,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [78, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [106, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values('score', na_position='first')",
+              "theory_article_id": "theory-sorting-006",
               "required_tokens": [
                 "sort_values"
               ],
@@ -11756,6 +11872,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values('score', ignore_index=True)",
+              "theory_article_id": "theory-sorting-007",
               "required_tokens": [
                 "sort_values"
               ],
@@ -11914,6 +12031,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values('name', key=lambda s: s.str.lower())",
+              "theory_article_id": "theory-sorting-008",
               "required_tokens": [
                 "sort_values",
                 "str"
@@ -12073,6 +12191,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [81, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [109, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values('score', kind='stable')",
+              "theory_article_id": "theory-sorting-009",
               "required_tokens": [
                 "sort_values"
               ],
@@ -12231,6 +12350,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
               "solution_code": "result = df.sort_values(['priority', 'created_at'], ascending=[False, True])",
+              "theory_article_id": "theory-sorting-010",
               "required_tokens": [
                 "sort_values"
               ],
@@ -12418,6 +12538,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id')",
+              "theory_article_id": "theory-merge-001",
               "required_tokens": [
                 "merge"
               ],
@@ -12509,6 +12630,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='left')",
+              "theory_article_id": "theory-merge-002",
               "required_tokens": [
                 "merge"
               ],
@@ -12600,6 +12722,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='right')",
+              "theory_article_id": "theory-merge-003",
               "required_tokens": [
                 "merge"
               ],
@@ -12691,6 +12814,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='outer')",
+              "theory_article_id": "theory-merge-004",
               "required_tokens": [
                 "merge"
               ],
@@ -12782,6 +12906,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, left_on='client_id', right_on='id')",
+              "theory_article_id": "theory-merge-005",
               "required_tokens": [
                 "merge"
               ],
@@ -12893,6 +13018,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'sales': [10, 20]})\nright = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'plan': [12, 18]})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'sales': [10, 20]})\nright = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'plan': [12, 18]})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on=['city', 'year'])",
+              "theory_article_id": "theory-merge-006",
               "required_tokens": [
                 "merge"
               ],
@@ -12968,6 +13094,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', suffixes=('_old', '_new'))",
+              "theory_article_id": "theory-merge-007",
               "required_tokens": [
                 "merge"
               ],
@@ -13079,6 +13206,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='id', how='outer', indicator=True)",
+              "theory_article_id": "theory-merge-008",
               "required_tokens": [
                 "merge"
               ],
@@ -13190,6 +13318,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'category_id': [100, 200], 'category': ['A', 'B']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'category_id': [100, 200], 'category': ['A', 'B']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, on='category_id', validate='many_to_one')",
+              "theory_article_id": "theory-merge-009",
               "required_tokens": [
                 "merge"
               ],
@@ -13279,6 +13408,7 @@
               "setup_code": "import pandas as pd\nleft = pd.DataFrame({'value': [10, 20]})\nright = pd.DataFrame({'label': ['A', 'B']})",
               "starter_code": "import pandas as pd\nleft = pd.DataFrame({'value': [10, 20]})\nright = pd.DataFrame({'label': ['A', 'B']})\n\nresult = None",
               "solution_code": "result = pd.merge(left, right, left_index=True, right_index=True)",
+              "theory_article_id": "theory-merge-010",
               "required_tokens": [
                 "merge"
               ],
@@ -13367,6 +13497,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales')",
+              "theory_article_id": "theory-pivot-001",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -13473,6 +13604,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum')",
+              "theory_article_id": "theory-pivot-002",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -13579,6 +13711,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum')",
+              "theory_article_id": "theory-pivot-003",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -13685,6 +13818,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index=['city', 'year'], values='sales', aggfunc='sum')",
+              "theory_article_id": "theory-pivot-004",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -13791,6 +13925,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values=['sales', 'profit'], aggfunc='sum')",
+              "theory_article_id": "theory-pivot-005",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -13897,6 +14032,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', fill_value=0)",
+              "theory_article_id": "theory-pivot-006",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -14003,6 +14139,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True)",
+              "theory_article_id": "theory-pivot-007",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -14109,6 +14246,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True, margins_name=total_label)",
+              "theory_article_id": "theory-pivot-008",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -14215,6 +14353,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', sort=False)",
+              "theory_article_id": "theory-pivot-009",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -14321,6 +14460,7 @@
               "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
               "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
               "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', observed=False)",
+              "theory_article_id": "theory-pivot-010",
               "required_tokens": [
                 "pivot_table"
               ],
@@ -14456,6 +14596,7 @@
               "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
               "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
               "solution_code": "result = values.astype('int64')",
+              "theory_article_id": "theory-dtypes-001",
               "required_tokens": [
                 "astype"
               ],
@@ -14512,6 +14653,7 @@
               "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
               "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
               "solution_code": "result = values.astype('float64')",
+              "theory_article_id": "theory-dtypes-002",
               "required_tokens": [
                 "astype"
               ],
@@ -14568,6 +14710,7 @@
               "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
               "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
               "solution_code": "result = values.astype('string')",
+              "theory_article_id": "theory-dtypes-003",
               "required_tokens": [
                 "astype"
               ],
@@ -14624,6 +14767,7 @@
               "setup_code": "import pandas as pd\nvalues = pd.Series([0, 1, 1])",
               "starter_code": "import pandas as pd\nvalues = pd.Series([0, 1, 1])\n\nresult = None",
               "solution_code": "result = values.astype('bool')",
+              "theory_article_id": "theory-dtypes-004",
               "required_tokens": [
                 "astype"
               ],
@@ -14680,6 +14824,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['score'] = result['score'].astype('int64')",
+              "theory_article_id": "theory-dtypes-005",
               "required_tokens": [
                 "copy",
                 "astype"
@@ -14745,6 +14890,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})\n\nresult = None",
               "solution_code": "result = df.astype({'count': 'int64', 'price': 'float64'})",
+              "theory_article_id": "theory-dtypes-006",
               "required_tokens": [
                 "astype"
               ],
@@ -14809,6 +14955,7 @@
               "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
               "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
               "solution_code": "result = values.astype('category')",
+              "theory_article_id": "theory-dtypes-007",
               "required_tokens": [
                 "astype"
               ],
@@ -14865,6 +15012,7 @@
               "setup_code": "import pandas as pd\nvalues = pd.Series([1, None, 3])",
               "starter_code": "import pandas as pd\nvalues = pd.Series([1, None, 3])\n\nresult = None",
               "solution_code": "result = values.astype('Int64')",
+              "theory_article_id": "theory-dtypes-008",
               "required_tokens": [
                 "astype"
               ],
@@ -14921,6 +15069,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult.index = result.index.astype('string')",
+              "theory_article_id": "theory-dtypes-009",
               "required_tokens": [
                 "copy",
                 "index"
@@ -14986,6 +15135,7 @@
               "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
               "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
               "solution_code": "result = values.astype('string')",
+              "theory_article_id": "theory-dtypes-010",
               "required_tokens": [
                 "astype"
               ],
@@ -15071,6 +15221,7 @@
               "setup_code": "import pandas as pd\ndates = ['2026-01-05', '2026-04-12', '2026-10-20']\ndate_format = '%Y-%m-%d'",
               "starter_code": "import pandas as pd\ndates = ['2026-01-05', '2026-04-12', '2026-10-20']\ndate_format = '%Y-%m-%d'\n\nresult = None",
               "solution_code": "result = pd.to_datetime(dates)",
+              "theory_article_id": "theory-datetime-001",
               "required_tokens": [
                 "to_datetime"
               ],
@@ -15126,6 +15277,7 @@
               "setup_code": "import pandas as pd\ndates = ['31/01/2026', '15/02/2026', '28/03/2026']\ndate_format = '%Y-%m-%d'",
               "starter_code": "import pandas as pd\ndates = ['31/01/2026', '15/02/2026', '28/03/2026']\ndate_format = '%Y-%m-%d'\n\nresult = None",
               "solution_code": "result = pd.to_datetime(dates, dayfirst=True)",
+              "theory_article_id": "theory-datetime-002",
               "required_tokens": [
                 "to_datetime"
               ],
@@ -15181,6 +15333,7 @@
               "setup_code": "import pandas as pd\ndates = ['2026-01-05', '2026-04-12', '2026-10-20']\ndate_format = '%Y-%m-%d'",
               "starter_code": "import pandas as pd\ndates = ['2026-01-05', '2026-04-12', '2026-10-20']\ndate_format = '%Y-%m-%d'\n\nresult = None",
               "solution_code": "result = pd.to_datetime(dates, format=date_format)",
+              "theory_article_id": "theory-datetime-003",
               "required_tokens": [
                 "to_datetime"
               ],
@@ -15236,6 +15389,7 @@
               "setup_code": "import pandas as pd\ndates = ['2026-01-05', 'bad', '2026-10-20']\ndate_format = '%Y-%m-%d'",
               "starter_code": "import pandas as pd\ndates = ['2026-01-05', 'bad', '2026-10-20']\ndate_format = '%Y-%m-%d'\n\nresult = None",
               "solution_code": "result = pd.to_datetime(dates, errors='coerce')",
+              "theory_article_id": "theory-datetime-004",
               "required_tokens": [
                 "to_datetime"
               ],
@@ -15291,6 +15445,7 @@
               "setup_code": "import pandas as pd\ntimestamps = [0, 86400, 172800]",
               "starter_code": "import pandas as pd\ntimestamps = [0, 86400, 172800]\n\nresult = None",
               "solution_code": "result = pd.to_datetime(timestamps, unit='s')",
+              "theory_article_id": "theory-datetime-005",
               "required_tokens": [
                 "to_datetime"
               ],
@@ -15345,6 +15500,7 @@
               "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
               "starter_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')\n\nresult = None",
               "solution_code": "result = dates.dt.year",
+              "theory_article_id": "theory-datetime-006",
               "required_tokens": [
                 "dt",
                 "year"
@@ -15403,6 +15559,7 @@
               "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
               "starter_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')\n\nresult = None",
               "solution_code": "result = dates.dt.month",
+              "theory_article_id": "theory-datetime-007",
               "required_tokens": [
                 "dt",
                 "month"
@@ -15461,6 +15618,7 @@
               "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
               "starter_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')\n\nresult = None",
               "solution_code": "result = dates.dt.day",
+              "theory_article_id": "theory-datetime-008",
               "required_tokens": [
                 "dt",
                 "day"
@@ -15519,6 +15677,7 @@
               "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
               "starter_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')\n\nresult = None",
               "solution_code": "result = dates.dt.day_name()",
+              "theory_article_id": "theory-datetime-009",
               "required_tokens": [
                 "dt",
                 "day_name"
@@ -15577,6 +15736,7 @@
               "setup_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')",
               "starter_code": "import pandas as pd\ndates = pd.Series(['2026-01-05T00:00:00.000', '2026-04-12T00:00:00.000', '2026-10-20T00:00:00.000'], dtype='datetime64[ns]')\n\nresult = None",
               "solution_code": "result = dates.dt.quarter",
+              "theory_article_id": "theory-datetime-010",
               "required_tokens": [
                 "dt",
                 "quarter"
@@ -15664,6 +15824,7 @@
               "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nvalues = pd.Series([1, None, None, 4])",
               "starter_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nvalues = pd.Series([1, None, None, 4])\n\nresult = None",
               "solution_code": "result = values.fillna(0)",
+              "theory_article_id": "theory-recipes-001",
               "required_tokens": [
                 "fillna"
               ],
@@ -15725,6 +15886,7 @@
               "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\ncities = pd.Series(['Москва', None, 'Тула'])",
               "starter_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\ncities = pd.Series(['Москва', None, 'Тула'])\n\nresult = None",
               "solution_code": "result = cities.fillna('Неизвестно')",
+              "theory_article_id": "theory-recipes-002",
               "required_tokens": [
                 "fillna"
               ],
@@ -15785,6 +15947,7 @@
               "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nscores = pd.Series([1, None, None, 4])",
               "starter_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nscores = pd.Series([1, None, None, 4])\n\nresult = None",
               "solution_code": "result = scores.fillna(fill_value)",
+              "theory_article_id": "theory-recipes-003",
               "required_tokens": [
                 "fillna"
               ],
@@ -15846,6 +16009,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['discount'] = result['discount'].fillna(0)",
+              "theory_article_id": "theory-recipes-004",
               "required_tokens": [
                 "copy",
                 "fillna"
@@ -15921,6 +16085,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['age'] = result['age'].fillna(result['age'].mean())",
+              "theory_article_id": "theory-recipes-005",
               "required_tokens": [
                 "copy",
                 "fillna"
@@ -15996,6 +16161,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})\n\nresult = None",
               "solution_code": "result = df.copy()\nresult['salary'] = result['salary'].fillna(result['salary'].median())",
+              "theory_article_id": "theory-recipes-006",
               "required_tokens": [
                 "copy",
                 "fillna"
@@ -16071,6 +16237,7 @@
               "setup_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})",
               "starter_code": "import pandas as pd\ndf = pd.DataFrame({'discount': [10, None, 0], 'age': [20, None, 40], 'salary': [50, None, 90], 'city': ['Москва', None, 'Тула'], 'score': [8, None, 6]})\n\nresult = None",
               "solution_code": "result = df.fillna({'city': 'Неизвестно', 'score': 0})",
+              "theory_article_id": "theory-recipes-007",
               "required_tokens": [
                 "fillna"
               ],
@@ -16145,6 +16312,7 @@
               "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nprices = pd.Series([1, None, None, 4])",
               "starter_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nprices = pd.Series([1, None, None, 4])\n\nresult = None",
               "solution_code": "result = prices.ffill()",
+              "theory_article_id": "theory-recipes-008",
               "required_tokens": [
                 "ffill"
               ],
@@ -16206,6 +16374,7 @@
               "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nprices = pd.Series([1, None, None, 4])",
               "starter_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nprices = pd.Series([1, None, None, 4])\n\nresult = None",
               "solution_code": "result = prices.bfill()",
+              "theory_article_id": "theory-recipes-009",
               "required_tokens": [
                 "bfill"
               ],
@@ -16267,6 +16436,7 @@
               "setup_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nvalues = pd.Series([1, None, None, 4])",
               "starter_code": "import pandas as pd\nfill_value = 7\nfill_limit = 1\nvalues = pd.Series([1, None, None, 4])\n\nresult = None",
               "solution_code": "result = values.fillna(0, limit=fill_limit)",
+              "theory_article_id": "theory-recipes-010",
               "required_tokens": [
                 "fillna"
               ],
@@ -16357,6 +16527,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [11, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [11, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot()",
+              "theory_article_id": "theory-pandas-plots-001",
               "required_tokens": [
                 "plot"
               ],
@@ -16488,6 +16659,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [12, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [12, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(y='sales')",
+              "theory_article_id": "theory-pandas-plots-002",
               "required_tokens": [
                 "plot"
               ],
@@ -16619,6 +16791,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [13, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [13, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(x='date', y='sales')",
+              "theory_article_id": "theory-pandas-plots-003",
               "required_tokens": [
                 "plot"
               ],
@@ -16750,6 +16923,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [14, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [14, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(x='category', y='sales', kind='bar')",
+              "theory_article_id": "theory-pandas-plots-004",
               "required_tokens": [
                 "plot"
               ],
@@ -16881,6 +17055,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [15, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [15, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(x='category', y='sales', kind='barh')",
+              "theory_article_id": "theory-pandas-plots-005",
               "required_tokens": [
                 "plot"
               ],
@@ -17012,6 +17187,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [16, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [16, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(y='score', kind='hist')",
+              "theory_article_id": "theory-pandas-plots-006",
               "required_tokens": [
                 "plot"
               ],
@@ -17143,6 +17319,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [17, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [17, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(y='sales', title=chart_title)",
+              "theory_article_id": "theory-pandas-plots-007",
               "required_tokens": [
                 "plot"
               ],
@@ -17274,6 +17451,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [18, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [18, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(y='sales', figsize=figure_size)",
+              "theory_article_id": "theory-pandas-plots-008",
               "required_tokens": [
                 "plot"
               ],
@@ -17405,6 +17583,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [19, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [19, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(y='sales', marker='o')",
+              "theory_article_id": "theory-pandas-plots-009",
               "required_tokens": [
                 "plot"
               ],
@@ -17536,6 +17715,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [20, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [20, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = df.plot(x='month', y=['plan', 'fact'])",
+              "theory_article_id": "theory-pandas-plots-010",
               "required_tokens": [
                 "plot"
               ],
@@ -17696,6 +17876,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [11, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [11, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales')",
+              "theory_article_id": "theory-seaborn-001",
               "required_tokens": [
                 "barplot"
               ],
@@ -17827,6 +18008,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [12, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [12, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', estimator='sum')",
+              "theory_article_id": "theory-seaborn-002",
               "required_tokens": [
                 "barplot"
               ],
@@ -17958,6 +18140,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [13, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [13, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', color=bar_color)",
+              "theory_article_id": "theory-seaborn-003",
               "required_tokens": [
                 "barplot"
               ],
@@ -18089,6 +18272,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [14, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [14, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', hue='region')",
+              "theory_article_id": "theory-seaborn-004",
               "required_tokens": [
                 "barplot"
               ],
@@ -18220,6 +18404,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [15, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [15, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', order=category_order)",
+              "theory_article_id": "theory-seaborn-005",
               "required_tokens": [
                 "barplot"
               ],
@@ -18351,6 +18536,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [16, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [16, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', hue='region', hue_order=region_order)",
+              "theory_article_id": "theory-seaborn-006",
               "required_tokens": [
                 "barplot"
               ],
@@ -18482,6 +18668,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [17, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [17, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', errorbar=None)",
+              "theory_article_id": "theory-seaborn-007",
               "required_tokens": [
                 "barplot"
               ],
@@ -18613,6 +18800,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [18, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [18, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='sales', y='category')",
+              "theory_article_id": "theory-seaborn-008",
               "required_tokens": [
                 "barplot"
               ],
@@ -18744,6 +18932,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [19, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [19, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='category', y='sales', hue='region', dodge=False)",
+              "theory_article_id": "theory-seaborn-009",
               "required_tokens": [
                 "barplot"
               ],
@@ -18875,6 +19064,7 @@
               "setup_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [20, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})",
               "starter_code": "import pandas as pd\nimport seaborn as sns\nchart_title = 'Продажи'\nfigure_size = [6, 4]\nbar_color = 'steelblue'\ncategory_order = ['C', 'B', 'A']\nregion_order = ['Юг', 'Север']\nstatus_order = ['new', 'hold', 'done']\ndf = pd.DataFrame({'date': ['2026-01', '2026-02', '2026-03', '2026-04'], 'month': [1, 2, 3, 4], 'category': ['A', 'B', 'A', 'C'], 'region': ['Север', 'Юг', 'Юг', 'Север'], 'sales': [20, 15, 8, 20], 'score': [6, 8, 7, 9], 'plan': [9, 12, 15, 18], 'fact': [8, 14, 13, 20], 'status': ['new', 'done', 'new', 'hold'], 'amount': [100, 200, 150, 80]})\n\nresult = None",
               "solution_code": "result = sns.barplot(data=df, x='status', y='amount', estimator='sum', order=status_order)",
+              "theory_article_id": "theory-seaborn-010",
               "required_tokens": [
                 "barplot"
               ],
@@ -19035,6 +19225,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [3, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [3, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(y)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-001",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19114,6 +19305,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [4, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [4, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-002",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19193,6 +19385,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [5, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [5, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, marker='o')\nresult = ax",
+              "theory_article_id": "theory-matplotlib-003",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19272,6 +19465,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [6, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [6, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, linestyle='--')\nresult = ax",
+              "theory_article_id": "theory-matplotlib-004",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19351,6 +19545,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [7, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [7, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, color=line_color)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-005",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19430,6 +19625,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [8, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [8, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, linewidth=line_width)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-006",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19509,6 +19705,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [9, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [9, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, alpha=line_alpha)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-007",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19588,6 +19785,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [10, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [10, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y, label=series_label)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-008",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19667,6 +19865,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [11, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [11, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, plan)\nax.plot(x, fact)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-009",
               "required_tokens": [
                 "subplots",
                 "plot"
@@ -19746,6 +19945,7 @@
               "setup_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [12, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'",
               "starter_code": "import pandas as pd\nimport matplotlib.pyplot as plt\nx = [1, 2, 3, 4]\ny = [12, 4, 3, 6]\nplan = [2, 4, 5, 7]\nfact = [1, 5, 4, 8]\nline_color = 'navy'\nline_width = 3\nline_alpha = 0.5\nseries_label = 'Продажи'\nchart_title = 'Динамика'\n\nresult = None",
               "solution_code": "fig, ax = plt.subplots()\nax.plot(x, y)\nax.set_title(chart_title)\nresult = ax",
+              "theory_article_id": "theory-matplotlib-010",
               "required_tokens": [
                 "subplots",
                 "plot"

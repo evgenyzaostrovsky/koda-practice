@@ -57,3 +57,14 @@ def test_progress_tracks_exact_exercise_ids():
         progress=client.get('/progress').json()
         start=next(module for module in progress['modules'] if module['slug']=='start')
         assert eid in progress['solved_ids'] and eid in start['solved_ids']
+def test_every_exercise_has_retrievable_theory():
+    with TestClient(app) as client:
+        modules=client.get('/modules').json()
+        exercises=[exercise for module in modules for topic in module['topics'] for exercise in topic['exercises']]
+        assert len(exercises)==200
+        for exercise in exercises:
+            response=client.get(f"/theory/{exercise['theory_article_id']}")
+            assert response.status_code==200
+            article=response.json()
+            assert article['id']==exercise['theory_article_id']
+            assert article['methods'][0]['documentationUrl'].startswith('https://')
