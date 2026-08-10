@@ -1,18 +1,11 @@
 import os
-from functools import lru_cache
 import httpx
-import jwt
 from fastapi import HTTPException,Request
 
 AUTH_ENABLED=os.environ.get('KODA_AUTH_ENABLED','false').lower()=='true'
 SUPABASE_URL=os.environ.get('SUPABASE_URL','').rstrip('/')
 SUPABASE_ANON_KEY=os.environ.get('SUPABASE_ANON_KEY','')
 AUDIENCE=os.environ.get('SUPABASE_JWT_AUDIENCE','authenticated')
-
-@lru_cache
-def jwks_client():
-    if not SUPABASE_URL: raise RuntimeError('SUPABASE_URL is required when auth is enabled')
-    return jwt.PyJWKClient(f'{SUPABASE_URL}/auth/v1/.well-known/jwks.json')
 
 def current_user(request:Request):
     if not AUTH_ENABLED:return None
@@ -21,10 +14,11 @@ def current_user(request:Request):
     if not header.startswith('Bearer '):raise HTTPException(401,'Требуется вход в аккаунт')
     token=header[7:]
     try:
-        key=jwks_client().get_signing_key_from_jwt(token).key
-        payload=jwt.decode(token,key,algorithms=['RS256','ES256'],audience=AUDIENCE,options={'require':['exp','sub']})
-    except Exception as exc:raise HTTPException(401,'Сессия недействительна или истекла') from exc
-    return {'id':payload['sub'],'token':token}
+        response=httpx.get(f'{SUPABASE_URL}/auth/v1/user',headers={'apikey':SUPABASE_ANON_KEY,'Authorization':f'Bearer {token}'},timeout=10)
+        payload=response.json() if response.status_code==200 else None
+    except Exception as exc:raise HTTPException(503,'Не удалось проверить сессию') from exc
+    if not payload or not payload.get('id'):raise HTTPException(401,'Сессия недействительна или истекла')
+    return {'id':payload['id'],'token':token}
 
 def rest(user,path,method='GET',json=None,params=None,prefer=None):
     headers={'apikey':SUPABASE_ANON_KEY,'Authorization':f"Bearer {user['token']}"}
