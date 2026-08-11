@@ -1,55 +1,233 @@
-/* Loaded after the shared theme so global navigation/button rules cannot
-   turn the compact sandbox mobile switcher into full-width white buttons. */
+/* Sandbox layout overrides are loaded after the shared theme. The workflow is
+   deliberately vertical at every viewport width: files -> code -> output. */
+body .sandbox-page {
+  display: block;
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+  padding-bottom: 48px;
+  background: #101010;
+}
+
+body .sandbox-head {
+  width: 100%;
+  height: auto;
+  min-height: 76px;
+  padding: 16px clamp(16px, 3vw, 32px);
+}
+
+body .sandbox-head h1 {
+  margin-top: 5px;
+}
+
+body .sandbox-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: min(100%, 1600px);
+  max-width: 1600px;
+  min-height: 0;
+  margin: 0 auto;
+  padding: 18px clamp(12px, 2vw, 28px) 0;
+}
+
+body .sandbox-files,
+body .sandbox-code,
+body .sandbox-output {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #303030;
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+body .sandbox-files {
+  flex-direction: column;
+  max-height: 180px;
+  padding: 10px 12px;
+  background: #171717;
+}
+
+body .sandbox-files .sandbox-panel-title {
+  height: 28px;
+  min-height: 28px;
+}
+
+body .sandbox-drop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 8px 12px;
+}
+
+body .sandbox-drop svg {
+  width: 17px;
+}
+
+body .sandbox-drop span {
+  margin-left: 5px;
+}
+
+body .sandbox-file-list {
+  display: flex;
+  gap: 8px;
+  margin-top: 9px;
+  padding-bottom: 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+body .sandbox-file-list article {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.55fr) auto minmax(160px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 min(680px, 90vw);
+  padding: 8px 10px;
+}
+
+body .sandbox-file-list article > small,
+body .sandbox-file-list article > code {
+  margin: 0;
+}
+
+body .sandbox-file-list article > div {
+  flex-wrap: nowrap;
+}
+
+body .sandbox-code {
+  flex: none;
+  flex-direction: column;
+  height: clamp(380px, 52vh, 620px);
+  min-height: 380px;
+  background: #1e1e1e;
+}
+
+body .sandbox-toolbar {
+  gap: 14px;
+  min-height: 50px;
+  height: auto;
+  padding: 7px 10px;
+}
+
+body .sandbox-toolbar > div {
+  margin-left: auto;
+}
+
+body .sandbox-output {
+  flex-direction: column;
+  min-height: 112px;
+  max-height: none;
+  padding: 12px 14px 16px;
+  overflow: visible;
+  background: #151515;
+}
+
+body .sandbox-output .sandbox-empty {
+  margin: 18px 8px;
+}
+
+body .sandbox-result {
+  width: 100%;
+  min-width: 0;
+}
+
+body .sandbox-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+}
+
+body .sandbox-plot {
+  width: auto;
+  max-width: 100%;
+}
+
+body .sandbox-mobile-tabs {
+  display: none;
+}
+
 @media (max-width: 900px) {
-  body .sandbox-page > .sandbox-mobile-tabs {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: 40px;
-    gap: 0;
-    width: 100%;
-    height: 40px;
-    min-height: 40px;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background: #171717;
-    border: 0;
-    border-bottom: 1px solid #333;
-    border-radius: 0;
+  body .sandbox-page {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
   }
 
-  body .sandbox-page > .sandbox-mobile-tabs > button {
+  body .sandbox-head {
+    min-height: 68px;
+    padding: 13px 14px 13px 54px;
+  }
+
+  body .sandbox-grid {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    min-width: 0;
-    height: 40px;
-    min-height: 40px;
-    margin: 0;
-    padding: 0 10px;
-    color: #858b94;
-    font: 600 10px/1 Inter, sans-serif;
-    background: #171717;
-    border: 0;
-    border-right: 1px solid #292929;
-    border-radius: 0;
-    box-shadow: none;
+    padding: 10px 8px 0;
+    gap: 10px;
   }
 
-  body .sandbox-page > .sandbox-mobile-tabs > button:last-child {
-    border-right: 0;
+  body .sandbox-files,
+  body .sandbox-code,
+  body .sandbox-output,
+  body .sandbox-files.mobile-files,
+  body .sandbox-files.mobile-code,
+  body .sandbox-files.mobile-result,
+  body .sandbox-code.mobile-files,
+  body .sandbox-code.mobile-code,
+  body .sandbox-code.mobile-result,
+  body .sandbox-output.mobile-files,
+  body .sandbox-output.mobile-code,
+  body .sandbox-output.mobile-result {
+    display: flex;
   }
 
-  body .sandbox-page > .sandbox-mobile-tabs > button.active {
-    color: #9ac8ff;
-    background: #192536;
-    border-bottom: 2px solid #3b8df4;
+  body .sandbox-files {
+    max-height: 180px;
+  }
+
+  body .sandbox-file-list article {
+    grid-template-columns: minmax(110px, 1fr) auto;
+    flex-basis: min(430px, 88vw);
+  }
+
+  body .sandbox-file-list article > code,
+  body .sandbox-file-list article > div {
+    grid-column: 1 / -1;
+  }
+
+  body .sandbox-code {
+    height: 440px;
+    min-height: 360px;
+  }
+
+  body .sandbox-toolbar {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  body .sandbox-toolbar > div {
+    width: 100%;
+    margin-left: 0;
+    overflow-x: auto;
+  }
+
+  body .sandbox-output {
+    min-height: 104px;
   }
 }
 
-@media (min-width: 901px) {
-  body .sandbox-page > .sandbox-mobile-tabs {
+@media (max-width: 560px) {
+  body .sandbox-drop span {
     display: none;
+  }
+
+  body .sandbox-file-list article > div {
+    overflow-x: auto;
+  }
+
+  body .sandbox-toolbar button {
+    white-space: nowrap;
   }
 }
