@@ -4,7 +4,10 @@ from pathlib import Path
 
 ROOT=Path(__file__).parents[3]
 sys.path.insert(0,str(ROOT/'scripts'))
+sys.path.insert(0,str(ROOT/'apps/api'))
 from content_pipeline import extract_source, normalized_solution
+from fastapi.testclient import TestClient
+from app.main import app
 
 
 def test_existing_bank_is_fully_linked_to_stable_knowledge_units():
@@ -30,3 +33,16 @@ def test_duplicate_normalization_ignores_renamed_data_and_literals():
     left="result = orders.groupby('city')['sales'].sum()"
     right="answer = frame.groupby('region')['revenue'].sum()"
     assert normalized_solution(left)==normalized_solution(right)
+
+
+def test_knowledge_api_publishes_complete_materials():
+    with TestClient(app) as client:
+        units=client.get('/knowledge').json()
+        assert len(units)==20
+        detail=client.get(f"/knowledge/{units[0]['slug']}")
+        assert detail.status_code==200
+        material=detail.json()
+        assert material['cheatSheet']['items']
+        assert material['article']['sections']
+        assert material['relatedTaskIds']
+        assert client.get('/knowledge/not-a-topic').status_code==404

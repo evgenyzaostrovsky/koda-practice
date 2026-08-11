@@ -8,10 +8,54 @@ export type Exercise = {
   setup_code: string;
   starter_code: string;
   theory_article_id: string;
+  knowledge_unit_id: string;
   dataset: Record<string, unknown>;
   hints: Array<{ level: number; text: string }>;
   is_control: boolean;
   xp: number;
+};
+export type KnowledgeMethod = {
+  id: string;
+  name: string;
+  description: string;
+  syntax: string;
+  example: string;
+  parameters: Array<{ name: string; description: string }>;
+  result: string;
+  errors: string[];
+  nuances: string[];
+  documentationUrl: string;
+};
+export type KnowledgeUnit = {
+  id: string;
+  slug: string;
+  topicId: string;
+  title: string;
+  description: string;
+  category: string;
+  concepts: string[];
+  methods: string[];
+  functions: string[];
+  attributes: string[];
+  operators: string[];
+  keywords: string[];
+  cheatSheet: { summary: string; items: KnowledgeMethod[] };
+  article: {
+    lead: string;
+    sections: Array<{
+      id: string;
+      title: string;
+      paragraphs: string[];
+      syntax: string;
+      examples: string[];
+      errors: string[];
+      nuances: string[];
+    }>;
+    summary: string;
+  };
+  documentationLinks: Array<{ label: string; url: string }>;
+  relatedTaskIds: string[];
+  version: number;
 };
 export type TheoryMethod = {
   name: string;

@@ -18,7 +18,7 @@ Identifiers are permanent strings. Ordering is presentation metadata and must ne
 3. Run `npm run content:inspect -- --source <path>` to produce a normalized inventory and compare it with the current coverage.
 4. Decide for every extracted skill whether to reuse, extend, add, replace, or skip it. Compare learning objectives, normalized solution AST, required methods, expected result, instructions, action sequence, and prepared data. Renamed literals are not novelty.
 5. Create or update a stable KnowledgeUnit. Update an existing unit when the source only expands an existing method or scenario.
-6. Write one or more theory articles that cover only the required methods. Include the concept, syntax, relevant parameters, a different-data example, nuances, common mistakes, and an exact official documentation page. Theory must not contain a task’s full solution.
+6. Write one or more theory articles that cover only the required methods. From the same KnowledgeUnit data, synchronously build a compact `cheatSheet` and an explanatory `article`; they share stable section anchors and official links. Include the concept, syntax, relevant parameters, a different-data example, nuances, common mistakes, and an exact official documentation page. Theory must not contain a task’s full solution.
 7. Create up to ten genuinely different learning steps. Prefer the progression: basic recognition, basic syntax, prepared-data use, important parameter, edge case, common-error correction, combination with prior knowledge, applied scenario, choice between similar approaches, integrated task. Stop below ten when the source cannot support ten distinct objectives.
 8. Complete every task atomically: stable ID, KnowledgeUnit link, objective, difficulty, concepts, required methods, setup, starter and solution code, validation, three progressive hints, completion summary, theory link, and documentation URLs.
 9. Ensure `setup_code` creates every input object and file. Reference and user code must run in the same reset environment. CSV tasks receive a valid `csv_path`.
@@ -78,4 +78,3 @@ Reusable request for a future session:
 > Add the following material to the KODA Practice knowledge bank through the Content Pipeline. Analyze existing coverage, update theory, create up to ten unique progressively harder tasks, add hints, completion summaries, and exact official documentation links, then run the content audit and all checks.
 
 If a task must be removed or replaced, stop and define a user-progress migration first.
-

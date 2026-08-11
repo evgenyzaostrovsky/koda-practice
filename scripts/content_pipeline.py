@@ -73,13 +73,31 @@ def theory_urls(article: dict) -> list[str]:
     return list(dict.fromkeys(method["documentationUrl"] for method in article.get("methods", [])))
 
 
-def build_unit(topic: dict, old: dict | None = None) -> dict:
+def build_unit(topic: dict, theory: dict, old: dict | None = None) -> dict:
     task_ids = [exercise["id"] for exercise in topic["exercises"]]
     calls = list(dict.fromkeys(call for exercise in topic["exercises"] for call in code_calls(exercise["solution_code"])))
     concepts = list(dict.fromkeys([topic.get("syntax", ""), *topic.get("methods", [])]))
+    articles=[theory[f"theory-{task_id}"] for task_id in task_ids]
+    unique_methods={}
+    for article in articles:
+        for method in article.get("methods",[]):
+            unique_methods.setdefault(method["name"],method)
+    method_items=[]
+    for index,method in enumerate(unique_methods.values(),1):
+        method_items.append({
+            "id":f"method-{index}","name":method["name"],"description":method["description"],
+            "syntax":method["syntax"],"example":method["example"],"parameters":method.get("keyParameters",[]),
+            "result":method.get("parameterGuide",""),"errors":method.get("notes",[])[:1],
+            "nuances":method.get("notes",[])[1:],"documentationUrl":method["documentationUrl"],
+        })
+    category="Seaborn" if topic["slug"]=="seaborn" else "Matplotlib" if topic["slug"]=="matplotlib" else "pandas"
+    documentation=[{"label":method["documentationLabel"],"url":method["documentationUrl"]} for method in unique_methods.values()]
     return {
         "id": f"ku-{topic['slug']}",
+        "slug":topic["slug"],
         "title": topic["title"],
+        "description":topic["summary"],
+        "category":category,
         "topicId": str(topic["id"]),
         "sourceTitle": (old or {}).get("sourceTitle", "KODA Practice task bank"),
         "sourceVersion": (old or {}).get("sourceVersion", "2"),
@@ -88,6 +106,12 @@ def build_unit(topic: dict, old: dict | None = None) -> dict:
         "functions": [name for name in calls if name in {"read_csv", "merge", "to_datetime", "barplot", "subplots"}],
         "attributes": [name for name in ("shape", "index", "columns", "dtypes", "dt") if any(name in exercise["solution_code"] for exercise in topic["exercises"])],
         "operators": [operator for operator in ("+", "-", "*", "/", "==", ">", "<") if any(operator in exercise["solution_code"] for exercise in topic["exercises"])],
+        "keywords":list(dict.fromkeys([topic["title"],topic["slug"],*calls,*topic.get("methods",[])])),
+        "cheatSheet":{"summary":topic["summary"],"items":method_items},
+        "article":{"lead":topic["theory"],"sections":[{"id":item["id"],"title":item["name"],"paragraphs":[item["description"],item["result"]],"syntax":item["syntax"],"examples":[item["example"]],"errors":item["errors"],"nuances":item["nuances"]} for item in method_items],"summary":topic["summary"]},
+        "documentationLinks":documentation,
+        "relatedTaskIds":task_ids,
+        "version":1,
         "theoryArticleIds": [f"theory-{task_id}" for task_id in task_ids],
         "taskIds": task_ids,
         "createdAt": (old or {}).get("createdAt", CREATED_AT),
@@ -101,7 +125,7 @@ def sync() -> None:
     previous = {unit["id"]: unit for unit in load_json(UNITS_PATH).get("units", [])} if UNITS_PATH.exists() else {}
     units = []
     for topic in topics(catalog):
-        unit = build_unit(topic, previous.get(f"ku-{topic['slug']}"))
+        unit = build_unit(topic, theory, previous.get(f"ku-{topic['slug']}"))
         units.append(unit)
         for exercise in topic["exercises"]:
             article = theory[f"theory-{exercise['id']}"]
@@ -161,13 +185,26 @@ def audit() -> None:
     if len(units) != len(topics(catalog)):
         errors.append(f"expected {len(topics(catalog))} knowledge units, got {len(units)}")
     unit_ids = [unit["id"] for unit in units]
+    unit_slugs = [unit.get("slug") for unit in units]
     if len(unit_ids) != len(set(unit_ids)):
         errors.append("knowledge unit IDs are not unique")
+    if len(unit_slugs) != len(set(unit_slugs)) or any(not slug for slug in unit_slugs):
+        errors.append("knowledge unit slugs are missing or duplicated")
     objectives = Counter(exercise["learning_objective"] for exercise in task_by_id.values())
     for objective, count in objectives.items():
         if count > 1:
             errors.append(f"duplicate learning objective ({count}): {objective}")
     for unit in units:
+        if not unit.get("cheatSheet",{}).get("items") or not unit.get("article",{}).get("sections"):
+            errors.append(f"{unit['id']}: cheat sheet and article must be non-empty")
+        if not unit.get("documentationLinks") or not unit.get("relatedTaskIds"):
+            errors.append(f"{unit['id']}: documentation and related tasks are required")
+        if [item.get("id") for item in unit.get("cheatSheet",{}).get("items",[])] != [section.get("id") for section in unit.get("article",{}).get("sections",[])]:
+            errors.append(f"{unit['id']}: cheat-sheet and article anchors differ")
+        for link in unit.get("documentationLinks",[]):
+            parsed=urlparse(link.get("url",""))
+            if parsed.hostname not in ALLOWED_DOC_HOSTS:
+                errors.append(f"{unit['id']}: invalid knowledge documentation URL")
         for task_id in unit.get("taskIds", []):
             if task_id not in task_by_id:
                 errors.append(f"{unit['id']}: missing task {task_id}")

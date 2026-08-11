@@ -7,7 +7,7 @@ Whenever new learning material is added or an existing source is expanded, use t
 A learning material is considered integrated only when all of the following are created or updated together:
 
 - a stable `KnowledgeUnit` entry;
-- theory articles;
+- theory articles plus synchronized `cheatSheet` and `article` representations in the KnowledgeUnit;
 - a useful progression of up to ten non-duplicate tasks;
 - three task-specific hints per task;
 - an individual `completion_summary` per task;
@@ -24,4 +24,3 @@ Required command before committing any content change:
 ```bash
 npm run content:audit
 ```
-

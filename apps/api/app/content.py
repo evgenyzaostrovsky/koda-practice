@@ -5,6 +5,9 @@ ROOT=Path(__file__).parents[3]
 CATALOG=json.loads((ROOT/'content/catalog.json').read_text(encoding='utf-8'))
 THEORY_BANK=json.loads((ROOT/'content/theory_bank.json').read_text(encoding='utf-8'))
 THEORY_ARTICLES=THEORY_BANK['articles']
+KNOWLEDGE_BANK=json.loads((ROOT/'content/knowledge_units.json').read_text(encoding='utf-8'))
+KNOWLEDGE_UNITS=KNOWLEDGE_BANK['units']
+KNOWLEDGE_BY_SLUG={unit['slug']:unit for unit in KNOWLEDGE_UNITS}
 MODULES=CATALOG['modules']
 TOPICS={t['slug']:t for m in MODULES for t in m['topics']}
 EXERCISES={e['id']:e for t in TOPICS.values() for e in t['exercises']}
@@ -13,6 +16,7 @@ def validate_catalog():
     required={'id','topic_id','title','difficulty','instructions','dataset','setup_code','starter_code','expected_type','solution_code','theory_article_id','knowledge_unit_id','concepts','required_methods','documentation_urls','required_tokens','tests','hints','learning_objective','completion_summary','explanation','xp'}
     if CATALOG.get('bank_version')!=2: raise ValueError('Unsupported content bank version')
     if len(TOPICS)!=20 or len(EXERCISES)!=200: raise ValueError('Catalog must contain 20 topics and 200 exercises')
+    if len(KNOWLEDGE_UNITS)!=len(TOPICS): raise ValueError('Every topic must have a knowledge unit')
     for topic in TOPICS.values():
         if len(topic['exercises'])!=10: raise ValueError(f"{topic['slug']}: expected 10 exercises")
         for exercise in topic['exercises']:

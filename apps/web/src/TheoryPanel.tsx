@@ -1,13 +1,18 @@
 import { useEffect, useRef } from "react";
 import { BookOpen, ExternalLink, X } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { TheoryArticle } from "./types";
 
 export function TheoryPanel({
   article,
   onClose,
+  fullHref,
+  onOpenFull,
 }: {
   article: TheoryArticle;
   onClose: () => void;
+  fullHref: string;
+  onOpenFull?: () => void;
 }) {
   const closeRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -91,6 +96,13 @@ export function TheoryPanel({
               </a>
             </section>
           ))}
+          <Link
+            className="theory-full-link"
+            to={fullHref}
+            onClick={onOpenFull ?? onClose}
+          >
+            Открыть полностью в Базе знаний
+          </Link>
         </div>
       </aside>
     </div>

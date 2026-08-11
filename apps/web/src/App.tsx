@@ -38,6 +38,7 @@ import {
   CheckCircle2,
   Circle,
   LockKeyhole,
+  Layers3,
 } from "lucide-react";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { api } from "./api";
@@ -53,6 +54,7 @@ import type { TheoryArticle } from "./types";
 import { ProfilePage } from "./ProfilePage";
 import { BrandMark } from "./BrandMark";
 import { TheoryPanel } from "./TheoryPanel";
+import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
 const modulesQ = () => api<Module[]>("/modules");
 const progressQ = () => api<Progress>("/progress");
 function Layout() {
@@ -61,6 +63,7 @@ function Layout() {
       () => localStorage.getItem("koda:sidebar") === "collapsed",
     );
   const { pathname } = useLocation();
+  const lastPracticeTask = loadLastTask();
   const focus = pathname.startsWith("/practice/");
   const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
   const toggle = () =>
@@ -102,8 +105,15 @@ function Layout() {
             <nav>
               {[
                 [Home, "Главная", "/"],
-                [Code2, "Практика", "/catalog"],
-                [BookOpen, "Темы", "/catalog"],
+                [
+                  Code2,
+                  "Практика",
+                  lastPracticeTask
+                    ? `/practice/${lastPracticeTask}`
+                    : "/catalog",
+                ],
+                [Layers3, "Темы", "/catalog"],
+                [BookOpen, "База знаний", "/knowledge"],
                 [AlertTriangle, "Ошибки", "/errors"],
                 [ChartNoAxesCombined, "Прогресс", "/progress"],
                 [Circle, "Профиль", "/profile"],
@@ -146,6 +156,11 @@ function Layout() {
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/topics/:slug" element={<TopicPage />} />
           <Route path="/practice/:eid" element={<Practice />} />
+          <Route path="/knowledge" element={<KnowledgeIndex />} />
+          <Route
+            path="/knowledge/:articleSlug"
+            element={<KnowledgeArticle />}
+          />
           <Route path="/errors" element={<Errors />} />
           <Route path="/progress" element={<ProgressPage />} />
           <Route path="/profile" element={<ProfilePage />} />
@@ -1171,7 +1186,15 @@ function Practice() {
         </section>
       </div>
       {theory && (
-        <TheoryPanel article={theory} onClose={() => setTheory(null)} />
+        <TheoryPanel
+          article={theory}
+          fullHref={`/knowledge/${e.knowledge_unit_id.replace(/^ku-/, "")}`}
+          onOpenFull={() => {
+            persist();
+            setTheory(null);
+          }}
+          onClose={() => setTheory(null)}
+        />
       )}
     </div>
   );
