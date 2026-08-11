@@ -39,6 +39,7 @@ import {
   Circle,
   LockKeyhole,
   Layers3,
+  FlaskConical,
 } from "lucide-react";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { api } from "./api";
@@ -55,6 +56,7 @@ import { ProfilePage } from "./ProfilePage";
 import { BrandMark } from "./BrandMark";
 import { TheoryPanel } from "./TheoryPanel";
 import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
+import { Sandbox } from "./Sandbox";
 const modulesQ = () => api<Module[]>("/modules");
 const progressQ = () => api<Progress>("/progress");
 function Layout() {
@@ -114,6 +116,7 @@ function Layout() {
                 ],
                 [Layers3, "Темы", "/catalog"],
                 [BookOpen, "База знаний", "/knowledge"],
+                [FlaskConical, "Песочница", "/sandbox"],
                 [AlertTriangle, "Ошибки", "/errors"],
                 [ChartNoAxesCombined, "Прогресс", "/progress"],
                 [Circle, "Профиль", "/profile"],
@@ -157,6 +160,7 @@ function Layout() {
           <Route path="/topics/:slug" element={<TopicPage />} />
           <Route path="/practice/:eid" element={<Practice />} />
           <Route path="/knowledge" element={<KnowledgeIndex />} />
+          <Route path="/sandbox" element={<Sandbox />} />
           <Route
             path="/knowledge/:articleSlug"
             element={<KnowledgeArticle />}

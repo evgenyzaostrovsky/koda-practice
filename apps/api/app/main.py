@@ -3,7 +3,8 @@ import ast
 import json
 import os
 from pathlib import Path
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, UploadFile, File
+from fastapi.responses import Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from starlette.exceptions import HTTPException as StarletteHTTPException
@@ -12,6 +13,7 @@ from .content import MODULES,TOPICS,EXERCISES,THEORY_ARTICLES,KNOWLEDGE_UNITS,KN
 from .db import init_db,connect,now
 from .runner import run,explain,compare_results,warmup
 from .auth_backend import AUTH_ENABLED,current_user,record_attempt,rest
+from .sandbox_storage import create_file, delete_file, file_content, list_files, rename_file
 
 class ApiPrefixMiddleware:
     def __init__(self,app): self.app=app
@@ -43,6 +45,7 @@ def startup(): init_db(); app.state.runner=warmup()
 EXPECTED_RESULTS={}
 class CodeIn(BaseModel): exercise_id:str; code:str
 class ReviewIn(BaseModel): result:str='success'
+class SandboxRenameIn(BaseModel): name:str
 
 def used_methods(code:str)->set[str]:
     try: tree=ast.parse(code)
@@ -84,6 +87,23 @@ def knowledge_detail(slug:str):
     unit=KNOWLEDGE_BY_SLUG.get(slug)
     if not unit: raise HTTPException(404,'Материал не найден')
     return unit
+@app.get('/sandbox/files')
+def sandbox_files(request:Request):
+    return list_files(current_user(request))
+@app.post('/sandbox/files',status_code=201)
+async def sandbox_upload(request:Request,file:UploadFile=File(...)):
+    return await create_file(current_user(request),file)
+@app.get('/sandbox/files/{file_id}/content')
+def sandbox_content(file_id:str,request:Request):
+    content,name=file_content(current_user(request),file_id)
+    return Response(content,media_type='text/csv',headers={'Content-Disposition':f'attachment; filename="{name.encode("ascii","ignore").decode() or "dataset.csv"}"'})
+@app.patch('/sandbox/files/{file_id}')
+def sandbox_rename(file_id:str,body:SandboxRenameIn,request:Request):
+    return rename_file(current_user(request),file_id,body.name)
+@app.delete('/sandbox/files/{file_id}',status_code=204)
+def sandbox_delete(file_id:str,request:Request):
+    delete_file(current_user(request),file_id)
+    return Response(status_code=204)
 @app.post('/executions/run')
 def execute(body:CodeIn,request:Request):
     current_user(request)

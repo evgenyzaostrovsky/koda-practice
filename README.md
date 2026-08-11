@@ -1,5 +1,7 @@
 # KODA Practice
 
+The authenticated `/sandbox` route provides free Python/pandas practice in an isolated browser Pyodide Worker with private persistent CSV files. See [docs/sandbox.md](docs/sandbox.md) for architecture, migration, API, limits, and local setup.
+
 Локальный учебный тренажёр pandas: 20 модулей, 60 задач, настоящий запуск Python-кода, автоматическая проверка, подсказки, повторения и прогресс в SQLite. Внешние API и аккаунты не требуются.
 
 ## Запуск

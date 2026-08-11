@@ -28,3 +28,5 @@ npm run content:audit
 The cheat sheet is not a shortened article. Every cheat-sheet entry contains only a method or technique name, one short sentence describing it, one example of at most three lines, and an optional exact official documentation link. Detailed explanations, parameters, errors, nuances, scenarios, and conclusions belong to the article.
 
 An article belongs to the complete KnowledgeUnit, never to an individual task. It must substantively cover every important cheat-sheet entry through coherent teaching sections, include progressive examples with expected results, and show concrete incorrect code with reasons and corrections. Task-specific wording such as “in this task”, numbered variants, prepared runtime objects, or assigning to `result` is forbidden in standalone knowledge-base articles.
+
+Arbitrary Python from the free-practice sandbox must run only in its isolated browser Pyodide Web Worker. Never move sandbox execution into the main FastAPI process without a separately designed hardened isolation boundary. User datasets stay in private persistent Storage and are exposed to Python only through logical `/datasets/...` paths.
