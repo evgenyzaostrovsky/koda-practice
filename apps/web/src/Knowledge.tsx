@@ -304,20 +304,27 @@ export function KnowledgeArticle() {
                 {section.paragraphs.map((paragraph) => (
                   <p key={paragraph}>{paragraph}</p>
                 ))}
-                <pre>
-                  <code>{section.syntax}</code>
-                </pre>
+                {section.syntax && (
+                  <pre><code>{section.syntax}</code></pre>
+                )}
                 {section.examples.map((example) => (
-                  <pre key={example}>
-                    <code>{example}</code>
-                  </pre>
+                  <div className="article-example" key={example.code}>
+                    <pre><code>{example.code}</code></pre>
+                    <p>{example.explanation}</p>
+                    <div><b>Ожидаемый результат</b><span>{example.result}</span></div>
+                  </div>
                 ))}
                 {section.errors.length > 0 && (
                   <>
                     <h3>Типичные ошибки</h3>
                     <ul>
                       {section.errors.map((error) => (
-                        <li key={error}>{error}</li>
+                        <li className="article-error" key={error.wrongCode}>
+                          <pre><code>{error.wrongCode}</code></pre>
+                          <p>{error.why}</p>
+                          <b>Исправление</b>
+                          <pre><code>{error.correctCode}</code></pre>
+                        </li>
                       ))}
                     </ul>
                   </>

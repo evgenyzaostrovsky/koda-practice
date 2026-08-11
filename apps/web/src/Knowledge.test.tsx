@@ -38,8 +38,15 @@ const unit = {
         id: "method-1",
         title: "groupby",
         paragraphs: ["Метод разделяет данные."],
+        covers: ["cheat-groupby-001"],
         syntax: "df.groupby('city')",
-        examples: ["orders.groupby('region').sum()"],
+        examples: [
+          {
+            code: "orders.groupby('region').sum()",
+            result: "Суммы по регионам",
+            explanation: "Группирует строки",
+          },
+        ],
         errors: [],
         nuances: [],
       },

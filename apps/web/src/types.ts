@@ -43,9 +43,10 @@ export type KnowledgeUnit = {
       id: string;
       title: string;
       paragraphs: string[];
-      syntax: string;
-      examples: string[];
-      errors: string[];
+      covers: string[];
+      syntax: string | null;
+      examples: Array<{ code: string; result: string; explanation: string }>;
+      errors: Array<{ wrongCode: string; why: string; correctCode: string }>;
       nuances: string[];
     }>;
     summary: string;
