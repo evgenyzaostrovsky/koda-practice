@@ -31,23 +31,77 @@
         "pd.DataFrame()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на pd.DataFrame()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "DataFrame",
-            "description": "Конструктор DataFrame превращает словарь, записи или двумерные строки в таблицу. Форма входа определяет строки и столбцы, а явные columns и index управляют схемой и метками. Перед созданием полезно проверить одинаковую длину столбцов и соответствие числа названий ширине строк. В этом варианте учебная цель — применить pd.dataframe(data) в сценарии «словарь списков» и получить результат нужной структуры Практический ориентир — приём pd.DataFrame(data): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "pd.DataFrame(data)  # общий вид приёма",
-            "example": "frame = pd.DataFrame({'item': ['A', 'B'], 'qty': [2, 5]})",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-start-001",
+            "group": "Создание таблиц",
+            "name": "pd.DataFrame(data)",
+            "kind": "function",
+            "description": "Дан словарь data с ключами name и score.",
+            "example": "pd.DataFrame(data)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
+          },
+          {
+            "id": "cheat-start-002",
+            "group": "Создание таблиц",
+            "name": "DataFrame.from_records()",
+            "kind": "method",
+            "description": "Дан список словарей records.",
+            "example": "pd.DataFrame.from_records(records)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
+          },
+          {
+            "id": "cheat-start-003",
+            "group": "Создание таблиц",
+            "name": "pd.DataFrame()",
+            "kind": "operator",
+            "description": "Даны строки rows и имена column_names.",
+            "example": "pd.DataFrame(rows, columns=column_names)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
+          },
+          {
+            "id": "cheat-start-005",
+            "group": "Создание таблиц",
+            "name": "index=",
+            "kind": "pattern",
+            "description": "Создайте DataFrame из data и используйте список row_labels как индекс.",
+            "example": "pd.DataFrame(data, index=row_labels)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
+          },
+          {
+            "id": "cheat-start-006",
+            "group": "Создание таблиц",
+            "name": "DataFrame.from_records() + columns=",
+            "kind": "operator",
+            "description": "Дан список строк rows и список названий column_names.",
+            "example": "pd.DataFrame.from_records(rows, columns=column_names)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
+          },
+          {
+            "id": "cheat-start-007",
+            "group": "Создание таблиц",
+            "name": "pd.DataFrame()",
+            "kind": "pattern",
+            "description": "Создайте пустой DataFrame со столбцами из column_names в заданном порядке.",
+            "example": "pd.DataFrame(columns=column_names)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
+          },
+          {
+            "id": "cheat-start-008",
+            "group": "Создание таблиц",
+            "name": "pd.DataFrame()",
+            "kind": "pattern",
+            "description": "Дана Series scores.",
+            "example": "pd.DataFrame({'score': scores})",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
+          },
+          {
+            "id": "cheat-start-010",
+            "group": "Создание таблиц",
+            "name": "pd.DataFrame()",
+            "kind": "function",
+            "description": "Из records создайте DataFrame, задайте порядок столбцов через column_order и индекс через row_labels.",
+            "example": "pd.DataFrame(records, columns=column_order, index=row_labels)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html"
           }
         ]
@@ -156,23 +210,86 @@
         "pd.read_csv()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на pd.read_csv()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "read_csv",
-            "description": "read_csv читает текстовый табличный файл и возвращает DataFrame. Разделитель, заголовок, имена столбцов, индекс, типы, даты и обозначения пропусков задаются параметрами чтения. Эти параметры лучше задавать явно, когда формат файла отличается от стандартного CSV. В этом варианте учебная цель — применить pd.read_csv(csv_path) в сценарии «обычный csv» и получить результат нужной структуры Практический ориентир — приём pd.read_csv(csv_path): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "pd.read_csv(csv_path)  # общий вид приёма",
-            "example": "report = pd.read_csv(report_path, sep=';')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-reading-001",
+            "group": "Чтение файлов",
+            "name": "pd.read_csv(csv_path)",
+            "kind": "function",
+            "description": "Прочитайте файл по пути csv_path с запятой-разделителем и заголовком в первой строке.",
+            "example": "pd.read_csv(csv_path)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-002",
+            "group": "Чтение файлов",
+            "name": "sep=",
+            "kind": "pattern",
+            "description": "Прочитайте csv_path, где значения разделены ;.",
+            "example": "pd.read_csv(csv_path, sep=';')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-004",
+            "group": "Чтение файлов",
+            "name": "header=None",
+            "kind": "pattern",
+            "description": "Прочитайте csv_path, в котором нет строки с названиями столбцов.",
+            "example": "pd.read_csv(csv_path, header=None)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-005",
+            "group": "Чтение файлов",
+            "name": "names=",
+            "kind": "pattern",
+            "description": "Прочитайте файл без заголовка и назначьте названия из списка column_names.",
+            "example": "pd.read_csv(csv_path, header=None, names=column_names)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-006",
+            "group": "Чтение файлов",
+            "name": "usecols=",
+            "kind": "pattern",
+            "description": "Прочитайте из csv_path только столбцы, перечисленные в needed_columns.",
+            "example": "pd.read_csv(csv_path, usecols=needed_columns)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-007",
+            "group": "Чтение файлов",
+            "name": "index_col=",
+            "kind": "pattern",
+            "description": "Прочитайте CSV и сделайте столбец id индексом DataFrame.",
+            "example": "pd.read_csv(csv_path, index_col='id')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-008",
+            "group": "Чтение файлов",
+            "name": "dtype=",
+            "kind": "pattern",
+            "description": "Прочитайте CSV так, чтобы столбец client_id имел строковый тип и ведущие нули не потерялись.",
+            "example": "pd.read_csv(csv_path, dtype={'client_id': 'string'})",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-009",
+            "group": "Чтение файлов",
+            "name": "parse_dates=",
+            "kind": "pattern",
+            "description": "Прочитайте CSV и сразу преобразуйте столбец date в datetime.",
+            "example": "pd.read_csv(csv_path, parse_dates=['date'])",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+          },
+          {
+            "id": "cheat-reading-010",
+            "group": "Чтение файлов",
+            "name": "na_values=",
+            "kind": "pattern",
+            "description": "Прочитайте CSV, считая строки \"нет\" и \"-\" пропущенными значениями.",
+            "example": "pd.read_csv(csv_path, na_values=['нет', '-'])",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
           }
         ]
@@ -272,176 +389,50 @@
         "выбор через `[]"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на выбор через `[]",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
+            "id": "cheat-columns-001",
+            "group": "Выбор столбцов",
             "name": "df[\"name\"]",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить df[\"name\"] в сценарии «один столбец как series» и получить результат нужной структуры Практический ориентир — приём df[\"name\"]: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "df[\"name\"]  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "pattern",
+            "description": "Получите столбец name как Series.",
+            "example": "df['name']",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
           },
           {
-            "id": "method-2",
+            "id": "cheat-columns-002",
+            "group": "Выбор столбцов",
             "name": "df[[\"name\"]]",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить df[[\"name\"]] в сценарии «один столбец как dataframe» и получить результат нужной структуры Практический ориентир — приём df[[\"name\"]]: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "df[[\"name\"]]  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 2."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "pattern",
+            "description": "Получите столбец name как DataFrame, а не Series.",
+            "example": "df[['name']]",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
           },
           {
-            "id": "method-3",
-            "name": "список названий",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить список названий в сценарии «два соседних столбца» и получить результат нужной структуры Практический ориентир — приём список названий: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "список названий  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 3."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-columns-003",
+            "group": "Выбор столбцов",
+            "name": "df[...]",
+            "kind": "pattern",
+            "description": "Получите DataFrame только со столбцами name и score.",
+            "example": "df[['name', 'score']]",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
           },
           {
-            "id": "method-4",
-            "name": "порядок списка",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить порядок списка в сценарии «заданный порядок» и получить результат нужной структуры Практический ориентир — приём порядок списка: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "порядок списка  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 4."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
-          },
-          {
-            "id": "method-5",
+            "id": "cheat-columns-005",
+            "group": "Выбор столбцов",
             "name": "df[selected_columns]",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить df[selected_columns] в сценарии «список из переменной» и получить результат нужной структуры Практический ориентир — приём df[selected_columns]: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "df[selected_columns]  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 5."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "pattern",
+            "description": "Выберите столбцы, названия которых находятся в selected_columns.",
+            "example": "df[selected_columns]",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
           },
           {
-            "id": "method-6",
-            "name": "явный список",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить явный список в сценарии «числовые признаки» и получить результат нужной структуры Практический ориентир — приём явный список: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "явный список  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 6."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
-          },
-          {
-            "id": "method-7",
-            "name": "пустой список",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить пустой список в сценарии «пустой набор столбцов» и получить результат нужной структуры Практический ориентир — приём пустой список: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "пустой список  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 7."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
-          },
-          {
-            "id": "method-8",
-            "name": "повтор имени в списке",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить повтор имени в списке в сценарии «повтор столбца» и получить результат нужной структуры Практический ориентир — приём повтор имени в списке: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "повтор имени в списке  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 8."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
-          },
-          {
-            "id": "method-9",
-            "name": "точное имя",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить точное имя в сценарии «столбцы с пробелами» и получить результат нужной структуры Практический ориентир — приём точное имя: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "точное имя  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 9."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
-          },
-          {
-            "id": "method-10",
-            "name": "выбор и порядок",
-            "description": "Квадратные скобки выбирают данные по именам столбцов. Одно имя обычно возвращает Series, а список имён — DataFrame; порядок и повторы в списке сохраняются. Это различие влияет на размерность результата и дальнейшие доступные методы. В этом варианте учебная цель — применить выбор и порядок в сценарии «схема отчёта · контрольная» и получить результат нужной структуры Практический ориентир — приём выбор и порядок: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "выбор и порядок  # общий вид приёма",
-            "example": "names = people[['first_name', 'department']]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 10."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-columns-006",
+            "group": "Выбор столбцов",
+            "name": "df[...]",
+            "kind": "pattern",
+            "description": "Из таблицы с пятью столбцами верните только price, quantity и discount.",
+            "example": "df[['price', 'quantity', 'discount']]",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html"
           }
         ]
@@ -755,23 +746,95 @@
         "присваивание"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на присваивание",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "copy",
-            "description": "Присваивание по имени создаёт или заменяет столбец. Выражение справа вычисляется векторно и выравнивается по индексу, поэтому циклы обычно не нужны. Копия таблицы защищает исходный объект, если условие требует сохранить входные данные. В этом варианте учебная цель — применить result[\"status\"] = ... в сценарии «постоянное значение» и получить результат нужной структуры Практический ориентир — приём result[\"status\"] = ...: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "result[\"status\"] = ...  # общий вид приёма",
-            "example": "report = source.copy()\nreport['amount'] = report['price'] * report['units']",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-change-columns-001",
+            "group": "Изменение столбцов",
+            "name": "result[\"status\"] = ...",
+            "kind": "pattern",
+            "description": "Создайте копию df и добавьте всем строкам столбец status со значением \"new\".",
+            "example": "result = df.copy()\nresult['status'] = 'new'",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-002",
+            "group": "Изменение столбцов",
+            "name": "df[\"new\"] = ...",
+            "kind": "pattern",
+            "description": "Создайте столбец price_copy, равный столбцу price.",
+            "example": "result = df.copy()\nresult['price_copy'] = result['price']",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-003",
+            "group": "Изменение столбцов",
+            "name": "+",
+            "kind": "operator",
+            "description": "Создайте столбец total, равный сумме online и offline по каждой строке.",
+            "example": "result = df.copy()\nresult['total'] = result['online'] + result['offline']",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-004",
+            "group": "Изменение столбцов",
+            "name": "-",
+            "kind": "pattern",
+            "description": "Создайте столбец change, равный current - previous.",
+            "example": "result = df.copy()\nresult['change'] = result['current'] - result['previous']",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-005",
+            "group": "Изменение столбцов",
+            "name": "*",
+            "kind": "operator",
+            "description": "Создайте столбец revenue как произведение price и quantity.",
+            "example": "result = df.copy()\nresult['revenue'] = result['price'] * result['quantity']",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-006",
+            "group": "Изменение столбцов",
+            "name": "/",
+            "kind": "operator",
+            "description": "Создайте столбец unit_price как amount / quantity.",
+            "example": "result = df.copy()\nresult['unit_price'] = result['amount'] / result['quantity']",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-007",
+            "group": "Изменение столбцов",
+            "name": "df[\"new\"] = ...",
+            "kind": "pattern",
+            "description": "Создайте discount_amount как price * discount_pct / 100.",
+            "example": "result = df.copy()\nresult['discount_amount'] = result['price'] * result['discount_pct'] / 100",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-008",
+            "group": "Изменение столбцов",
+            "name": "df[\"new\"] = ...",
+            "kind": "pattern",
+            "description": "Создайте булев столбец is_high, который равен True, если score >= 80.",
+            "example": "result = df.copy()\nresult['is_expensive'] = result['price'] >= price_limit",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-009",
+            "group": "Изменение столбцов",
+            "name": "df[\"new\"] = ...",
+            "kind": "pattern",
+            "description": "В копии df переведите значения price из рублей в копейки умножением на 100.",
+            "example": "result = df.copy()\nresult['name'] = names",
+            "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
+          },
+          {
+            "id": "cheat-change-columns-010",
+            "group": "Изменение столбцов",
+            "name": "df[\"new\"] = ...",
+            "kind": "pattern",
+            "description": "В копии df создайте один столбец price_with_tax как price * (1 + tax_rate). tax_rate уже записан долей, например 0.2.",
+            "example": "result = df.copy()\nresult['net'] = result['price'] * result['quantity'] - result['discount']",
             "documentationUrl": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
           }
         ]
@@ -878,181 +941,68 @@
         "арифметика Series"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на арифметика Series",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
+            "id": "cheat-vectorization-001",
+            "group": "Векторные операции",
             "name": "Series + scalar",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить series + scalar в сценарии «прибавить число» и получить результат нужной структуры Практический ориентир — приём Series + scalar: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "Series + scalar  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "operator",
+            "description": "К Series scores прибавьте 5.",
+            "example": "values + offset",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
           },
           {
-            "id": "method-2",
+            "id": "cheat-vectorization-002",
+            "group": "Векторные операции",
             "name": "Series - scalar",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить series - scalar в сценарии «вычесть число» и получить результат нужной структуры Практический ориентир — приём Series - scalar: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "Series - scalar  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 2."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "operator",
+            "description": "Из каждого значения Series prices вычтите 10.",
+            "example": "values - offset",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
           },
           {
-            "id": "method-3",
+            "id": "cheat-vectorization-003",
+            "group": "Векторные операции",
             "name": "Series * scalar",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить series * scalar в сценарии «умножить на коэффициент» и получить результат нужной структуры Практический ориентир — приём Series * scalar: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "Series * scalar  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 3."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "operator",
+            "description": "Умножьте все значения prices на коэффициент rate.",
+            "example": "values * factor",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
           },
           {
-            "id": "method-4",
+            "id": "cheat-vectorization-004",
+            "group": "Векторные операции",
             "name": "Series / scalar",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить series / scalar в сценарии «разделить значения» и получить результат нужной структуры Практический ориентир — приём Series / scalar: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "Series / scalar  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 4."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "operator",
+            "description": "Переведите Series meters в километры делением на 1000.",
+            "example": "values / divisor",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
           },
           {
-            "id": "method-5",
-            "name": "выравнивание по индексу",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить выравнивание по индексу в сценарии «сложить две series» и получить результат нужной структуры Практический ориентир — приём выравнивание по индексу: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "выравнивание по индексу  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 5."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-vectorization-008",
+            "group": "Векторные операции",
+            "name": ".add(fill_value=0)",
+            "kind": "method",
+            "description": "Сложите left и right, считая отсутствующее значение в одной из Series равным нулю.",
+            "example": "left.add(right, fill_value=0)",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
           },
           {
-            "id": "method-6",
-            "name": "автоматическое выравнивание",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить автоматическое выравнивание в сценарии «индексы в разном порядке» и получить результат нужной структуры Практический ориентир — приём автоматическое выравнивание: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "автоматическое выравнивание  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 6."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
-          },
-          {
-            "id": "method-7",
-            "name": "появление NaN",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить появление nan в сценарии «несовпадающие индексы» и получить результат нужной структуры Практический ориентир — приём появление NaN: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "появление NaN  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 7."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
-          },
-          {
-            "id": "method-8",
-            "name": "add",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить .add(fill_value=0) в сценарии «заполнить отсутствующие слагаемые» и получить результат нужной структуры Практический ориентир — приём .add(fill_value=0): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".add(fill_value=0)  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [
-              {
-                "name": "fill_value",
-                "description": "заполняет пустые ячейки"
-              }
-            ],
-            "result": "Параметр `fill_value` заполняет пустые ячейки.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 8."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
-          },
-          {
-            "id": "method-9",
+            "id": "cheat-vectorization-009",
+            "group": "Векторные операции",
             "name": "Series >= scalar",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить series >= scalar в сценарии «векторное сравнение» и получить результат нужной структуры Практический ориентир — приём Series >= scalar: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "Series >= scalar  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 9."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "kind": "operator",
+            "description": "Для Series scores получите булеву Series: достигло ли каждое значение порога pass_score.",
+            "example": "values >= threshold",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
           },
           {
-            "id": "method-10",
-            "name": "векторная формула",
-            "description": "Арифметические операторы применяются сразу ко всем значениям Series. При операциях двух Series pandas выравнивает их по индексам; методы add и mul позволяют дополнительно управлять отсутствующими метками. Сравнение возвращает логическую Series. В этом варианте учебная цель — применить векторная формула в сценарии «ндс · контрольная» и получить результат нужной структуры Практический ориентир — приём векторная формула: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "векторная формула  # общий вид приёма",
-            "example": "adjusted = measurements * scale",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 10."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-vectorization-010",
+            "group": "Векторные операции",
+            "name": "Series: векторная операция",
+            "kind": "pattern",
+            "description": "Для Series prices рассчитайте цены с НДС по формуле prices * (1 + vat_rate).",
+            "example": "(prices * quantities) * (1 - discount_rate)",
             "documentationUrl": "https://pandas.pydata.org/docs/user_guide/dsintro.html#vectorized-operations-and-label-alignment-with-series"
           }
         ]
@@ -1365,23 +1315,77 @@
         ".shape"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .shape",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "shape",
-            "description": "Атрибут shape возвращает кортеж из числа строк и числа столбцов. Это атрибут, поэтому круглые скобки не используются. Компоненты кортежа можно выбирать индексами 0 и 1, сравнивать и использовать в вычислениях. В этом варианте учебная цель — применить df.shape в сценарии «размер таблицы» и получить результат нужной структуры Практический ориентир — приём df.shape: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "df.shape  # общий вид приёма",
-            "example": "column_count = inventory.shape[1]",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-attributes-001",
+            "group": "Размер и форма",
+            "name": "df.shape",
+            "kind": "attribute",
+            "description": "Сохраните кортеж с количеством строк и столбцов df.",
+            "example": "df.shape",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+          },
+          {
+            "id": "cheat-attributes-002",
+            "group": "Размер и форма",
+            "name": "df.shape[0]",
+            "kind": "attribute",
+            "description": "Сохраните число строк df.",
+            "example": "df.shape[0]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+          },
+          {
+            "id": "cheat-attributes-004",
+            "group": "Размер и форма",
+            "name": "df.shape",
+            "kind": "pattern",
+            "description": "Получите True, если в df нет строк, иначе False.",
+            "example": "df.shape[0] == expected_rows",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+          },
+          {
+            "id": "cheat-attributes-005",
+            "group": "Размер и форма",
+            "name": "df.shape",
+            "kind": "method",
+            "description": "Проверьте, совпадает ли форма left_df и right_df.",
+            "example": "left.shape == right.shape",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+          },
+          {
+            "id": "cheat-attributes-006",
+            "group": "Размер и форма",
+            "name": "df.shape",
+            "kind": "pattern",
+            "description": "Найдите, на сколько строк after_df больше before_df.",
+            "example": "orders.shape[0] + returns.shape[0]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+          },
+          {
+            "id": "cheat-attributes-007",
+            "group": "Размер и форма",
+            "name": "df.shape",
+            "kind": "pattern",
+            "description": "Вычислите количество ячеек как число строк, умноженное на число столбцов.",
+            "example": "df.shape[0] * df.shape[1]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+          },
+          {
+            "id": "cheat-attributes-009",
+            "group": "Размер и форма",
+            "name": "df.shape",
+            "kind": "pattern",
+            "description": "Верните строку \"left\", если строк больше в left_df, иначе \"right\".",
+            "example": "train.shape[0] > test.shape[0]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+          },
+          {
+            "id": "cheat-attributes-010",
+            "group": "Размер и форма",
+            "name": "df.shape",
+            "kind": "method",
+            "description": "Создайте словарь {'rows': ..., 'columns': ...} с размером df, используя .shape.",
+            "example": "{'rows': df.shape[0], 'columns': df.shape[1]}",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
           }
         ]
@@ -1484,40 +1488,59 @@
         ".head()` и `.tail()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .head()` и `.tail()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "head",
-            "description": "Методы head и tail возвращают первые или последние строки без изменения исходной таблицы. Параметр n задаёт количество строк, а ноль позволяет получить пустой DataFrame с сохранённой схемой. Индекс и порядок столбцов сохраняются. В этом варианте учебная цель — применить .head() в сценарии «первые пять строк» и получить результат нужной структуры Практический ориентир — приём .head(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".head()  # общий вид приёма",
-            "example": "sample = events.head(4)",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-inspection-001",
+            "group": "Просмотр данных",
+            "name": ".head()",
+            "kind": "method",
+            "description": "Получите первые пять строк df, не передавая аргумент.",
+            "example": "df.head()",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
           },
           {
-            "id": "method-2",
-            "name": "tail",
-            "description": "Методы head и tail возвращают первые или последние строки без изменения исходной таблицы. Параметр n задаёт количество строк, а ноль позволяет получить пустой DataFrame с сохранённой схемой. Индекс и порядок столбцов сохраняются. В этом варианте учебная цель — применить .tail() в сценарии «последние пять строк» и получить результат нужной структуры Практический ориентир — приём .tail(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".tail()  # общий вид приёма",
-            "example": "sample = events.head(4)",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 6."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-inspection-002",
+            "group": "Просмотр данных",
+            "name": ".head(3)",
+            "kind": "method",
+            "description": "Получите первые три строки df.",
+            "example": "df.head(3)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
+          },
+          {
+            "id": "cheat-inspection-004",
+            "group": "Просмотр данных",
+            "name": ".head(n)",
+            "kind": "method",
+            "description": "Получите первые n строк, где n уже дано.",
+            "example": "df.head(n)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
+          },
+          {
+            "id": "cheat-inspection-006",
+            "group": "Просмотр данных",
+            "name": ".tail()",
+            "kind": "method",
+            "description": "Получите последние пять строк без аргумента.",
+            "example": "df.tail()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
+          },
+          {
+            "id": "cheat-inspection-007",
+            "group": "Просмотр данных",
+            "name": ".tail(2)",
+            "kind": "method",
+            "description": "Получите последние две строки.",
+            "example": "df.tail(2)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
+          },
+          {
+            "id": "cheat-inspection-009",
+            "group": "Просмотр данных",
+            "name": ".tail(n)",
+            "kind": "method",
+            "description": "Получите последние n строк, где n задано переменной.",
+            "example": "df.tail(n)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
           }
         ]
@@ -1641,23 +1664,50 @@
         ".sum()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .sum()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "sum",
-            "description": "Метод sum складывает значения Series или DataFrame. Для таблицы axis определяет направление вычисления, а skipna и min_count управляют пропусками и минимальным числом значений. Логические True и False при суммировании ведут себя как единица и ноль. В этом варианте учебная цель — применить series.sum() в сценарии «сумма series» и получить результат нужной структуры Практический ориентир — приём series.sum(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "series.sum()  # общий вид приёма",
-            "example": "total = metrics.sum(axis=1)",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-dataframe-methods-001",
+            "group": "Агрегации",
+            "name": "series.sum()",
+            "kind": "method",
+            "description": "Найдите сумму всех значений Series values.",
+            "example": "values.sum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html"
+          },
+          {
+            "id": "cheat-dataframe-methods-002",
+            "group": "Агрегации",
+            "name": "df[\"sales\"].sum()",
+            "kind": "method",
+            "description": "Найдите общую сумму столбца sales.",
+            "example": "df['sales'].sum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html"
+          },
+          {
+            "id": "cheat-dataframe-methods-005",
+            "group": "Агрегации",
+            "name": ".sum() — skipna=True",
+            "kind": "pattern",
+            "description": "Найдите сумму sales, позволив pandas пропустить NaN стандартным способом.",
+            "example": "values.sum(skipna=True)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html"
+          },
+          {
+            "id": "cheat-dataframe-methods-007",
+            "group": "Агрегации",
+            "name": "min_count=",
+            "kind": "pattern",
+            "description": "Найдите сумму Series values, только если в ней есть хотя бы required_count непустых значений.",
+            "example": "values.sum(min_count=min_required)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html"
+          },
+          {
+            "id": "cheat-dataframe-methods-009",
+            "group": "Агрегации",
+            "name": "axis=1",
+            "kind": "pattern",
+            "description": "Для числового DataFrame найдите сумму по каждой строке.",
+            "example": "df.sum(axis=1)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html"
           }
         ]
@@ -1758,23 +1808,59 @@
         ".value_counts()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .value_counts()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "value_counts",
-            "description": "value_counts считает частоту каждого уникального значения Series. Параметры управляют пропусками, нормализацией, сортировкой, направлением порядка и разбиением чисел на интервалы. Результат — Series, индекс которой содержит исходные значения или интервалы. В этом варианте учебная цель — применить .value_counts() в сценарии «частоты городов» и получить результат нужной структуры Практический ориентир — приём .value_counts(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".value_counts()  # общий вид приёма",
-            "example": "frequencies = colors.value_counts(dropna=False)",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-series-methods-001",
+            "group": "Частоты",
+            "name": ".value_counts()",
+            "kind": "method",
+            "description": "Посчитайте, сколько раз каждый город встречается в Series cities.",
+            "example": "values.value_counts()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html"
+          },
+          {
+            "id": "cheat-series-methods-005",
+            "group": "Частоты",
+            "name": "dropna=False",
+            "kind": "pattern",
+            "description": "Посчитайте частоты, включая NaN.",
+            "example": "values.value_counts(dropna=False)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html"
+          },
+          {
+            "id": "cheat-series-methods-006",
+            "group": "Частоты",
+            "name": "normalize=True",
+            "kind": "pattern",
+            "description": "Получите долю каждого значения в Series answers.",
+            "example": "values.value_counts(normalize=True)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html"
+          },
+          {
+            "id": "cheat-series-methods-007",
+            "group": "Частоты",
+            "name": "sort=False",
+            "kind": "pattern",
+            "description": "Посчитайте частоты без сортировки по количеству, сохранив порядок появления категорий.",
+            "example": "values.value_counts(sort=False)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html"
+          },
+          {
+            "id": "cheat-series-methods-008",
+            "group": "Частоты",
+            "name": "ascending=True",
+            "kind": "pattern",
+            "description": "Посчитайте частоты и расположите категории по возрастанию количества.",
+            "example": "values.value_counts(ascending=True)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html"
+          },
+          {
+            "id": "cheat-series-methods-009",
+            "group": "Частоты",
+            "name": "bins=",
+            "kind": "pattern",
+            "description": "Разбейте числовую Series ages на bin_count равных интервалов через параметр bins и посчитайте элементы.",
+            "example": "values.value_counts(bins=bin_count)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html"
           }
         ]
@@ -1878,38 +1964,69 @@
         ".groupby(...).sum()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .groupby(...).sum()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "groupby",
-            "description": "groupby разбивает строки на группы по одному или нескольким ключам, после чего к выбранным столбцам применяется агрегация. Ключи обычно становятся индексом результата; as_index=False сохраняет их обычными столбцами. sort и dropna меняют порядок и обработку пустых ключей. В этом варианте учебная цель — применить одна группа + .sum() в сценарии «продажи по магазинам» и получить результат нужной структуры Практический ориентир — приём одна группа + .sum(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "одна группа + .sum()  # общий вид приёма",
-            "example": "totals = orders.groupby('region')['amount'].sum()",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-groupby-001",
+            "group": "Группировка",
+            "name": ".groupby().sum()",
+            "kind": "operator",
+            "description": "Найдите сумму sales для каждого store.",
+            "example": "df.groupby('category')['sales'].sum()",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
           },
           {
-            "id": "method-2",
-            "name": "sum",
-            "description": "Метод sum — отдельный существенный шаг цепочки. Он получает результат предыдущей операции и преобразует его дальше; порядок вызовов важен, потому что тип промежуточного объекта определяет доступные параметры и итоговую форму.",
-            "syntax": "object.sum(...) ",
-            "example": "totals = orders.groupby('region')['amount'].sum()",
-            "parameters": [],
-            "result": "Параметры этого шага выбирают после проверки типа промежуточного объекта.",
-            "errors": [
-              "Читайте цепочку слева направо и проверяйте результат каждого существенного шага."
-            ],
-            "nuances": [],
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sum.html"
+            "id": "cheat-groupby-004",
+            "group": "Группировка",
+            "name": ".groupby().sum()",
+            "kind": "pattern",
+            "description": "Для каждой team получите суммы столбцов points и penalties.",
+            "example": "df.groupby('category')[['sales', 'profit']].sum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+          },
+          {
+            "id": "cheat-groupby-005",
+            "group": "Группировка",
+            "name": ".groupby().sum()",
+            "kind": "pattern",
+            "description": "Найдите сумму sales для каждой комбинации city и product.",
+            "example": "df.groupby(['city', 'category'])['sales'].sum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+          },
+          {
+            "id": "cheat-groupby-006",
+            "group": "Группировка",
+            "name": "as_index=False",
+            "kind": "pattern",
+            "description": "Найдите сумму sales по city, вернув city обычным столбцом.",
+            "example": "df.groupby('category', as_index=False)['sales'].sum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+          },
+          {
+            "id": "cheat-groupby-007",
+            "group": "Группировка",
+            "name": "sort=False",
+            "kind": "pattern",
+            "description": "Найдите сумму sales по city, не сортируя ключи групп.",
+            "example": "df.groupby('category', sort=False)['sales'].sum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+          },
+          {
+            "id": "cheat-groupby-008",
+            "group": "Группировка",
+            "name": "dropna=False",
+            "kind": "pattern",
+            "description": "Найдите сумму sales по city, включая строки с пропущенным городом в отдельную группу.",
+            "example": "df.groupby('category', dropna=False)['sales'].sum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+          },
+          {
+            "id": "cheat-groupby-009",
+            "group": "Группировка",
+            "name": "min_count=1",
+            "kind": "pattern",
+            "description": "Сгруппируйте amount по category и суммируйте с min_count=1, чтобы полностью пустая группа дала NaN.",
+            "example": "df.groupby('category')['sales'].sum(min_count=1)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
           }
         ]
       },
@@ -2033,23 +2150,14 @@
         ".query()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .query()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "query",
-            "description": "query отбирает строки по строковому выражению. Имена столбцов используются внутри выражения напрямую, внешние Python-переменные отмечаются символом @, а имена с пробелами заключаются в обратные кавычки. Результат сохраняет строки, для которых условие истинно. В этом варианте учебная цель — применить score > 80 в сценарии «больше порога» и получить результат нужной структуры Практический ориентир — приём score > 80: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "score > 80  # общий вид приёма",
-            "example": "selected = people.query('age >= @minimum_age')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-filtering-001",
+            "group": "Фильтрация",
+            "name": "score > 80",
+            "kind": "operator",
+            "description": "Через .query() оставьте строки, где score больше 80.",
+            "example": "df.query('score > 80')",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html"
           }
         ]
@@ -2154,45 +2262,77 @@
         ".sort_values()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .sort_values()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "sort_values",
-            "description": "sort_values упорядочивает строки по одному или нескольким столбцам. ascending задаёт направление отдельно для каждого ключа, na_position размещает пропуски, ignore_index создаёт новый последовательный индекс. Стабильная сортировка сохраняет порядок равных элементов. В этом варианте учебная цель — применить sort_values(\"score\") в сценарии «баллы по возрастанию» и получить результат нужной структуры Практический ориентир — приём sort_values(\"score\"): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "sort_values(\"score\")  # общий вид приёма",
-            "example": "ordered = items.sort_values('cost', ascending=False)",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-sorting-001",
+            "group": "Сортировка",
+            "name": "sort_values(\"score\")",
+            "kind": "pattern",
+            "description": "Отсортируйте строки по score по возрастанию.",
+            "example": "df.sort_values('score')",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
           },
           {
-            "id": "method-2",
-            "name": "str",
-            "description": "sort_values упорядочивает строки по одному или нескольким столбцам. ascending задаёт направление отдельно для каждого ключа, na_position размещает пропуски, ignore_index создаёт новый последовательный индекс. Стабильная сортировка сохраняет порядок равных элементов. В этом варианте учебная цель — применить key= в сценарии «без учёта регистра» и получить результат нужной структуры Практический ориентир — приём key=: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "key=  # общий вид приёма",
-            "example": "ordered = items.sort_values('cost', ascending=False)",
-            "parameters": [
-              {
-                "name": "key",
-                "description": "уточняет поведение операции"
-              }
-            ],
-            "result": "Параметр `key` уточняет поведение операции.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 8."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-sorting-002",
+            "group": "Сортировка",
+            "name": "ascending=False",
+            "kind": "pattern",
+            "description": "Отсортируйте строки по score от большего к меньшему.",
+            "example": "df.sort_values('score', ascending=False)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+          },
+          {
+            "id": "cheat-sorting-004",
+            "group": "Сортировка",
+            "name": "by=[...]",
+            "kind": "pattern",
+            "description": "Отсортируйте сначала по city, затем по score, оба по возрастанию.",
+            "example": "df.sort_values(['city', 'score'])",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+          },
+          {
+            "id": "cheat-sorting-005",
+            "group": "Сортировка",
+            "name": ".sort_values()",
+            "kind": "pattern",
+            "description": "Отсортируйте city по возрастанию, а score внутри города по убыванию.",
+            "example": "df.sort_values(['city', 'score'], ascending=[True, False])",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+          },
+          {
+            "id": "cheat-sorting-006",
+            "group": "Сортировка",
+            "name": "na_position=\"first\"",
+            "kind": "pattern",
+            "description": "Отсортируйте по score, поместив пропуски перед заполненными значениями.",
+            "example": "df.sort_values('score', na_position='first')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+          },
+          {
+            "id": "cheat-sorting-007",
+            "group": "Сортировка",
+            "name": "ignore_index=True",
+            "kind": "pattern",
+            "description": "Отсортируйте по date и сразу получите индекс от 0 до n-1.",
+            "example": "df.sort_values('score', ignore_index=True)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+          },
+          {
+            "id": "cheat-sorting-008",
+            "group": "Сортировка",
+            "name": "key=",
+            "kind": "pattern",
+            "description": "Отсортируйте строки по name без учёта регистра через параметр key.",
+            "example": "df.sort_values('name', key=lambda s: s.str.lower())",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+          },
+          {
+            "id": "cheat-sorting-009",
+            "group": "Сортировка",
+            "name": "kind=\"stable\"",
+            "kind": "pattern",
+            "description": "Отсортируйте по score стабильным алгоритмом, чтобы строки с равными баллами сохранили исходный порядок.",
+            "example": "df.sort_values('score', kind='stable')",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
           }
         ]
@@ -2319,28 +2459,77 @@
         "pd.merge()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на pd.merge()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "merge",
-            "description": "merge соединяет строки таблиц по общим ключам или индексам. how определяет множество сохраняемых ключей, on и left_on/right_on выбирают поля связи. suffixes различает одноимённые столбцы, indicator показывает источник строки, validate проверяет ожидаемую кратность связи. В этом варианте учебная цель — применить on=\"id\" в сценарии «общий ключ» и получить результат нужной структуры Практический ориентир — приём on=\"id\": сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "on=\"id\"  # общий вид приёма",
-            "example": "joined = pd.merge(products, prices, on='product_id', how='left')",
-            "parameters": [
-              {
-                "name": "on",
-                "description": "задаёт общий ключ"
-              }
-            ],
-            "result": "Параметр `on` задаёт общий ключ.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-merge-001",
+            "group": "Объединение",
+            "name": "on=\"id\"",
+            "kind": "pattern",
+            "description": "Объедините orders и clients по общему столбцу id, сохранив только совпавшие строки.",
+            "example": "pd.merge(left, right, on='id')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+          },
+          {
+            "id": "cheat-merge-002",
+            "group": "Объединение",
+            "name": "how=\"left\"",
+            "kind": "pattern",
+            "description": "Присоедините данные clients к orders, сохранив все строки orders.",
+            "example": "pd.merge(left, right, on='id', how='left')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+          },
+          {
+            "id": "cheat-merge-005",
+            "group": "Объединение",
+            "name": "left_on / right_on",
+            "kind": "operator",
+            "description": "Объедините orders.client_id с clients.id.",
+            "example": "pd.merge(left, right, left_on='client_id', right_on='id')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+          },
+          {
+            "id": "cheat-merge-006",
+            "group": "Объединение",
+            "name": "on=[...]",
+            "kind": "pattern",
+            "description": "Объедините две таблицы по паре столбцов store_id и date.",
+            "example": "pd.merge(left, right, on=['city', 'year'])",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+          },
+          {
+            "id": "cheat-merge-007",
+            "group": "Объединение",
+            "name": "suffixes=",
+            "kind": "pattern",
+            "description": "Объедините таблицы по id и задайте суффиксы '_old' и '_new' для одноимённых столбцов.",
+            "example": "pd.merge(left, right, on='id', suffixes=('_old', '_new'))",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+          },
+          {
+            "id": "cheat-merge-008",
+            "group": "Объединение",
+            "name": "indicator=True",
+            "kind": "pattern",
+            "description": "Выполните внешнее объединение по id и добавьте технический столбец, показывающий источник каждой строки.",
+            "example": "pd.merge(left, right, on='id', how='outer', indicator=True)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+          },
+          {
+            "id": "cheat-merge-009",
+            "group": "Объединение",
+            "name": "validate=\"many_to_one\"",
+            "kind": "pattern",
+            "description": "Присоедините справочник clients к orders по client_id и проверьте связь «многие к одному» через validate.",
+            "example": "pd.merge(left, right, on='category_id', validate='many_to_one')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+          },
+          {
+            "id": "cheat-merge-010",
+            "group": "Объединение",
+            "name": "left_index / right_index",
+            "kind": "operator",
+            "description": "Объедините left и right по их индексам внутренним соединением.",
+            "example": "pd.merge(left, right, left_index=True, right_index=True)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
           }
         ]
@@ -2444,32 +2633,95 @@
         ".pivot_table()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .pivot_table()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "pivot_table",
-            "description": "pivot_table группирует данные по полям index и columns и агрегирует values. aggfunc определяет вычисление, fill_value заменяет пустые ячейки, margins добавляет итоги. Результат часто имеет многоуровневый индекс или столбцы. В этом варианте учебная цель — применить index, values в сценарии «средняя сумма по городу» и получить результат нужной структуры Практический ориентир — приём index, values: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "index, values  # общий вид приёма",
-            "example": "matrix = sales.pivot_table(index='store', columns='month', values='amount', aggfunc='sum')",
-            "parameters": [
-              {
-                "name": "index",
-                "description": "задаёт метки строк"
-              },
-              {
-                "name": "values",
-                "description": "уточняет поведение операции"
-              }
-            ],
-            "result": "Параметр `index` задаёт метки строк. Параметр `values` уточняет поведение операции.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-pivot-001",
+            "group": "Сводные таблицы",
+            "name": "index, values",
+            "kind": "pattern",
+            "description": "Создайте сводную таблицу со средней amount для каждого city, используя стандартную агрегацию.",
+            "example": "df.pivot_table(index='city', values='sales')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-002",
+            "group": "Сводные таблицы",
+            "name": "aggfunc=\"sum\"",
+            "kind": "pattern",
+            "description": "Создайте сводную с суммой amount для каждого city.",
+            "example": "df.pivot_table(index='city', values='sales', aggfunc='sum')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-003",
+            "group": "Сводные таблицы",
+            "name": "columns=",
+            "kind": "pattern",
+            "description": "Создайте сводную: строки — city, столбцы — category, значения — средняя amount.",
+            "example": "df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-004",
+            "group": "Сводные таблицы",
+            "name": ".pivot_table()",
+            "kind": "pattern",
+            "description": "Получите сумму amount для каждой комбинации city и store.",
+            "example": "df.pivot_table(index=['city', 'year'], values='sales', aggfunc='sum')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-005",
+            "group": "Сводные таблицы",
+            "name": ".pivot_table()",
+            "kind": "pattern",
+            "description": "Для каждого city получите средние значения amount и quantity.",
+            "example": "df.pivot_table(index='city', values=['sales', 'profit'], aggfunc='sum')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-006",
+            "group": "Сводные таблицы",
+            "name": "fill_value=0",
+            "kind": "pattern",
+            "description": "Создайте сводную city × category по сумме amount, заменив отсутствующие комбинации нулём.",
+            "example": "df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', fill_value=0)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-007",
+            "group": "Сводные таблицы",
+            "name": "margins=True",
+            "kind": "pattern",
+            "description": "Добавьте к сводной строку и столбец общих итогов.",
+            "example": "df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-008",
+            "group": "Сводные таблицы",
+            "name": "margins_name=",
+            "kind": "pattern",
+            "description": "Создайте сводную с итогами и назовите итоговую строку/столбец \"Всего\".",
+            "example": "df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True, margins_name=total_label)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-009",
+            "group": "Сводные таблицы",
+            "name": "sort=False",
+            "kind": "pattern",
+            "description": "Создайте сводную, сохранив порядок появления категорий во входных данных.",
+            "example": "df.pivot_table(index='city', values='sales', aggfunc='sum', sort=False)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+          },
+          {
+            "id": "cheat-pivot-010",
+            "group": "Сводные таблицы",
+            "name": "observed=False",
+            "kind": "pattern",
+            "description": "Для категориальных столбцов city и category создайте сводную со всеми категориями, включая не встречавшиеся комбинации.",
+            "example": "df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', observed=False)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
           }
         ]
@@ -2574,40 +2826,41 @@
         ".astype()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .astype()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "astype",
-            "description": "astype создаёт объект с явно заданным dtype. Для DataFrame можно передать словарь типов по столбцам. Nullable-типы вроде Int64 сохраняют пропуски, category хранит повторяющиеся категории компактно, а преобразование индекса выполняется отдельно. В этом варианте учебная цель — применить .astype(\"int64\") в сценарии «строки в целые числа» и получить результат нужной структуры Практический ориентир — приём .astype(\"int64\"): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".astype(\"int64\")  # общий вид приёма",
-            "example": "codes = raw_codes.astype('string')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-dtypes-001",
+            "group": "Преобразование типов",
+            "name": ".astype(\"int64\")",
+            "kind": "method",
+            "description": "Преобразуйте Series values со строками цифр в целые числа.",
+            "example": "values.astype('int64')",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.astype.html"
           },
           {
-            "id": "method-2",
-            "name": "index",
-            "description": "astype создаёт объект с явно заданным dtype. Для DataFrame можно передать словарь типов по столбцам. Nullable-типы вроде Int64 сохраняют пропуски, category хранит повторяющиеся категории компактно, а преобразование индекса выполняется отдельно. В этом варианте учебная цель — применить index.astype() в сценарии «индекс как строка» и получить результат нужной структуры Практический ориентир — приём index.astype(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "index.astype()  # общий вид приёма",
-            "example": "codes = raw_codes.astype('string')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 9."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-dtypes-005",
+            "group": "Преобразование типов",
+            "name": ".astype()",
+            "kind": "pattern",
+            "description": "В копии df преобразуйте только столбец age в int64.",
+            "example": "result = df.copy()\nresult['score'] = result['score'].astype('int64')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.astype.html"
+          },
+          {
+            "id": "cheat-dtypes-006",
+            "group": "Преобразование типов",
+            "name": ".astype()",
+            "kind": "pattern",
+            "description": "В копии df преобразуйте age в int64, а price в float64 одним вызовом .astype() со словарём.",
+            "example": "df.astype({'count': 'int64', 'price': 'float64'})",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.astype.html"
+          },
+          {
+            "id": "cheat-dtypes-009",
+            "group": "Преобразование типов",
+            "name": "index.astype()",
+            "kind": "method",
+            "description": "В копии df преобразуйте индекс в строковый тип, не меняя значения столбцов.",
+            "example": "result = df.copy()\nresult.index = result.index.astype('string')",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.astype.html"
           }
         ]
@@ -2737,40 +2990,95 @@
         "pd.to_datetime()` и `.dt"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на pd.to_datetime()` и `.dt",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "to_datetime",
-            "description": "to_datetime преобразует строки или числовые метки времени в datetime. format, dayfirst, unit и errors уточняют разбор. После преобразования аксессор dt даёт векторный доступ к году, месяцу, дню, кварталу и другим календарным компонентам. В этом варианте учебная цель — применить pd.to_datetime() в сценарии «iso-даты» и получить результат нужной структуры Практический ориентир — приём pd.to_datetime(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "pd.to_datetime()  # общий вид приёма",
-            "example": "parsed = pd.to_datetime(raw_dates, errors='coerce')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-datetime-001",
+            "group": "Дата и время",
+            "name": "pd.to_datetime()",
+            "kind": "function",
+            "description": "Преобразуйте Series dates со строками вида 2026-08-10 в datetime.",
+            "example": "pd.to_datetime(dates)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
           },
           {
-            "id": "method-2",
-            "name": "dt",
-            "description": "to_datetime преобразует строки или числовые метки времени в datetime. format, dayfirst, unit и errors уточняют разбор. После преобразования аксессор dt даёт векторный доступ к году, месяцу, дню, кварталу и другим календарным компонентам. В этом варианте учебная цель — применить .dt.year в сценарии «год» и получить результат нужной структуры Практический ориентир — приём .dt.year: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".dt.year  # общий вид приёма",
-            "example": "parsed = pd.to_datetime(raw_dates, errors='coerce')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 6."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-datetime-002",
+            "group": "Дата и время",
+            "name": "dayfirst=True",
+            "kind": "pattern",
+            "description": "Преобразуйте строки вида 10/08/2026, явно указав, что день записан первым.",
+            "example": "pd.to_datetime(dates, dayfirst=True)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-003",
+            "group": "Дата и время",
+            "name": "format=",
+            "kind": "pattern",
+            "description": "Преобразуйте строки вида 10.08.2026, передав точный формат.",
+            "example": "pd.to_datetime(dates, format=date_format)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-004",
+            "group": "Дата и время",
+            "name": "errors=\"coerce\"",
+            "kind": "pattern",
+            "description": "Преобразуйте Series, где встречается строка \"ошибка\", заменив непарсящиеся значения на NaT.",
+            "example": "pd.to_datetime(dates, errors='coerce')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-005",
+            "group": "Дата и время",
+            "name": "unit=\"s\"",
+            "kind": "pattern",
+            "description": "Преобразуйте Series целых Unix-времён в datetime, указав секунды как единицу.",
+            "example": "pd.to_datetime(timestamps, unit='s')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-006",
+            "group": "Дата и время",
+            "name": ".dt.year",
+            "kind": "attribute",
+            "description": "Из datetime-Series dates получите год каждого значения.",
+            "example": "dates.dt.year",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-007",
+            "group": "Дата и время",
+            "name": ".dt.month",
+            "kind": "attribute",
+            "description": "Получите номер месяца каждого значения.",
+            "example": "dates.dt.month",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-008",
+            "group": "Дата и время",
+            "name": ".dt.day",
+            "kind": "attribute",
+            "description": "Получите день месяца каждого значения.",
+            "example": "dates.dt.day",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-009",
+            "group": "Дата и время",
+            "name": ".dt.day_name()",
+            "kind": "attribute",
+            "description": "Получите английское название дня недели для каждой даты.",
+            "example": "dates.dt.day_name()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-datetime-010",
+            "group": "Дата и время",
+            "name": ".dt.quarter",
+            "kind": "attribute",
+            "description": "Из datetime-Series dates получите номер квартала для каждого значения.",
+            "example": "dates.dt.quarter",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
           }
         ]
@@ -2904,91 +3212,86 @@
         ".fillna()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .fillna()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "fillna",
-            "description": "fillna заменяет отсутствующие значения скаляром, словарём или вычисленным значением. ffill переносит предыдущее известное значение, bfill — следующее. limit ограничивает число замен; методы возвращают новый объект, если явно не запрошено изменение на месте. В этом варианте учебная цель — применить .fillna(0) в сценарии «числовой ноль» и получить результат нужной структуры Практический ориентир — приём .fillna(0): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".fillna(0)  # общий вид приёма",
-            "example": "clean = temperatures.fillna(temperatures.median())",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-recipes-001",
+            "group": "Пропуски",
+            "name": ".fillna(0)",
+            "kind": "method",
+            "description": "В Series values замените пропуски нулями.",
+            "example": "values.fillna(0)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
           },
           {
-            "id": "method-2",
-            "name": "mean",
-            "description": "fillna заменяет отсутствующие значения скаляром, словарём или вычисленным значением. ffill переносит предыдущее известное значение, bfill — следующее. limit ограничивает число замен; методы возвращают новый объект, если явно не запрошено изменение на месте. В этом варианте учебная цель — применить fillna(series.mean()) в сценарии «среднее столбца» и получить результат нужной структуры Практический ориентир — приём fillna(series.mean()): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "fillna(series.mean())  # общий вид приёма",
-            "example": "clean = temperatures.fillna(temperatures.median())",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 5."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-recipes-003",
+            "group": "Пропуски",
+            "name": "scalar variable",
+            "kind": "pattern",
+            "description": "Заполните пропуски Series scores значением fill_value.",
+            "example": "scores.fillna(fill_value)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
           },
           {
-            "id": "method-3",
-            "name": "median",
-            "description": "fillna заменяет отсутствующие значения скаляром, словарём или вычисленным значением. ffill переносит предыдущее известное значение, bfill — следующее. limit ограничивает число замен; методы возвращают новый объект, если явно не запрошено изменение на месте. В этом варианте учебная цель — применить fillna(series.median()) в сценарии «медиана столбца» и получить результат нужной структуры Практический ориентир — приём fillna(series.median()): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "fillna(series.median())  # общий вид приёма",
-            "example": "clean = temperatures.fillna(temperatures.median())",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 6."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-recipes-004",
+            "group": "Пропуски",
+            "name": ".fillna()",
+            "kind": "pattern",
+            "description": "В копии df заполните пропуски нулём только в столбце discount.",
+            "example": "result = df.copy()\nresult['discount'] = result['discount'].fillna(0)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
           },
           {
-            "id": "method-4",
-            "name": "ffill",
-            "description": "fillna заменяет отсутствующие значения скаляром, словарём или вычисленным значением. ffill переносит предыдущее известное значение, bfill — следующее. limit ограничивает число замен; методы возвращают новый объект, если явно не запрошено изменение на месте. В этом варианте учебная цель — применить .ffill() в сценарии «предыдущее значение» и получить результат нужной структуры Практический ориентир — приём .ffill(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".ffill()  # общий вид приёма",
-            "example": "clean = temperatures.fillna(temperatures.median())",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 8."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-recipes-005",
+            "group": "Пропуски",
+            "name": "fillna(series.mean())",
+            "kind": "method",
+            "description": "В копии df заполните пропуски age средним значением этого столбца.",
+            "example": "result = df.copy()\nresult['age'] = result['age'].fillna(result['age'].mean())",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
           },
           {
-            "id": "method-5",
-            "name": "bfill",
-            "description": "fillna заменяет отсутствующие значения скаляром, словарём или вычисленным значением. ffill переносит предыдущее известное значение, bfill — следующее. limit ограничивает число замен; методы возвращают новый объект, если явно не запрошено изменение на месте. В этом варианте учебная цель — применить .bfill() в сценарии «следующее значение» и получить результат нужной структуры Практический ориентир — приём .bfill(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": ".bfill()  # общий вид приёма",
-            "example": "clean = temperatures.fillna(temperatures.median())",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 9."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-recipes-006",
+            "group": "Пропуски",
+            "name": "fillna(series.median())",
+            "kind": "method",
+            "description": "Заполните пропуски salary медианой столбца.",
+            "example": "result = df.copy()\nresult['salary'] = result['salary'].fillna(result['salary'].median())",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
+          },
+          {
+            "id": "cheat-recipes-007",
+            "group": "Пропуски",
+            "name": ".fillna()",
+            "kind": "pattern",
+            "description": "В копии df заполните city строкой \"Неизвестно\", а score нулём одним вызовом .fillna() со словарём.",
+            "example": "df.fillna({'city': 'Неизвестно', 'score': 0})",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
+          },
+          {
+            "id": "cheat-recipes-008",
+            "group": "Пропуски",
+            "name": ".ffill()",
+            "kind": "method",
+            "description": "Заполните пропуски Series prices предыдущим известным значением.",
+            "example": "prices.ffill()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
+          },
+          {
+            "id": "cheat-recipes-009",
+            "group": "Пропуски",
+            "name": ".bfill()",
+            "kind": "method",
+            "description": "Заполните пропуски Series prices следующим известным значением.",
+            "example": "prices.bfill()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
+          },
+          {
+            "id": "cheat-recipes-010",
+            "group": "Пропуски",
+            "name": "limit=",
+            "kind": "pattern",
+            "description": "В Series values замените нулями не более первых fill_limit пропущенных значений за один вызов .fillna().",
+            "example": "values.fillna(0, limit=fill_limit)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
           }
         ]
@@ -3181,23 +3484,86 @@
         ".plot()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на .plot()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "plot",
-            "description": "DataFrame.plot строит график через Matplotlib и возвращает объект Axes. x и y выбирают данные, kind — тип графика, title, figsize и marker управляют оформлением. Возвращённые оси нужно сохранить, если проверяется структура графика. В этом варианте учебная цель — применить df.plot() в сценарии «линейный график» и получить результат нужной структуры Практический ориентир — приём df.plot(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "df.plot()  # общий вид приёма",
-            "example": "axes = metrics.plot(x='week', y='value', marker='o')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-pandas-plots-001",
+            "group": "Графики pandas",
+            "name": "df.plot()",
+            "kind": "method",
+            "description": "Постройте стандартный линейный график DataFrame df.",
+            "example": "df.plot()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-002",
+            "group": "Графики pandas",
+            "name": "y=",
+            "kind": "pattern",
+            "description": "Постройте линию только для столбца sales.",
+            "example": "df.plot(y='sales')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-003",
+            "group": "Графики pandas",
+            "name": "x=",
+            "kind": "pattern",
+            "description": "Постройте sales по date, указав столбец date как ось X.",
+            "example": "df.plot(x='date', y='sales')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-004",
+            "group": "Графики pandas",
+            "name": "kind=\"bar\"",
+            "kind": "pattern",
+            "description": "Постройте вертикальный столбчатый график sales по category.",
+            "example": "df.plot(x='category', y='sales', kind='bar')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-006",
+            "group": "Графики pandas",
+            "name": "kind=\"hist\"",
+            "kind": "pattern",
+            "description": "Постройте гистограмму столбца score.",
+            "example": "df.plot(y='score', kind='hist')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-007",
+            "group": "Графики pandas",
+            "name": "title=",
+            "kind": "pattern",
+            "description": "Постройте линию sales с заголовком из переменной chart_title.",
+            "example": "df.plot(y='sales', title=chart_title)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-008",
+            "group": "Графики pandas",
+            "name": "figsize=",
+            "kind": "pattern",
+            "description": "Постройте график размером, заданным кортежем figure_size.",
+            "example": "df.plot(y='sales', figsize=figure_size)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-009",
+            "group": "Графики pandas",
+            "name": "marker=",
+            "kind": "pattern",
+            "description": "Постройте линейный график sales с круглыми маркерами в каждой точке.",
+            "example": "df.plot(y='sales', marker='o')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+          },
+          {
+            "id": "cheat-pandas-plots-010",
+            "group": "Графики pandas",
+            "name": ".plot()",
+            "kind": "pattern",
+            "description": "Постройте на одних осях линии plan и fact по столбцу month.",
+            "example": "df.plot(x='month', y=['plan', 'fact'])",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
           }
         ]
@@ -3300,36 +3666,86 @@
         "sns.barplot()"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на sns.barplot()",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "barplot",
-            "description": "barplot отображает оценку показателя по категориям. data задаёт таблицу, x и y связывают столбцы с осями, hue создаёт группы, estimator определяет агрегацию. order, hue_order, errorbar и dodge управляют порядком и представлением групп. В этом варианте учебная цель — применить sns.barplot(data=, x=, y=) в сценарии «среднее по категориям» и получить результат нужной структуры Практический ориентир — приём sns.barplot(data=, x=, y=): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "sns.barplot(data=, x=, y=)  # общий вид приёма",
-            "example": "axes = sns.barplot(data=survey, x='group', y='rating', errorbar=None)",
-            "parameters": [
-              {
-                "name": "data",
-                "description": "уточняет поведение операции"
-              },
-              {
-                "name": "x",
-                "description": "выбирает данные оси X"
-              },
-              {
-                "name": "y",
-                "description": "выбирает данные оси Y"
-              }
-            ],
-            "result": "Параметр `data` уточняет поведение операции. Параметр `x` выбирает данные оси X. Параметр `y` выбирает данные оси Y.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-seaborn-001",
+            "group": "Seaborn",
+            "name": "sns.barplot(data=, x=, y=)",
+            "kind": "function",
+            "description": "Постройте barplot средней sales для каждой category.",
+            "example": "sns.barplot(data=df, x='category', y='sales')",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-002",
+            "group": "Seaborn",
+            "name": "estimator=\"sum\"",
+            "kind": "pattern",
+            "description": "Постройте barplot суммы sales по category.",
+            "example": "sns.barplot(data=df, x='category', y='sales', estimator='sum')",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-003",
+            "group": "Seaborn",
+            "name": "color=",
+            "kind": "pattern",
+            "description": "Постройте barplot и задайте всем столбцам цвет из bar_color.",
+            "example": "sns.barplot(data=df, x='category', y='sales', color=bar_color)",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-004",
+            "group": "Seaborn",
+            "name": "hue=",
+            "kind": "pattern",
+            "description": "Постройте sales по category, разделив столбцы по region.",
+            "example": "sns.barplot(data=df, x='category', y='sales', hue='region')",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-005",
+            "group": "Seaborn",
+            "name": "order=",
+            "kind": "pattern",
+            "description": "Постройте категории в порядке из списка category_order.",
+            "example": "sns.barplot(data=df, x='category', y='sales', order=category_order)",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-006",
+            "group": "Seaborn",
+            "name": "hue_order=",
+            "kind": "pattern",
+            "description": "При разбиении по region используйте порядок групп из region_order.",
+            "example": "sns.barplot(data=df, x='category', y='sales', hue='region', hue_order=region_order)",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-007",
+            "group": "Seaborn",
+            "name": "errorbar=None",
+            "kind": "pattern",
+            "description": "Постройте barplot без полос ошибок.",
+            "example": "sns.barplot(data=df, x='category', y='sales', errorbar=None)",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-009",
+            "group": "Seaborn",
+            "name": "dodge=False",
+            "kind": "pattern",
+            "description": "Постройте barplot с hue=\"region\", отключив разнесение столбцов параметром dodge.",
+            "example": "sns.barplot(data=df, x='category', y='sales', hue='region', dodge=False)",
+            "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
+          },
+          {
+            "id": "cheat-seaborn-010",
+            "group": "Seaborn",
+            "name": "sns.barplot() — order= на",
+            "kind": "pattern",
+            "description": "Постройте barplot суммы amount по status и расположите статусы в порядке из status_order.",
+            "example": "sns.barplot(data=df, x='status', y='amount', estimator='sum', order=status_order)",
             "documentationUrl": "https://seaborn.pydata.org/generated/seaborn.barplot.html"
           }
         ]
@@ -3440,40 +3856,95 @@
         "Axes.plot()` и оформление одной оси"
       ],
       "cheatSheet": {
-        "summary": "10 упражнений на Axes.plot()` и оформление одной оси",
-        "items": [
+        "entries": [
           {
-            "id": "method-1",
-            "name": "plot",
-            "description": "plot добавляет линии на объект Axes. Последовательности x и y задают координаты, а marker, linestyle, color, linewidth, alpha и label управляют видом. Заголовок задаётся методом осей; результатом задачи обычно служит сам Axes. В этом варианте учебная цель — применить ax.plot(y) в сценарии «простая линия» и получить результат нужной структуры Практический ориентир — приём ax.plot(y): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "ax.plot(y)  # общий вид приёма",
-            "example": "fig, axes = plt.subplots()\naxes.plot(days, temperature, linestyle='--')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 1."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-matplotlib-001",
+            "group": "Matplotlib",
+            "name": "ax.plot(y)",
+            "kind": "method",
+            "description": "Постройте линию по значениям списка y.",
+            "example": "fig, ax = plt.subplots()\nax.plot(y)\nresult = ax",
             "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
           },
           {
-            "id": "method-2",
-            "name": "set_title",
-            "description": "plot добавляет линии на объект Axes. Последовательности x и y задают координаты, а marker, linestyle, color, linewidth, alpha и label управляют видом. Заголовок задаётся методом осей; результатом задачи обычно служит сам Axes. В этом варианте учебная цель — применить ax.set_title() в сценарии «линия и заголовок · контрольная» и получить результат нужной структуры Практический ориентир — приём ax.set_title(): сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата.",
-            "syntax": "ax.set_title()  # общий вид приёма",
-            "example": "fig, axes = plt.subplots()\naxes.plot(days, temperature, linestyle='--')",
-            "parameters": [],
-            "result": "В этой задаче достаточно базового вызова без дополнительных именованных параметров.",
-            "errors": [
-              "Сначала мысленно определите тип и форму результата для варианта 10."
-            ],
-            "nuances": [
-              "Не изменяйте подготовленные входные объекты, если задача требует новый результат.",
-              "Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."
-            ],
+            "id": "cheat-matplotlib-002",
+            "group": "Matplotlib",
+            "name": "ax.plot(x, y)",
+            "kind": "method",
+            "description": "Постройте y по координатам x.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y)\nresult = ax",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-003",
+            "group": "Matplotlib",
+            "name": "marker=\"o\"",
+            "kind": "pattern",
+            "description": "Постройте линию с круглыми маркерами.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y, marker='o')\nresult = ax",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-004",
+            "group": "Matplotlib",
+            "name": "linestyle=\"--\"",
+            "kind": "pattern",
+            "description": "Постройте пунктирную линию.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y, linestyle='--')\nresult = ax",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-005",
+            "group": "Matplotlib",
+            "name": "color=",
+            "kind": "pattern",
+            "description": "Постройте линию цветом из переменной line_color.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y, color=line_color)\nresult = ax",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-006",
+            "group": "Matplotlib",
+            "name": "linewidth=",
+            "kind": "pattern",
+            "description": "Постройте линию толщиной line_width.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y, linewidth=line_width)\nresult = ax",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-007",
+            "group": "Matplotlib",
+            "name": "alpha=",
+            "kind": "pattern",
+            "description": "Постройте линию с прозрачностью line_alpha.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y, alpha=line_alpha)\nresult = ax",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-008",
+            "group": "Matplotlib",
+            "name": "label=",
+            "kind": "pattern",
+            "description": "Постройте линию с подписью из series_label.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y, label=series_label)\nresult = ax",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-009",
+            "group": "Matplotlib",
+            "name": "Axes.plot()",
+            "kind": "method",
+            "description": "Постройте на ax линии plan и fact по общему x.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, plan)\nax.plot(x, fact)",
+            "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
+          },
+          {
+            "id": "cheat-matplotlib-010",
+            "group": "Matplotlib",
+            "name": "ax.set_title()",
+            "kind": "method",
+            "description": "Постройте y по x, затем задайте заголовок из chart_title.",
+            "example": "fig, ax = plt.subplots()\nax.plot(x, y)\nax.set_title(chart_title)",
             "documentationUrl": "https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html"
           }
         ]

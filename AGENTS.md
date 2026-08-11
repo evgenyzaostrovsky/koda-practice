@@ -7,7 +7,7 @@ Whenever new learning material is added or an existing source is expanded, use t
 A learning material is considered integrated only when all of the following are created or updated together:
 
 - a stable `KnowledgeUnit` entry;
-- theory articles plus synchronized `cheatSheet` and `article` representations in the KnowledgeUnit;
+- a full teaching `article` and a separately authored compact `cheatSheet` in the same KnowledgeUnit;
 - a useful progression of up to ten non-duplicate tasks;
 - three task-specific hints per task;
 - an individual `completion_summary` per task;
@@ -24,3 +24,5 @@ Required command before committing any content change:
 ```bash
 npm run content:audit
 ```
+
+The cheat sheet is not a shortened article. Every cheat-sheet entry contains only a method or technique name, one short sentence describing it, one example of at most three lines, and an optional exact official documentation link. Detailed explanations, parameters, errors, nuances, scenarios, and conclusions belong to the article.

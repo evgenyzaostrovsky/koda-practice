@@ -73,6 +73,88 @@ def theory_urls(article: dict) -> list[str]:
     return list(dict.fromkeys(method["documentationUrl"] for method in article.get("methods", [])))
 
 
+CHEAT_GROUPS = {
+    "start": "Создание таблиц", "reading": "Чтение файлов", "columns": "Выбор столбцов",
+    "change-columns": "Изменение столбцов", "vectorization": "Векторные операции",
+    "attributes": "Размер и форма", "inspection": "Просмотр данных",
+    "dataframe-methods": "Агрегации", "series-methods": "Частоты",
+    "groupby": "Группировка", "filtering": "Фильтрация", "sorting": "Сортировка",
+    "merge": "Объединение", "pivot": "Сводные таблицы", "dtypes": "Преобразование типов",
+    "datetime": "Дата и время", "recipes": "Пропуски", "pandas-plots": "Графики pandas",
+    "seaborn": "Seaborn", "matplotlib": "Matplotlib",
+}
+CHEAT_NAMES = {
+    "start": "pd.DataFrame()", "reading": "pd.read_csv()", "columns": "df[...]",
+    "change-columns": "df[\"new\"] = ...", "vectorization": "Series: векторная операция",
+    "attributes": "df.shape", "inspection": ".head() / .tail()",
+    "dataframe-methods": ".sum()", "series-methods": ".value_counts()",
+    "groupby": ".groupby().sum()", "filtering": ".query()", "sorting": ".sort_values()",
+    "merge": "pd.merge()", "pivot": ".pivot_table()", "dtypes": ".astype()",
+    "datetime": "pd.to_datetime() / .dt", "recipes": ".fillna()",
+    "pandas-plots": ".plot()", "seaborn": "sns.barplot()", "matplotlib": "Axes.plot()",
+}
+
+
+def cheat_kind(focus: str) -> str:
+    if any(mark in focus for mark in ("+", " - ", "*", "/", ">", "<", "==")):
+        return "operator"
+    if focus.startswith(("pd.", "sns.", "plt.")):
+        return "function"
+    if focus.startswith("df.shape") or focus.startswith(".dt."):
+        return "attribute"
+    if focus.startswith(".") or "." in focus and "=" not in focus:
+        return "method"
+    return "pattern"
+
+
+def compact_example(solution: str) -> str:
+    lines = solution.strip().splitlines()
+    if len(lines) == 1 and lines[0].startswith("result = "):
+        return lines[0].removeprefix("result = ")
+    return "\n".join(lines[:3])
+
+
+def compact_description(instructions: str) -> str:
+    text = " ".join(instructions.strip().split())
+    boundary = re.search(r"[!?](?=\s|$)|\.(?=\s+[А-ЯA-ZЁ]|$)", text)
+    if boundary:
+        text = text[:boundary.end()]
+    if len(text) > 180:
+        text = text[:177].rstrip(" ,;:") + "…"
+    return text
+
+
+def cheat_name(topic_slug: str, focus: str) -> str:
+    if not re.search(r"[А-Яа-яЁё]", focus):
+        return focus
+    parameter = re.search(r"\b[A-Za-z_][A-Za-z0-9_]*\s*=\s*(?:[^ ]+)", focus)
+    return f"{CHEAT_NAMES[topic_slug]} — {parameter.group(0)}" if parameter else CHEAT_NAMES[topic_slug]
+
+
+def build_cheat_entries(topic: dict, theory: dict) -> list[dict]:
+    entries = []
+    seen = set()
+    for exercise in topic["exercises"]:
+        focus = exercise["focus"].strip()
+        example = compact_example(exercise["solution_code"])
+        signature = normalized_solution(exercise["solution_code"])
+        if signature in seen:
+            continue
+        seen.add(signature)
+        article = theory[f"theory-{exercise['id']}"]
+        documentation_url = article["methods"][0]["documentationUrl"]
+        entries.append({
+            "id": f"cheat-{exercise['id']}",
+            "group": CHEAT_GROUPS[topic["slug"]],
+            "name": cheat_name(topic["slug"], focus),
+            "kind": cheat_kind(focus),
+            "description": compact_description(exercise["instructions"]),
+            "example": example,
+            "documentationUrl": documentation_url,
+        })
+    return entries
+
+
 def build_unit(topic: dict, theory: dict, old: dict | None = None) -> dict:
     task_ids = [exercise["id"] for exercise in topic["exercises"]]
     calls = list(dict.fromkeys(call for exercise in topic["exercises"] for call in code_calls(exercise["solution_code"])))
@@ -107,8 +189,8 @@ def build_unit(topic: dict, theory: dict, old: dict | None = None) -> dict:
         "attributes": [name for name in ("shape", "index", "columns", "dtypes", "dt") if any(name in exercise["solution_code"] for exercise in topic["exercises"])],
         "operators": [operator for operator in ("+", "-", "*", "/", "==", ">", "<") if any(operator in exercise["solution_code"] for exercise in topic["exercises"])],
         "keywords":list(dict.fromkeys([topic["title"],topic["slug"],*calls,*topic.get("methods",[])])),
-        "cheatSheet":{"summary":topic["summary"],"items":method_items},
-        "article":{"lead":topic["theory"],"sections":[{"id":item["id"],"title":item["name"],"paragraphs":[item["description"],item["result"]],"syntax":item["syntax"],"examples":[item["example"]],"errors":item["errors"],"nuances":item["nuances"]} for item in method_items],"summary":topic["summary"]},
+        "cheatSheet":{"entries": build_cheat_entries(topic, theory)},
+        "article": (old or {}).get("article") or {"lead":topic["theory"],"sections":[{"id":item["id"],"title":item["name"],"paragraphs":[item["description"],item["result"]],"syntax":item["syntax"],"examples":[item["example"]],"errors":item["errors"],"nuances":item["nuances"]} for item in method_items],"summary":topic["summary"]},
         "documentationLinks":documentation,
         "relatedTaskIds":task_ids,
         "version":1,
@@ -195,12 +277,36 @@ def audit() -> None:
         if count > 1:
             errors.append(f"duplicate learning objective ({count}): {objective}")
     for unit in units:
-        if not unit.get("cheatSheet",{}).get("items") or not unit.get("article",{}).get("sections"):
+        entries = unit.get("cheatSheet",{}).get("entries", [])
+        sections = unit.get("article",{}).get("sections", [])
+        if not entries or not sections:
             errors.append(f"{unit['id']}: cheat sheet and article must be non-empty")
         if not unit.get("documentationLinks") or not unit.get("relatedTaskIds"):
             errors.append(f"{unit['id']}: documentation and related tasks are required")
-        if [item.get("id") for item in unit.get("cheatSheet",{}).get("items",[])] != [section.get("id") for section in unit.get("article",{}).get("sections",[])]:
-            errors.append(f"{unit['id']}: cheat-sheet and article anchors differ")
+        entry_signatures = []
+        article_text = json.dumps(unit.get("article", {}), ensure_ascii=False)
+        for entry in entries:
+            missing = [key for key in ("id", "group", "name", "kind", "description", "example") if not entry.get(key)]
+            if missing:
+                errors.append(f"{unit['id']}: cheat entry is missing {missing}")
+                continue
+            description = entry["description"].strip()
+            sentence_ends = re.findall(r"[!?](?=\s|$)|\.(?=\s+[А-ЯA-ZЁ]|$)", description)
+            if len(sentence_ends) > 1 or len(description) > 180:
+                errors.append(f"{unit['id']}/{entry['id']}: description must be one short sentence")
+            if len(entry["example"].splitlines()) > 3:
+                errors.append(f"{unit['id']}/{entry['id']}: example exceeds three lines")
+            signature = (entry["name"].strip().casefold(), entry["example"].strip())
+            entry_signatures.append(signature)
+            parsed = urlparse(entry.get("documentationUrl", ""))
+            if parsed.scheme != "https" or parsed.hostname not in ALLOWED_DOC_HOSTS:
+                errors.append(f"{unit['id']}/{entry['id']}: invalid official documentation URL")
+            if description and description in article_text and len(description) > 120:
+                errors.append(f"{unit['id']}/{entry['id']}: cheat sheet contains article prose")
+        if len(entry_signatures) != len(set(entry_signatures)):
+            errors.append(f"{unit['id']}: duplicate cheat-sheet entries")
+        if not unit.get("article",{}).get("lead") or not unit.get("article",{}).get("summary"):
+            errors.append(f"{unit['id']}: detailed article content was lost")
         for link in unit.get("documentationLinks",[]):
             parsed=urlparse(link.get("url",""))
             if parsed.hostname not in ALLOWED_DOC_HOSTS:

@@ -14,17 +14,14 @@ export type Exercise = {
   is_control: boolean;
   xp: number;
 };
-export type KnowledgeMethod = {
+export type CheatSheetEntry = {
   id: string;
+  group: string;
   name: string;
+  kind: "method" | "function" | "attribute" | "operator" | "pattern";
   description: string;
-  syntax: string;
   example: string;
-  parameters: Array<{ name: string; description: string }>;
-  result: string;
-  errors: string[];
-  nuances: string[];
-  documentationUrl: string;
+  documentationUrl?: string;
 };
 export type KnowledgeUnit = {
   id: string;
@@ -39,7 +36,7 @@ export type KnowledgeUnit = {
   attributes: string[];
   operators: string[];
   keywords: string[];
-  cheatSheet: { summary: string; items: KnowledgeMethod[] };
+  cheatSheet: { entries: CheatSheetEntry[] };
   article: {
     lead: string;
     sections: Array<{

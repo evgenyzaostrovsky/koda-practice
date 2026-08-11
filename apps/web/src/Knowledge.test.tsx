@@ -18,18 +18,14 @@ const unit = {
   operators: [],
   keywords: ["группировка", "groupby"],
   cheatSheet: {
-    summary: "Краткое повторение",
-    items: [
+    entries: [
       {
-        id: "method-1",
-        name: "groupby",
-        description: "Разбивает строки на группы",
-        syntax: "df.groupby('city')",
+        id: "cheat-groupby-001",
+        group: "Группировка",
+        name: ".groupby().sum()",
+        kind: "pattern",
+        description: "Суммирует значения внутри каждой группы.",
         example: "orders.groupby('region').sum()",
-        parameters: [],
-        result: "Возвращает объект группировки",
-        errors: ["Не забудьте агрегацию"],
-        nuances: [],
         documentationUrl:
           "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html",
       },
@@ -108,11 +104,31 @@ describe("knowledge base", () => {
       </Routes>,
       "/knowledge/groupby",
     );
-    expect(await screen.findByText("Краткое повторение")).toBeInTheDocument();
+    expect(await screen.findByText(".groupby().sum()")).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "Статья" }));
     expect(
       screen.getByText("Подробное объяснение группировки"),
     ).toBeInTheDocument();
     expect(localStorage.getItem("koda:knowledge-mode")).toBe("article");
+  });
+  it("searches and copies compact cheat-sheet entries", async () => {
+    const writeText = vi.fn().mockResolvedValue(undefined);
+    Object.assign(navigator, { clipboard: { writeText } });
+    wrap(
+      <Routes>
+        <Route path="/knowledge/:articleSlug" element={<KnowledgeArticle />} />
+      </Routes>,
+      "/knowledge/groupby",
+    );
+    await screen.findByText(".groupby().sum()");
+    fireEvent.change(screen.getByLabelText("Поиск по шпаргалке"), {
+      target: { value: "суммирует" },
+    });
+    fireEvent.click(
+      screen.getByRole("button", {
+        name: "Копировать пример: .groupby().sum()",
+      }),
+    );
+    expect(writeText).toHaveBeenCalledWith("orders.groupby('region').sum()");
   });
 });

@@ -42,7 +42,7 @@ def test_knowledge_api_publishes_complete_materials():
         detail=client.get(f"/knowledge/{units[0]['slug']}")
         assert detail.status_code==200
         material=detail.json()
-        assert material['cheatSheet']['items']
+        assert material['cheatSheet']['entries']
         assert material['article']['sections']
         assert material['relatedTaskIds']
         assert client.get('/knowledge/not-a-topic').status_code==404

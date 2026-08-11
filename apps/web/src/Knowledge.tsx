@@ -5,6 +5,8 @@ import {
   ArrowRight,
   BookOpen,
   Check,
+  CheckCheck,
+  Copy,
   ExternalLink,
   Search,
 } from "lucide-react";
@@ -180,12 +182,32 @@ export function KnowledgeArticle() {
       ? "article"
       : "cheat",
   );
+  const [cheatQuery, setCheatQuery] = useState("");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const change = (value: "cheat" | "article") => {
     setMode(value);
     localStorage.setItem("koda:knowledge-mode", value);
   };
   if (isLoading || !unit)
     return <div className="empty">Загрузка материала…</div>;
+  const needle = cheatQuery.trim().toLocaleLowerCase("ru");
+  const cheatEntries = unit.cheatSheet.entries.filter((entry) =>
+    [entry.name, entry.description, entry.group]
+      .join(" ")
+      .toLocaleLowerCase("ru")
+      .includes(needle),
+  );
+  const cheatGroups = Object.entries(
+    cheatEntries.reduce<Record<string, typeof cheatEntries>>((result, entry) => {
+      (result[entry.group] ??= []).push(entry);
+      return result;
+    }, {}),
+  );
+  const copyExample = async (id: string, example: string) => {
+    await navigator.clipboard.writeText(example);
+    setCopiedId(id);
+    window.setTimeout(() => setCopiedId(null), 1600);
+  };
   return (
     <main className="knowledge-article-page">
       <div className="knowledge-breadcrumbs">
@@ -219,62 +241,50 @@ export function KnowledgeArticle() {
         </button>
       </div>
       {mode === "cheat" ? (
-        <div className="knowledge-reading">
-          <aside>
-            <b>Содержание</b>
-            {unit.cheatSheet.items.map((item) => (
-              <a href={`#${item.id}`} key={item.id}>
-                {item.name}
-              </a>
-            ))}
-          </aside>
-          <article>
-            <p className="reading-lead">{unit.cheatSheet.summary}</p>
-            {unit.cheatSheet.items.map((item) => (
-              <section id={item.id} key={item.id}>
-                <h2>{item.name}</h2>
-                <p>{item.description}</p>
-                <pre>
-                  <code>{item.syntax}</code>
-                </pre>
-                <h3>Пример</h3>
-                <pre>
-                  <code>{item.example}</code>
-                </pre>
-                {item.parameters.length > 0 && (
-                  <>
-                    <h3>Параметры</h3>
-                    <dl>
-                      {item.parameters.map((param) => (
-                        <div key={param.name}>
-                          <dt>
-                            <code>{param.name}</code>
-                          </dt>
-                          <dd>{param.description}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </>
-                )}
-                <p>{item.result}</p>
-                {[...item.errors, ...item.nuances].length > 0 && (
-                  <ul>
-                    {[...item.errors, ...item.nuances].map((note) => (
-                      <li key={note}>{note}</li>
-                    ))}
-                  </ul>
-                )}
-                <a
-                  className="knowledge-doc"
-                  href={item.documentationUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Официальная документация <ExternalLink />
-                </a>
-              </section>
-            ))}
-          </article>
+        <div className="cheat-sheet">
+          <label className="cheat-search">
+            <Search />
+            <input
+              value={cheatQuery}
+              onChange={(event) => setCheatQuery(event.target.value)}
+              placeholder="Найти метод или приём"
+              aria-label="Поиск по шпаргалке"
+            />
+          </label>
+          {cheatGroups.length === 0 ? (
+            <div className="knowledge-empty">В этой шпаргалке ничего не найдено.</div>
+          ) : cheatGroups.map(([group, entries]) => (
+            <section className="cheat-group" key={group}>
+              <h2>{group}</h2>
+              <div className="cheat-table" role="table" aria-label={group}>
+                <div className="cheat-row cheat-head" role="row">
+                  <span role="columnheader">Метод</span>
+                  <span role="columnheader">Что делает</span>
+                  <span role="columnheader">Пример</span>
+                </div>
+                {entries.map((entry) => (
+                  <div className="cheat-row" role="row" key={entry.id}>
+                    <div className="cheat-name" role="cell">
+                      <code>{entry.name}</code>
+                      {entry.documentationUrl && (
+                        <a href={entry.documentationUrl} target="_blank" rel="noreferrer" aria-label={`Документация: ${entry.name}`}>
+                          <ExternalLink />
+                        </a>
+                      )}
+                    </div>
+                    <p role="cell">{entry.description}</p>
+                    <div className="cheat-example" role="cell">
+                      <code>{entry.example}</code>
+                      <button onClick={() => copyExample(entry.id, entry.example)} aria-label={`Копировать пример: ${entry.name}`}>
+                        {copiedId === entry.id ? <CheckCheck /> : <Copy />}
+                        <span>{copiedId === entry.id ? "Скопировано" : "Копировать"}</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ))}
         </div>
       ) : (
         <div className="knowledge-reading">
