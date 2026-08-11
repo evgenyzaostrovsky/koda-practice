@@ -1,0 +1,476 @@
+{
+  "sha256": "ee280ab27a7934ce481d0168147ed3b983ee874ec6adecfdcf95c7bea9b7b5eb",
+  "headings": [
+    "KODA Practice — проверенный банк задач по темам",
+    "Что было не так в исходном файле",
+    "Принцип нового банка",
+    "Источники и ориентиры",
+    "1. Начало работы — `pd.DataFrame()`",
+    "2. Чтение данных — `pd.read_csv()`",
+    "3. Работа со столбцами — выбор через `[]`",
+    "4. Создание и изменение столбцов — присваивание",
+    "5. Векторизация — арифметика Series",
+    "6. Атрибуты DataFrame — `.shape`",
+    "7. Просмотр данных — `.head()` и `.tail()`",
+    "8. Методы DataFrame и Series — `.sum()`",
+    "9. Методы Series — `.value_counts()`",
+    "10. GroupBy — `.groupby(...).sum()`",
+    "11. Фильтрация — `.query()`",
+    "12. Сортировка — `.sort_values()`",
+    "13. Объединение таблиц — `pd.merge()`",
+    "14. Сводные таблицы — `.pivot_table()`",
+    "15. Типы данных — `.astype()`",
+    "16. Дата и время — `pd.to_datetime()` и `.dt`",
+    "17. Полезные рецепты — `.fillna()`",
+    "18. Графики pandas — `.plot()`",
+    "19. Seaborn — `sns.barplot()`",
+    "20. Matplotlib — `Axes.plot()` и оформление одной оси",
+    "Требования к реализации каждой задачи в приложении",
+    "Что вынести в следующие серии"
+  ],
+  "methodsAndFunctions": [
+    "DataFrame",
+    "add",
+    "astype",
+    "barplot",
+    "bfill",
+    "concat",
+    "copy",
+    "countplot",
+    "crosstab",
+    "day_name",
+    "displot",
+    "dropna",
+    "ffill",
+    "fillna",
+    "from_records",
+    "groupby",
+    "head",
+    "histplot",
+    "mean",
+    "median",
+    "merge",
+    "pivot_table",
+    "plot",
+    "query",
+    "read_csv",
+    "rename",
+    "set_title",
+    "size",
+    "sort_values",
+    "sum",
+    "tail",
+    "to_datetime",
+    "to_numeric",
+    "value_counts"
+  ],
+  "parameters": [
+    "aggfunc",
+    "alpha",
+    "as_index",
+    "ascending",
+    "axis",
+    "bins",
+    "by",
+    "color",
+    "columns",
+    "data",
+    "dayfirst",
+    "dodge",
+    "dropna",
+    "dtype",
+    "errorbar",
+    "errors",
+    "estimator",
+    "figsize",
+    "fill_value",
+    "format",
+    "header",
+    "how",
+    "hue",
+    "hue_order",
+    "ignore_index",
+    "index",
+    "index_col",
+    "indicator",
+    "key",
+    "kind",
+    "label",
+    "limit",
+    "linestyle",
+    "linewidth",
+    "margins",
+    "margins_name",
+    "marker",
+    "min_count",
+    "na_position",
+    "na_values",
+    "names",
+    "normalize",
+    "observed",
+    "on",
+    "order",
+    "parse_dates",
+    "sep",
+    "skipna",
+    "sort",
+    "suffixes",
+    "tags",
+    "title",
+    "unit",
+    "usecols",
+    "validate",
+    "x",
+    "y"
+  ],
+  "lineCount": 418,
+  "sourceTitle": "KODA Practice task bank",
+  "coverage": {
+    "DataFrame": {
+      "status": "covered",
+      "taskIds": [
+        "start-001",
+        "start-003",
+        "start-004",
+        "start-005",
+        "start-007",
+        "start-008",
+        "start-009",
+        "start-010"
+      ]
+    },
+    "add": {
+      "status": "covered",
+      "taskIds": [
+        "vectorization-008"
+      ]
+    },
+    "astype": {
+      "status": "covered",
+      "taskIds": [
+        "dtypes-001",
+        "dtypes-002",
+        "dtypes-003",
+        "dtypes-004",
+        "dtypes-005",
+        "dtypes-006",
+        "dtypes-007",
+        "dtypes-008",
+        "dtypes-009",
+        "dtypes-010"
+      ]
+    },
+    "barplot": {
+      "status": "covered",
+      "taskIds": [
+        "seaborn-001",
+        "seaborn-002",
+        "seaborn-003",
+        "seaborn-004",
+        "seaborn-005",
+        "seaborn-006",
+        "seaborn-007",
+        "seaborn-008",
+        "seaborn-009",
+        "seaborn-010"
+      ]
+    },
+    "bfill": {
+      "status": "covered",
+      "taskIds": [
+        "recipes-009"
+      ]
+    },
+    "concat": {
+      "status": "new",
+      "taskIds": []
+    },
+    "copy": {
+      "status": "covered",
+      "taskIds": [
+        "change-columns-001",
+        "change-columns-002",
+        "change-columns-003",
+        "change-columns-004",
+        "change-columns-005",
+        "change-columns-006",
+        "change-columns-007",
+        "change-columns-008",
+        "change-columns-009",
+        "change-columns-010",
+        "dtypes-005",
+        "dtypes-009",
+        "recipes-004",
+        "recipes-005",
+        "recipes-006"
+      ]
+    },
+    "countplot": {
+      "status": "new",
+      "taskIds": []
+    },
+    "crosstab": {
+      "status": "new",
+      "taskIds": []
+    },
+    "day_name": {
+      "status": "covered",
+      "taskIds": [
+        "datetime-009"
+      ]
+    },
+    "displot": {
+      "status": "new",
+      "taskIds": []
+    },
+    "dropna": {
+      "status": "new",
+      "taskIds": []
+    },
+    "ffill": {
+      "status": "covered",
+      "taskIds": [
+        "recipes-008"
+      ]
+    },
+    "fillna": {
+      "status": "covered",
+      "taskIds": [
+        "recipes-001",
+        "recipes-002",
+        "recipes-003",
+        "recipes-004",
+        "recipes-005",
+        "recipes-006",
+        "recipes-007",
+        "recipes-010"
+      ]
+    },
+    "from_records": {
+      "status": "covered",
+      "taskIds": [
+        "start-002",
+        "start-006"
+      ]
+    },
+    "groupby": {
+      "status": "covered",
+      "taskIds": [
+        "groupby-001",
+        "groupby-002",
+        "groupby-003",
+        "groupby-004",
+        "groupby-005",
+        "groupby-006",
+        "groupby-007",
+        "groupby-008",
+        "groupby-009",
+        "groupby-010"
+      ]
+    },
+    "head": {
+      "status": "covered",
+      "taskIds": [
+        "inspection-001",
+        "inspection-002",
+        "inspection-003",
+        "inspection-004",
+        "inspection-005",
+        "inspection-010"
+      ]
+    },
+    "histplot": {
+      "status": "new",
+      "taskIds": []
+    },
+    "mean": {
+      "status": "covered",
+      "taskIds": [
+        "recipes-005"
+      ]
+    },
+    "median": {
+      "status": "covered",
+      "taskIds": [
+        "recipes-006"
+      ]
+    },
+    "merge": {
+      "status": "covered",
+      "taskIds": [
+        "merge-001",
+        "merge-002",
+        "merge-003",
+        "merge-004",
+        "merge-005",
+        "merge-006",
+        "merge-007",
+        "merge-008",
+        "merge-009",
+        "merge-010"
+      ]
+    },
+    "pivot_table": {
+      "status": "covered",
+      "taskIds": [
+        "pivot-001",
+        "pivot-002",
+        "pivot-003",
+        "pivot-004",
+        "pivot-005",
+        "pivot-006",
+        "pivot-007",
+        "pivot-008",
+        "pivot-009",
+        "pivot-010"
+      ]
+    },
+    "plot": {
+      "status": "covered",
+      "taskIds": [
+        "pandas-plots-001",
+        "pandas-plots-002",
+        "pandas-plots-003",
+        "pandas-plots-004",
+        "pandas-plots-005",
+        "pandas-plots-006",
+        "pandas-plots-007",
+        "pandas-plots-008",
+        "pandas-plots-009",
+        "pandas-plots-010",
+        "matplotlib-001",
+        "matplotlib-002",
+        "matplotlib-003",
+        "matplotlib-004",
+        "matplotlib-005",
+        "matplotlib-006",
+        "matplotlib-007",
+        "matplotlib-008",
+        "matplotlib-009",
+        "matplotlib-010"
+      ]
+    },
+    "query": {
+      "status": "covered",
+      "taskIds": [
+        "filtering-001",
+        "filtering-002",
+        "filtering-003",
+        "filtering-004",
+        "filtering-005",
+        "filtering-006",
+        "filtering-007",
+        "filtering-008",
+        "filtering-009",
+        "filtering-010"
+      ]
+    },
+    "read_csv": {
+      "status": "covered",
+      "taskIds": [
+        "reading-001",
+        "reading-002",
+        "reading-003",
+        "reading-004",
+        "reading-005",
+        "reading-006",
+        "reading-007",
+        "reading-008",
+        "reading-009",
+        "reading-010"
+      ]
+    },
+    "rename": {
+      "status": "new",
+      "taskIds": []
+    },
+    "set_title": {
+      "status": "covered",
+      "taskIds": [
+        "matplotlib-010"
+      ]
+    },
+    "size": {
+      "status": "new",
+      "taskIds": []
+    },
+    "sort_values": {
+      "status": "covered",
+      "taskIds": [
+        "sorting-001",
+        "sorting-002",
+        "sorting-003",
+        "sorting-004",
+        "sorting-005",
+        "sorting-006",
+        "sorting-007",
+        "sorting-008",
+        "sorting-009",
+        "sorting-010"
+      ]
+    },
+    "sum": {
+      "status": "covered",
+      "taskIds": [
+        "dataframe-methods-001",
+        "dataframe-methods-002",
+        "dataframe-methods-003",
+        "dataframe-methods-004",
+        "dataframe-methods-005",
+        "dataframe-methods-006",
+        "dataframe-methods-007",
+        "dataframe-methods-008",
+        "dataframe-methods-009",
+        "dataframe-methods-010",
+        "groupby-001",
+        "groupby-002",
+        "groupby-003",
+        "groupby-004",
+        "groupby-005",
+        "groupby-006",
+        "groupby-007",
+        "groupby-008",
+        "groupby-009",
+        "groupby-010"
+      ]
+    },
+    "tail": {
+      "status": "covered",
+      "taskIds": [
+        "inspection-006",
+        "inspection-007",
+        "inspection-008",
+        "inspection-009"
+      ]
+    },
+    "to_datetime": {
+      "status": "covered",
+      "taskIds": [
+        "datetime-001",
+        "datetime-002",
+        "datetime-003",
+        "datetime-004",
+        "datetime-005"
+      ]
+    },
+    "to_numeric": {
+      "status": "new",
+      "taskIds": []
+    },
+    "value_counts": {
+      "status": "covered",
+      "taskIds": [
+        "series-methods-001",
+        "series-methods-002",
+        "series-methods-003",
+        "series-methods-004",
+        "series-methods-005",
+        "series-methods-006",
+        "series-methods-007",
+        "series-methods-008",
+        "series-methods-009",
+        "series-methods-010"
+      ]
+    }
+  }
+}

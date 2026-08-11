@@ -1,0 +1,916 @@
+{
+  "version": 1,
+  "units": [
+    {
+      "id": "ku-start",
+      "title": "Начало работы",
+      "topicId": "1",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "pd.DataFrame()"
+      ],
+      "methods": [
+        "DataFrame",
+        "from_records"
+      ],
+      "functions": [],
+      "attributes": [
+        "index",
+        "columns"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-start-001",
+        "theory-start-002",
+        "theory-start-003",
+        "theory-start-004",
+        "theory-start-005",
+        "theory-start-006",
+        "theory-start-007",
+        "theory-start-008",
+        "theory-start-009",
+        "theory-start-010"
+      ],
+      "taskIds": [
+        "start-001",
+        "start-002",
+        "start-003",
+        "start-004",
+        "start-005",
+        "start-006",
+        "start-007",
+        "start-008",
+        "start-009",
+        "start-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-reading",
+      "title": "Чтение данных",
+      "topicId": "2",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "pd.read_csv()"
+      ],
+      "methods": [
+        "read_csv"
+      ],
+      "functions": [
+        "read_csv"
+      ],
+      "attributes": [
+        "index",
+        "columns",
+        "dt"
+      ],
+      "operators": [
+        "-"
+      ],
+      "theoryArticleIds": [
+        "theory-reading-001",
+        "theory-reading-002",
+        "theory-reading-003",
+        "theory-reading-004",
+        "theory-reading-005",
+        "theory-reading-006",
+        "theory-reading-007",
+        "theory-reading-008",
+        "theory-reading-009",
+        "theory-reading-010"
+      ],
+      "taskIds": [
+        "reading-001",
+        "reading-002",
+        "reading-003",
+        "reading-004",
+        "reading-005",
+        "reading-006",
+        "reading-007",
+        "reading-008",
+        "reading-009",
+        "reading-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-columns",
+      "title": "Работа со столбцами",
+      "topicId": "3",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "выбор через `[]"
+      ],
+      "methods": [],
+      "functions": [],
+      "attributes": [
+        "columns"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-columns-001",
+        "theory-columns-002",
+        "theory-columns-003",
+        "theory-columns-004",
+        "theory-columns-005",
+        "theory-columns-006",
+        "theory-columns-007",
+        "theory-columns-008",
+        "theory-columns-009",
+        "theory-columns-010"
+      ],
+      "taskIds": [
+        "columns-001",
+        "columns-002",
+        "columns-003",
+        "columns-004",
+        "columns-005",
+        "columns-006",
+        "columns-007",
+        "columns-008",
+        "columns-009",
+        "columns-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-change-columns",
+      "title": "Создание и изменение столбцов",
+      "topicId": "4",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "присваивание"
+      ],
+      "methods": [
+        "copy"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [
+        "+",
+        "-",
+        "*",
+        "/",
+        ">"
+      ],
+      "theoryArticleIds": [
+        "theory-change-columns-001",
+        "theory-change-columns-002",
+        "theory-change-columns-003",
+        "theory-change-columns-004",
+        "theory-change-columns-005",
+        "theory-change-columns-006",
+        "theory-change-columns-007",
+        "theory-change-columns-008",
+        "theory-change-columns-009",
+        "theory-change-columns-010"
+      ],
+      "taskIds": [
+        "change-columns-001",
+        "change-columns-002",
+        "change-columns-003",
+        "change-columns-004",
+        "change-columns-005",
+        "change-columns-006",
+        "change-columns-007",
+        "change-columns-008",
+        "change-columns-009",
+        "change-columns-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-vectorization",
+      "title": "Векторизация",
+      "topicId": "5",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "арифметика Series"
+      ],
+      "methods": [
+        "add"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [
+        "+",
+        "-",
+        "*",
+        "/",
+        ">"
+      ],
+      "theoryArticleIds": [
+        "theory-vectorization-001",
+        "theory-vectorization-002",
+        "theory-vectorization-003",
+        "theory-vectorization-004",
+        "theory-vectorization-005",
+        "theory-vectorization-006",
+        "theory-vectorization-007",
+        "theory-vectorization-008",
+        "theory-vectorization-009",
+        "theory-vectorization-010"
+      ],
+      "taskIds": [
+        "vectorization-001",
+        "vectorization-002",
+        "vectorization-003",
+        "vectorization-004",
+        "vectorization-005",
+        "vectorization-006",
+        "vectorization-007",
+        "vectorization-008",
+        "vectorization-009",
+        "vectorization-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-attributes",
+      "title": "Атрибуты DataFrame",
+      "topicId": "6",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".shape"
+      ],
+      "methods": [],
+      "functions": [],
+      "attributes": [
+        "shape",
+        "columns"
+      ],
+      "operators": [
+        "+",
+        "*",
+        "==",
+        ">"
+      ],
+      "theoryArticleIds": [
+        "theory-attributes-001",
+        "theory-attributes-002",
+        "theory-attributes-003",
+        "theory-attributes-004",
+        "theory-attributes-005",
+        "theory-attributes-006",
+        "theory-attributes-007",
+        "theory-attributes-008",
+        "theory-attributes-009",
+        "theory-attributes-010"
+      ],
+      "taskIds": [
+        "attributes-001",
+        "attributes-002",
+        "attributes-003",
+        "attributes-004",
+        "attributes-005",
+        "attributes-006",
+        "attributes-007",
+        "attributes-008",
+        "attributes-009",
+        "attributes-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-inspection",
+      "title": "Просмотр данных",
+      "topicId": "7",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".head()` и `.tail()"
+      ],
+      "methods": [
+        "head",
+        "tail"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-inspection-001",
+        "theory-inspection-002",
+        "theory-inspection-003",
+        "theory-inspection-004",
+        "theory-inspection-005",
+        "theory-inspection-006",
+        "theory-inspection-007",
+        "theory-inspection-008",
+        "theory-inspection-009",
+        "theory-inspection-010"
+      ],
+      "taskIds": [
+        "inspection-001",
+        "inspection-002",
+        "inspection-003",
+        "inspection-004",
+        "inspection-005",
+        "inspection-006",
+        "inspection-007",
+        "inspection-008",
+        "inspection-009",
+        "inspection-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-dataframe-methods",
+      "title": "Методы DataFrame и Series",
+      "topicId": "8",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".sum()"
+      ],
+      "methods": [
+        "sum"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-dataframe-methods-001",
+        "theory-dataframe-methods-002",
+        "theory-dataframe-methods-003",
+        "theory-dataframe-methods-004",
+        "theory-dataframe-methods-005",
+        "theory-dataframe-methods-006",
+        "theory-dataframe-methods-007",
+        "theory-dataframe-methods-008",
+        "theory-dataframe-methods-009",
+        "theory-dataframe-methods-010"
+      ],
+      "taskIds": [
+        "dataframe-methods-001",
+        "dataframe-methods-002",
+        "dataframe-methods-003",
+        "dataframe-methods-004",
+        "dataframe-methods-005",
+        "dataframe-methods-006",
+        "dataframe-methods-007",
+        "dataframe-methods-008",
+        "dataframe-methods-009",
+        "dataframe-methods-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-series-methods",
+      "title": "Методы Series",
+      "topicId": "9",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".value_counts()"
+      ],
+      "methods": [
+        "value_counts"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-series-methods-001",
+        "theory-series-methods-002",
+        "theory-series-methods-003",
+        "theory-series-methods-004",
+        "theory-series-methods-005",
+        "theory-series-methods-006",
+        "theory-series-methods-007",
+        "theory-series-methods-008",
+        "theory-series-methods-009",
+        "theory-series-methods-010"
+      ],
+      "taskIds": [
+        "series-methods-001",
+        "series-methods-002",
+        "series-methods-003",
+        "series-methods-004",
+        "series-methods-005",
+        "series-methods-006",
+        "series-methods-007",
+        "series-methods-008",
+        "series-methods-009",
+        "series-methods-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-groupby",
+      "title": "GroupBy",
+      "topicId": "10",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".groupby(...).sum()"
+      ],
+      "methods": [
+        "sum",
+        "groupby"
+      ],
+      "functions": [],
+      "attributes": [
+        "index"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-groupby-001",
+        "theory-groupby-002",
+        "theory-groupby-003",
+        "theory-groupby-004",
+        "theory-groupby-005",
+        "theory-groupby-006",
+        "theory-groupby-007",
+        "theory-groupby-008",
+        "theory-groupby-009",
+        "theory-groupby-010"
+      ],
+      "taskIds": [
+        "groupby-001",
+        "groupby-002",
+        "groupby-003",
+        "groupby-004",
+        "groupby-005",
+        "groupby-006",
+        "groupby-007",
+        "groupby-008",
+        "groupby-009",
+        "groupby-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-filtering",
+      "title": "Фильтрация",
+      "topicId": "11",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".query()"
+      ],
+      "methods": [
+        "query"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [
+        "==",
+        ">",
+        "<"
+      ],
+      "theoryArticleIds": [
+        "theory-filtering-001",
+        "theory-filtering-002",
+        "theory-filtering-003",
+        "theory-filtering-004",
+        "theory-filtering-005",
+        "theory-filtering-006",
+        "theory-filtering-007",
+        "theory-filtering-008",
+        "theory-filtering-009",
+        "theory-filtering-010"
+      ],
+      "taskIds": [
+        "filtering-001",
+        "filtering-002",
+        "filtering-003",
+        "filtering-004",
+        "filtering-005",
+        "filtering-006",
+        "filtering-007",
+        "filtering-008",
+        "filtering-009",
+        "filtering-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-sorting",
+      "title": "Сортировка",
+      "topicId": "12",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".sort_values()"
+      ],
+      "methods": [
+        "sort_values",
+        "lower"
+      ],
+      "functions": [],
+      "attributes": [
+        "index"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-sorting-001",
+        "theory-sorting-002",
+        "theory-sorting-003",
+        "theory-sorting-004",
+        "theory-sorting-005",
+        "theory-sorting-006",
+        "theory-sorting-007",
+        "theory-sorting-008",
+        "theory-sorting-009",
+        "theory-sorting-010"
+      ],
+      "taskIds": [
+        "sorting-001",
+        "sorting-002",
+        "sorting-003",
+        "sorting-004",
+        "sorting-005",
+        "sorting-006",
+        "sorting-007",
+        "sorting-008",
+        "sorting-009",
+        "sorting-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-merge",
+      "title": "Объединение таблиц",
+      "topicId": "13",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "pd.merge()"
+      ],
+      "methods": [
+        "merge"
+      ],
+      "functions": [
+        "merge"
+      ],
+      "attributes": [
+        "index"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-merge-001",
+        "theory-merge-002",
+        "theory-merge-003",
+        "theory-merge-004",
+        "theory-merge-005",
+        "theory-merge-006",
+        "theory-merge-007",
+        "theory-merge-008",
+        "theory-merge-009",
+        "theory-merge-010"
+      ],
+      "taskIds": [
+        "merge-001",
+        "merge-002",
+        "merge-003",
+        "merge-004",
+        "merge-005",
+        "merge-006",
+        "merge-007",
+        "merge-008",
+        "merge-009",
+        "merge-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-pivot",
+      "title": "Сводные таблицы",
+      "topicId": "14",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".pivot_table()"
+      ],
+      "methods": [
+        "pivot_table"
+      ],
+      "functions": [],
+      "attributes": [
+        "index",
+        "columns"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-pivot-001",
+        "theory-pivot-002",
+        "theory-pivot-003",
+        "theory-pivot-004",
+        "theory-pivot-005",
+        "theory-pivot-006",
+        "theory-pivot-007",
+        "theory-pivot-008",
+        "theory-pivot-009",
+        "theory-pivot-010"
+      ],
+      "taskIds": [
+        "pivot-001",
+        "pivot-002",
+        "pivot-003",
+        "pivot-004",
+        "pivot-005",
+        "pivot-006",
+        "pivot-007",
+        "pivot-008",
+        "pivot-009",
+        "pivot-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-dtypes",
+      "title": "Типы данных",
+      "topicId": "15",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".astype()"
+      ],
+      "methods": [
+        "astype",
+        "copy"
+      ],
+      "functions": [],
+      "attributes": [
+        "index"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-dtypes-001",
+        "theory-dtypes-002",
+        "theory-dtypes-003",
+        "theory-dtypes-004",
+        "theory-dtypes-005",
+        "theory-dtypes-006",
+        "theory-dtypes-007",
+        "theory-dtypes-008",
+        "theory-dtypes-009",
+        "theory-dtypes-010"
+      ],
+      "taskIds": [
+        "dtypes-001",
+        "dtypes-002",
+        "dtypes-003",
+        "dtypes-004",
+        "dtypes-005",
+        "dtypes-006",
+        "dtypes-007",
+        "dtypes-008",
+        "dtypes-009",
+        "dtypes-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-datetime",
+      "title": "Дата и время",
+      "topicId": "16",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "pd.to_datetime()` и `.dt"
+      ],
+      "methods": [
+        "to_datetime",
+        "day_name"
+      ],
+      "functions": [
+        "to_datetime"
+      ],
+      "attributes": [
+        "dt"
+      ],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-datetime-001",
+        "theory-datetime-002",
+        "theory-datetime-003",
+        "theory-datetime-004",
+        "theory-datetime-005",
+        "theory-datetime-006",
+        "theory-datetime-007",
+        "theory-datetime-008",
+        "theory-datetime-009",
+        "theory-datetime-010"
+      ],
+      "taskIds": [
+        "datetime-001",
+        "datetime-002",
+        "datetime-003",
+        "datetime-004",
+        "datetime-005",
+        "datetime-006",
+        "datetime-007",
+        "datetime-008",
+        "datetime-009",
+        "datetime-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-recipes",
+      "title": "Полезные рецепты",
+      "topicId": "17",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".fillna()"
+      ],
+      "methods": [
+        "fillna",
+        "copy",
+        "mean",
+        "median",
+        "ffill",
+        "bfill"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-recipes-001",
+        "theory-recipes-002",
+        "theory-recipes-003",
+        "theory-recipes-004",
+        "theory-recipes-005",
+        "theory-recipes-006",
+        "theory-recipes-007",
+        "theory-recipes-008",
+        "theory-recipes-009",
+        "theory-recipes-010"
+      ],
+      "taskIds": [
+        "recipes-001",
+        "recipes-002",
+        "recipes-003",
+        "recipes-004",
+        "recipes-005",
+        "recipes-006",
+        "recipes-007",
+        "recipes-008",
+        "recipes-009",
+        "recipes-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-pandas-plots",
+      "title": "Графики pandas",
+      "topicId": "18",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        ".plot()"
+      ],
+      "methods": [
+        "plot"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-pandas-plots-001",
+        "theory-pandas-plots-002",
+        "theory-pandas-plots-003",
+        "theory-pandas-plots-004",
+        "theory-pandas-plots-005",
+        "theory-pandas-plots-006",
+        "theory-pandas-plots-007",
+        "theory-pandas-plots-008",
+        "theory-pandas-plots-009",
+        "theory-pandas-plots-010"
+      ],
+      "taskIds": [
+        "pandas-plots-001",
+        "pandas-plots-002",
+        "pandas-plots-003",
+        "pandas-plots-004",
+        "pandas-plots-005",
+        "pandas-plots-006",
+        "pandas-plots-007",
+        "pandas-plots-008",
+        "pandas-plots-009",
+        "pandas-plots-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-seaborn",
+      "title": "Seaborn",
+      "topicId": "19",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "sns.barplot()"
+      ],
+      "methods": [
+        "barplot"
+      ],
+      "functions": [
+        "barplot"
+      ],
+      "attributes": [],
+      "operators": [],
+      "theoryArticleIds": [
+        "theory-seaborn-001",
+        "theory-seaborn-002",
+        "theory-seaborn-003",
+        "theory-seaborn-004",
+        "theory-seaborn-005",
+        "theory-seaborn-006",
+        "theory-seaborn-007",
+        "theory-seaborn-008",
+        "theory-seaborn-009",
+        "theory-seaborn-010"
+      ],
+      "taskIds": [
+        "seaborn-001",
+        "seaborn-002",
+        "seaborn-003",
+        "seaborn-004",
+        "seaborn-005",
+        "seaborn-006",
+        "seaborn-007",
+        "seaborn-008",
+        "seaborn-009",
+        "seaborn-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    },
+    {
+      "id": "ku-matplotlib",
+      "title": "Matplotlib",
+      "topicId": "20",
+      "sourceTitle": "KODA Practice task bank",
+      "sourceVersion": "2",
+      "concepts": [
+        "Axes.plot()` и оформление одной оси"
+      ],
+      "methods": [
+        "subplots",
+        "plot",
+        "set_title"
+      ],
+      "functions": [
+        "subplots"
+      ],
+      "attributes": [
+        "dt"
+      ],
+      "operators": [
+        "-"
+      ],
+      "theoryArticleIds": [
+        "theory-matplotlib-001",
+        "theory-matplotlib-002",
+        "theory-matplotlib-003",
+        "theory-matplotlib-004",
+        "theory-matplotlib-005",
+        "theory-matplotlib-006",
+        "theory-matplotlib-007",
+        "theory-matplotlib-008",
+        "theory-matplotlib-009",
+        "theory-matplotlib-010"
+      ],
+      "taskIds": [
+        "matplotlib-001",
+        "matplotlib-002",
+        "matplotlib-003",
+        "matplotlib-004",
+        "matplotlib-005",
+        "matplotlib-006",
+        "matplotlib-007",
+        "matplotlib-008",
+        "matplotlib-009",
+        "matplotlib-010"
+      ],
+      "createdAt": "2026-08-11T00:00:00Z",
+      "updatedAt": "2026-08-11T00:00:00Z"
+    }
+  ]
+}

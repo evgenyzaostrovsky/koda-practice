@@ -10,7 +10,7 @@ TOPICS={t['slug']:t for m in MODULES for t in m['topics']}
 EXERCISES={e['id']:e for t in TOPICS.values() for e in t['exercises']}
 
 def validate_catalog():
-    required={'id','topic_id','title','difficulty','instructions','dataset','setup_code','starter_code','expected_type','solution_code','theory_article_id','required_tokens','tests','hints','learning_objective','completion_summary','explanation','xp'}
+    required={'id','topic_id','title','difficulty','instructions','dataset','setup_code','starter_code','expected_type','solution_code','theory_article_id','knowledge_unit_id','concepts','required_methods','documentation_urls','required_tokens','tests','hints','learning_objective','completion_summary','explanation','xp'}
     if CATALOG.get('bank_version')!=2: raise ValueError('Unsupported content bank version')
     if len(TOPICS)!=20 or len(EXERCISES)!=200: raise ValueError('Catalog must contain 20 topics and 200 exercises')
     for topic in TOPICS.values():

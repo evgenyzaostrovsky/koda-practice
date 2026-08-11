@@ -1,0 +1,27 @@
+# KODA Practice repository instructions
+
+## Content Pipeline is mandatory
+
+Whenever new learning material is added or an existing source is expanded, use the Content Pipeline documented in `docs/content-pipeline.md`.
+
+A learning material is considered integrated only when all of the following are created or updated together:
+
+- a stable `KnowledgeUnit` entry;
+- theory articles;
+- a useful progression of up to ten non-duplicate tasks;
+- three task-specific hints per task;
+- an individual `completion_summary` per task;
+- exact links to allowed official documentation;
+- runnable prepared data, starter code, reference solutions, and validation;
+- a successful content audit and reference-solution test run.
+
+Before adding content, compare its concepts, learning objectives, normalized solution structure, methods, expected results, and prepared data with the existing bank. Reuse or extend existing units when the material adds detail to an already covered skill. Never create a duplicate merely by renaming variables, columns, or literal values.
+
+Do not change stable task, theory, topic, or knowledge-unit identifiers when updating material. If replacement or removal is unavoidable, provide an explicit progress migration before changing the catalog.
+
+Required command before committing any content change:
+
+```bash
+npm run content:audit
+```
+
