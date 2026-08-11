@@ -1033,7 +1033,12 @@ function Practice() {
       >
         <section className="problem">
           <span className="eyebrow">ЗАДАЧА · СЛОЖНОСТЬ {e.difficulty}</span>
-          <h1>{e.title}</h1>
+          <div className="problem-title-row">
+            <h1>{e.title}</h1>
+            <button className="theory-open" onClick={openTheory}>
+              <BookOpen /> Теория
+            </button>
+          </div>
           <p>{e.instructions}</p>
           <div className="target">
             Сохраните результат в <code>result</code>
@@ -1047,19 +1052,14 @@ function Practice() {
               <span>
                 <Lightbulb /> Использовано {hints.length} из 3
               </span>
-              <div className="hint-tools">
-                <button className="theory-open" onClick={openTheory}>
-                  <BookOpen /> Теория
+              {hints.length > 0 && (
+                <button
+                  className="ghost"
+                  onClick={() => setHintsOpen(!hintsOpen)}
+                >
+                  {hintsOpen ? "Свернуть" : "Развернуть"}
                 </button>
-                {hints.length > 0 && (
-                  <button
-                    className="ghost"
-                    onClick={() => setHintsOpen(!hintsOpen)}
-                  >
-                    {hintsOpen ? "Свернуть" : "Развернуть"}
-                  </button>
-                )}
-              </div>
+              )}
             </div>
             {hintsOpen &&
               hints.map((x, i) => (
