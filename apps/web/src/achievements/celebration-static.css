@@ -1,0 +1,103 @@
+.achievement-celebration.persistent {
+  animation: celebration-backdrop-in 500ms ease-out both;
+}
+
+.achievement-celebration.persistent .celebration-kicker,
+.achievement-celebration.persistent .celebration-copy {
+  animation: celebration-copy-in 650ms ease-out both;
+}
+
+.achievement-celebration.persistent .celebration-art {
+  animation: celebration-art-in 700ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  will-change: auto;
+}
+
+.achievement-celebration.persistent .celebration-art::before {
+  animation: celebration-ring-once 800ms ease-out both;
+}
+
+.achievement-celebration.persistent .celebration-art::after {
+  animation: none;
+  opacity: 0;
+}
+
+.celebration-count {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.achievement-celebration.confirming .celebration-content {
+  animation: celebration-confirm 180ms ease-in both;
+}
+
+@keyframes celebration-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes celebration-art-in {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes celebration-ring-once {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  40% {
+    opacity: 0.75;
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+@keyframes celebration-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes celebration-confirm {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .achievement-celebration.persistent,
+  .achievement-celebration.persistent .celebration-art,
+  .achievement-celebration.persistent .celebration-kicker,
+  .achievement-celebration.persistent .celebration-copy,
+  .achievement-celebration.persistent .celebration-content {
+    animation-duration: 1ms;
+    transform: none;
+  }
+
+  .achievement-celebration.persistent .celebration-art::before,
+  .achievement-celebration.persistent .celebration-art::after {
+    display: none;
+  }
+}
