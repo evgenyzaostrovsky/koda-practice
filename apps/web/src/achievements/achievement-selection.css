@@ -1,0 +1,8 @@
+.family-step.next {
+  border-color: transparent;
+}
+
+.family-step.selected {
+  border: 1px solid var(--theme-accent);
+  box-shadow: 0 0 0 1px var(--theme-accent);
+}
