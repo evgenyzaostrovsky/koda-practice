@@ -112,6 +112,7 @@ describe("AchievementFamilyDialog selection", () => {
     expect(step("Разогрев")).toHaveClass("next");
     expect(step("Разогрев")).not.toHaveClass("selected");
     expect(step("Разогрев")).toHaveAttribute("aria-selected", "false");
+    expect(step("Первопроходец")).toHaveClass("selected");
   });
 
   it("does not mutate progress when a future step is selected", () => {
