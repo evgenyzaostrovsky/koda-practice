@@ -40,6 +40,7 @@ import {
   LockKeyhole,
   Layers3,
   FlaskConical,
+  Award,
 } from "lucide-react";
 import { useEffect, useMemo, useState, useRef } from "react";
 import { api } from "./api";
@@ -57,6 +58,8 @@ import { BrandMark } from "./BrandMark";
 import { TheoryPanel } from "./TheoryPanel";
 import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
 import { Sandbox } from "./Sandbox";
+import { AchievementsPage } from "./achievements/AchievementsPage";
+import { emitAchievementEvent } from "./achievements/engine";
 const modulesQ = () => api<Module[]>("/modules");
 const progressQ = () => api<Progress>("/progress");
 function Layout() {
@@ -119,6 +122,7 @@ function Layout() {
                 [FlaskConical, "Песочница", "/sandbox"],
                 [AlertTriangle, "Ошибки", "/errors"],
                 [ChartNoAxesCombined, "Прогресс", "/progress"],
+                [Award, "Достижения", "/achievements"],
                 [Circle, "Профиль", "/profile"],
               ].map(([I, t, to]) => (
                 <NavLink
@@ -167,6 +171,7 @@ function Layout() {
           />
           <Route path="/errors" element={<Errors />} />
           <Route path="/progress" element={<ProgressPage />} />
+          <Route path="/achievements" element={<AchievementsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </main>
@@ -894,7 +899,12 @@ function Practice() {
           ? new Date().toISOString()
           : (saved?.completedAt ?? null),
       });
-      if (vars.submit) qc.invalidateQueries({ queryKey: ["progress"] });
+      if (vars.submit) {
+        const source=`${eid}:${r.attempt_number??Date.now()}`;
+        emitAchievementEvent("task_submitted",{taskId:eid,passed:Boolean(r.passed)},source);
+        if(r.passed)emitAchievementEvent("task_solved",{taskId:eid,firstTry:r.attempt_number===1,noHints:(r.hints_used??0)===0,hard:(e?.difficulty??0)>=3},source);
+        qc.invalidateQueries({ queryKey: ["progress"] });
+      }
     },
   });
   useEffect(() => {
@@ -944,6 +954,7 @@ function Practice() {
         { method: "POST" },
       );
       setHints([...hints, x.content]);
+      emitAchievementEvent("hint_used",{taskId:eid,level:hints.length+1},`${eid}:${hints.length+1}`);
       setHintsOpen(true);
     }
   };
@@ -1244,6 +1255,7 @@ function ProgressPage() {
     <>
       <Header title="Прогресс" />
       <section className="page">
+        <Link className="achievements-entry" to="/achievements"><Award/>Открыть достижения</Link>
         <div className="stats">
           <Card
             label="Решено задач"

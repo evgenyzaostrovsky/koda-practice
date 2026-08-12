@@ -1,0 +1,654 @@
+{
+  "version": "1.0.0",
+  "product": "KODA Practice",
+  "icon_format": {
+    "type": "PNG",
+    "width": 512,
+    "height": 512,
+    "background": "transparent"
+  },
+  "achievement_count": 55,
+  "family_count": 15,
+  "families": [
+    {
+      "slug": "01_solved_tasks",
+      "name": "Решённые задачи — цифровой счётчик",
+      "achievements": [
+        {
+          "id": "first_task",
+          "name": "Первопроходец",
+          "condition": "Решить 1 задачу",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 50,
+          "reward": "",
+          "icon": "icons/01_solved_tasks/01_first_task.png"
+        },
+        {
+          "id": "warmup",
+          "name": "Разогрев",
+          "condition": "Решить 10 задач",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/01_solved_tasks/02_warmup.png"
+        },
+        {
+          "id": "working_set",
+          "name": "Рабочий набор",
+          "condition": "Решить 25 задач",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 100,
+          "reward": "",
+          "icon": "icons/01_solved_tasks/03_working_set.png"
+        },
+        {
+          "id": "fifty",
+          "name": "Полтинник",
+          "condition": "Решить 50 задач",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/01_solved_tasks/04_fifty.png"
+        },
+        {
+          "id": "three_digits",
+          "name": "Три цифры",
+          "condition": "Решить 100 задач",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "Титул «Сотник»",
+          "icon": "icons/01_solved_tasks/05_three_digits.png"
+        },
+        {
+          "id": "data_stream",
+          "name": "Поток данных",
+          "condition": "Решить 250 задач",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/01_solved_tasks/06_data_stream.png"
+        },
+        {
+          "id": "compute_module",
+          "name": "Вычислительный модуль",
+          "condition": "Решить 500 задач",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "Рамка профиля",
+          "icon": "icons/01_solved_tasks/07_compute_module.png"
+        },
+        {
+          "id": "thousand",
+          "name": "Тысячник",
+          "condition": "Решить 1000 задач",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 1000,
+          "reward": "Титул и анимация",
+          "icon": "icons/01_solved_tasks/08_thousand.png"
+        }
+      ]
+    },
+    {
+      "slug": "02_streaks",
+      "name": "Серия дней — непрерывный сигнал",
+      "achievements": [
+        {
+          "id": "streak_3",
+          "name": "Первый ритм",
+          "condition": "Серия 3 дня",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 50,
+          "reward": "",
+          "icon": "icons/02_streaks/01_3_days.png"
+        },
+        {
+          "id": "streak_7",
+          "name": "На линии",
+          "condition": "Серия 7 дней",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 100,
+          "reward": "",
+          "icon": "icons/02_streaks/02_7_days.png"
+        },
+        {
+          "id": "streak_10",
+          "name": "Десятидневка",
+          "condition": "Серия 10 дней",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "Стабилизатор серии",
+          "icon": "icons/02_streaks/03_10_days.png"
+        },
+        {
+          "id": "streak_30",
+          "name": "Стабильный сигнал",
+          "condition": "Серия 30 дней",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "Акцент профиля",
+          "icon": "icons/02_streaks/04_30_days.png"
+        },
+        {
+          "id": "streak_60",
+          "name": "Система работает",
+          "condition": "Серия 60 дней",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 350,
+          "reward": "",
+          "icon": "icons/02_streaks/05_60_days.png"
+        },
+        {
+          "id": "streak_100",
+          "name": "Сотня без разрыва",
+          "condition": "Серия 100 дней",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 600,
+          "reward": "Титул и рамка",
+          "icon": "icons/02_streaks/06_100_days.png"
+        },
+        {
+          "id": "streak_365",
+          "name": "Непрерывный цикл",
+          "condition": "Серия 365 дней",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 1200,
+          "reward": "Уникальная тема",
+          "icon": "icons/02_streaks/07_365_days.png"
+        }
+      ]
+    },
+    {
+      "slug": "03_course_progress",
+      "name": "Прохождение курса — модульное ядро",
+      "achievements": [
+        {
+          "id": "first_module",
+          "name": "Первый модуль",
+          "condition": "Закрыть 1 блок",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 100,
+          "reward": "",
+          "icon": "icons/03_course_progress/01_first_module.png"
+        },
+        {
+          "id": "three_modules",
+          "name": "Собранный стек",
+          "condition": "Закрыть 3 блока",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 175,
+          "reward": "",
+          "icon": "icons/03_course_progress/02_three_modules.png"
+        },
+        {
+          "id": "half_system",
+          "name": "Половина системы",
+          "condition": "Закрыть 50% блоков",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/03_course_progress/03_half_system.png"
+        },
+        {
+          "id": "full_assembly",
+          "name": "Полная сборка",
+          "condition": "Закрыть все основные блоки",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "Рамка профиля",
+          "icon": "icons/03_course_progress/04_full_assembly.png"
+        },
+        {
+          "id": "no_empty_cell",
+          "name": "Ни одной пустой ячейки",
+          "condition": "Решить основные и дополнительные задачи",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 700,
+          "reward": "Титул",
+          "icon": "icons/03_course_progress/05_no_empty_cell.png"
+        },
+        {
+          "id": "absolute_coverage",
+          "name": "Абсолютное покрытие",
+          "condition": "Решить основные, дополнительные и сложные задачи",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 1000,
+          "reward": "Фон профиля",
+          "icon": "icons/03_course_progress/06_absolute_coverage.png"
+        }
+      ]
+    },
+    {
+      "slug": "04_solution_quality",
+      "name": "Чистые решения — стеклянная призма",
+      "achievements": [
+        {
+          "id": "first_run_solution",
+          "name": "С первого запуска",
+          "condition": "Впервые решить задачу с первой попытки",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 50,
+          "reward": "",
+          "icon": "icons/04_solution_quality/01_first_run.png"
+        },
+        {
+          "id": "clean_streak",
+          "name": "Чистая серия",
+          "condition": "Решить 5 задач подряд с первой попытки",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/04_solution_quality/02_clean_streak.png"
+        },
+        {
+          "id": "precise_line",
+          "name": "Точная линия",
+          "condition": "Решить 25 задач с первой попытки",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/04_solution_quality/03_precise_line.png"
+        },
+        {
+          "id": "flawless_module",
+          "name": "Безошибочный блок",
+          "condition": "Закрыть блок без неверных отправок",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "Титул",
+          "icon": "icons/04_solution_quality/04_flawless_module.png"
+        },
+        {
+          "id": "no_hints",
+          "name": "Без подсказок",
+          "condition": "Решить 10 задач без подсказок",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/04_solution_quality/05_no_hints.png"
+        },
+        {
+          "id": "independent_control",
+          "name": "Самостоятельный контроль",
+          "condition": "Пройти контрольную без ошибок и подсказок",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/04_solution_quality/06_independent_control.png"
+        },
+        {
+          "id": "second_pass",
+          "name": "Второй проход",
+          "condition": "Через 7+ дней повторно решить 10 задач без ошибок",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/04_solution_quality/07_second_pass.png"
+        }
+      ]
+    },
+    {
+      "slug": "05_error_recovery",
+      "name": "Работа над ошибками — восстанавливающийся чип",
+      "achievements": [
+        {
+          "id": "error_intercept",
+          "name": "Перехват ошибки",
+          "condition": "Исправить первое неверное решение",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 50,
+          "reward": "",
+          "icon": "icons/05_error_recovery/01_error_intercept.png"
+        },
+        {
+          "id": "error_work",
+          "name": "Работа над ошибками",
+          "condition": "Исправить 25 уникальных задач",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 200,
+          "reward": "",
+          "icon": "icons/05_error_recovery/02_error_work.png"
+        },
+        {
+          "id": "debugger",
+          "name": "Дебаггер",
+          "condition": "Исправить 100 уникальных задач",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 450,
+          "reward": "Титул «Дебаггер»",
+          "icon": "icons/05_error_recovery/03_debugger.png"
+        }
+      ]
+    },
+    {
+      "slug": "06_hard_tasks",
+      "name": "Сложные задачи — красное ядро",
+      "achievements": [
+        {
+          "id": "beyond_limits",
+          "name": "Выход за рамки",
+          "condition": "Решить первую сложную задачу",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 100,
+          "reward": "",
+          "icon": "icons/06_hard_tasks/01_beyond_limits.png"
+        },
+        {
+          "id": "high_load",
+          "name": "Повышенная нагрузка",
+          "condition": "Решить 10 сложных задач",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 200,
+          "reward": "",
+          "icon": "icons/06_hard_tasks/02_high_load.png"
+        },
+        {
+          "id": "red_zone",
+          "name": "Красная зона",
+          "condition": "Решить 25 сложных задач",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/06_hard_tasks/03_red_zone.png"
+        },
+        {
+          "id": "expert_mode",
+          "name": "Экспертный режим",
+          "condition": "Решить все сложные задачи блока",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 450,
+          "reward": "Рамка профиля",
+          "icon": "icons/06_hard_tasks/04_expert_mode.png"
+        },
+        {
+          "id": "hard_complete",
+          "name": "Hard Complete",
+          "condition": "Решить все сложные задачи курса",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 900,
+          "reward": "Титул",
+          "icon": "icons/06_hard_tasks/05_hard_complete.png"
+        }
+      ]
+    },
+    {
+      "slug": "07_sandbox",
+      "name": "Песочница — голографическая лаборатория",
+      "achievements": [
+        {
+          "id": "first_execution",
+          "name": "Первый запуск",
+          "condition": "Успешно выполнить код",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 50,
+          "reward": "",
+          "icon": "icons/07_sandbox/01_first_execution.png"
+        },
+        {
+          "id": "sandbox_researcher",
+          "name": "Исследователь",
+          "condition": "25 успешных запусков за 3+ дня",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/07_sandbox/02_researcher.png"
+        },
+        {
+          "id": "laboratory",
+          "name": "Лаборатория",
+          "condition": "100 запусков за 10+ дней",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "Тема редактора",
+          "icon": "icons/07_sandbox/03_laboratory.png"
+        }
+      ]
+    },
+    {
+      "slug": "08_own_data",
+      "name": "Собственные данные — капсула датасета",
+      "achievements": [
+        {
+          "id": "own_data",
+          "name": "Свои данные",
+          "condition": "Загрузить первый CSV",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/08_own_data/01_own_data.png"
+        },
+        {
+          "id": "first_dataframe",
+          "name": "Первый DataFrame",
+          "condition": "Прочитать CSV через pd.read_csv()",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 100,
+          "reward": "",
+          "icon": "icons/08_own_data/02_first_dataframe.png"
+        },
+        {
+          "id": "multiple_sources",
+          "name": "Несколько источников",
+          "condition": "Объединить два своих датасета",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/08_own_data/03_multiple_sources.png"
+        },
+        {
+          "id": "independent_project",
+          "name": "Самостоятельный проект",
+          "condition": "Провести анализ: обработка, агрегация и график",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 600,
+          "reward": "Титул «Исследователь»",
+          "icon": "icons/08_own_data/04_independent_project.png"
+        }
+      ]
+    },
+    {
+      "slug": "09_tabular_matrix",
+      "name": "Табличная матрица",
+      "achievements": [
+        {
+          "id": "data_matrix",
+          "name": "Матрица данных",
+          "condition": "Закрыть Series/DataFrame и контрольную",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 200,
+          "reward": "",
+          "icon": "icons/09_tabular_matrix/01_data_matrix.png"
+        }
+      ]
+    },
+    {
+      "slug": "10_data_cleaning",
+      "name": "Очиститель",
+      "achievements": [
+        {
+          "id": "clean_dataset",
+          "name": "Чистый датасет",
+          "condition": "Закрыть пропуски и очистку",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 200,
+          "reward": "",
+          "icon": "icons/10_data_cleaning/01_clean_dataset.png"
+        }
+      ]
+    },
+    {
+      "slug": "11_filtering",
+      "name": "Цифровой фильтр",
+      "achievements": [
+        {
+          "id": "precise_selection",
+          "name": "Точный отбор",
+          "condition": "Закрыть фильтрацию и контрольную",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 200,
+          "reward": "",
+          "icon": "icons/11_filtering/01_precise_selection.png"
+        }
+      ]
+    },
+    {
+      "slug": "12_aggregation",
+      "name": "Кластер данных",
+      "achievements": [
+        {
+          "id": "aggregation_master",
+          "name": "Мастер агрегации",
+          "condition": "Закрыть groupby и агрегации",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/12_aggregation/01_aggregation_master.png"
+        }
+      ]
+    },
+    {
+      "slug": "13_table_joining",
+      "name": "Соединяющий мост",
+      "achievements": [
+        {
+          "id": "connector",
+          "name": "Соединитель",
+          "condition": "Закрыть merge и concat",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/13_table_joining/01_connector.png"
+        }
+      ]
+    },
+    {
+      "slug": "14_datetime",
+      "name": "Временная спираль",
+      "achievements": [
+        {
+          "id": "time_master",
+          "name": "Повелитель времени",
+          "condition": "Закрыть даты и временные ряды",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/14_datetime/01_time_master.png"
+        }
+      ]
+    },
+    {
+      "slug": "15_analyst_path",
+      "name": "Аналитический интерфейс",
+      "achievements": [
+        {
+          "id": "visual_signal",
+          "name": "Визуальный сигнал",
+          "condition": "Построить первый корректный график",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/15_analyst_path/01_visual_signal.png"
+        },
+        {
+          "id": "visualizer",
+          "name": "Визуализатор",
+          "condition": "Закрыть визуализацию и контрольную",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/15_analyst_path/02_visualizer.png"
+        },
+        {
+          "id": "data_researcher",
+          "name": "Исследователь данных",
+          "condition": "Выполнить первый полноценный EDA",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 450,
+          "reward": "Титул",
+          "icon": "icons/15_analyst_path/03_data_researcher.png"
+        },
+        {
+          "id": "junior_analyst",
+          "name": "Junior Analyst",
+          "condition": "Все основные блоки и контрольные",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 600,
+          "reward": "Ранг и рамка",
+          "icon": "icons/15_analyst_path/04_junior_analyst.png"
+        },
+        {
+          "id": "data_analyst",
+          "name": "Data Analyst",
+          "condition": "Завершить курс и итоговый проект на 70%+",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 900,
+          "reward": "Ранг и тема",
+          "icon": "icons/15_analyst_path/05_data_analyst.png"
+        },
+        {
+          "id": "koda_analyst",
+          "name": "KODA Analyst",
+          "condition": "Все задачи, контрольные и проект на 90%+",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 1200,
+          "reward": "Высший ранг, анимированная рамка и витрина артефактов",
+          "icon": "icons/15_analyst_path/06_koda_analyst.png"
+        }
+      ]
+    }
+  ]
+}
