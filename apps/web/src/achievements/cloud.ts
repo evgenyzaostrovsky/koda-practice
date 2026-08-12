@@ -14,7 +14,7 @@ export async function hydrateAchievementsFromCloud() {
   const userId = currentUser.id;
   const [eventsResult, unlocksResult, statsResult, cosmeticsResult] = await Promise.all([
     supabase.from("learning_events").select("id,type,payload,occurred_at,local_date,version"),
-    supabase.from("user_achievements").select("achievement_id,unlocked_at,source_event_id,xp_awarded,seen_at"),
+    supabase.from("user_achievements").select("achievement_id,unlocked_at,source_event_id,xp_awarded,seen_at,reward_payload"),
     supabase.from("user_achievement_stats").select("timezone,backfill_version").maybeSingle(),
     supabase.from("user_cosmetics").select("kind,reward_id,active"),
   ]);
@@ -28,7 +28,7 @@ export async function hydrateAchievementsFromCloud() {
     events.set(eventId, { eventId, type: row.type, payload: row.payload || {}, occurredAt: row.occurred_at, localDate: row.local_date, version: row.version });
   }
   const unlocked = { ...local.unlocked };
-  for (const row of unlocksResult.data || []) unlocked[row.achievement_id] = { unlockedAt: row.unlocked_at, sourceEventId: row.source_event_id, xp: row.xp_awarded, seen: Boolean(row.seen_at) };
+  for (const row of unlocksResult.data || []) unlocked[row.achievement_id] = { unlockedAt: row.unlocked_at, sourceEventId: row.source_event_id, xp: row.xp_awarded, seen: Boolean(row.seen_at), celebrated: Boolean(row.reward_payload?.celebrated) };
   const activeCosmetics = { ...local.activeCosmetics };
   for (const row of cosmeticsResult.data || []) if (row.active) activeCosmetics[row.kind] = row.reward_id;
   const merged: AchievementSnapshot = { ...local, events: [...events.values()], unlocked, activeCosmetics, timezone: statsResult.data?.timezone || local.timezone, backfillVersion: Math.max(local.backfillVersion, statsResult.data?.backfill_version || 0) };
@@ -43,7 +43,7 @@ async function persistAchievementsToCloud(snapshot: AchievementSnapshot, expecte
   // The migration uses a globally unique text primary key. Prefixing with the
   // authenticated user keeps identical domain event IDs isolated per account.
   const eventRows = snapshot.events.map((event) => ({ id: `${userId}:${event.eventId}`, user_id: userId, type: event.type, payload: event.payload, occurred_at: event.occurredAt, local_date: event.localDate, version: event.version }));
-  const unlockRows = Object.entries(snapshot.unlocked).map(([achievementId, unlock]) => ({ user_id: userId, achievement_id: achievementId, unlocked_at: unlock.unlockedAt, source_event_id: unlock.sourceEventId, xp_awarded: unlock.xp, reward_payload: {}, seen_at: unlock.seen ? unlock.unlockedAt : null }));
+  const unlockRows = Object.entries(snapshot.unlocked).map(([achievementId, unlock]) => ({ user_id: userId, achievement_id: achievementId, unlocked_at: unlock.unlockedAt, source_event_id: unlock.sourceEventId, xp_awarded: unlock.xp, reward_payload: { celebrated: Boolean(unlock.celebrated) }, seen_at: unlock.seen ? unlock.unlockedAt : null }));
   const cosmeticRows = Object.entries(snapshot.activeCosmetics).map(([kind, rewardId]) => ({ user_id: userId, kind, reward_id: rewardId, active: true }));
   const existingKinds = new Set(cosmeticRows.map((row) => row.kind));
   const deactivate = existingKinds.size

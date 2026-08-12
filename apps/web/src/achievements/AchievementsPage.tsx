@@ -44,7 +44,6 @@ export function AchievementsPage() {
       })}
     </div>
     {active && <AchievementDetailsModal item={active} onClose={closeDetails} onApply={() => { const kind = rewardKind(active.def); if (!kind) return; const snapshot = loadSnapshot(); snapshot.activeCosmetics[kind] = active.def.id; snapshot.unlocked[active.def.id].seen = true; saveSnapshot(snapshot); setTick((value) => value + 1); }} />}
-    <AchievementToast manifest={manifest} />
   </section>;
 }
 
@@ -84,10 +83,4 @@ function AchievementDetailsModal({ item, onClose, onApply }: { item: Achievement
     <dl><div><dt>Прогресс</dt><dd>{item.progress.percentage}%</dd></div><div><dt>Опыт</dt><dd>+{item.def.xp} XP</dd></div>{item.def.reward && <div><dt>Награда</dt><dd>{item.def.reward}</dd></div>}{item.unlock && <div><dt>Получено</dt><dd>{new Date(item.unlock.unlockedAt).toLocaleDateString("ru")}</dd></div>}</dl>
     {item.unlock && item.def.reward && rewardKind(item.def) && <button className="ach-apply" onClick={onApply}>Применить награду</button>}
   </article></div>;
-}
-
-function AchievementToast({ manifest }: { manifest: AchievementManifest }) {
-  const [tick, setTick] = useState(0); const snapshot = loadSnapshot(); const entry = Object.entries(snapshot.unlocked).find(([, item]) => !item.seen); const definition = entry && manifest.families.flatMap((family) => family.achievements).find((item) => item.id === entry[0]);
-  if (!entry || !definition) return null;
-  return <aside className={`ach-toast ${definition.rarity}`}><img src={`/achievements/${definition.icon}`} alt="" /><div><small>НОВОЕ ДОСТИЖЕНИЕ</small><b>{definition.name}</b><span>+{definition.xp} XP{definition.reward ? ` · ${definition.reward}` : ""}</span></div><button aria-label="Закрыть уведомление" onClick={() => { snapshot.unlocked[entry[0]].seen = true; saveSnapshot(snapshot); setTick(tick + 1); }}>×</button></aside>;
 }

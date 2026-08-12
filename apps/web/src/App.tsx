@@ -60,6 +60,7 @@ import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
 import { Sandbox } from "./Sandbox";
 import { AchievementsPage } from "./achievements/AchievementsPage";
 import { emitAchievementEvent } from "./achievements/engine";
+import { AchievementCelebrationQueue } from "./achievements/AchievementCelebration";
 const modulesQ = () => api<Module[]>("/modules");
 const progressQ = () => api<Progress>("/progress");
 function Layout() {
@@ -175,6 +176,7 @@ function Layout() {
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </main>
+      <AchievementCelebrationQueue />
     </div>
   );
 }
