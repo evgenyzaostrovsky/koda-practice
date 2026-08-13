@@ -134,7 +134,10 @@ export function AchievementCelebrationQueue() {
     if (!current || !confirming) return;
     const snapshot = loadSnapshot();
     current.ids.forEach((id) => {
-      if (snapshot.unlocked[id]) snapshot.unlocked[id].celebrated = true;
+      if (snapshot.unlocked[id]) {
+        snapshot.unlocked[id].seen = true;
+        snapshot.unlocked[id].celebrated = true;
+      }
       queuedIds.current.delete(id);
     });
     saveSnapshot(snapshot);
@@ -181,7 +184,13 @@ export function AchievementCelebrationQueue() {
               ? `Получено достижений: ${current.ids.length}`
               : definition.name}
           </h2>
-          {!current.bulk && <p>{definition.condition}</p>}
+          {!current.bulk && (
+            <p>
+              {definition.secret
+                ? definition.condition_after_unlock || definition.condition
+                : definition.condition}
+            </p>
+          )}
           <b>+{totalXp} XP</b>
           {!current.bulk && definition.reward && (
             <span>Награда: {definition.reward}</span>

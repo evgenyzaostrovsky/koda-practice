@@ -37,6 +37,9 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
   const selected =
     family.achievements.find((item) => item.def.id === selectedAchievementId) ??
     null;
+  const familyConcealed = family.achievements.every(
+    (item) => item.def.secret && !item.unlock,
+  );
   const remaining = family.nextAchievement
     ? Math.max(
         0,
@@ -74,25 +77,31 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
         <header>
           <div>
             <small>ЛИНЕЙКА ДОСТИЖЕНИЙ</small>
-            <h2 id="family-dialog-title">{family.name}</h2>
+            <h2 id="family-dialog-title">
+              {familyConcealed ? "Секретная линейка" : family.name}
+            </h2>
           </div>
           <b>
             {family.completedCount} / {family.totalCount} получено
           </b>
         </header>
         <div className="family-current">
-          <strong>
+          {familyConcealed ? (
+            <strong>Условие откроется после получения</strong>
+          ) : (
+            <><strong>
             {family.isCompleted
               ? "Линейка полностью завершена"
               : family.highestUnlockedAchievement
                 ? `Текущая ступень: ${family.highestUnlockedAchievement.def.name}`
                 : "Линейка ещё не начата"}
-          </strong>
+            </strong>
           {family.nextAchievement && (
             <>
               <span>{family.nextAchievement.progress.text}</span>
               <p>До следующего достижения: ещё {remaining}</p>
             </>
+          )}</>
           )}
         </div>
         <div className="family-path" aria-label="Ступени линейки">
@@ -103,6 +112,10 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
                 ? "next"
                 : "future";
             const isSelected = item.def.id === selectedAchievementId;
+            const concealed = Boolean(item.def.secret && !item.unlock);
+            const displayName = concealed
+              ? "Секретное достижение"
+              : item.def.name;
             return (
               <button
                 ref={(node) => {
@@ -128,14 +141,16 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
                 key={item.def.id}
                 aria-selected={isSelected}
                 tabIndex={isSelected ? 0 : -1}
-                aria-label={`${item.def.name}. ${state === "unlocked" ? "Получено" : state === "next" ? "Следующая цель" : "Будущая ступень"}`}
+                aria-label={`${displayName}. ${state === "unlocked" ? "Получено" : state === "next" ? "Следующая цель" : "Будущая ступень"}`}
               >
                 <span className="step-line" />
                 <img src={`/achievements/${item.def.icon}`} alt="" />
                 <i>{item.unlock ? <Check /> : <Lock />}</i>
-                <b>{item.def.name}</b>
+                <b>{displayName}</b>
                 <small>
-                  {state === "next"
+                  {concealed
+                    ? "Условие скрыто"
+                    : state === "next"
                     ? item.progress.text
                     : item.unlock
                       ? "Получено"
@@ -156,8 +171,17 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
                 {selected.unlock ? "ПОЛУЧЕНО" : "НЕ ПОЛУЧЕНО"} ·{" "}
                 {selected.def.rarity_ru}
               </small>
-              <h3>{selected.def.name}</h3>
-              <p>{selected.def.condition}</p>
+              <h3>
+                {selected.def.secret && !selected.unlock
+                  ? "Секретное достижение"
+                  : selected.def.name}
+              </h3>
+              <p>
+                {selected.def.secret && selected.unlock
+                  ? selected.def.condition_after_unlock ||
+                    selected.def.condition
+                  : selected.def.condition}
+              </p>
               <b>
                 {selected.progress.text} · +{selected.def.xp} XP
               </b>

@@ -1,7 +1,101 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import type { AchievementManifest } from "./types";
-import { buildAchievementFamilies, currentRank, type AchievementFamilyView } from "./families";
+import {
+  buildAchievementFamilies,
+  currentRank,
+  type AchievementFamilyView,
+} from "./families";
 import { evaluate } from "./engine";
 import { AchievementFamilyDialog } from "./AchievementFamilyDialog";
-export function ProfileAchievements(){const[manifest,setManifest]=useState<AchievementManifest|null>(null),[tick,setTick]=useState(0),[selected,setSelected]=useState<AchievementFamilyView|null>(null);useEffect(()=>{fetch("/achievements/manifest.json").then(r=>r.json()).then(setManifest);const update=()=>setTick(v=>v+1);window.addEventListener("koda-achievements-updated",update);return()=>window.removeEventListener("koda-achievements-updated",update)},[]);const model=useMemo(()=>manifest?evaluate(manifest):null,[manifest,tick]),families=useMemo(()=>manifest&&model?buildAchievementFamilies(manifest,model.snapshot):[],[manifest,model]);if(!manifest||!model)return null;const started=families.filter(f=>f.isStarted).sort((a,b)=>new Date(b.highestUnlockedAchievement!.unlock!.unlockedAt).getTime()-new Date(a.highestUnlockedAchievement!.unlock!.unlockedAt).getTime()),unlocked=Object.values(model.snapshot.unlocked),totalXp=unlocked.reduce((s,x)=>s+x.xp,0),active=selected&&families.find(f=>f.slug===selected.slug);return <section className="profile-achievements"><header><div><small>КОЛЛЕКЦИЯ</small><h2>Достижения</h2></div><Link to="/achievements">Все достижения</Link></header><div className="profile-achievement-stats"><span><b>{unlocked.length} / 55</b> получено</span><span><b>{totalXp}</b> XP</span><span><b>{currentRank(families)}</b> ранг</span><span><b>{model.stats.maxStreak}</b> макс. серия</span></div>{started.length?<div className="profile-trophy-case">{started.slice(0,6).map(f=><button key={f.slug} onClick={()=>setSelected(f)} aria-label={`Открыть линейку ${f.name}`}><img src={`/achievements/${f.highestUnlockedAchievement!.def.icon}`} alt=""/><span>{f.highestUnlockedAchievement!.def.name}</span></button>)}</div>:<p className="profile-achievements-empty">Первое достижение появится здесь</p>}{active&&<AchievementFamilyDialog family={active} onClose={()=>setSelected(null)}/>}</section>}
+export function ProfileAchievements() {
+  const [manifest, setManifest] = useState<AchievementManifest | null>(null),
+    [tick, setTick] = useState(0),
+    [selected, setSelected] = useState<AchievementFamilyView | null>(null);
+  useEffect(() => {
+    fetch("/achievements/manifest.json")
+      .then((r) => r.json())
+      .then(setManifest);
+    const update = () => setTick((v) => v + 1);
+    window.addEventListener("koda-achievements-updated", update);
+    return () =>
+      window.removeEventListener("koda-achievements-updated", update);
+  }, []);
+  const model = useMemo(
+      () => (manifest ? evaluate(manifest) : null),
+      [manifest, tick],
+    ),
+    families = useMemo(
+      () =>
+        manifest && model
+          ? buildAchievementFamilies(manifest, model.snapshot)
+          : [],
+      [manifest, model],
+    );
+  if (!manifest || !model) return null;
+  const started = families
+      .filter((f) => f.isStarted)
+      .sort(
+        (a, b) =>
+          new Date(b.highestUnlockedAchievement!.unlock!.unlockedAt).getTime() -
+          new Date(a.highestUnlockedAchievement!.unlock!.unlockedAt).getTime(),
+      ),
+    unlocked = Object.values(model.snapshot.unlocked),
+    totalXp = unlocked.reduce((s, x) => s + x.xp, 0),
+    active = selected && families.find((f) => f.slug === selected.slug);
+  return (
+    <section className="profile-achievements">
+      <header>
+        <div>
+          <small>КОЛЛЕКЦИЯ</small>
+          <h2>Достижения</h2>
+        </div>
+        <Link to="/achievements">Все достижения</Link>
+      </header>
+      <div className="profile-achievement-stats">
+        <span>
+          <b>
+            {unlocked.length} / {manifest.achievement_count}
+          </b>{" "}
+          получено
+        </span>
+        <span>
+          <b>{totalXp}</b> XP
+        </span>
+        <span>
+          <b>{currentRank(families)}</b> ранг
+        </span>
+        <span>
+          <b>{model.stats.maxStreak}</b> макс. серия
+        </span>
+      </div>
+      {started.length ? (
+        <div className="profile-trophy-case">
+          {started.slice(0, 6).map((f) => (
+            <button
+              key={f.slug}
+              onClick={() => setSelected(f)}
+              aria-label={`Открыть линейку ${f.name}`}
+            >
+              <img
+                src={`/achievements/${f.highestUnlockedAchievement!.def.icon}`}
+                alt=""
+              />
+              <span>{f.highestUnlockedAchievement!.def.name}</span>
+            </button>
+          ))}
+        </div>
+      ) : (
+        <p className="profile-achievements-empty">
+          Первое достижение появится здесь
+        </p>
+      )}
+      {active && (
+        <AchievementFamilyDialog
+          family={active}
+          onClose={() => setSelected(null)}
+        />
+      )}
+    </section>
+  );
+}

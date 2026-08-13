@@ -59,7 +59,10 @@ import { TheoryPanel } from "./TheoryPanel";
 import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
 import { Sandbox } from "./Sandbox";
 import { AchievementsPage } from "./achievements/AchievementsPage";
-import { emitAchievementEvent } from "./achievements/engine";
+import {
+  emitAchievementEvent,
+  stableCodeFingerprint,
+} from "./achievements/engine";
 import { AchievementCelebrationQueue } from "./achievements/AchievementCelebration";
 const modulesQ = () => api<Module[]>("/modules");
 const progressQ = () => api<Progress>("/progress");
@@ -902,9 +905,40 @@ function Practice() {
           : (saved?.completedAt ?? null),
       });
       if (vars.submit) {
-        const source=`${eid}:${r.attempt_number??Date.now()}`;
-        emitAchievementEvent("task_submitted",{taskId:eid,passed:Boolean(r.passed)},source);
-        if(r.passed)emitAchievementEvent("task_solved",{taskId:eid,firstTry:r.attempt_number===1,noHints:(r.hints_used??0)===0,hard:(e?.difficulty??0)>=3},source);
+        const source = `${eid}:${r.attempt_number ?? Date.now()}`;
+        const telemetry = {
+          taskId: eid,
+          codeHash: stableCodeFingerprint(code),
+          topicId: e?.theory_article_id,
+          knowledgeUnitId: e?.knowledge_unit_id,
+          isControl: Boolean(e?.is_control),
+          exerciseType: e?.is_control
+            ? "control"
+            : `difficulty-${e?.difficulty ?? 0}`,
+          durationMs: r.execution_ms,
+          hintCount: r.hints_used ?? 0,
+          maxHintLevel: r.hints_used ?? 0,
+          methods: r.approach ? [r.approach] : [],
+        };
+        emitAchievementEvent(
+          "task_submitted",
+          { ...telemetry, passed: Boolean(r.passed) },
+          source,
+        );
+        if (!r.ok)
+          emitAchievementEvent("task_runtime_error", telemetry, source);
+        if (r.passed)
+          emitAchievementEvent(
+            "task_solved",
+            {
+              ...telemetry,
+              firstTry: r.attempt_number === 1,
+              noHints: (r.hints_used ?? 0) === 0,
+              hard: (e?.difficulty ?? 0) >= 3,
+              review: saved?.status === "completed",
+            },
+            source,
+          );
         qc.invalidateQueries({ queryKey: ["progress"] });
       }
     },
@@ -956,7 +990,11 @@ function Practice() {
         { method: "POST" },
       );
       setHints([...hints, x.content]);
-      emitAchievementEvent("hint_used",{taskId:eid,level:hints.length+1},`${eid}:${hints.length+1}`);
+      emitAchievementEvent(
+        "hint_used",
+        { taskId: eid, level: hints.length + 1 },
+        `${eid}:${hints.length + 1}`,
+      );
       setHintsOpen(true);
     }
   };
@@ -1257,7 +1295,10 @@ function ProgressPage() {
     <>
       <Header title="Прогресс" />
       <section className="page">
-        <Link className="achievements-entry" to="/achievements"><Award/>Открыть достижения</Link>
+        <Link className="achievements-entry" to="/achievements">
+          <Award />
+          Открыть достижения
+        </Link>
         <div className="stats">
           <Card
             label="Решено задач"

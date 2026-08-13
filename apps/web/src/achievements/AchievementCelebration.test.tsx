@@ -170,6 +170,7 @@ describe("achievement celebration queue", () => {
     await confirm();
     const after = JSON.parse(localStorage.getItem("koda:achievements:v1")!);
     expect(after.unlocked.first_task.xp).toBe(50);
+    expect(after.unlocked.first_task.seen).toBe(true);
   });
 
   it("reappears after reload while it is not acknowledged", async () => {

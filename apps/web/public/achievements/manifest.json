@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "product": "KODA Practice",
   "icon_format": {
     "type": "PNG",
@@ -7,8 +7,8 @@
     "height": 512,
     "background": "transparent"
   },
-  "achievement_count": 55,
-  "family_count": 15,
+  "achievement_count": 114,
+  "family_count": 50,
   "families": [
     {
       "slug": "01_solved_tasks",
@@ -647,6 +647,816 @@
           "xp": 1200,
           "reward": "Высший ранг, анимированная рамка и витрина артефактов",
           "icon": "icons/15_analyst_path/06_koda_analyst.png"
+        }
+      ]
+    },
+    {
+      "slug": "16_session_start",
+      "name": "Пуск — стартовый импульс",
+      "achievements": [
+        {
+          "id": "quick_start",
+          "name": "Пуск",
+          "condition": "Сделать meaningful-действие с кодом в первые 2 минуты занятия",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 50,
+          "reward": "",
+          "icon": "icons/16_session_start/01_quick_start.png"
+        }
+      ]
+    },
+    {
+      "slug": "17_short_session",
+      "name": "Короткий круг — компактный цикл",
+      "achievements": [
+        {
+          "id": "short_loop",
+          "name": "Короткий круг",
+          "condition": "Завершить учебную сессию длительностью 5–10 минут с минимум одной решённой задачей",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/17_short_session/01_short_loop.png"
+        }
+      ]
+    },
+    {
+      "slug": "18_minimum_counts",
+      "name": "Минимум засчитан — скрытая отметка",
+      "achievements": [
+        {
+          "id": "minimum_counts",
+          "name": "Минимум засчитан",
+          "condition": "Секретное достижение",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "secret": true,
+          "condition_after_unlock": "После перерыва ≥2 дней вернуться, решить 1 задачу и завершить занятие",
+          "icon": "icons/18_minimum_counts/01_minimum_counts.png"
+        }
+      ]
+    },
+    {
+      "slug": "19_comeback",
+      "name": "Камбэк — восстановление сигнала",
+      "achievements": [
+        {
+          "id": "comeback_2d",
+          "name": "Камбэк I",
+          "condition": "Вернуться к практике после перерыва ≥2 дней",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/19_comeback/01_comeback_2d.png"
+        },
+        {
+          "id": "comeback_7d",
+          "name": "Камбэк II",
+          "condition": "Вернуться к практике после перерыва ≥7 дней",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/19_comeback/02_comeback_7d.png"
+        },
+        {
+          "id": "comeback_30d",
+          "name": "Камбэк III",
+          "condition": "Вернуться к практике после перерыва ≥30 дней",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "Акцент профиля «Возвращение»",
+          "icon": "icons/19_comeback/03_comeback_30d.png"
+        },
+        {
+          "id": "comeback_90d",
+          "name": "Камбэк IV",
+          "condition": "Вернуться к практике после перерыва ≥90 дней",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "Титул «Вернувшийся»",
+          "icon": "icons/19_comeback/04_comeback_90d.png"
+        }
+      ]
+    },
+    {
+      "slug": "20_flexible_rhythm",
+      "name": "Ритм без цепи — гибкая регулярность",
+      "achievements": [
+        {
+          "id": "rhythm_3_7",
+          "name": "Ритм без цепи I",
+          "condition": "Иметь 3 активных учебных дня в любом окне 7 дней",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/20_flexible_rhythm/01_rhythm_3_7.png"
+        },
+        {
+          "id": "rhythm_10_30",
+          "name": "Ритм без цепи II",
+          "condition": "Иметь 10 активных учебных дней в любом окне 30 дней",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/20_flexible_rhythm/02_rhythm_10_30.png"
+        },
+        {
+          "id": "rhythm_25_90",
+          "name": "Ритм без цепи III",
+          "condition": "Иметь 25 активных учебных дней в любом окне 90 дней",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/20_flexible_rhythm/03_rhythm_25_90.png"
+        }
+      ]
+    },
+    {
+      "slug": "21_uneven_counts",
+      "name": "Неровно — считается — живой ритм",
+      "achievements": [
+        {
+          "id": "uneven_counts",
+          "name": "Неровно — считается",
+          "condition": "Иметь хотя бы 1 учебный день в каждой из 6 последовательных недель",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 175,
+          "reward": "",
+          "icon": "icons/21_uneven_counts/01_uneven_counts.png"
+        }
+      ]
+    },
+    {
+      "slug": "22_clicked",
+      "name": "Щёлкнуло — момент узнавания",
+      "achievements": [
+        {
+          "id": "clicked",
+          "name": "Щёлкнуло",
+          "condition": "Самостоятельно решить 3 ранее изученные задачи подряд с первой попытки и не дольше 60 секунд на каждую",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/22_clicked/01_clicked.png"
+        }
+      ]
+    },
+    {
+      "slug": "23_try_again",
+      "name": "Ещё попытка — упорство",
+      "achievements": [
+        {
+          "id": "try_again_2",
+          "name": "Ещё попытка I",
+          "condition": "Решить задачу после ≥2 неудачных проверок",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/23_try_again/01_try_again_2.png"
+        },
+        {
+          "id": "try_again_4",
+          "name": "Ещё попытка II",
+          "condition": "Решить задачу после ≥4 неудачных проверок",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/23_try_again/02_try_again_4.png"
+        },
+        {
+          "id": "try_again_7",
+          "name": "Ещё попытка III",
+          "condition": "Решить задачу после ≥7 неудачных проверок",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/23_try_again/03_try_again_7.png"
+        }
+      ]
+    },
+    {
+      "slug": "24_self_debugger",
+      "name": "Сам себе дебаггер — самостоятельный ремонт",
+      "achievements": [
+        {
+          "id": "self_debugger_runtime",
+          "name": "Сам себе дебаггер",
+          "condition": "Получить runtime-ошибку, изменить код и решить задачу без подсказки",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 200,
+          "reward": "",
+          "icon": "icons/24_self_debugger/01_self_debugger_runtime.png"
+        }
+      ]
+    },
+    {
+      "slug": "25_clean_intercept",
+      "name": "Перехват ошибки — чистый разворот",
+      "achievements": [
+        {
+          "id": "clean_intercept",
+          "name": "Чистый перехват",
+          "condition": "Получить failed check, изменить код и успешно пройти следующую проверку без подсказки",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/25_clean_intercept/01_clean_intercept.png"
+        }
+      ]
+    },
+    {
+      "slug": "26_handrails_off",
+      "name": "Поручни сняты — без поддержки",
+      "achievements": [
+        {
+          "id": "handrails_off",
+          "name": "Поручни сняты",
+          "condition": "После серии задач с подсказками решить 5 задач подряд самостоятельно",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/26_handrails_off/01_handrails_off.png"
+        }
+      ]
+    },
+    {
+      "slug": "27_one_hint",
+      "name": "Одного намёка хватило — точечная помощь",
+      "achievements": [
+        {
+          "id": "one_hint_enough",
+          "name": "Одного намёка хватило",
+          "condition": "Решить задачу, открыв только подсказку уровня 1",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/27_one_hint/01_one_hint_enough.png"
+        }
+      ]
+    },
+    {
+      "slug": "28_second_time_independent",
+      "name": "Без костылей во второй раз — самостоятельный повтор",
+      "achievements": [
+        {
+          "id": "second_time_independent",
+          "name": "Без костылей во второй раз",
+          "condition": "Повторно решить самостоятельно задачу, ранее закрытую с подсказкой",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/28_second_time_independent/01_second_time_independent.png"
+        }
+      ]
+    },
+    {
+      "slug": "29_hints_fading",
+      "name": "Тише подсказок — уход опоры",
+      "achievements": [
+        {
+          "id": "hints_fading_1",
+          "name": "Тише подсказок I",
+          "condition": "Снизить долю решений с подсказками минимум на 20 п.п. в следующем окне из 10 решений",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/29_hints_fading/01_hints_fading_1.png"
+        },
+        {
+          "id": "hints_fading_2",
+          "name": "Тише подсказок II",
+          "condition": "Снизить долю решений с подсказками минимум на 30 п.п. в следующем окне из 20 решений",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/29_hints_fading/02_hints_fading_2.png"
+        },
+        {
+          "id": "hints_fading_3",
+          "name": "Тише подсказок III",
+          "condition": "Снизить долю решений с подсказками минимум на 40 п.п. в следующем окне из 30 решений и удержать её ≤20%",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "Акцент профиля «Самостоятельность»",
+          "icon": "icons/29_hints_fading/03_hints_fading_3.png"
+        }
+      ]
+    },
+    {
+      "slug": "30_error_with_patience",
+      "name": "Ошибка с выдержкой — отложенный ремонт",
+      "achievements": [
+        {
+          "id": "error_with_patience",
+          "name": "Ошибка с выдержкой",
+          "condition": "Спустя ≥24 часа самостоятельно исправить ранее проваленную задачу без просмотра старого решения",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/30_error_with_patience/01_error_with_patience.png"
+        }
+      ]
+    },
+    {
+      "slug": "31_memory_echo",
+      "name": "Эхо памяти — отложенное воспроизведение",
+      "achievements": [
+        {
+          "id": "memory_echo_7",
+          "name": "Эхо памяти I",
+          "condition": "Через ≥7 дней самостоятельно решить задачу по ранее освоенному навыку без подсказок",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/31_memory_echo/01_memory_echo_7.png"
+        },
+        {
+          "id": "memory_echo_30",
+          "name": "Эхо памяти II",
+          "condition": "Через ≥30 дней самостоятельно решить задачу по ранее освоенному навыку без подсказок",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/31_memory_echo/02_memory_echo_30.png"
+        },
+        {
+          "id": "memory_echo_90",
+          "name": "Эхо памяти III",
+          "condition": "Через ≥90 дней самостоятельно решить задачу по ранее освоенному навыку без подсказок",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 900,
+          "reward": "Титул «Долгая память»",
+          "icon": "icons/31_memory_echo/03_memory_echo_90.png"
+        }
+      ]
+    },
+    {
+      "slug": "32_archive_open",
+      "name": "Архив открыт — возврат к теме",
+      "achievements": [
+        {
+          "id": "archive_open",
+          "name": "Архив открыт",
+          "condition": "Вернуться к теме после ≥30 дней без активности в ней и решить хотя бы 1 задачу",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 175,
+          "reward": "",
+          "icon": "icons/32_archive_open/01_archive_open.png"
+        }
+      ]
+    },
+    {
+      "slug": "33_weak_spot",
+      "name": "Слабое место — точечное усиление",
+      "achievements": [
+        {
+          "id": "weak_spot",
+          "name": "Слабое место",
+          "condition": "Поднять mastery одной из двух самых слабых тем минимум на 15 п.п.",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/33_weak_spot/01_weak_spot.png"
+        }
+      ]
+    },
+    {
+      "slug": "34_breakthrough",
+      "name": "Перелом — смена траектории",
+      "achievements": [
+        {
+          "id": "breakthrough_mastery",
+          "name": "Перелом",
+          "condition": "Поднять тему с mastery <50% до ≥80% и самостоятельно пройти контрольную",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 900,
+          "reward": "Титул «Перелом» и рамка профиля",
+          "icon": "icons/34_breakthrough/01_breakthrough_mastery.png"
+        }
+      ]
+    },
+    {
+      "slug": "35_cold_control",
+      "name": "Контроль без разогрева — холодный старт",
+      "achievements": [
+        {
+          "id": "cold_control",
+          "name": "Контроль без разогрева",
+          "condition": "После ≥30 дней без практики темы сразу пройти её контрольную самостоятельно с первой попытки",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "",
+          "icon": "icons/35_cold_control/01_cold_control.png"
+        }
+      ]
+    },
+    {
+      "slug": "36_skill_three_forms",
+      "name": "Один навык — три формы — перенос",
+      "achievements": [
+        {
+          "id": "skill_three_forms",
+          "name": "Один навык — три формы",
+          "condition": "Применить один KnowledgeUnit в 3 разных типах упражнений",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/36_skill_three_forms/01_skill_three_forms.png"
+        }
+      ]
+    },
+    {
+      "slug": "37_panorama",
+      "name": "Панорама — широта тем",
+      "achievements": [
+        {
+          "id": "panorama_3",
+          "name": "Панорама I",
+          "condition": "Решить задачи минимум в 3 разных темах за 7 дней",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/37_panorama/01_panorama_3.png"
+        },
+        {
+          "id": "panorama_7",
+          "name": "Панорама II",
+          "condition": "Решить задачи минимум в 7 разных темах за 30 дней",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/37_panorama/02_panorama_7.png"
+        },
+        {
+          "id": "panorama_12",
+          "name": "Панорама III",
+          "condition": "Решить задачи минимум в 12 разных темах за 90 дней",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "",
+          "icon": "icons/37_panorama/03_panorama_12.png"
+        }
+      ]
+    },
+    {
+      "slug": "38_toolbelt",
+      "name": "Инструментальный пояс — арсенал методов",
+      "achievements": [
+        {
+          "id": "toolbelt_5",
+          "name": "Инструментальный пояс I",
+          "condition": "Освоить 5 разных методов или инструментов",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/38_toolbelt/01_toolbelt_5.png"
+        },
+        {
+          "id": "toolbelt_10",
+          "name": "Инструментальный пояс II",
+          "condition": "Освоить 10 разных методов или инструментов",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/38_toolbelt/02_toolbelt_10.png"
+        },
+        {
+          "id": "toolbelt_20",
+          "name": "Инструментальный пояс III",
+          "condition": "Освоить 20 разных методов или инструментов",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 600,
+          "reward": "Титул «Инструментарий»",
+          "icon": "icons/38_toolbelt/03_toolbelt_20.png"
+        }
+      ]
+    },
+    {
+      "slug": "39_combo_session",
+      "name": "Комбо-сессия — скрытая связка",
+      "achievements": [
+        {
+          "id": "combo_session",
+          "name": "Комбо-сессия",
+          "condition": "Секретное достижение",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "secret": true,
+          "condition_after_unlock": "В одной сессии решить обычную задачу, закрыть повторение/ошибку и сделать meaningful-запуск в Песочнице",
+          "icon": "icons/39_combo_session/01_combo_session.png"
+        }
+      ]
+    },
+    {
+      "slug": "40_what_if",
+      "name": "Что если? — экспериментальная серия",
+      "achievements": [
+        {
+          "id": "what_if_3",
+          "name": "Что если? I",
+          "condition": "В одной сессии изменить один и тот же код 3 осмысленными способами и сравнить результаты",
+          "rarity": "common",
+          "rarity_ru": "Обычная",
+          "xp": 75,
+          "reward": "",
+          "icon": "icons/40_what_if/01_what_if_3.png"
+        },
+        {
+          "id": "what_if_10",
+          "name": "Что если? II",
+          "condition": "Провести 10 серий осмысленных вариантов одного решения в Песочнице",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/40_what_if/02_what_if_10.png"
+        },
+        {
+          "id": "what_if_25",
+          "name": "Что если? III",
+          "condition": "Провести 25 серий осмысленных вариантов одного решения в Песочнице",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "Тема редактора «Laboratory»",
+          "icon": "icons/40_what_if/03_what_if_25.png"
+        }
+      ]
+    },
+    {
+      "slug": "41_controlled_explosion",
+      "name": "Контролируемый взрыв — безопасная ошибка",
+      "achievements": [
+        {
+          "id": "controlled_explosion",
+          "name": "Контролируемый взрыв",
+          "condition": "Секретное достижение",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "secret": true,
+          "condition_after_unlock": "Получить runtime-ошибку в Песочнице и затем успешно запустить исправленный код без перезапуска окружения",
+          "icon": "icons/41_controlled_explosion/01_controlled_explosion.png"
+        }
+      ]
+    },
+    {
+      "slug": "42_reconnaissance",
+      "name": "Разведка боем — эксперимент и возврат",
+      "achievements": [
+        {
+          "id": "reconnaissance",
+          "name": "Разведка боем",
+          "condition": "Секретное достижение",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 450,
+          "reward": "Титул «Разведчик»",
+          "secret": true,
+          "condition_after_unlock": "После failed check открыть Песочницу, провести meaningful-эксперимент и затем решить исходную задачу без подсказки",
+          "icon": "icons/42_reconnaissance/01_reconnaissance.png"
+        }
+      ]
+    },
+    {
+      "slug": "43_lesson_to_life",
+      "name": "Из урока в жизнь — перенос на свои данные",
+      "achievements": [
+        {
+          "id": "lesson_to_life",
+          "name": "Из урока в жизнь",
+          "condition": "В течение 7 дней после освоения метода применить его к собственному CSV",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/43_lesson_to_life/01_lesson_to_life.png"
+        }
+      ]
+    },
+    {
+      "slug": "44_own_question",
+      "name": "Свой вопрос — самостоятельная постановка",
+      "achievements": [
+        {
+          "id": "own_question",
+          "name": "Свой вопрос",
+          "condition": "Сформулировать собственный аналитический вопрос к своему датасету и получить ответ кодом",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 450,
+          "reward": "",
+          "icon": "icons/44_own_question/01_own_question.png"
+        }
+      ]
+    },
+    {
+      "slug": "45_first_mini_analysis",
+      "name": "Первый мини-анализ — полный цикл",
+      "achievements": [
+        {
+          "id": "first_mini_analysis",
+          "name": "Первый мини-анализ",
+          "condition": "На собственных данных без готового шаблона выполнить: загрузка → проверка/очистка → преобразование → агрегация → визуализация",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 1000,
+          "reward": "Титул «Практик данных» и фон профиля",
+          "icon": "icons/45_first_mini_analysis/01_first_mini_analysis.png"
+        }
+      ]
+    },
+    {
+      "slug": "46_no_loops",
+      "name": "Без цикла — векторный поток",
+      "achievements": [
+        {
+          "id": "no_loops_3",
+          "name": "Без цикла I",
+          "condition": "Решить 3 подходящие задачи через pandas-векторизацию без for/while",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/46_no_loops/01_no_loops_3.png"
+        },
+        {
+          "id": "no_loops_10",
+          "name": "Без цикла II",
+          "condition": "Решить 10 подходящих задач через pandas-векторизацию без for/while",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/46_no_loops/02_no_loops_10.png"
+        },
+        {
+          "id": "no_loops_25",
+          "name": "Без цикла III",
+          "condition": "Решить 25 подходящих задач через pandas-векторизацию без for/while",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "Акцент редактора «Vector»",
+          "icon": "icons/46_no_loops/03_no_loops_25.png"
+        }
+      ]
+    },
+    {
+      "slug": "47_chain_reaction",
+      "name": "Цепная реакция — method chaining",
+      "achievements": [
+        {
+          "id": "chain_reaction_3",
+          "name": "Цепная реакция I",
+          "condition": "Решить 3 задачи, где уместно использовать цепочку минимум из 2 pandas-операций",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 125,
+          "reward": "",
+          "icon": "icons/47_chain_reaction/01_chain_reaction_3.png"
+        },
+        {
+          "id": "chain_reaction_10",
+          "name": "Цепная реакция II",
+          "condition": "Решить 10 задач, где уместно использовать цепочку минимум из 3 pandas-операций",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 250,
+          "reward": "",
+          "icon": "icons/47_chain_reaction/02_chain_reaction_10.png"
+        },
+        {
+          "id": "chain_reaction_25",
+          "name": "Цепная реакция III",
+          "condition": "Решить 25 задач с уместным method chaining без лишних промежуточных шагов",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 500,
+          "reward": "",
+          "icon": "icons/47_chain_reaction/03_chain_reaction_25.png"
+        }
+      ]
+    },
+    {
+      "slug": "48_not_by_sample",
+      "name": "Не по образцу — альтернативный путь",
+      "achievements": [
+        {
+          "id": "not_by_sample",
+          "name": "Не по образцу",
+          "condition": "Секретное достижение",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "secret": true,
+          "condition_after_unlock": "Пройти все тесты решением, структурно отличающимся от эталонного, без подсказок",
+          "icon": "icons/48_not_by_sample/01_not_by_sample.png"
+        }
+      ]
+    },
+    {
+      "slug": "49_long_run",
+      "name": "Дальний ход — развитие через месяцы",
+      "achievements": [
+        {
+          "id": "long_run_2m",
+          "name": "Дальний ход I",
+          "condition": "Иметь ≥4 активных учебных дней в каждом из 2 разных календарных месяцев",
+          "rarity": "uncommon",
+          "rarity_ru": "Необычная",
+          "xp": 150,
+          "reward": "",
+          "icon": "icons/49_long_run/01_long_run_2m.png"
+        },
+        {
+          "id": "long_run_4m",
+          "name": "Дальний ход II",
+          "condition": "Иметь ≥4 активных учебных дней в каждом из 4 разных календарных месяцев",
+          "rarity": "rare",
+          "rarity_ru": "Редкая",
+          "xp": 300,
+          "reward": "",
+          "icon": "icons/49_long_run/02_long_run_4m.png"
+        },
+        {
+          "id": "long_run_8m",
+          "name": "Дальний ход III",
+          "condition": "Иметь ≥4 активных учебных дней в каждом из 8 разных календарных месяцев",
+          "rarity": "epic",
+          "rarity_ru": "Эпическая",
+          "xp": 600,
+          "reward": "",
+          "icon": "icons/49_long_run/03_long_run_8m.png"
+        },
+        {
+          "id": "long_run_12m",
+          "name": "Дальний ход IV",
+          "condition": "Иметь ≥4 активных учебных дней в каждом из 12 разных календарных месяцев",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 1200,
+          "reward": "Титул «Дальний ход» и анимированная рамка",
+          "icon": "icons/49_long_run/04_long_run_12m.png"
+        }
+      ]
+    },
+    {
+      "slug": "50_proven_by_time",
+      "name": "Доказано временем — устойчивое знание",
+      "achievements": [
+        {
+          "id": "proven_by_time",
+          "name": "Доказано временем",
+          "condition": "Самостоятельно пройти отложенные проверки минимум 5 разных навыков через ≥90 дней после их освоения",
+          "rarity": "legendary",
+          "rarity_ru": "Легендарная",
+          "xp": 1200,
+          "reward": "Титул «Доказано временем» и уникальная рамка профиля",
+          "icon": "icons/50_proven_by_time/01_proven_by_time.png"
         }
       ]
     }

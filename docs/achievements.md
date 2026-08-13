@@ -1,11 +1,33 @@
-# KODA Practice achievements
+# KODA Achievements v2
 
-`apps/web/public/achievements/manifest.json` and its 55 PNG files are the immutable display definitions. Machine rules live in `apps/web/src/achievements/rules.ts`; conditions are never parsed from Russian display text.
+The application uses one achievement system backed by `apps/web/public/achievements/manifest.json`. Version 2 contains 114 immutable display definitions grouped into 50 ordered families. The original 55 IDs and assets are preserved.
 
-The client domain records idempotent learning events with stable IDs, incrementally derives cached statistics, performs versioned backfill from confirmed task progress, evaluates progress, queues unseen rewards, and stores the local snapshot under `koda:achievements:v1`. The Supabase migration adds the equivalent persistent model (`learning_events`, `user_achievements`, stats, daily activity, cosmetics) with ownership RLS and uniqueness constraints.
+## Sources of truth
 
-Qualifying streak activity is a newly solved task or a successful sandbox run with a new normalized-code hash. Dates use the browser IANA timezone. `streak_10` grants a single stabilizer; storage allows at most one. The UI exposes all 15 families, the 12-stage Analyst Path, progress, XP, dates, unseen state, and cosmetic selection.
+- The manifest owns names, descriptions, secret display text, rarity, XP, rewards, family order and icon paths.
+- `rules.ts` declares every machine rule. Russian manifest text is never parsed to award an achievement.
+- `engine.ts` owns the idempotent event log, unlock records and XP awards.
+- `v2-evaluator.ts` evaluates temporal, sequence and structured-metadata rules.
+- Unlock and acknowledgement are separate: XP is stored on unlock; `celebrated` records explicit confirmation of the reward scene.
 
-To add an achievement, add its unchanged display definition and 512×512 alpha PNG, then add a typed rule and tests. To add a reward type, extend `rewardKind` and the cosmetics UI. Run `node scripts/validate-achievements.mjs`, `npm test`, `npm run lint`, and the frontend production build.
+## Events and idempotency
 
-Events requiring unavailable product proof (review sessions, scored final project, and full EDA/join instrumentation) remain locked until their trusted runner/API events exist; no synthetic unlock is emitted.
+Every event has a stable ID, timestamp, local date, type and structured payload. Repeated delivery of the same event ID is ignored. Task telemetry includes task/topic/KnowledgeUnit identifiers, code fingerprint, attempts, hints, duration and control/review metadata. Sandbox telemetry includes a runtime ID, code fingerprint, owned-dataset IDs, result kind, plots and failures.
+
+Events are persisted locally and, for authenticated users, upserted into `learning_events`. Unlocks are upserted by `(user_id, achievement_id)`, so retries cannot duplicate XP.
+
+## Secrets
+
+Five v2 definitions are secret. Until unlock, collection UI renders “Секретное достижение” and does not expose the real condition or progress. After unlock, `condition_after_unlock`, the real name, icon, rarity, XP and date are shown.
+
+## Conservative structured rules
+
+Rules involving vectorization, method chaining, alternative solutions, analytical questions or multi-stage analysis require explicit structured metadata (`vectorized`, `chainDepth`, `alternativeStrategy`, `own_question_answered`, `analysisStages`). They deliberately remain locked when that evidence is absent. No achievement is inferred from fragile source-code regexes.
+
+## Backfill
+
+Backfill version 2 preserves old unlocks and imports only objectively known solved-task/course totals. New v2 rules ignore `backfill` events because historical session, code-change and hint-transition evidence is incomplete. New mechanics start collecting proof after deployment.
+
+## Validation
+
+`node scripts/validate-achievements.mjs` checks counts, unique IDs/families/icon paths, explicit rules, PNG format, 512×512 dimensions, alpha channels, missing assets and orphan assets.

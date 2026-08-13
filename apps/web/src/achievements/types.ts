@@ -1,10 +1,109 @@
-export type AchievementRarity="common"|"uncommon"|"rare"|"epic"|"legendary";
-export type AchievementDefinition={id:string;name:string;condition:string;rarity:AchievementRarity;rarity_ru:string;xp:number;reward:string;icon:string};
-export type AchievementFamily={slug:string;name:string;achievements:AchievementDefinition[]};
-export type AchievementManifest={version:string;achievement_count:number;family_count:number;families:AchievementFamily[]};
-export type AchievementEventType="task_submitted"|"task_solved"|"hint_used"|"sandbox_run_succeeded"|"csv_uploaded"|"chart_created"|"own_dataframe_created"|"own_datasets_joined"|"own_analysis_completed"|"eda_completed"|"project_scored";
-export type AchievementEvent={eventId:string;type:AchievementEventType;occurredAt:string;localDate:string;payload:Record<string,unknown>;version:1};
-export type AchievementStats={solved:number;modules:number;totalModules:number;firstTry:number;cleanStreak:number;noHints:number;corrected:number;hardSolved:number;sandboxRuns:number;sandboxDays:number;csvUploads:number;dataframes:number;joins:number;analyses:number;charts:number;eda:number;projectScore:number;currentStreak:number;maxStreak:number;stabilizer:boolean;topicProgress:Record<string,{current:number;target:number}>};
-export type Rule={metric:keyof AchievementStats|"allTasks"|"halfModules"|"allModules"|"topic"|"composite";target:number;topic?:string;requires?:Array<{metric:keyof AchievementStats;target:number}>};
-export type AchievementProgress={current:number;target:number;percentage:number;text:string;unlocked:boolean};
-export type AchievementSnapshot={events:AchievementEvent[];unlocked:Record<string,{unlockedAt:string;sourceEventId:string;xp:number;seen:boolean;celebrated?:boolean}>;activeCosmetics:Record<string,string>;backfillVersion:number;timezone:string};
+export type AchievementRarity =
+  "common" | "uncommon" | "rare" | "epic" | "legendary";
+export type AchievementDefinition = {
+  id: string;
+  name: string;
+  condition: string;
+  condition_after_unlock?: string;
+  secret?: boolean;
+  rarity: AchievementRarity;
+  rarity_ru: string;
+  xp: number;
+  reward: string;
+  icon: string;
+};
+export type AchievementFamily = {
+  slug: string;
+  name: string;
+  achievements: AchievementDefinition[];
+};
+export type AchievementManifest = {
+  version: string;
+  achievement_count: number;
+  family_count: number;
+  families: AchievementFamily[];
+};
+export type AchievementEventType =
+  | "task_submitted"
+  | "task_solved"
+  | "task_runtime_error"
+  | "hint_used"
+  | "review_completed"
+  | "mastery_changed"
+  | "sandbox_run_succeeded"
+  | "sandbox_run_failed"
+  | "csv_uploaded"
+  | "chart_created"
+  | "own_dataframe_created"
+  | "own_datasets_joined"
+  | "own_analysis_completed"
+  | "own_question_answered"
+  | "eda_completed"
+  | "project_scored";
+export type AchievementEvent = {
+  eventId: string;
+  type: AchievementEventType;
+  occurredAt: string;
+  localDate: string;
+  payload: Record<string, unknown>;
+  version: 1;
+};
+export type AchievementStats = {
+  solved: number;
+  modules: number;
+  totalModules: number;
+  firstTry: number;
+  cleanStreak: number;
+  noHints: number;
+  corrected: number;
+  hardSolved: number;
+  sandboxRuns: number;
+  sandboxDays: number;
+  csvUploads: number;
+  dataframes: number;
+  joins: number;
+  analyses: number;
+  charts: number;
+  eda: number;
+  projectScore: number;
+  currentStreak: number;
+  maxStreak: number;
+  stabilizer: boolean;
+  topicProgress: Record<string, { current: number; target: number }>;
+};
+export type Rule = {
+  metric:
+    | keyof AchievementStats
+    | "allTasks"
+    | "halfModules"
+    | "allModules"
+    | "topic"
+    | "composite"
+    | "v2";
+  target: number;
+  topic?: string;
+  requires?: Array<{ metric: keyof AchievementStats; target: number }>;
+};
+export type AchievementProgress = {
+  current: number;
+  target: number;
+  percentage: number;
+  text: string;
+  unlocked: boolean;
+};
+export type AchievementSnapshot = {
+  events: AchievementEvent[];
+  unlocked: Record<
+    string,
+    {
+      unlockedAt: string;
+      sourceEventId: string;
+      xp: number;
+      seen: boolean;
+      celebrated?: boolean;
+    }
+  >;
+  activeCosmetics: Record<string, string>;
+  backfillVersion: number;
+  timezone: string;
+};

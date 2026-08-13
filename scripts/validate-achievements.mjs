@@ -1,2 +1,61 @@
-import fs from'node:fs';import path from'node:path';import zlib from'node:zlib';
-const root=path.resolve('apps/web/public/achievements'),manifest=JSON.parse(fs.readFileSync(path.join(root,'manifest.json'),'utf8')),rules=fs.readFileSync(path.resolve('apps/web/src/achievements/rules.ts'),'utf8');const defs=manifest.families.flatMap(f=>f.achievements),ids=new Set(defs.map(x=>x.id));if(defs.length!==55||manifest.achievement_count!==55)throw Error('achievement_count must be 55');if(manifest.families.length!==15||manifest.family_count!==15)throw Error('family_count must be 15');if(ids.size!==55)throw Error('achievement ids must be unique');for(const d of defs){if(!rules.includes(`${d.id}:`))throw Error(`missing rule: ${d.id}`);const b=fs.readFileSync(path.join(root,d.icon));if(b.toString('ascii',1,4)!=='PNG')throw Error(`not PNG: ${d.icon}`);if(b.readUInt32BE(16)!==512||b.readUInt32BE(20)!==512)throw Error(`wrong size: ${d.icon}`);if(![4,6].includes(b[25]))throw Error(`no alpha channel: ${d.icon}`)}const body=rules.slice(rules.indexOf('={')+2,rules.indexOf('\n};')),ruleIds=[...body.matchAll(/(?:^|,)\s*([a-z0-9_]+):\{metric:/g)].map(x=>x[1]);if(ruleIds.length!==55)throw Error(`rule count must be 55, got ${ruleIds.length}`);for(const id of ruleIds)if(!ids.has(id))throw Error(`extra rule: ${id}`);console.log(`Achievements valid: ${defs.length} achievements, ${manifest.families.length} families, ${ruleIds.length} rules`);
+import fs from "node:fs";
+import path from "node:path";
+
+const root = path.resolve("apps/web/public/achievements");
+const manifest = JSON.parse(
+  fs.readFileSync(path.join(root, "manifest.json"), "utf8"),
+);
+const rules = fs.readFileSync(
+  path.resolve("apps/web/src/achievements/rules.ts"),
+  "utf8",
+);
+const definitions = manifest.families.flatMap((family) => family.achievements);
+const ids = definitions.map((definition) => definition.id);
+const paths = definitions.map((definition) => definition.icon);
+
+if (definitions.length !== manifest.achievement_count)
+  throw Error("achievement_count does not match definitions");
+if (manifest.families.length !== manifest.family_count)
+  throw Error("family_count does not match families");
+if (new Set(ids).size !== ids.length)
+  throw Error("achievement ids must be unique");
+if (
+  new Set(manifest.families.map((family) => family.slug)).size !==
+  manifest.families.length
+)
+  throw Error("family slugs must be unique");
+if (new Set(paths).size !== paths.length)
+  throw Error("achievement icon paths must be unique");
+
+for (const definition of definitions) {
+  if (!new RegExp(`\\b${definition.id}\\s*:`).test(rules))
+    throw Error(`missing rule: ${definition.id}`);
+  const file = path.join(root, definition.icon);
+  if (!fs.existsSync(file)) throw Error(`missing icon: ${definition.icon}`);
+  const bytes = fs.readFileSync(file);
+  if (bytes.toString("ascii", 1, 4) !== "PNG")
+    throw Error(`not PNG: ${definition.icon}`);
+  if (bytes.readUInt32BE(16) !== 512 || bytes.readUInt32BE(20) !== 512)
+    throw Error(`wrong size: ${definition.icon}`);
+  if (![4, 6].includes(bytes[25]))
+    throw Error(`no alpha channel: ${definition.icon}`);
+}
+
+const iconRoot = path.join(root, "icons");
+const walk = (directory) =>
+  fs
+    .readdirSync(directory, { withFileTypes: true })
+    .flatMap((entry) =>
+      entry.isDirectory()
+        ? walk(path.join(directory, entry.name))
+        : [path.join(directory, entry.name)],
+    );
+const actual = walk(iconRoot)
+  .filter((file) => file.endsWith(".png"))
+  .map((file) => path.relative(root, file).replaceAll("\\", "/"));
+const orphaned = actual.filter((file) => !paths.includes(file));
+if (orphaned.length) throw Error(`orphan icons: ${orphaned.join(", ")}`);
+
+console.log(
+  `Achievements valid: ${definitions.length} achievements, ${manifest.families.length} families, ${paths.length} icons`,
+);
