@@ -1,0 +1,5 @@
+.achievement-grid-skeleton > i { display:block;min-height:230px;border:1px solid var(--line);border-radius:10px;background:linear-gradient(90deg,var(--surface),var(--surface-subtle),var(--surface));background-size:200% 100%;animation:profile-shimmer 1.2s linear infinite }
+.family-preview { content-visibility:auto;contain-intrinsic-size:190px 230px }
+.family-preview-art img { aspect-ratio:1 }
+@media(max-width:600px){.achievement-grid-skeleton > i{min-height:190px}}
+@media(prefers-reduced-motion:reduce){.achievement-grid-skeleton > i{animation:none}}

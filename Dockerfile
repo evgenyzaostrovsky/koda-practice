@@ -12,6 +12,7 @@ RUN npm ci && npm --prefix apps/web ci
 COPY apps/web ./apps/web
 COPY content ./content
 COPY scripts/sync-web-content.mjs ./scripts/sync-web-content.mjs
+COPY scripts/generate-achievement-thumbnails.mjs ./scripts/generate-achievement-thumbnails.mjs
 RUN npm --prefix apps/web run build
 
 FROM python:3.12-slim-bookworm AS runtime

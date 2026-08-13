@@ -34,6 +34,12 @@ class SpaStaticFiles(StaticFiles):
             raise
         if response.status_code==404 and scope['method']=='GET':
             return await super().get_response('index.html',scope)
+        path_value=scope.get('path','')
+        if '/achievements/icons/' in path_value:
+            response.headers['Cache-Control']='public, max-age=31536000, immutable'
+            if path_value.endswith('.webp'): response.headers['Content-Type']='image/webp'
+        elif path_value.endswith('/achievements/manifest.json'):
+            response.headers['Cache-Control']='public, max-age=3600, stale-while-revalidate=86400'
         return response
 
 app=FastAPI(title='KODA Practice API',version='1.0.0')

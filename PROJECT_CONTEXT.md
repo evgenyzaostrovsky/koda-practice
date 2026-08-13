@@ -33,3 +33,12 @@ Validation commands and their latest results belong in the implementation commit
 - Full solution history lives at `/profile/history`; independent account forms live at `/profile/settings`. Both use router navigation and link back to Profile.
 - Display name and a unique normalized `username` are editable. Username is a public profile identifier, not an authentication credential. Email remains the login and email/password changes use Supabase Auth.
 - The overview is constrained to 1080 px on desktop and switches to one column at mobile widths, including 320, 375, 390, and 430 px.
+
+## Achievement collection performance
+
+- The collection still renders exactly one preview per family (50 cards) and mounts stage/detail UI only after a family is opened.
+- The measured bottleneck was image payload: the 50 first-stage family PNG previews total 9,680,874 bytes. Generated 160×160 WebP previews total 322,550 bytes for the same representative set (96.7% smaller); all 114 thumbnails total 787,882 bytes versus 23,892,703 bytes of source PNGs.
+- Preview images use versioned `.thumb.webp` URLs, native lazy loading, asynchronous decoding, explicit dimensions, and original-PNG fallback. Original assets remain unchanged for detail and reward scenes.
+- The static manifest is deduplicated in memory and retained indefinitely in the TanStack Query cache. Progress uses the existing aggregate `/progress` request and stale-while-revalidate behavior; filters are entirely local.
+- Cold load renders a header/filter/grid skeleton immediately. In the measured desktop viewport native lazy loading requested 35 visible/near-viewport thumbnails, no full PNGs, while all 50 family cards were available in the DOM. Warm remount showed 50 cards immediately with no skeleton and no manifest refetch.
+- Family detail is a separate lazy JavaScript chunk; opening a family then loads only that family's full-size PNG stages. Immutable icon responses use a one-year cache, while the versioned manifest uses a one-hour cache with stale-while-revalidate.

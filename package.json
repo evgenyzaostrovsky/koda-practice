@@ -14,11 +14,13 @@
     "test:sandbox-smoke": "node scripts/sandbox_smoke.mjs",
     "test:api": "node scripts/python.mjs -m pytest apps/api/tests -q",
     "test:web": "npm --prefix apps/web run test -- --run",
+    "achievements:thumbs": "node scripts/generate-achievement-thumbnails.mjs",
     "lint": "node scripts/python.mjs -m compileall -q apps/api/app scripts && node scripts/validate-achievements.mjs && npm --prefix apps/web run typecheck",
     "verify": "npm run test && npm --prefix apps/web run typecheck && npm --prefix apps/web run build"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
-    "pyodide": "^0.27.7"
+    "pyodide": "^0.27.7",
+    "sharp": "^0.35.3"
   }
 }

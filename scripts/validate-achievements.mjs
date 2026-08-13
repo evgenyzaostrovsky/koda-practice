@@ -39,6 +39,12 @@ for (const definition of definitions) {
     throw Error(`wrong size: ${definition.icon}`);
   if (![4, 6].includes(bytes[25]))
     throw Error(`no alpha channel: ${definition.icon}`);
+  const thumbnail = file.replace(/\.png$/i, ".thumb.webp");
+  if (!fs.existsSync(thumbnail)) throw Error(`missing thumbnail: ${definition.icon}`);
+  const thumbnailBytes = fs.readFileSync(thumbnail);
+  if (thumbnailBytes.toString("ascii", 0, 4) !== "RIFF" || thumbnailBytes.toString("ascii", 8, 12) !== "WEBP")
+    throw Error(`invalid WebP thumbnail: ${definition.icon}`);
+  if (thumbnailBytes.length > 40_000) throw Error(`thumbnail too large: ${definition.icon}`);
 }
 
 const iconRoot = path.join(root, "icons");
@@ -57,5 +63,5 @@ const orphaned = actual.filter((file) => !paths.includes(file));
 if (orphaned.length) throw Error(`orphan icons: ${orphaned.join(", ")}`);
 
 console.log(
-  `Achievements valid: ${definitions.length} achievements, ${manifest.families.length} families, ${paths.length} icons`,
+  `Achievements valid: ${definitions.length} achievements, ${manifest.families.length} families, ${paths.length} icons and thumbnails`,
 );

@@ -8,8 +8,8 @@ export type AchievementFamilyView = {
   completedCount: number; totalCount: number; isStarted: boolean; isCompleted: boolean;
 };
 
-export function buildAchievementFamilies(manifest: AchievementManifest, snapshot?: AchievementSnapshot): AchievementFamilyView[] {
-  const model = evaluate(manifest, snapshot);
+export function buildAchievementFamilies(manifest: AchievementManifest, snapshot?: AchievementSnapshot, evaluated?: ReturnType<typeof evaluate>): AchievementFamilyView[] {
+  const model = evaluated ?? evaluate(manifest, snapshot);
   const byId = new Map(model.items.map((item) => [item.def.id, item]));
   return manifest.families.map((family: AchievementFamily) => {
     const achievements = family.achievements.map((definition) => byId.get(definition.id)!);
