@@ -53,7 +53,7 @@ import {
   saveTaskState,
 } from "./task-storage";
 import type { TheoryArticle } from "./types";
-import { ProfilePage } from "./ProfilePage";
+import { ProfileHistoryPage, ProfilePage, ProfileSettingsPage } from "./ProfilePage";
 import { BrandMark } from "./BrandMark";
 import { TheoryPanel } from "./TheoryPanel";
 import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
@@ -177,6 +177,8 @@ function Layout() {
           <Route path="/progress" element={<ProgressPage />} />
           <Route path="/achievements" element={<AchievementsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/profile/history" element={<ProfileHistoryPage />} />
+          <Route path="/profile/settings" element={<ProfileSettingsPage />} />
         </Routes>
       </main>
       <AchievementCelebrationQueue />

@@ -24,3 +24,12 @@ No database migration was required for v2. The existing `learning_events` JSON p
 The reward queue remains persistent until explicit confirmation, survives refresh, presents multiple unlocks sequentially and groups bulk historical rewards.
 
 Validation commands and their latest results belong in the implementation commit/report rather than this evergreen context file.
+
+## Profile
+
+- `/profile` is a compact modular overview with account identity, aggregate progress, unlocked achievement preview, recent activity, and an account/security entry point.
+- Detailed course progress remains on `/progress`; the profile no longer renders every topic row.
+- Achievement preview counts definitions dynamically and shows only actual unlocked rewards (up to six newest), never silhouettes, locked stages, or locked secrets.
+- Full solution history lives at `/profile/history`; independent account forms live at `/profile/settings`. Both use router navigation and link back to Profile.
+- Display name and a unique normalized `username` are editable. Username is a public profile identifier, not an authentication credential. Email remains the login and email/password changes use Supabase Auth.
+- The overview is constrained to 1080 px on desktop and switches to one column at mobile widths, including 320, 375, 390, and 430 px.

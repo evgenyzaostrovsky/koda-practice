@@ -6,8 +6,8 @@ import{hasLegacyTasks,mergeCloudTaskStates,migrateLegacyTasks,setStorageUser}fro
 import{BrandMark}from'./BrandMark';
 import{hydrateAchievementsFromCloud,setAchievementCloudUser}from'./achievements/cloud';
 
-type AuthContextValue={user:User|null;session:Session|null;signOut:()=>Promise<void>;updatePassword:(password:string)=>Promise<void>};
-const AuthContext=createContext<AuthContextValue>({user:null,session:null,signOut:async()=>{},updatePassword:async()=>{}});
+type AuthContextValue={user:User|null;session:Session|null;signOut:()=>Promise<void>;updateEmail:(email:string)=>Promise<void>;updatePassword:(password:string)=>Promise<void>};
+const AuthContext=createContext<AuthContextValue>({user:null,session:null,signOut:async()=>{},updateEmail:async()=>{},updatePassword:async()=>{}});
 let accessToken:string|null=null;
 export const getAccessToken=()=>accessToken;
 export const useAuth=()=>useContext(AuthContext);
@@ -33,5 +33,5 @@ export function AuthProvider({children}:{children:ReactNode}){
  if(loading)return <main className="auth-page"><div className="auth-card"><p>Проверяем сессию…</p></div></main>;
  if(!session)return <AuthForm/>;
  const migrate=async()=>{setMigrating(true);try{for(const task of migrateLegacyTasks())await saveCloudTask(task);localStorage.setItem(`koda:migrated:v1:${session.user.id}`,'yes');setMigration(false);mergeCloudTaskStates(await loadCloudTasks())}finally{setMigrating(false)}};
- return <AuthContext.Provider value={{user:session.user,session,updatePassword:async password=>{const{error}=await supabase!.auth.updateUser({password});if(error)throw error},signOut:async()=>{setCloudUser(null);setAchievementCloudUser(null);setStorageUser(null);await supabase!.auth.signOut();accessToken=null}}}>{children}{migration&&<div className="migration-banner"><p>На этом устройстве найден локальный прогресс. Перенести его в аккаунт?</p><button onClick={migrate} disabled={migrating}>{migrating?'Переносим…':'Перенести'}</button><button className="ghost" onClick={()=>setMigration(false)}>Пропустить</button></div>}</AuthContext.Provider>;
+ return <AuthContext.Provider value={{user:session.user,session,updateEmail:async email=>{const{error}=await supabase!.auth.updateUser({email},{emailRedirectTo:`${location.origin}/profile/settings`});if(error)throw error},updatePassword:async password=>{const{error}=await supabase!.auth.updateUser({password});if(error)throw error},signOut:async()=>{setCloudUser(null);setAchievementCloudUser(null);setStorageUser(null);await supabase!.auth.signOut();accessToken=null}}}>{children}{migration&&<div className="migration-banner"><p>На этом устройстве найден локальный прогресс. Перенести его в аккаунт?</p><button onClick={migrate} disabled={migrating}>{migrating?'Переносим…':'Перенести'}</button><button className="ghost" onClick={()=>setMigration(false)}>Пропустить</button></div>}</AuthContext.Provider>;
 }
