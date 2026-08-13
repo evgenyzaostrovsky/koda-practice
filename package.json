@@ -13,13 +13,15 @@
     "content:audit": "node scripts/python.mjs scripts/content_pipeline.py audit",
     "test:sandbox-smoke": "node scripts/sandbox_smoke.mjs",
     "test:sandbox-contract": "node scripts/sandbox_contract_test.mjs",
+    "test:sandbox-e2e": "playwright test",
     "test:api": "node scripts/python.mjs -m pytest apps/api/tests -q",
     "test:web": "npm --prefix apps/web run test -- --run",
     "achievements:thumbs": "node scripts/generate-achievement-thumbnails.mjs",
     "lint": "node scripts/python.mjs -m compileall -q apps/api/app scripts && node scripts/validate-achievements.mjs && npm --prefix apps/web run typecheck",
-    "verify": "npm run test && npm --prefix apps/web run typecheck && npm --prefix apps/web run build"
+    "verify": "npm run test && npm --prefix apps/web run typecheck && npm --prefix apps/web run build && npm run test:sandbox-e2e"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.0",
     "concurrently": "^9.1.2",
     "pyodide": "^0.27.7",
     "sharp": "^0.35.3"

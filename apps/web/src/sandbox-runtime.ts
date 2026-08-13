@@ -6,7 +6,9 @@ export type MountedFile = {
 export type SandboxResult = {
   ok: boolean;
   stdout: string;
+  stderr?: string;
   stdoutTruncated?: boolean;
+  stderrTruncated?: boolean;
   errorType?: string;
   message?: string;
   traceback?: string;
@@ -42,7 +44,7 @@ export type RuntimeMetrics = {
   packagesReadyMs: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
-const WORKER_PROTOCOL_VERSION = "8";
+const WORKER_PROTOCOL_VERSION = "9";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;
@@ -170,6 +172,10 @@ export class SandboxRuntime {
       const transfers = files.flatMap((file) => (file.buffer ? [file.buffer] : []));
       return await this.request<SandboxResult>("run", { code, files }, transfers, timeoutMs, { code, files, fileLoader });
     } finally {
+      // The worker posts its result immediately before its async message
+      // handler unwinds. Yield one macrotask so a rapid repeat Run cannot enter
+      // Pyodide while that handler is still completing.
+      await new Promise<void>((resolve) => window.setTimeout(resolve, 0));
       this.runActive = false;
     }
   }

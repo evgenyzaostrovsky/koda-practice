@@ -48,7 +48,7 @@ async function ensureCodePackages(imports, requestId) {
   if (needsMatplotlib && !loadedPackages.has("matplotlib")) {
     status("packages", "Загрузка Matplotlib…", requestId);
     await runtime.loadPackage("matplotlib");
-    runtime.runPython("import matplotlib\nmatplotlib.use('Agg')");
+    runtime.runPython("import matplotlib\nmatplotlib.use('Agg')\nimport matplotlib.pyplot");
     loadedPackages.add("matplotlib");
   }
   if (imports.includes("seaborn") && !loadedPackages.has("seaborn")) {
@@ -62,7 +62,7 @@ async function ensureCodePackages(imports, requestId) {
 
 function mount(files) {
   const available = new Map(files.map((file) => [file.logicalPath, file.version]));
-  try { runtime.FS.mkdir("/datasets"); } catch (error) { if (!String(error).includes("File exists")) throw error; }
+  if (!runtime.FS.analyzePath("/datasets").exists) runtime.FS.mkdir("/datasets");
   for (const path of manifest.keys()) {
     if (!available.has(path)) {
       try { runtime.FS.unlink(path); } catch { /* already absent */ }
@@ -112,6 +112,7 @@ def _result(value):
     return {"kind": "value", "value": rendered[:MAX_VALUE], "truncated": len(rendered) > MAX_VALUE}
 
 stdout = io.StringIO()
+stderr = io.StringIO()
 plots = []
 __timing = {}
 try:
@@ -134,8 +135,12 @@ try:
     if packages or missing_files:
         raise _KodaPreparationRequired(json.dumps({"packages": packages, "datasets": missing_files}))
     last = tree.body.pop() if tree.body and isinstance(tree.body[-1], ast.Expr) else None
+    pyplot = sys.modules.get("matplotlib.pyplot")
+    original_show = pyplot.show if pyplot is not None else None
+    if pyplot is not None:
+        pyplot.show = lambda *args, **kwargs: None
     __timing["pythonStart"] = time.perf_counter()
-    with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stdout):
+    with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stderr):
         exec(compile(tree, "solution.py", "exec"), __koda_globals)
         value = eval(compile(ast.Expression(last.value), "solution.py", "eval"), __koda_globals) if last else None
     __timing["pythonEnd"] = time.perf_counter()
@@ -144,6 +149,7 @@ try:
     __timing["resultEnd"] = time.perf_counter()
     __timing["stdoutStart"] = time.perf_counter()
     output = stdout.getvalue()
+    error_output = stderr.getvalue()
     __timing["stdoutEnd"] = time.perf_counter()
     __timing["plotsStart"] = time.perf_counter()
     if "matplotlib.pyplot" in sys.modules:
@@ -153,15 +159,20 @@ try:
             plt.figure(number).savefig(buffer, format="png", bbox_inches="tight", dpi=120)
             plots.append("data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode("ascii"))
         plt.close("all")
+        if original_show is not None:
+            plt.show = original_show
     __timing["plotsEnd"] = time.perf_counter()
-    __koda_payload = {"ok": True, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "result": serialized_result, "plots": plots, "analysis": {"methods": methods, "stages": analysis_stages}, "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
+    __koda_payload = {"ok": True, "stdout": output[:MAX_STDOUT], "stderr": error_output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "stderrTruncated": len(error_output) > MAX_STDOUT, "result": serialized_result, "plots": plots, "analysis": {"methods": methods, "stages": analysis_stages}, "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
 except _KodaPreparationRequired as preparation:
     __koda_payload = {"control": "prepare", **json.loads(str(preparation))}
 except BaseException as error:
+    if 'pyplot' in locals() and pyplot is not None and 'original_show' in locals() and original_show is not None:
+        pyplot.show = original_show
     __timing["pythonEnd"] = time.perf_counter()
     output = stdout.getvalue()
+    error_output = stderr.getvalue()
     trace = traceback.format_exc()
-    __koda_payload = {"ok": False, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "errorType": type(error).__name__, "message": str(error)[:MAX_VALUE], "traceback": trace[:MAX_STDOUT], "plots": [], "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
+    __koda_payload = {"ok": False, "stdout": output[:MAX_STDOUT], "stderr": error_output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "stderrTruncated": len(error_output) > MAX_STDOUT, "errorType": type(error).__name__, "message": str(error)[:MAX_VALUE], "traceback": trace[:MAX_STDOUT], "plots": [], "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
 return json.dumps(__koda_payload, ensure_ascii=False)
 `;
 
@@ -186,7 +197,7 @@ onmessage = async (event) => {
     runtime.globals.set("__koda_mounted_paths", Array.from(manifest.keys()));
     runtime.globals.set("__koda_loaded_packages", Array.from(loadedPackages));
     const pythonStarted = performance.now();
-    let payload = JSON.parse(runtime.runPython("__koda_run()"));
+    let payload = JSON.parse(await runtime.runPythonAsync("__koda_run()"));
     if (payload.control === "prepare") {
       if (payload.packages?.length) {
         await ensureCodePackages(payload.packages, requestId);
@@ -198,7 +209,7 @@ onmessage = async (event) => {
         return;
       }
       status("running", "Выполнение…", requestId);
-      payload = JSON.parse(runtime.runPython("__koda_run()"));
+      payload = JSON.parse(await runtime.runPythonAsync("__koda_run()"));
     }
     const afterPythonAt = performance.now();
     payload.executionMs = Math.max(0, (payload.pythonTiming?.pythonEnd ?? 0) - (payload.pythonTiming?.pythonStart ?? 0));

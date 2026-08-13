@@ -127,13 +127,16 @@ export function Sandbox() {
         }
       })
       .catch((e) => {
-        setRuntimeState("error");
-        setMessage(e.message);
+        if (runtime.current === next) {
+          setRuntimeState("error");
+          setMessage(e.message);
+        }
       });
+    return next;
   };
   useEffect(() => {
-    createRuntime();
-    return () => runtime.current?.terminate();
+    const activeRuntime = createRuntime();
+    return () => activeRuntime.terminate();
   }, []);
   useEffect(() => localStorage.setItem(STORAGE_KEY, code), [code]);
   const selectFiles = async (list: FileList | File[]) => {
@@ -183,7 +186,10 @@ export function Sandbox() {
     }
   };
   const run = async () => {
-    if (!runtime.current || running.current) return;
+    if (!runtime.current || running.current) {
+      if (import.meta.env.DEV) console.warn("Sandbox run ignored", { hasRuntime: Boolean(runtime.current), running: running.current });
+      return;
+    }
     const activeRuntime = runtime.current;
     const clickAt = performance.now();
     running.current = true;
@@ -216,6 +222,9 @@ export function Sandbox() {
       if (runtime.current !== activeRuntime) return;
       setResult(output);
       setMobileTab("result");
+      // Release the imperative guard before the UI advertises the runtime as
+      // ready. Otherwise a fast second click is accepted visually but ignored.
+      running.current = false;
       setRuntimeState("ready");
       const executionMs = output.executionMs ?? output.totalRunMs;
       setMessage(executionMs === undefined ? "Выполнено" : `Выполнено за ${Math.max(1, Math.round(executionMs))} мс`);
@@ -502,6 +511,7 @@ function SandboxOutput({ value }: { value: SandboxResult }) {
   return (
     <div className="sandbox-result">
       {value.stdout && <pre className="sandbox-stdout">{value.stdout}</pre>}
+      {value.stderr && <pre className="sandbox-stderr">{value.stderr}</pre>}
       {!value.ok && (
         <div className="sandbox-traceback">
           <b>

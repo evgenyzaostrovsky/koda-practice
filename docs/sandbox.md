@@ -38,3 +38,13 @@ The manifest exposes `id`, `name`, `logicalPath`, size, MIME type, timestamps, a
 Apply both Supabase migrations, then configure `KODA_AUTH_ENABLED=true`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `KODA_SANDBOX_BUCKET=koda-sandbox`, and matching public Vite auth variables. Run `npm run setup` followed by `npm run dev`. The bucket must remain private.
 
 Deleting a file in the UI removes the Storage object and metadata row. Account deletion cascades metadata; Storage object lifecycle cleanup should be handled by the application before account deletion or by a scheduled administrative cleanup job.
+
+## Output pipeline and regression checks
+
+Every Run creates a request id and sends code plus the current file manifest to the persistent worker. The worker restores `/datasets`, executes the code in the persistent `__koda_globals` namespace, converts stdout, stderr, the final expression, DataFrame/Series previews, tracebacks, and plots to plain structured-clone-safe data, and returns one matching result message. React stores that payload and renders it in the Result panel.
+
+`/datasets` is created only when absent. Re-running code must not call `FS.mkdir` blindly: Pyodide reports an existing Emscripten directory as `ErrnoError`, not a stable browser-independent `"File exists"` string.
+
+`npm run test:sandbox-contract` exercises the actual worker harness for stdout, stderr, expressions, persistent variables, tables, errors, recovery, and PNG plots. `npm run test:sandbox-e2e` builds on that with an unmocked Chromium/Pyodide run through the real editor, Run button, worker, and visible DOM for stdout, `42`, a DataFrame, combined stdout/table output, `ValueError`, and Matplotlib.
+
+The application does not register a Service Worker or use Cache Storage. FastAPI serves SPA routes and `sandbox-worker.js` with `no-cache, no-store, must-revalidate`; content-hashed `/assets/` files are immutable. `/api/health` exposes the deployed `RENDER_GIT_COMMIT` so a production check can prove which revision is live.

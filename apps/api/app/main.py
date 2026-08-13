@@ -41,6 +41,10 @@ class SpaStaticFiles(StaticFiles):
             if path_value.endswith('.webp'): response.headers['Content-Type']='image/webp'
         elif path_value.endswith('/achievements/manifest.json'):
             response.headers['Cache-Control']='public, max-age=3600, stale-while-revalidate=86400'
+        elif path_value.endswith('/sandbox-worker.js') or not Path(path_value).suffix:
+            response.headers['Cache-Control']='no-cache, no-store, must-revalidate'
+        elif '/assets/' in path_value:
+            response.headers['Cache-Control']='public, max-age=31536000, immutable'
         return response
 
 app=FastAPI(title='KODA Practice API',version='1.0.0')
@@ -67,7 +71,7 @@ def attempt_dataset(e):
     return {'files':e['dataset'].get('files',{})} if e['dataset'].get('files') else {}
 
 @app.get('/health')
-def health(): return {'status':'ok'}
+def health(): return {'status':'ok','commit':os.environ.get('RENDER_GIT_COMMIT','local')}
 @app.get('/modules')
 def modules(): return [public_module(m) for m in MODULES]
 @app.get('/topics/{slug}')
