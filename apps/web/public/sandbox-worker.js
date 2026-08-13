@@ -148,9 +148,10 @@ try:
 except _KodaPreparationRequired as preparation:
     __koda_payload = {"control": "prepare", **json.loads(str(preparation))}
 except BaseException as error:
+    __timing["pythonEnd"] = time.perf_counter()
     output = stdout.getvalue()
     trace = traceback.format_exc()
-    __koda_payload = {"ok": False, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "errorType": type(error).__name__, "message": str(error)[:MAX_VALUE], "traceback": trace[:MAX_STDOUT]}
+    __koda_payload = {"ok": False, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "errorType": type(error).__name__, "message": str(error)[:MAX_VALUE], "traceback": trace[:MAX_STDOUT], "plots": [], "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
 return json.dumps(__koda_payload, ensure_ascii=False)
 `;
 
@@ -190,7 +191,7 @@ onmessage = async (event) => {
       payload = JSON.parse(await runtime.runPythonAsync("__koda_run()"));
     }
     const afterPythonAt = performance.now();
-    payload.executionMs = performance.now() - pythonStarted;
+    payload.executionMs = Math.max(0, (payload.pythonTiming?.pythonEnd ?? 0) - (payload.pythonTiming?.pythonStart ?? 0));
     payload.totalRunMs = performance.now() - executionStarted;
     payload.workerTiming = { receivedEpochMs, runtimeReadyAt: executionStarted, filesystemMs: filesystemEnded - filesystemStarted, beforePythonAt: pythonStarted, afterPythonAt, postMessageEpochMs: Date.now(), workerId, runtimeGeneration };
     state = "ready";

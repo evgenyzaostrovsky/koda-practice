@@ -62,6 +62,18 @@ describe("SandboxRuntime lifecycle", () => {
     expect(fatal).not.toHaveBeenCalled();
   });
 
+  it("accepts only the matching request response", async () => {
+    const runtime = new SandboxRuntime();
+    const worker = FakeWorker.instances[0];
+    worker.emit({ type: "ready", version: "0.27.7", metrics: { workerCreatedMs: 1, pyodideReadyMs: 2, packagesReadyMs: 3 } });
+    const result = runtime.run("1 + 1", [], async () => []);
+    await Promise.resolve();
+    const requestId = worker.postMessage.mock.calls.at(-1)?.[0].requestId;
+    worker.emit({ type: "result", requestId: "stale-request", payload: { ok: true, stdout: "", plots: [], result: { kind: "value", value: "999" } } });
+    worker.emit({ type: "result", requestId, payload: { ok: true, stdout: "", plots: [], executionMs: 2, result: { kind: "value", value: "2" } } });
+    await expect(result).resolves.toMatchObject({ result: { value: "2" }, executionMs: 2 });
+  });
+
   it("starts the timeout only when Python execution begins", async () => {
     vi.useFakeTimers();
     const runtime = new SandboxRuntime();
