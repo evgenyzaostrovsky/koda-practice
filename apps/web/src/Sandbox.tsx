@@ -266,7 +266,7 @@ export function Sandbox() {
     }
   };
   return (
-    <section className="sandbox-page" onKeyDown={keyDown}>
+    <section className="sandbox-page" onKeyDownCapture={keyDown}>
       <header className="sandbox-head">
         <div>
           <small>СВОБОДНАЯ ПРАКТИКА</small>
