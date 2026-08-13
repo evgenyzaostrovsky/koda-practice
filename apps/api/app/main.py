@@ -31,10 +31,10 @@ class SpaStaticFiles(StaticFiles):
             response=await super().get_response(path,scope)
         except StarletteHTTPException as exc:
             if exc.status_code==404 and scope['method']=='GET':
-                return await super().get_response('index.html',scope)
-            raise
+                response=await super().get_response('index.html',scope)
+            else: raise
         if response.status_code==404 and scope['method']=='GET':
-            return await super().get_response('index.html',scope)
+            response=await super().get_response('index.html',scope)
         path_value=scope.get('path','')
         if '/achievements/icons/' in path_value:
             response.headers['Cache-Control']='public, max-age=31536000, immutable'
