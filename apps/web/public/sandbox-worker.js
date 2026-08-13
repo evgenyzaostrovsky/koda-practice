@@ -26,6 +26,7 @@ async function initialize() {
   loadedPackages.add("numpy");
   loadedPackages.add("pandas");
   runtime.runPython("__koda_globals = {'__name__': '__main__'}");
+  runtime.runPython(INSTALL_RUNNER);
   const packagesReadyMs = performance.now() - bootStarted;
   state = "ready";
   postMessage({
@@ -40,19 +41,6 @@ function ensureInitialized() {
     state = "failed";
     throw error;
   }));
-}
-
-const INSPECTOR = String.raw`
-import ast, json
-tree = ast.parse(__koda_code, filename="solution.py", mode="exec")
-imports = sorted({node.names[0].name.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.Import)} | {node.module.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.ImportFrom) and node.module})
-datasets = sorted({node.value for node in ast.walk(tree) if isinstance(node, ast.Constant) and isinstance(node.value, str) and node.value.startswith('/datasets/')})
-json.dumps({"imports": imports, "datasets": datasets})
-`;
-
-function inspectCode(code) {
-  runtime.globals.set("__koda_code", code);
-  return JSON.parse(runtime.runPython(INSPECTOR));
 }
 
 async function ensureCodePackages(imports, requestId) {
@@ -95,6 +83,9 @@ import ast, base64, contextlib, io, json, sys, time, traceback
 MAX_STDOUT = 100_000
 MAX_VALUE = 20_000
 
+class _KodaPreparationRequired(Exception):
+    pass
+
 def _safe(value):
     if value is None: return None
     if isinstance(value, (bool, int, float, str)): return value
@@ -126,6 +117,12 @@ __timing = {}
 try:
     __timing["bootstrapStart"] = time.perf_counter()
     tree = ast.parse(__koda_code, filename="solution.py", mode="exec")
+    imports = sorted({node.names[0].name.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.Import)} | {node.module.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.ImportFrom) and node.module})
+    datasets = sorted({node.value for node in ast.walk(tree) if isinstance(node, ast.Constant) and isinstance(node.value, str) and node.value.startswith('/datasets/')})
+    packages = sorted({name for name in imports if name in {'matplotlib', 'seaborn'} and name not in __koda_loaded_packages})
+    missing_files = sorted({path for path in datasets if path in __koda_known_paths and path not in __koda_mounted_paths})
+    if packages or missing_files:
+        raise _KodaPreparationRequired(json.dumps({"packages": packages, "datasets": missing_files}))
     last = tree.body.pop() if tree.body and isinstance(tree.body[-1], ast.Expr) else None
     __timing["pythonStart"] = time.perf_counter()
     with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stdout):
@@ -148,12 +145,18 @@ try:
         plt.close("all")
     __timing["plotsEnd"] = time.perf_counter()
     __koda_payload = {"ok": True, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "result": serialized_result, "plots": plots, "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
+except _KodaPreparationRequired as preparation:
+    __koda_payload = {"control": "prepare", **json.loads(str(preparation))}
 except BaseException as error:
     output = stdout.getvalue()
     trace = traceback.format_exc()
     __koda_payload = {"ok": False, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "errorType": type(error).__name__, "message": str(error)[:MAX_VALUE], "traceback": trace[:MAX_STDOUT]}
-json.dumps(__koda_payload, ensure_ascii=False)
+return json.dumps(__koda_payload, ensure_ascii=False)
 `;
+
+// Compile the execution harness once during cold start. Re-parsing and compiling
+// the full serializer/traceback/plot harness on every Run dominated warm latency.
+const INSTALL_RUNNER = `def __koda_run():\n${RUNNER.split("\n").map((line) => `    ${line}`).join("\n")}`;
 
 onmessage = async (event) => {
   const { type, requestId } = event.data;
@@ -162,25 +165,30 @@ onmessage = async (event) => {
     await ensureInitialized();
     if (type !== "run" || state === "running") return;
     const executionStarted = performance.now();
-    const inspection = inspectCode(event.data.code);
-    const fileByPath = new Map((event.data.files || []).map((file) => [file.logicalPath, file]));
-    const missingPaths = inspection.datasets.filter((path) => {
-      const file = fileByPath.get(path);
-      return file && manifest.get(path) !== file.version && !file.buffer;
-    });
-    if (missingPaths.length) {
-      postMessage({ type: "needs-files", requestId, paths: missingPaths });
-      return;
-    }
     state = "running";
-    await ensureCodePackages(inspection.imports, requestId);
     const filesystemStarted = performance.now();
     mount(event.data.files || []);
     const filesystemEnded = performance.now();
     status("running", "Выполнение…", requestId);
     runtime.globals.set("__koda_code", event.data.code);
+    runtime.globals.set("__koda_known_paths", (event.data.files || []).map((file) => file.logicalPath));
+    runtime.globals.set("__koda_mounted_paths", Array.from(manifest.keys()));
+    runtime.globals.set("__koda_loaded_packages", Array.from(loadedPackages));
     const pythonStarted = performance.now();
-    const payload = JSON.parse(await runtime.runPythonAsync(RUNNER));
+    let payload = JSON.parse(await runtime.runPythonAsync("__koda_run()"));
+    if (payload.control === "prepare") {
+      if (payload.packages?.length) {
+        await ensureCodePackages(payload.packages, requestId);
+        runtime.globals.set("__koda_loaded_packages", Array.from(loadedPackages));
+      }
+      if (payload.datasets?.length) {
+        state = "ready";
+        postMessage({ type: "needs-files", requestId, paths: payload.datasets });
+        return;
+      }
+      status("running", "Выполнение…", requestId);
+      payload = JSON.parse(await runtime.runPythonAsync("__koda_run()"));
+    }
     const afterPythonAt = performance.now();
     payload.executionMs = performance.now() - pythonStarted;
     payload.totalRunMs = performance.now() - executionStarted;

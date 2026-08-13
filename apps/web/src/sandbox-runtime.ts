@@ -41,7 +41,7 @@ export type RuntimeMetrics = {
   packagesReadyMs: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
-const WORKER_PROTOCOL_VERSION = "3";
+const WORKER_PROTOCOL_VERSION = "5";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;
@@ -97,6 +97,10 @@ export class SandboxRuntime {
       if (message.type === "needs-files") {
         const pending = this.pending.get(message.requestId);
         if (!pending?.fileLoader || !pending.code || !pending.files) return;
+        if (pending.timer) {
+          window.clearTimeout(pending.timer);
+          pending.timer = undefined;
+        }
         void pending.fileLoader(message.paths).then((loaded) => {
           if (this.terminated || !this.pending.has(message.requestId)) return;
           const loadedByPath = new Map(loaded.map((file) => [file.logicalPath, file]));
