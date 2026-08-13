@@ -13,7 +13,11 @@ import {
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { api, apiResponse } from "./api";
 import { getAccessToken } from "./auth";
-import { SandboxRuntime, type SandboxResult } from "./sandbox-runtime";
+import {
+  SandboxRuntime,
+  type RuntimeMetrics,
+  type SandboxResult,
+} from "./sandbox-runtime";
 import { emitAchievementEvent } from "./achievements/engine";
 
 export type SandboxFile = {
@@ -83,28 +87,42 @@ export function Sandbox() {
     [runtimeState, setRuntimeState] = useState<
       "loading" | "ready" | "running" | "error"
     >("loading"),
-    [message, setMessage] = useState("Загружаем Python…"),
+    [message, setMessage] = useState("Подготовка Python…"),
+    [runtimeMetrics, setRuntimeMetrics] = useState<RuntimeMetrics | null>(null),
     [uploadProgress, setUploadProgress] = useState<number | null>(null),
     [mobileTab, setMobileTab] = useState<"files" | "code" | "result">("code"),
     [copied, setCopied] = useState("");
   const runtime = useRef<SandboxRuntime | null>(null),
     runtimeId = useRef(crypto.randomUUID()),
     mounted = useRef(new Map<string, string>()),
+    running = useRef(false),
     input = useRef<HTMLInputElement>(null);
   const createRuntime = () => {
     runtimeId.current = crypto.randomUUID();
     setRuntimeState("loading");
-    setMessage("Загружаем Python и библиотеки…");
+    setMessage("Подготовка Python…");
+    setRuntimeMetrics(null);
     const next = new SandboxRuntime((text) => {
-      setRuntimeState("error");
-      setMessage(text);
+      if (runtime.current === next) {
+        setRuntimeState("error");
+        setMessage(text);
+      }
+    }, (phase, detail) => {
+      if (runtime.current !== next) return;
+      if (running.current) {
+        if (phase === "packages" || phase === "running") setMessage(detail);
+        return;
+      }
+      if (phase === "booting" || phase === "packages") setRuntimeState("loading");
+      setMessage(detail);
     });
     runtime.current = next;
     mounted.current.clear();
     next
       .ready()
-      .then((version) => {
+      .then(({ version, metrics }) => {
         if (runtime.current === next) {
+          setRuntimeMetrics(metrics);
           setRuntimeState("ready");
           setMessage(`Python готов · Pyodide ${version}`);
         }
@@ -166,17 +184,20 @@ export function Sandbox() {
     }
   };
   const run = async () => {
-    if (!runtime.current || runtimeState === "loading") return;
+    if (!runtime.current || running.current) return;
+    const activeRuntime = runtime.current;
+    running.current = true;
     setRuntimeState("running");
-    setMessage("Синхронизируем файлы и выполняем код…");
+    setMessage(runtimeState === "loading" ? "Ожидаем готовность Python…" : "Выполнение…");
     try {
-      const latest = (await refetch()).data ?? files;
+      const inspection = await activeRuntime.inspect(code);
+      if (runtime.current !== activeRuntime) return;
+      const neededPaths = new Set(inspection.datasets);
+      const latest = files;
       const mountedFiles = [];
-      const nextMounted = new Map<string, string>();
       for (const file of latest) {
         const signature = `${file.logicalPath}:${file.version}`;
-        nextMounted.set(file.id, signature);
-        if (mounted.current.get(file.id) !== signature) {
+        if (neededPaths.has(file.logicalPath) && mounted.current.get(file.id) !== signature) {
           const response = await apiResponse(
             `/sandbox/files/${file.id}/content`,
           );
@@ -185,18 +206,20 @@ export function Sandbox() {
             version: file.version,
             buffer: await response.arrayBuffer(),
           });
+          mounted.current.set(file.id, signature);
         } else
           mountedFiles.push({
             logicalPath: file.logicalPath,
             version: file.version,
           });
       }
-      const output = await runtime.current.run(code, mountedFiles);
-      mounted.current = nextMounted;
+      setMessage("Выполнение…");
+      const output = await activeRuntime.run(code, mountedFiles);
+      if (runtime.current !== activeRuntime) return;
       setResult(output);
       setMobileTab("result");
       setRuntimeState("ready");
-      setMessage("Python готов");
+      setMessage(`Готово · ${Math.round(output.executionMs ?? 0)} мс`);
       const normalized = code.replace(/\s+/g, " ").trim(),
         hash = await crypto.subtle
           .digest("SHA-256", new TextEncoder().encode(normalized))
@@ -243,18 +266,24 @@ export function Sandbox() {
       }
     } catch (e) {
       const text = e instanceof Error ? e.message : String(e);
-      runtime.current?.terminate();
-      createRuntime();
-      setMessage(text);
+      if (runtime.current === activeRuntime) {
+        activeRuntime.terminate();
+        createRuntime();
+        setMessage(text);
+      }
+    } finally {
+      running.current = false;
     }
   };
   const restart = () => {
     runtime.current?.terminate();
+    running.current = false;
     setResult(null);
     createRuntime();
   };
   const stop = () => {
     runtime.current?.terminate();
+    running.current = false;
     setResult(null);
     createRuntime();
     setMessage("Выполнение остановлено. Запускается чистая среда…");
@@ -273,8 +302,13 @@ export function Sandbox() {
           <h1>Песочница</h1>
         </div>
         <span className={`sandbox-runtime ${runtimeState}`}>
-          {runtimeState === "running" ? <RefreshCw className="spin" /> : null}
+          {runtimeState === "running" || runtimeState === "loading" ? <RefreshCw className="spin" /> : null}
           {message}
+          {import.meta.env.DEV && runtimeMetrics ? (
+            <small title="Диагностика cold start">
+              boot {Math.round(runtimeMetrics.packagesReadyMs)} мс
+            </small>
+          ) : null}
         </span>
       </header>
       <nav className="sandbox-mobile-tabs">
@@ -388,7 +422,7 @@ export function Sandbox() {
               ) : (
                 <button
                   className="primary"
-                  disabled={runtimeState === "loading"}
+                  disabled={false}
                   onClick={run}
                 >
                   <Play />
