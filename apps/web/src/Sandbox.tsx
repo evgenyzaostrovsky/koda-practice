@@ -95,7 +95,8 @@ export function Sandbox() {
   const runtime = useRef<SandboxRuntime | null>(null),
     runtimeId = useRef(crypto.randomUUID()),
     running = useRef(false),
-    input = useRef<HTMLInputElement>(null);
+    input = useRef<HTMLInputElement>(null),
+    outputPanel = useRef<HTMLDivElement>(null);
   const createRuntime = () => {
     runtimeId.current = crypto.randomUUID();
     setRuntimeState("loading");
@@ -218,6 +219,7 @@ export function Sandbox() {
       setRuntimeState("ready");
       const executionMs = output.executionMs ?? output.totalRunMs;
       setMessage(executionMs === undefined ? "Выполнено" : `Выполнено за ${Math.max(1, Math.round(executionMs))} мс`);
+      requestAnimationFrame(() => outputPanel.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
       if (import.meta.env.DEV) {
         requestAnimationFrame(() => {
           const renderedAt = performance.now();
@@ -474,7 +476,7 @@ export function Sandbox() {
             }}
           />
         </div>
-        <div className={`sandbox-output mobile-${mobileTab}`}>
+        <div className={`sandbox-output mobile-${mobileTab}`} ref={outputPanel}>
           <div className="sandbox-panel-title">
             <b>Результат</b>
             <button onClick={() => setResult(null)}>Очистить</button>

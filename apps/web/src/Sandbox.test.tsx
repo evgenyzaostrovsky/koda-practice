@@ -21,6 +21,7 @@ class FakeXHR{
 
 const renderSandbox=()=>render(<QueryClientProvider client={new QueryClient({defaultOptions:{queries:{retry:false}}})}><Sandbox/></QueryClientProvider>);
 describe("sandbox",()=>{
+  beforeEach(()=>{Element.prototype.scrollIntoView=vi.fn()});
   afterEach(()=>{mountedPaths.clear();cleanup()});
   beforeEach(()=>{files=[{id:"f1",name:"sales.csv",logicalPath:"/datasets/sales.csv",sizeBytes:24,mimeType:"text/csv",createdAt:"now",updatedAt:"now",version:"hash"}];localStorage.clear();apiMock.mockClear();apiResponseMock.mockClear();inspect.mockReset().mockResolvedValue({imports:[],datasets:[]});run.mockReset().mockResolvedValue({ok:true,stdout:"",plots:[],result:{kind:"dataframe",columns:["city"],index:["0"],data:[["Москва"]],shape:[1,1]}});terminate.mockClear();vi.stubGlobal("XMLHttpRequest",FakeXHR);Object.assign(navigator,{clipboard:{writeText:vi.fn().mockResolvedValue(undefined)}})});
   it("shows files and copies the logical path",async()=>{renderSandbox();expect(await screen.findByText("/datasets/sales.csv")).toBeInTheDocument();fireEvent.click(screen.getByRole("button",{name:/Путь/}));expect(navigator.clipboard.writeText).toHaveBeenCalledWith("/datasets/sales.csv")});
