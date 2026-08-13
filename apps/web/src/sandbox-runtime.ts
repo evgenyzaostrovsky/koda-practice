@@ -62,6 +62,7 @@ export class SandboxRuntime {
   private fatalListener?: (message: string) => void;
   private statusListener?: (phase: RuntimePhase, detail: string) => void;
   private terminated = false;
+  private runActive = false;
 
   constructor(
     onFatal?: (message: string) => void,
@@ -161,9 +162,15 @@ export class SandboxRuntime {
     fileLoader: (paths: string[]) => Promise<MountedFile[]>,
     timeoutMs = 15000,
   ) {
-    await this.ready();
-    const transfers = files.flatMap((file) => (file.buffer ? [file.buffer] : []));
-    return this.request<SandboxResult>("run", { code, files }, transfers, timeoutMs, { code, files, fileLoader });
+    if (this.runActive) throw new Error("Код уже выполняется");
+    this.runActive = true;
+    try {
+      await this.ready();
+      const transfers = files.flatMap((file) => (file.buffer ? [file.buffer] : []));
+      return await this.request<SandboxResult>("run", { code, files }, transfers, timeoutMs, { code, files, fileLoader });
+    } finally {
+      this.runActive = false;
+    }
   }
 
   terminate() {

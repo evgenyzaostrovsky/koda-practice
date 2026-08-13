@@ -37,6 +37,19 @@ describe("SandboxRuntime lifecycle", () => {
     expect(FakeWorker.instances).toHaveLength(1);
   });
 
+  it("shares one boot and rejects a concurrent Run without creating another worker", async () => {
+    const runtime = new SandboxRuntime();
+    const worker = FakeWorker.instances[0];
+    const first = runtime.run("1 + 1", [], async () => []);
+    await expect(runtime.run("2 + 2", [], async () => [])).rejects.toThrow("уже выполняется");
+    expect(FakeWorker.instances).toHaveLength(1);
+    worker.emit({ type: "ready", version: "0.27.7", metrics: { workerCreatedMs: 1, pyodideReadyMs: 2, packagesReadyMs: 3 } });
+    await Promise.resolve();
+    const requestId = worker.postMessage.mock.calls.at(-1)?.[0].requestId;
+    worker.emit({ type: "result", requestId, payload: { ok: true, stdout: "", plots: [] } });
+    await expect(first).resolves.toMatchObject({ ok: true });
+  });
+
   it("ignores messages after termination", async () => {
     const fatal = vi.fn();
     const runtime = new SandboxRuntime(fatal);

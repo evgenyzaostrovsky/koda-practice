@@ -216,7 +216,7 @@ export function Sandbox() {
       setResult(output);
       setMobileTab("result");
       setRuntimeState("ready");
-      setMessage(`Готово · ${Math.round(resultReceivedAt - clickAt)} мс`);
+      setMessage(`Готово · ${Math.round(output.executionMs ?? output.totalRunMs ?? 0)} мс`);
       if (import.meta.env.DEV) {
         requestAnimationFrame(() => {
           const renderedAt = performance.now();
