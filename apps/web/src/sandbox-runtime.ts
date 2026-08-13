@@ -41,7 +41,7 @@ export type RuntimeMetrics = {
   packagesReadyMs: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
-const WORKER_PROTOCOL_VERSION = "6";
+const WORKER_PROTOCOL_VERSION = "7";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;

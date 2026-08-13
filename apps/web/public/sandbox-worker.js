@@ -176,7 +176,7 @@ onmessage = async (event) => {
     runtime.globals.set("__koda_mounted_paths", Array.from(manifest.keys()));
     runtime.globals.set("__koda_loaded_packages", Array.from(loadedPackages));
     const pythonStarted = performance.now();
-    let payload = JSON.parse(await runtime.runPythonAsync("__koda_run()"));
+    let payload = JSON.parse(runtime.runPython("__koda_run()"));
     if (payload.control === "prepare") {
       if (payload.packages?.length) {
         await ensureCodePackages(payload.packages, requestId);
@@ -188,7 +188,7 @@ onmessage = async (event) => {
         return;
       }
       status("running", "Выполнение…", requestId);
-      payload = JSON.parse(await runtime.runPythonAsync("__koda_run()"));
+      payload = JSON.parse(runtime.runPython("__koda_run()"));
     }
     const afterPythonAt = performance.now();
     payload.executionMs = Math.max(0, (payload.pythonTiming?.pythonEnd ?? 0) - (payload.pythonTiming?.pythonStart ?? 0));
