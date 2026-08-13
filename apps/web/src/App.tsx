@@ -60,6 +60,7 @@ import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
 import { Sandbox } from "./Sandbox";
 import { AchievementsPage } from "./achievements/AchievementsPage";
 import {
+  completeAchievementSession,
   emitAchievementEvent,
   stableCodeFingerprint,
 } from "./achievements/engine";
@@ -75,6 +76,11 @@ function Layout() {
   const lastPracticeTask = loadLastTask();
   const focus = pathname.startsWith("/practice/");
   const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
+  useEffect(() => {
+    const complete = () => completeAchievementSession();
+    window.addEventListener("pagehide", complete);
+    return () => window.removeEventListener("pagehide", complete);
+  }, []);
   const toggle = () =>
     setCollapsed((x) => {
       localStorage.setItem("koda:sidebar", x ? "open" : "collapsed");
@@ -920,13 +926,15 @@ function Practice() {
           durationMs: r.execution_ms,
           hintCount: r.hints_used ?? 0,
           maxHintLevel: r.hints_used ?? 0,
-          methods: r.approach ? [r.approach] : [],
+          methods: r.achievement_evidence?.methods ?? [],
         };
         emitAchievementEvent(
           "task_submitted",
           { ...telemetry, passed: Boolean(r.passed) },
           source,
         );
+        if (!r.passed)
+          localStorage.setItem("koda:achievement-stuck-task", eid);
         if (!r.ok)
           emitAchievementEvent("task_runtime_error", telemetry, source);
         if (r.passed)
@@ -938,9 +946,22 @@ function Practice() {
               noHints: (r.hints_used ?? 0) === 0,
               hard: (e?.difficulty ?? 0) >= 3,
               review: saved?.status === "completed",
+              vectorized:
+                Boolean(r.achievement_evidence) &&
+                !r.achievement_evidence!.hasLoop,
+              vectorizationEligible:
+                Boolean(r.achievement_evidence) &&
+                e?.knowledge_unit_id === "ku-vectorization",
+              chainDepth: r.achievement_evidence?.chainDepth ?? 0,
+              chainingEligible:
+                (r.achievement_evidence?.referenceChainDepth ?? 0) >= 2,
+              alternativeStrategy:
+                r.achievement_evidence?.alternativeStrategy ?? false,
             },
             source,
           );
+        if (r.passed)
+          localStorage.removeItem("koda:achievement-stuck-task");
         qc.invalidateQueries({ queryKey: ["progress"] });
       }
     },
@@ -1005,6 +1026,7 @@ function Practice() {
       method: "POST",
     });
     setSolution(x.solution);
+    emitAchievementEvent("solution_revealed", { taskId: eid }, eid);
   };
   const openTheory = async () =>
     setTheory(await api<TheoryArticle>(`/theory/${e.theory_article_id}`));

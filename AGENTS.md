@@ -1,5 +1,21 @@
 # KODA Practice repository instructions
 
+## Cross-functional product review is mandatory
+
+Before implementing any meaningful product, UX, learning-content, architecture,
+performance, monetization, or significant bug-fix change, follow
+`docs/product-team-review.md`.
+
+The user is the Founder / Product Owner and has the final decision. Review the
+proposal through all relevant roles: Product Manager, UX/Product Designer,
+Learning Designer/Methodologist, Behavioral Designer/ADHD specialist, Tech
+Lead/Full-stack Architect, QA Engineer, Data/Product Analyst, and Market/Product
+Strategy. Skip a role only when it genuinely has no relevant contribution.
+
+Record only concise conclusions, synthesize one integrated decision, implement
+against the existing source of truth, run the required QA, and update project
+documentation. Do not output private chain-of-thought.
+
 ## Content Pipeline is mandatory
 
 Whenever new learning material is added or an existing source is expanded, use the Content Pipeline documented in `docs/content-pipeline.md`.

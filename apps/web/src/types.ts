@@ -139,6 +139,13 @@ export type RunResult = {
   hints_used?: number;
   xp_earned?: number;
   approach?: string;
+  achievement_evidence?: {
+    methods: string[];
+    hasLoop: boolean;
+    chainDepth: number;
+    referenceChainDepth: number;
+    alternativeStrategy: boolean;
+  };
   completion_summary?: string;
   explanation?: {
     kind: string;

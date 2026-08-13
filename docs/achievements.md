@@ -12,7 +12,7 @@ The application uses one achievement system backed by `apps/web/public/achieveme
 
 ## Events and idempotency
 
-Every event has a stable ID, timestamp, local date, type and structured payload. Repeated delivery of the same event ID is ignored. Task telemetry includes task/topic/KnowledgeUnit identifiers, code fingerprint, attempts, hints, duration and control/review metadata. Sandbox telemetry includes a runtime ID, code fingerprint, owned-dataset IDs, result kind, plots and failures.
+Every event has a stable ID, timestamp, local date, type and structured payload. Repeated delivery of the same event ID is ignored. Task telemetry includes task/topic/KnowledgeUnit identifiers, code fingerprint, attempts, hints, duration, control/review metadata and backend AST evidence. Sandbox telemetry includes a runtime ID, code fingerprint, owned-dataset IDs, result kind, plots, parsed methods/analysis stages, the originating stuck task when applicable, and failures. `session_completed` and `solution_revealed` make short-session and delayed-repair rules auditable rather than inferred from UI state.
 
 Events are persisted locally and, for authenticated users, upserted into `learning_events`. Unlocks are upserted by `(user_id, achievement_id)`, so retries cannot duplicate XP.
 
@@ -22,7 +22,7 @@ Five v2 definitions are secret. Until unlock, collection UI renders “Секр�
 
 ## Conservative structured rules
 
-Rules involving vectorization, method chaining, alternative solutions, analytical questions or multi-stage analysis require explicit structured metadata (`vectorized`, `chainDepth`, `alternativeStrategy`, `own_question_answered`, `analysisStages`). They deliberately remain locked when that evidence is absent. No achievement is inferred from fragile source-code regexes.
+Rules involving vectorization, method chaining and alternative solutions use Python `ast` evidence produced by the backend only after the normal task tests pass. Sandbox method and analysis-stage evidence is produced from the AST already parsed inside the isolated Pyodide worker. Analytical questions require an explicit `own_question_answered` domain event; they are never guessed from code text. Rules deliberately remain locked when required evidence is absent. No achievement is inferred from fragile source-code regexes or Russian display copy.
 
 ## Backfill
 

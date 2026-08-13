@@ -1,6 +1,6 @@
 # KODA Practice — current project context
 
-Updated: 2026-08-13
+Updated: 2026-08-14
 
 ## Учебный язык контента
 
@@ -21,9 +21,11 @@ KODA Achievements v2 is integrated into the existing system as one collection:
 - all original 55 stable IDs and icon files retained;
 - counts in collection and profile are read dynamically from the manifest.
 
-The evaluator consumes idempotent domain events. Added event vocabulary includes task runtime errors, sandbox failures, reviews, mastery changes and a structured own-question completion event. Task and sandbox producers now attach session IDs, elapsed session time, code fingerprints and available task/dataset metadata.
+The evaluator consumes idempotent domain events. Added event vocabulary includes task runtime errors, sandbox failures, reviews, mastery changes, solution reveal, explicit session completion, and a structured own-question completion event. Task and sandbox producers attach session IDs, elapsed session time, code fingerprints and available task/dataset metadata.
 
-Temporal and sequence evaluators cover comeback gaps, rolling active-day windows, retry chains, error recovery, hint behaviour, delayed repetition, topic diversity, sandbox variants, session combinations and long-term monthly activity. Potentially ambiguous rules such as vectorization, method chaining, alternative strategies and full mini-analysis require explicit structured evidence and do not guess from source text.
+Temporal and sequence evaluators cover comeback gaps, rolling active-day windows, retry chains, error recovery, hint behaviour, delayed repetition, topic diversity, sandbox variants, session combinations and long-term monthly activity. Potentially ambiguous rules use structured evidence. Successful task submissions are analysed by Python `ast` on the backend for method calls, real loops, method-chain depth and materially different solution structure. Sandbox analysis stages and methods are derived inside the isolated Pyodide worker from its parsed AST. Russian manifest text is never parsed into machine rules.
+
+`short_loop` requires an explicit completed 5–10 minute session. Delayed repair is invalidated when the reference solution was revealed. Reconnaissance binds a failed task, a Sandbox experiment carrying that task ID, changed task code, and a later independent solve. Own-question completion remains an explicit structured event: the evaluator intentionally does not infer a user's question from source text. Historical data that lacks these facts does not receive these awards.
 
 Backfill version 2 is conservative and idempotent: legacy solved-task/course progress remains available to v1 achievements, while v2 rules ignore synthetic backfill events. Session- and code-dependent achievements begin tracking after deployment.
 

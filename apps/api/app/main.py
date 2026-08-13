@@ -14,6 +14,7 @@ from .db import init_db,connect,now
 from .runner import run,explain,compare_results,warmup
 from .auth_backend import AUTH_ENABLED,current_user,record_attempt,rest
 from .sandbox_storage import create_file, delete_file, file_content, list_files, rename_file
+from .achievement_evidence import achievement_evidence
 
 class ApiPrefixMiddleware:
     def __init__(self,app): self.app=app
@@ -150,7 +151,8 @@ def submit(body:CodeIn,request:Request):
     details=explain(actual)
     if not passed:
         details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)]['text'])
-    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e['completion_summary'],'completion_summary':e['completion_summary'],'explanation':None if passed else details}
+    evidence=achievement_evidence(body.code,e['solution_code']) if passed else None
+    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e['completion_summary'],'completion_summary':e['completion_summary'],'achievement_evidence':evidence,'explanation':None if passed else details}
 @app.post('/exercises/{eid}/hints/{level}')
 def hint(eid:str,level:int,request:Request):
     account=current_user(request)

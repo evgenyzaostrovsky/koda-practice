@@ -83,6 +83,35 @@ export function emitAchievementEvent(
   s.events.push(e);
   saveSnapshot(s);
 }
+export function completeAchievementSession() {
+  let session: { id: string; startedAt: string } | null = null;
+  try {
+    session = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
+  } catch {
+    return;
+  }
+  if (!session) return;
+  const snapshot = loadSnapshot();
+  const sessionEvents = snapshot.events.filter(
+    (event) => event.payload.sessionId === session!.id,
+  );
+  const solvedCount = sessionEvents.filter(
+    (event) => event.type === "task_solved",
+  ).length;
+  if (!solvedCount) return;
+  emitAchievementEvent(
+    "session_completed",
+    {
+      solvedCount,
+      startedAt: session.startedAt,
+      durationMs: Math.max(
+        0,
+        Date.now() - new Date(session.startedAt).getTime(),
+      ),
+    },
+    session.id,
+  );
+}
 export function backfillProgress(
   solvedIds: string[],
   modules: Array<{ status: string }>,

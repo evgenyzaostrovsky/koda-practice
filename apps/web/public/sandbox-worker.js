@@ -119,6 +119,16 @@ try:
     tree = ast.parse(__koda_code, filename="solution.py", mode="exec")
     imports = sorted({node.names[0].name.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.Import)} | {node.module.split('.')[0] for node in ast.walk(tree) if isinstance(node, ast.ImportFrom) and node.module})
     datasets = sorted({node.value for node in ast.walk(tree) if isinstance(node, ast.Constant) and isinstance(node.value, str) and node.value.startswith('/datasets/')})
+    methods = sorted({node.func.attr for node in ast.walk(tree) if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute)})
+    stage_methods = {
+        'load': {'read_csv'},
+        'inspect': {'head', 'tail', 'info', 'describe'},
+        'clean': {'dropna', 'fillna', 'drop_duplicates', 'astype', 'replace'},
+        'transform': {'assign', 'map', 'apply', 'rename', 'query', 'sort_values'},
+        'aggregate': {'groupby', 'agg', 'sum', 'mean', 'pivot_table', 'value_counts'},
+        'visualize': {'plot', 'barplot', 'countplot', 'lineplot', 'scatterplot', 'histplot', 'show'},
+    }
+    analysis_stages = sorted(stage for stage, names in stage_methods.items() if set(methods) & names)
     packages = sorted({name for name in imports if name in {'matplotlib', 'seaborn'} and name not in __koda_loaded_packages})
     missing_files = sorted({path for path in datasets if path in __koda_known_paths and path not in __koda_mounted_paths})
     if packages or missing_files:
@@ -144,7 +154,7 @@ try:
             plots.append("data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode("ascii"))
         plt.close("all")
     __timing["plotsEnd"] = time.perf_counter()
-    __koda_payload = {"ok": True, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "result": serialized_result, "plots": plots, "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
+    __koda_payload = {"ok": True, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "result": serialized_result, "plots": plots, "analysis": {"methods": methods, "stages": analysis_stages}, "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
 except _KodaPreparationRequired as preparation:
     __koda_payload = {"control": "prepare", **json.loads(str(preparation))}
 except BaseException as error:

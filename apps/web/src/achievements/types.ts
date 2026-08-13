@@ -39,7 +39,9 @@ export type AchievementEventType =
   | "own_analysis_completed"
   | "own_question_answered"
   | "eda_completed"
-  | "project_scored";
+  | "project_scored"
+  | "solution_revealed"
+  | "session_completed";
 export type AchievementEvent = {
   eventId: string;
   type: AchievementEventType;

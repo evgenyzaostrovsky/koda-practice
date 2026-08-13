@@ -11,6 +11,7 @@ export type SandboxResult = {
   message?: string;
   traceback?: string;
   plots: string[];
+  analysis?: { methods: string[]; stages: string[] };
   executionMs?: number;
   totalRunMs?: number;
   pythonTiming?: Record<string, number>;
@@ -41,7 +42,7 @@ export type RuntimeMetrics = {
   packagesReadyMs: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
-const WORKER_PROTOCOL_VERSION = "7";
+const WORKER_PROTOCOL_VERSION = "8";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;

@@ -271,8 +271,12 @@ export function Sandbox() {
             fileIds: latest.map((file) => file.id),
             resultKind: output.result?.kind,
             plotCount: output.plots?.length ?? 0,
+            methods: output.analysis?.methods ?? [],
+            analysisStages: output.analysis?.stages ?? [],
+            originTaskId:
+              localStorage.getItem("koda:achievement-stuck-task") ?? undefined,
           }, hash);
-          if (latest.length && /pd\.read_csv\s*\(/.test(code))
+          if (latest.length && output.analysis?.methods.includes("read_csv"))
             emitAchievementEvent("own_dataframe_created", { fileCount: latest.length }, hash);
           if (output.plots?.length)
             emitAchievementEvent("chart_created", { count: output.plots.length }, hash);

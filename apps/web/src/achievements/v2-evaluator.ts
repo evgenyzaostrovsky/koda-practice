@@ -36,6 +36,14 @@ function maxQualifyingGap(events: AchievementEvent[]) {
   return max;
 }
 
+function qualifyingGapBefore(events: AchievementEvent[], candidate: AchievementEvent) {
+  const candidateStart = time(candidate) - number(candidate, "durationMs");
+  const prior = ordered(events)
+    .filter((event) => meaningful(event) && time(event) < candidateStart)
+    .at(-1);
+  return prior ? Math.floor((candidateStart - time(prior)) / day) : 0;
+}
+
 function rollingDays(events: AchievementEvent[], window: number) {
   const dates = [
     ...new Set(events.filter(meaningful).map((event) => event.localDate)),
@@ -159,14 +167,18 @@ function hintReduction(events: AchievementEvent[], size: number) {
   return best;
 }
 
-function delayedRepeat(events: AchievementEvent[], field: string) {
+function delayedRepeat(
+  events: AchievementEvent[],
+  field: string,
+  qualifies: (event: AchievementEvent) => boolean = () => true,
+) {
   const first = new Map<string, AchievementEvent>();
   let max = 0;
   for (const event of solved(events)) {
     const id = key(event, field);
     if (!id) continue;
     const prior = first.get(id);
-    if (prior && truthy(event, "noHints"))
+    if (prior && truthy(event, "noHints") && qualifies(event))
       max = Math.max(max, daysBetween(prior, event));
     else if (!prior) first.set(id, event);
   }
@@ -354,15 +366,20 @@ export function v2Progress(
   else if (id === "short_loop")
     current = events.some(
       (event) =>
-        event.type === "task_solved" &&
-        number(event, "sessionElapsedMs") >= 300_000 &&
-        number(event, "sessionElapsedMs") <= 600_000,
+        event.type === "session_completed" &&
+        number(event, "solvedCount") >= 1 &&
+        number(event, "durationMs") >= 300_000 &&
+        number(event, "durationMs") <= 600_000,
     )
       ? 1
       : 0;
   else if (id === "minimum_counts")
-    current =
-      maxQualifyingGap(events) >= 2 && solved(events).length > 0 ? 1 : 0;
+    current = events.some(
+      (event) =>
+        event.type === "session_completed" &&
+        number(event, "solvedCount") >= 1 &&
+        qualifyingGapBefore(events, event) >= 2,
+    ) ? 1 : 0;
   else if (id.startsWith("comeback_")) current = maxQualifyingGap(events);
   else if (id === "rhythm_3_7") current = rollingDays(events, 7);
   else if (id === "rhythm_10_30") current = rollingDays(events, 30);
@@ -428,20 +445,23 @@ export function v2Progress(
       (event, index, list) =>
         event.type === "task_solved" &&
         truthy(event, "noHints") &&
-        list
-          .slice(0, index)
-          .some(
-            (prior) =>
-              prior.type === "task_submitted" &&
-              !truthy(prior, "passed") &&
-              key(prior, "taskId") === key(event, "taskId") &&
-              daysBetween(prior, event) >= 1,
+        list.slice(0, index).some((prior, priorIndex) =>
+          prior.type === "task_submitted" &&
+          !truthy(prior, "passed") &&
+          key(prior, "taskId") === key(event, "taskId") &&
+          daysBetween(prior, event) >= 1 &&
+          !list.slice(priorIndex + 1, index).some((middle) =>
+            middle.type === "solution_revealed" &&
+            key(middle, "taskId") === key(event, "taskId"),
           ),
+        ),
     )
       ? 1
       : 0;
   else if (id.startsWith("memory_echo_"))
-    current = delayedRepeat(events, "knowledgeUnitId");
+    current = delayedRepeat(events, "knowledgeUnitId", (event) =>
+      truthy(event, "review"),
+    );
   else if (id === "archive_open") current = delayedRepeat(events, "topicId");
   else if (id === "weak_spot")
     current = events.some(
@@ -510,9 +530,14 @@ export function v2Progress(
               failed.type === "task_submitted" &&
               !truthy(failed, "passed") &&
               key(failed, "taskId") === key(event, "taskId") &&
+              key(failed, "codeHash") !== key(event, "codeHash") &&
               list
                 .slice(failedIndex + 1, index)
-                .some((middle) => middle.type === "sandbox_run_succeeded"),
+                .some(
+                  (middle) =>
+                    middle.type === "sandbox_run_succeeded" &&
+                    key(middle, "originTaskId") === key(event, "taskId"),
+                ),
           ),
     )
       ? 1
@@ -522,8 +547,15 @@ export function v2Progress(
       (event) =>
         event.type === "sandbox_run_succeeded" &&
         truthy(event, "ownDataset") &&
-        number(event, "daysSinceMethodLearned") <= 7 &&
-        number(event, "daysSinceMethodLearned") >= 0,
+        ordered(events).some(
+          (prior) =>
+            prior.type === "task_solved" &&
+            time(prior) <= time(event) &&
+            daysBetween(prior, event) <= 7 &&
+            (value(prior, "methods") as string[] | undefined)?.some((method) =>
+              (value(event, "methods") as string[] | undefined)?.includes(method),
+            ),
+        ),
     )
       ? 1
       : 0;

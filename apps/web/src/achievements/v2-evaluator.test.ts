@@ -147,4 +147,58 @@ describe("v2 evaluator temporal and sequence rules", () => {
     legacy.eventId = "task_solved:backfill:a";
     expect(unlocked("quick_start", [legacy])).toBe(false);
   });
+
+  it("requires an explicitly completed 5-10 minute session", () => {
+    expect(
+      unlocked("short_loop", [
+        event("task_solved", 1, { sessionElapsedMs: 360_000 }),
+      ]),
+    ).toBe(false);
+    expect(
+      unlocked("short_loop", [
+        event("session_completed", 1, {
+          solvedCount: 1,
+          durationMs: 360_000,
+        }),
+      ]),
+    ).toBe(true);
+  });
+
+  it("does not award delayed repair after revealing the solution", () => {
+    const failed = event("task_submitted", 1, { taskId: "a", passed: false });
+    const solved = event("task_solved", 3, { taskId: "a", noHints: true });
+    expect(unlocked("error_with_patience", [failed, solved])).toBe(true);
+    expect(
+      unlocked("error_with_patience", [
+        failed,
+        event("solution_revealed", 2, { taskId: "a" }),
+        solved,
+      ]),
+    ).toBe(false);
+  });
+
+  it("binds reconnaissance to the stuck task and changed task code", () => {
+    const failed = event("task_submitted", 1, {
+      taskId: "a",
+      passed: false,
+      codeHash: "old",
+    });
+    const experiment = event("sandbox_run_succeeded", 1, {
+      originTaskId: "a",
+      codeHash: "experiment",
+    });
+    const fixed = event("task_solved", 1, {
+      taskId: "a",
+      codeHash: "new",
+      noHints: true,
+    });
+    expect(unlocked("reconnaissance", [failed, experiment, fixed])).toBe(true);
+    expect(
+      unlocked("reconnaissance", [
+        failed,
+        { ...experiment, payload: { ...experiment.payload, originTaskId: "b" } },
+        fixed,
+      ]),
+    ).toBe(false);
+  });
 });
