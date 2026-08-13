@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "task_bank.md"
 TARGET = ROOT / "content" / "catalog.json"
+EDITORIAL = ROOT / "content" / "task_editorial.json"
 
 
 SOLUTIONS = {
@@ -87,28 +88,6 @@ NUANCES={
  "seaborn":"Seaborn получает DataFrame через `data` и связывает его столбцы с визуальными каналами.",
  "matplotlib":"Объект `Axes` хранит линии, подписи и параметры построенного графика.",
 }
-
-def task_hints(slug,name,instructions,focus,solution,data):
-    names=available_names(data)
-    objects=", ".join(f"`{item}`" for item in names) or "подготовленные данные"
-    direction=f"В «{name}» сначала определите ожидаемую форму результата. Ориентир по теме: {NUANCES[slug]}"
-    instrument=f"Для «{name}» используйте `{focus}`: этот приём pandas отвечает за требуемое поведение."
-    params=[]
-    for node in ast.walk(ast.parse(solution)):
-        if isinstance(node,ast.keyword): params.append(node.arg)
-    detail=f"Работайте с {objects}"
-    if params: detail+=f" и проверьте параметры `{', '.join(dict.fromkeys(params))}`"
-    first_line=solution.splitlines()[0]
-    rhs=first_line.split('=',1)[1].strip() if '=' in first_line else first_line.strip()
-    skeleton=rhs
-    for object_name in names:
-        if re.search(rf'\b{re.escape(object_name)}\b',skeleton):
-            skeleton=re.sub(rf'\b{re.escape(object_name)}\b','___',skeleton,count=1)
-            break
-    if skeleton==rhs: skeleton=f"{focus}(...)"
-    almost=f"В задаче «{name}» {detail.lower()}. Почти готовый каркас: `result = {skeleton}` — заполните пропуск подходящим входным объектом или аргументом."
-    return [{"level":1,"text":direction},{"level":2,"text":instrument},{"level":3,"text":almost}]
-
 
 def dataset(slug, n):
     k = n
@@ -192,6 +171,8 @@ def dataset(slug, n):
 
 def parse_bank():
     text=SOURCE.read_text(encoding="utf-8")
+    editorial=json.loads(EDITORIAL.read_text(encoding="utf-8"))["tasks"]
+    existing={e["id"]:e for m in json.loads(TARGET.read_text(encoding="utf-8")).get("modules",[]) for t in m.get("topics",[]) for e in t.get("exercises",[])} if TARGET.exists() else {}
     topics=[]
     for block in re.split(r"(?m)^## ", text)[1:]:
         lines=block.splitlines(); match=re.match(r"(\d+)\. (.+?) — `?(.+?)`?$",lines[0])
@@ -205,10 +186,14 @@ def parse_bank():
             slug=eid.rsplit("-",1)[0]; solution=SOLUTIONS[slug][position-1]
             data=dataset(slug,position); prepared=setup_code(data,slug)
             starter=f"{prepared}\n\nresult = None"
-            objective=f"Применить {focus} в сценарии «{name}» и получить результат нужной структуры"
-            summary=f"Вы отработали {focus} в задаче «{name}». {NUANCES[slug]}"
-            hints=task_hints(slug,name,instructions,focus,solution,data)
-            exercises.append({"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":name,"instructions":instructions,"focus":focus,"learning_objective":objective,"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":prepared,"starter_code":starter,"solution_code":solution,"theory_article_id":f"theory-{eid}","required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":hints,"completion_summary":summary,"explanation":summary,"is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]})
+            copy=editorial.get(eid)
+            if not copy: raise ValueError(f"Missing editorial content for {eid}")
+            generated={"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":copy["title"],"instructions":copy["instructions"],"focus":focus,"learning_objective":copy["learning_objective"],"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":prepared,"starter_code":starter,"solution_code":solution,"theory_article_id":f"theory-{eid}","required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":copy["hints"],"completion_summary":copy["completion_summary"],"explanation":copy["explanation"],"is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]}
+            # Editorial imports are not allowed to rewrite executable task contracts.
+            # Existing technical fields win; only the explicit learner-facing copy changes.
+            if eid in existing:
+                generated={**existing[eid], **{key:copy[key] for key in ("title","instructions","learning_objective","hints","completion_summary","explanation")}}
+            exercises.append(generated)
         slug=exercises[0]["id"].rsplit("-",1)[0]
         topics.append({"id":int(order),"slug":slug,"title":title,"summary":f"10 упражнений на {method}","theory":f"Практическая серия на {method}: от прямого применения к параметрам и пограничным случаям.","syntax":method,"example":exercises[0]["solution_code"],"mistakes":["Изменён исходный объект","Ответ не сохранён в result","Не использован приём серии"],"methods":[method],"exercises":exercises})
     return topics

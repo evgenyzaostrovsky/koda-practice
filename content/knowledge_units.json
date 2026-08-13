@@ -461,7 +461,7 @@
             "group": "Чтение файлов",
             "name": "names=",
             "kind": "pattern",
-            "description": "Прочитайте файл без заголовка и назначьте названия из списка column_names.",
+            "description": "В CSV-файле нет строки с названиями столбцов — первая строка сразу содержит данные.",
             "example": "pd.read_csv(csv_path, header=None, names=column_names)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
           },
@@ -605,7 +605,7 @@
               {
                 "code": "pd.read_csv(csv_path, header=None, names=column_names)",
                 "result": "DataFrame, схема и типы которого соответствуют параметрам чтения.",
-                "explanation": "Прочитайте файл без заголовка и назначьте названия из списка column_names."
+                "explanation": "В CSV-файле нет строки с названиями столбцов — первая строка сразу содержит данные."
               },
               {
                 "code": "pd.read_csv(csv_path, usecols=needed_columns)",

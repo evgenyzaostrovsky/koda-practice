@@ -85,7 +85,8 @@ def build():
         slug=e['id'].rsplit('-',1)[0];topic_title,core,url=TOPICS[slug];params=keywords(e['solution_code']);method=method_name(e['solution_code'],e['focus']);position=int(e['id'].rsplit('-',1)[1])
         param_text=' '.join(f"Параметр `{p}` {PARAMS.get(p,'уточняет поведение операции')}." for p in params) or 'В этой задаче достаточно базового вызова без дополнительных именованных параметров.'
         intro=f"Материал для задачи «{e['title']}» объясняет приём {e['focus']}. Нужно понимать форму входного объекта, тип возвращаемого результата и то, как операция сохраняет индекс, порядок или схему данных."
-        description=f"{core} В этом варианте учебная цель — {e['learning_objective'].lower()} Практический ориентир — приём {e['focus']}: сопоставьте его контракт с типом подготовленного объекта и ожидаемой формой результата."
+        description=(f"{core} Отдельно разберите приём {e['focus']}: проследите, какие входные данные он принимает, "
+                     "какой тип возвращает и как его параметры влияют на индекс, столбцы или отображение результата.")
         notes=[f"Сначала мысленно определите тип и форму результата для варианта {position}.","Не изменяйте подготовленные входные объекты, если задача требует новый результат.","Проверьте, что итог присвоен переменной result и сохраняет требуемые метки."]
         article={'id':f"theory-{e['id']}",'title':f"Теория: {e['title']}",'introduction':intro,'methods':[{'name':method,'description':description,'syntax':f"{e['focus']}  # общий вид приёма",'keyParameters':[{'name':p,'description':PARAMS.get(p,'уточняет поведение операции')} for p in params],'parameterGuide':param_text,'example':EXAMPLES[slug],'notes':notes,'documentationUrl':url,'documentationLabel':f"Официальная документация: {topic_title}"}]}
         extra=secondary_method(e['solution_code'],method)

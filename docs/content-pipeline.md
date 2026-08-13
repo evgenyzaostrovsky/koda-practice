@@ -71,6 +71,20 @@ The JSON bank uses snake_case equivalents of the public contract:
 
 No placeholders are allowed. Hint 1 recalls the principle, hint 2 points to the API or syntax, and hint 3 approaches the answer without reproducing the reference solution. A completion summary is two to four short sentences or points and appears only after success.
 
+## Учебный язык задач и подсказок
+
+Пользовательский текст пишется для человека, который знает базовый Python, но только осваивает pandas. Условие должно быть коротким и конкретным: назвать подготовленные данные, действие и место для ответа. Незнакомый термин поясняется одной фразой прямо в условии; скрытые требования недопустимы.
+
+- Hint 1 объясняет идею или причину затруднения и не выдаёт готовый вызов без необходимости.
+- Hint 2 называет метод, параметр, оператор или атрибут и кратко объясняет его роль именно в этой задаче.
+- Hint 3 даёт почти готовый синтаксис, чтобы после третьего уровня пользователь мог продолжить. Для простого упражнения допустим полный вызов.
+- Completion содержит конкретный вывод из решения в одном-двух предложениях, не повторяет условие и не вставляет название задачи.
+- Explanation дополняет completion: объясняет поведение pandas, связь параметров или важный пограничный случай.
+
+Запрещены названия задач внутри каждой подсказки, канцелярские фразы вроде «ожидаемая форма результата» и «требуемое поведение», пустые пересказы условия и один нормализованный шаблон на десятки задач. Три подсказки одной задачи должны давать новую информацию по модели **идея → инструмент → синтаксис**. Learner-facing copy хранится явно по stable task ID в `content/task_editorial.json`; импорт не генерирует его из названия или focus.
+
+Content audit проверяет запрещённые обороты, непустые и различающиеся уровни подсказок, конкретный синтаксический ориентир в Hint 3, различие completion и explanation, а также массовые совпадения после нормализации кода, чисел и типичных имён переменных.
+
 ## Official sources
 
 Documentation links are restricted to `pandas.pydata.org`, `matplotlib.org`, `seaborn.pydata.org`, `numpy.org`, and `docs.python.org`. Link to a concrete method, function, or relevant section, not a project homepage.
