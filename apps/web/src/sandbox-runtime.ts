@@ -29,6 +29,7 @@ export type RuntimeMetrics = {
   packagesReadyMs: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
+const WORKER_PROTOCOL_VERSION = "2";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;
@@ -56,7 +57,7 @@ export class SandboxRuntime {
       this.readyResolve = resolve;
       this.readyReject = reject;
     });
-    this.worker = new Worker("/sandbox-worker.js");
+    this.worker = new Worker(`/sandbox-worker.js?v=${WORKER_PROTOCOL_VERSION}`);
     this.worker.onmessage = (event) => {
       if (this.terminated) return;
       const message = event.data;

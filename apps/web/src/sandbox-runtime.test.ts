@@ -21,6 +21,7 @@ describe("SandboxRuntime lifecycle", () => {
   it("uses one worker for initialization and sequential runs", async () => {
     const runtime = new SandboxRuntime();
     const worker = FakeWorker.instances[0];
+    expect(FakeWorker.instances).toHaveLength(1);
     worker.emit({ type: "ready", version: "0.27.7", metrics: { workerCreatedMs: 1, pyodideReadyMs: 2, packagesReadyMs: 3 } });
     await runtime.ready();
     const first = runtime.run("a = 10", []);
