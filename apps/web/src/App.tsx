@@ -62,6 +62,7 @@ import { AchievementsPage } from "./achievements/AchievementsPage";
 import {
   completeAchievementSession,
   emitAchievementEvent,
+  observeMasteryProgress,
   stableCodeFingerprint,
 } from "./achievements/engine";
 import { AchievementCelebrationQueue } from "./achievements/AchievementCelebration";
@@ -81,6 +82,9 @@ function Layout() {
     window.addEventListener("pagehide", complete);
     return () => window.removeEventListener("pagehide", complete);
   }, []);
+  useEffect(() => {
+    if (p?.modules) observeMasteryProgress(p.modules);
+  }, [p?.modules]);
   const toggle = () =>
     setCollapsed((x) => {
       localStorage.setItem("koda:sidebar", x ? "open" : "collapsed");
@@ -917,7 +921,7 @@ function Practice() {
         const telemetry = {
           taskId: eid,
           codeHash: stableCodeFingerprint(code),
-          topicId: e?.theory_article_id,
+          topicId: slug,
           knowledgeUnitId: e?.knowledge_unit_id,
           isControl: Boolean(e?.is_control),
           exerciseType: e?.is_control

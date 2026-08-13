@@ -112,6 +112,55 @@ export function completeAchievementSession() {
     session.id,
   );
 }
+const MASTERY_KEY = "koda:achievement-mastery:v1";
+export function observeMasteryProgress(
+  modules: Array<{ slug: string; mastery: number; solved: number }>,
+) {
+  let previous: Record<string, { mastery: number; historicalMin: number }> = {};
+  try {
+    previous = JSON.parse(localStorage.getItem(MASTERY_KEY) || "{}");
+  } catch {
+    previous = {};
+  }
+  const bottom = new Set(
+    [...modules]
+      .sort((a, b) => a.mastery - b.mastery)
+      .slice(0, 2)
+      .map((module) => module.slug),
+  );
+  const snapshot = loadSnapshot();
+  for (const module of modules) {
+    const old = previous[module.slug];
+    const historicalMin = Math.min(
+      old?.historicalMin ?? module.mastery,
+      old?.mastery ?? module.mastery,
+      module.mastery,
+    );
+    if (old && old.mastery !== module.mastery) {
+      const controlPassed = snapshot.events.some(
+        (event) =>
+          event.type === "task_solved" &&
+          event.payload.topicId === module.slug &&
+          event.payload.isControl === true &&
+          event.payload.noHints === true,
+      );
+      emitAchievementEvent(
+        "mastery_changed",
+        {
+          topicId: module.slug,
+          from: old.mastery,
+          to: module.mastery,
+          historicalMin,
+          wasBottomRank: bottom.has(module.slug) ? 1 : 0,
+          controlPassed,
+        },
+        `${module.slug}:${module.mastery}:${module.solved}`,
+      );
+    }
+    previous[module.slug] = { mastery: module.mastery, historicalMin };
+  }
+  localStorage.setItem(MASTERY_KEY, JSON.stringify(previous));
+}
 export function backfillProgress(
   solvedIds: string[],
   modules: Array<{ status: string }>,

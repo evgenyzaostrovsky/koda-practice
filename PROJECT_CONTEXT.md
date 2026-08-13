@@ -27,6 +27,8 @@ Temporal and sequence evaluators cover comeback gaps, rolling active-day windows
 
 `short_loop` requires an explicit completed 5–10 minute session. Delayed repair is invalidated when the reference solution was revealed. Reconnaissance binds a failed task, a Sandbox experiment carrying that task ID, changed task code, and a later independent solve. Own-question completion remains an explicit structured event: the evaluator intentionally does not infer a user's question from source text. Historical data that lacks these facts does not receive these awards.
 
+Topic events use the stable topic slug rather than a per-task theory article ID. Aggregate `/progress` changes are observed as idempotent `mastery_changed` events with a locally retained historical minimum; this supplies real evidence for weak-topic recovery without moving award decisions into React.
+
 Backfill version 2 is conservative and idempotent: legacy solved-task/course progress remains available to v1 achievements, while v2 rules ignore synthetic backfill events. Session- and code-dependent achievements begin tracking after deployment.
 
 No database migration was required for v2. The existing `learning_events` JSON payload, `user_achievements` primary key, `xp_awarded`, `reward_payload`, `seen_at` and `backfill_version` columns already support the new event metadata and acknowledgement state.

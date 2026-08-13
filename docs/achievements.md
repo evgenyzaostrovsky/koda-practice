@@ -14,6 +14,8 @@ The application uses one achievement system backed by `apps/web/public/achieveme
 
 Every event has a stable ID, timestamp, local date, type and structured payload. Repeated delivery of the same event ID is ignored. Task telemetry includes task/topic/KnowledgeUnit identifiers, code fingerprint, attempts, hints, duration, control/review metadata and backend AST evidence. Sandbox telemetry includes a runtime ID, code fingerprint, owned-dataset IDs, result kind, plots, parsed methods/analysis stages, the originating stuck task when applicable, and failures. `session_completed` and `solution_revealed` make short-session and delayed-repair rules auditable rather than inferred from UI state.
 
+Topic identity is the stable topic slug. Changes returned by the aggregate progress API are recorded as idempotent `mastery_changed` domain events with the historical minimum needed by weak-topic and breakthrough rules.
+
 Events are persisted locally and, for authenticated users, upserted into `learning_events`. Unlocks are upserted by `(user_id, achievement_id)`, so retries cannot duplicate XP.
 
 ## Secrets
