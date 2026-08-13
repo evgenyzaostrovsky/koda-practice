@@ -13,6 +13,18 @@ export type SandboxResult = {
   plots: string[];
   executionMs?: number;
   totalRunMs?: number;
+  pythonTiming?: Record<string, number>;
+  workerTiming?: {
+    receivedEpochMs: number;
+    runtimeReadyAt: number;
+    filesystemMs: number;
+    beforePythonAt: number;
+    afterPythonAt: number;
+    postMessageEpochMs: number;
+    workerId: string;
+    runtimeGeneration: string;
+  };
+  mainTiming?: { postMessageEpochMs: number; receivedEpochMs: number };
   result?: {
     kind: "dataframe" | "series" | "value";
     columns?: string[];
@@ -29,12 +41,16 @@ export type RuntimeMetrics = {
   packagesReadyMs: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
-const WORKER_PROTOCOL_VERSION = "2";
+const WORKER_PROTOCOL_VERSION = "3";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;
   timer?: number;
   timeoutMs?: number;
+  postMessageAt: number;
+  fileLoader?: (paths: string[]) => Promise<MountedFile[]>;
+  code?: string;
+  files?: MountedFile[];
 };
 
 export class SandboxRuntime {
@@ -78,11 +94,32 @@ export class SandboxRuntime {
         this.readyResolve({ version: message.version, metrics: message.metrics });
         return;
       }
+      if (message.type === "needs-files") {
+        const pending = this.pending.get(message.requestId);
+        if (!pending?.fileLoader || !pending.code || !pending.files) return;
+        void pending.fileLoader(message.paths).then((loaded) => {
+          if (this.terminated || !this.pending.has(message.requestId)) return;
+          const loadedByPath = new Map(loaded.map((file) => [file.logicalPath, file]));
+          const files = pending.files!.map((file) => loadedByPath.get(file.logicalPath) ?? file);
+          const transfers = loaded.flatMap((file) => file.buffer ? [file.buffer] : []);
+          this.worker.postMessage({ type: "run", requestId: message.requestId, code: pending.code, files }, transfers);
+        }).catch((error) => {
+          this.pending.delete(message.requestId);
+          pending.reject(error instanceof Error ? error : new Error(String(error)));
+        });
+        return;
+      }
       if (message.type === "result" || message.type === "inspection" || message.type === "fatal") {
         const pending = this.pending.get(message.requestId);
         if (pending) {
           if (pending.timer) window.clearTimeout(pending.timer);
           this.pending.delete(message.requestId);
+          if (message.type === "result") {
+            message.payload.mainTiming = {
+              postMessageEpochMs: pending.postMessageAt,
+              receivedEpochMs: Date.now(),
+            };
+          }
           message.type === "fatal"
             ? pending.reject(new Error(message.message))
             : pending.resolve(message.payload as unknown);
@@ -100,23 +137,29 @@ export class SandboxRuntime {
     return this.readyPromise;
   }
 
-  private request<T>(type: "inspect" | "run", payload: object, transfers: Transferable[] = [], timeoutMs?: number) {
+  private request<T>(type: "run", payload: object, transfers: Transferable[] = [], timeoutMs?: number, extra?: Partial<Pending>) {
     const requestId = crypto.randomUUID();
     return new Promise<T>((resolve, reject) => {
-      this.pending.set(requestId, { resolve: resolve as (value: unknown) => void, reject, timeoutMs });
+      this.pending.set(requestId, {
+        resolve: resolve as (value: unknown) => void,
+        reject,
+        timeoutMs,
+        postMessageAt: Date.now(),
+        ...extra,
+      });
       this.worker.postMessage({ type, requestId, ...payload }, transfers);
     });
   }
 
-  async inspect(code: string) {
-    await this.ready();
-    return this.request<{ imports: string[]; datasets: string[] }>("inspect", { code });
-  }
-
-  async run(code: string, files: MountedFile[], timeoutMs = 15000) {
+  async run(
+    code: string,
+    files: MountedFile[],
+    fileLoader: (paths: string[]) => Promise<MountedFile[]>,
+    timeoutMs = 15000,
+  ) {
     await this.ready();
     const transfers = files.flatMap((file) => (file.buffer ? [file.buffer] : []));
-    return this.request<SandboxResult>("run", { code, files }, transfers, timeoutMs);
+    return this.request<SandboxResult>("run", { code, files }, transfers, timeoutMs, { code, files, fileLoader });
   }
 
   terminate() {

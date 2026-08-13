@@ -94,7 +94,6 @@ export function Sandbox() {
     [copied, setCopied] = useState("");
   const runtime = useRef<SandboxRuntime | null>(null),
     runtimeId = useRef(crypto.randomUUID()),
-    mounted = useRef(new Map<string, string>()),
     running = useRef(false),
     input = useRef<HTMLInputElement>(null);
   const createRuntime = () => {
@@ -117,7 +116,6 @@ export function Sandbox() {
       setMessage(detail);
     });
     runtime.current = next;
-    mounted.current.clear();
     next
       .ready()
       .then(({ version, metrics }) => {
@@ -186,84 +184,110 @@ export function Sandbox() {
   const run = async () => {
     if (!runtime.current || running.current) return;
     const activeRuntime = runtime.current;
+    const clickAt = performance.now();
     running.current = true;
     setRuntimeState("running");
     setMessage(runtimeState === "loading" ? "Ожидаем готовность Python…" : "Выполнение…");
     try {
-      const inspection = await activeRuntime.inspect(code);
-      if (runtime.current !== activeRuntime) return;
-      const neededPaths = new Set(inspection.datasets);
+      const requestPreparedAt = performance.now();
       const latest = files;
-      const mountedFiles = [];
-      for (const file of latest) {
-        const signature = `${file.logicalPath}:${file.version}`;
-        if (neededPaths.has(file.logicalPath) && mounted.current.get(file.id) !== signature) {
+      const mountedFiles = latest.map((file) => ({
+        logicalPath: file.logicalPath,
+        version: file.version,
+      }));
+      const filesReadyAt = performance.now();
+      const loadFiles = async (paths: string[]) =>
+        Promise.all(paths.map(async (path) => {
+          const file = latest.find((candidate) => candidate.logicalPath === path);
+          if (!file) throw new Error(`Файл ${path} не найден`);
           const response = await apiResponse(
             `/sandbox/files/${file.id}/content`,
           );
-          mountedFiles.push({
+          return {
             logicalPath: file.logicalPath,
             version: file.version,
             buffer: await response.arrayBuffer(),
-          });
-          mounted.current.set(file.id, signature);
-        } else
-          mountedFiles.push({
-            logicalPath: file.logicalPath,
-            version: file.version,
-          });
-      }
+          };
+        }));
       setMessage("Выполнение…");
-      const output = await activeRuntime.run(code, mountedFiles);
+      const output = await activeRuntime.run(code, mountedFiles, loadFiles);
+      const resultReceivedAt = performance.now();
       if (runtime.current !== activeRuntime) return;
       setResult(output);
       setMobileTab("result");
       setRuntimeState("ready");
-      setMessage(`Готово · ${Math.round(output.executionMs ?? 0)} мс`);
-      const normalized = code.replace(/\s+/g, " ").trim(),
-        hash = await crypto.subtle
+      setMessage(`Готово · ${Math.round(resultReceivedAt - clickAt)} мс`);
+      if (import.meta.env.DEV) {
+        requestAnimationFrame(() => {
+          const renderedAt = performance.now();
+          const py = output.pythonTiming ?? {};
+          const worker = output.workerTiming;
+          const main = output.mainTiming;
+          const rows = {
+            "main → worker": worker && main ? worker.receivedEpochMs - main.postMessageEpochMs : 0,
+            "runtime wait": requestPreparedAt - clickAt,
+            "file preparation": filesReadyAt - requestPreparedAt,
+            "worker run request": resultReceivedAt - filesReadyAt,
+            bootstrap: (py.pythonStart ?? 0) - (py.bootstrapStart ?? 0),
+            "python execution": (py.pythonEnd ?? 0) - (py.pythonStart ?? 0),
+            "result/repr": (py.resultEnd ?? 0) - (py.resultStart ?? 0),
+            stdout: (py.stdoutEnd ?? 0) - (py.stdoutStart ?? 0),
+            plots: (py.plotsEnd ?? 0) - (py.plotsStart ?? 0),
+            filesystem: worker?.filesystemMs ?? 0,
+            "worker → main": worker && main ? main.receivedEpochMs - worker.postMessageEpochMs : 0,
+            "React/render": renderedAt - resultReceivedAt,
+            TOTAL: renderedAt - clickAt,
+          };
+          console.groupCollapsed("Sandbox run timing");
+          console.table(rows);
+          console.info("Sandbox timing data", JSON.stringify(rows));
+          console.info({
+            workerId: worker?.workerId,
+            runtimeGeneration: worker?.runtimeGeneration,
+            requestId: runtimeId.current,
+          });
+          console.groupEnd();
+        });
+      }
+      const achievementRuntimeId = runtimeId.current;
+      const recordAchievement = async () => {
+        const sideEffectStarted = performance.now();
+        const normalized = code.replace(/\s+/g, " ").trim();
+        const hash = await crypto.subtle
           .digest("SHA-256", new TextEncoder().encode(normalized))
           .then((x) =>
             Array.from(new Uint8Array(x))
               .map((n) => n.toString(16).padStart(2, "0"))
               .join(""),
           );
-      if (output.ok) {
-        emitAchievementEvent(
-          "sandbox_run_succeeded",
-          {
+        if (output.ok) {
+          emitAchievementEvent("sandbox_run_succeeded", {
             codeHash: hash,
-            runtimeId: runtimeId.current,
+            runtimeId: achievementRuntimeId,
             ownDataset: latest.length > 0,
             fileIds: latest.map((file) => file.id),
             resultKind: output.result?.kind,
             plotCount: output.plots?.length ?? 0,
-          },
-          hash,
-        );
-        if (latest.length && /pd\.read_csv\s*\(/.test(code))
-          emitAchievementEvent(
-            "own_dataframe_created",
-            { fileCount: latest.length },
-            hash,
-          );
-        if (output.plots?.length)
-          emitAchievementEvent(
-            "chart_created",
-            { count: output.plots.length },
-            hash,
-          );
-      } else {
-        emitAchievementEvent(
-          "sandbox_run_failed",
-          {
+          }, hash);
+          if (latest.length && /pd\.read_csv\s*\(/.test(code))
+            emitAchievementEvent("own_dataframe_created", { fileCount: latest.length }, hash);
+          if (output.plots?.length)
+            emitAchievementEvent("chart_created", { count: output.plots.length }, hash);
+        } else {
+          emitAchievementEvent("sandbox_run_failed", {
             codeHash: hash,
-            runtimeId: runtimeId.current,
+            runtimeId: achievementRuntimeId,
             errorType: output.errorType,
-          },
-          `${runtimeId.current}:${hash}`,
-        );
-      }
+          }, `${achievementRuntimeId}:${hash}`);
+        }
+        if (import.meta.env.DEV)
+          console.info("Sandbox achievement side effects", JSON.stringify({
+            durationMs: performance.now() - sideEffectStarted,
+          }));
+      };
+      // Persisting achievements is not part of Python execution. Let React commit
+      // the real worker result first, then process progress without extending Run.
+      requestAnimationFrame(() => void recordAchievement());
     } catch (e) {
       const text = e instanceof Error ? e.message : String(e);
       if (runtime.current === activeRuntime) {

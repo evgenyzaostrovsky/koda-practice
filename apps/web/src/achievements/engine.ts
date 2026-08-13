@@ -275,9 +275,11 @@ export function progressFor(
 export function evaluate(manifest: AchievementManifest, s = loadSnapshot()) {
   const stats = statsFrom(s),
     defs = manifest.families.flatMap((f) => f.achievements);
+  const progress = new Map<string, AchievementProgress>();
   let changed = false;
   for (const d of defs) {
     const p = progressFor(d.id, stats, s.events);
+    progress.set(d.id, p);
     if (p.unlocked && !s.unlocked[d.id]) {
       s.unlocked[d.id] = {
         unlockedAt: new Date().toISOString(),
@@ -297,7 +299,7 @@ export function evaluate(manifest: AchievementManifest, s = loadSnapshot()) {
     stats,
     items: defs.map((def) => ({
       def,
-      progress: progressFor(def.id, stats, s.events),
+      progress: progress.get(def.id)!,
       unlock: s.unlocked[def.id],
     })),
   };

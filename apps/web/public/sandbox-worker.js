@@ -7,6 +7,8 @@ let state = "booting";
 let manifest = new Map();
 const loadedPackages = new Set(["python"]);
 const bootStarted = performance.now();
+const workerId = crypto.randomUUID();
+const runtimeGeneration = crypto.randomUUID();
 
 function status(phase, detail, requestId) {
   state = phase;
@@ -88,7 +90,7 @@ function mount(files) {
 }
 
 const RUNNER = String.raw`
-import ast, base64, contextlib, io, json, sys, traceback
+import ast, base64, contextlib, io, json, sys, time, traceback
 
 MAX_STDOUT = 100_000
 MAX_VALUE = 20_000
@@ -120,12 +122,23 @@ def _result(value):
 
 stdout = io.StringIO()
 plots = []
+__timing = {}
 try:
+    __timing["bootstrapStart"] = time.perf_counter()
     tree = ast.parse(__koda_code, filename="solution.py", mode="exec")
     last = tree.body.pop() if tree.body and isinstance(tree.body[-1], ast.Expr) else None
+    __timing["pythonStart"] = time.perf_counter()
     with contextlib.redirect_stdout(stdout), contextlib.redirect_stderr(stdout):
         exec(compile(tree, "solution.py", "exec"), __koda_globals)
         value = eval(compile(ast.Expression(last.value), "solution.py", "eval"), __koda_globals) if last else None
+    __timing["pythonEnd"] = time.perf_counter()
+    __timing["resultStart"] = time.perf_counter()
+    serialized_result = _result(value)
+    __timing["resultEnd"] = time.perf_counter()
+    __timing["stdoutStart"] = time.perf_counter()
+    output = stdout.getvalue()
+    __timing["stdoutEnd"] = time.perf_counter()
+    __timing["plotsStart"] = time.perf_counter()
     if "matplotlib.pyplot" in sys.modules:
         import matplotlib.pyplot as plt
         for number in plt.get_fignums():
@@ -133,8 +146,8 @@ try:
             plt.figure(number).savefig(buffer, format="png", bbox_inches="tight", dpi=120)
             plots.append("data:image/png;base64," + base64.b64encode(buffer.getvalue()).decode("ascii"))
         plt.close("all")
-    output = stdout.getvalue()
-    __koda_payload = {"ok": True, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "result": _result(value), "plots": plots}
+    __timing["plotsEnd"] = time.perf_counter()
+    __koda_payload = {"ok": True, "stdout": output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "result": serialized_result, "plots": plots, "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
 except BaseException as error:
     output = stdout.getvalue()
     trace = traceback.format_exc()
@@ -144,24 +157,34 @@ json.dumps(__koda_payload, ensure_ascii=False)
 
 onmessage = async (event) => {
   const { type, requestId } = event.data;
+  const receivedEpochMs = Date.now();
   try {
     await ensureInitialized();
-    if (type === "inspect") {
-      postMessage({ type: "inspection", requestId, payload: inspectCode(event.data.code) });
-      return;
-    }
     if (type !== "run" || state === "running") return;
-    state = "running";
     const executionStarted = performance.now();
     const inspection = inspectCode(event.data.code);
+    const fileByPath = new Map((event.data.files || []).map((file) => [file.logicalPath, file]));
+    const missingPaths = inspection.datasets.filter((path) => {
+      const file = fileByPath.get(path);
+      return file && manifest.get(path) !== file.version && !file.buffer;
+    });
+    if (missingPaths.length) {
+      postMessage({ type: "needs-files", requestId, paths: missingPaths });
+      return;
+    }
+    state = "running";
     await ensureCodePackages(inspection.imports, requestId);
+    const filesystemStarted = performance.now();
     mount(event.data.files || []);
+    const filesystemEnded = performance.now();
     status("running", "Выполнение…", requestId);
     runtime.globals.set("__koda_code", event.data.code);
     const pythonStarted = performance.now();
     const payload = JSON.parse(await runtime.runPythonAsync(RUNNER));
+    const afterPythonAt = performance.now();
     payload.executionMs = performance.now() - pythonStarted;
     payload.totalRunMs = performance.now() - executionStarted;
+    payload.workerTiming = { receivedEpochMs, runtimeReadyAt: executionStarted, filesystemMs: filesystemEnded - filesystemStarted, beforePythonAt: pythonStarted, afterPythonAt, postMessageEpochMs: Date.now(), workerId, runtimeGeneration };
     state = "ready";
     postMessage({ type: "result", requestId, payload });
   } catch (error) {

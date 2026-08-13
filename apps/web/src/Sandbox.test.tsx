@@ -9,7 +9,8 @@ const apiResponseMock=vi.fn((_path:string)=>Promise.resolve({arrayBuffer:()=>Pro
 vi.mock("./api",()=>({api:(path:string,init?:RequestInit)=>apiMock(path,init),apiResponse:(path:string)=>apiResponseMock(path)}));
 vi.mock("./auth",()=>({getAccessToken:()=>"token"}));
 const terminate=vi.fn(),inspect=vi.fn<()=>Promise<{imports:string[];datasets:string[]}>>(()=>Promise.resolve({imports:[],datasets:[]})),run=vi.fn(()=>Promise.resolve({ok:true,stdout:"",plots:[],result:{kind:"dataframe",columns:["city"],index:["0"],data:[["Москва"]],shape:[1,1]}}));
-vi.mock("./sandbox-runtime",()=>({SandboxRuntime:class{ready(){return Promise.resolve({version:"0.27.7",metrics:{workerCreatedMs:1,pyodideReadyMs:2,packagesReadyMs:3}})}inspect(){return inspect()}run(){return run()}terminate(){terminate()}}}));
+const mountedPaths=new Set<string>();
+vi.mock("./sandbox-runtime",()=>({SandboxRuntime:class{ready(){return Promise.resolve({version:"0.27.7",metrics:{workerCreatedMs:1,pyodideReadyMs:2,packagesReadyMs:3}})}async run(_code:string,_files:unknown[],loader:(paths:string[])=>Promise<unknown>){const paths=(await inspect()).datasets.filter(path=>!mountedPaths.has(path));if(paths.length){await loader(paths);paths.forEach(path=>mountedPaths.add(path))}return run()}terminate(){terminate()}}}));
 vi.mock("@monaco-editor/react",()=>({default:({value,onChange}:{value:string;onChange:(value:string)=>void})=><textarea aria-label="Редактор Python" value={value} onChange={e=>onChange(e.target.value)}/> }));
 
 class FakeXHR{
@@ -19,7 +20,7 @@ class FakeXHR{
 
 const renderSandbox=()=>render(<QueryClientProvider client={new QueryClient({defaultOptions:{queries:{retry:false}}})}><Sandbox/></QueryClientProvider>);
 describe("sandbox",()=>{
-  afterEach(()=>cleanup());
+  afterEach(()=>{mountedPaths.clear();cleanup()});
   beforeEach(()=>{files=[{id:"f1",name:"sales.csv",logicalPath:"/datasets/sales.csv",sizeBytes:24,mimeType:"text/csv",createdAt:"now",updatedAt:"now",version:"hash"}];localStorage.clear();apiMock.mockClear();apiResponseMock.mockClear();inspect.mockReset().mockResolvedValue({imports:[],datasets:[]});run.mockReset().mockResolvedValue({ok:true,stdout:"",plots:[],result:{kind:"dataframe",columns:["city"],index:["0"],data:[["Москва"]],shape:[1,1]}});terminate.mockClear();vi.stubGlobal("XMLHttpRequest",FakeXHR);Object.assign(navigator,{clipboard:{writeText:vi.fn().mockResolvedValue(undefined)}})});
   it("shows files and copies the logical path",async()=>{renderSandbox();expect(await screen.findByText("/datasets/sales.csv")).toBeInTheDocument();fireEvent.click(screen.getByRole("button",{name:/Путь/}));expect(navigator.clipboard.writeText).toHaveBeenCalledWith("/datasets/sales.csv")});
   it("runs only with Ctrl+Enter and leaves plain Enter to the editor",async()=>{renderSandbox();const editor=await screen.findByLabelText("Редактор Python");fireEvent.change(editor,{target:{value:"df.head()"}});expect(localStorage.getItem("koda:sandbox-code:v1")).toBe("df.head()");fireEvent.keyDown(editor,{key:"Enter"});expect(run).not.toHaveBeenCalled();fireEvent.keyDown(editor,{key:"Enter",ctrlKey:true});await waitFor(()=>expect(run).toHaveBeenCalledTimes(1));expect(await screen.findByText("Москва")).toBeInTheDocument()});
