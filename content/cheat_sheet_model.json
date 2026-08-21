@@ -1,0 +1,143 @@
+{
+  "start": [
+    {"name":"pd.DataFrame(data)","kind":"function","description":"Создаёт DataFrame из словаря списков или другого табличного объекта.","example":"df = pd.DataFrame(data)","nuance":"В словаре списков все столбцы должны иметь одинаковую длину."},
+    {"name":"pd.DataFrame(records)","kind":"function","description":"Создаёт DataFrame из списка словарей, где каждый словарь становится строкой.","example":"df = pd.DataFrame(records)","nuance":"Отсутствующие в отдельных записях ключи превращаются в пропуски."},
+    {"name":"columns=","kind":"parameter","description":"Задаёт имена и порядок столбцов создаваемого DataFrame.","example":"df = pd.DataFrame(rows, columns=['city', 'sales'])","nuance":"Для словаря columns также можно использовать как отбор столбцов."},
+    {"name":"index=","kind":"parameter","description":"Задаёт пользовательские метки строк вместо стандартных чисел.","example":"df = pd.DataFrame(data, index=['a', 'b'])","nuance":"Число меток должно совпадать с числом строк."},
+    {"name":"dtype=","kind":"parameter","description":"Устанавливает единый тип данных при создании DataFrame.","example":"df = pd.DataFrame(data, dtype='float64')","nuance":"Для разных типов по столбцам удобнее использовать astype со словарём."}
+  ],
+  "reading": [
+    {"name":"pd.read_csv(path)","kind":"function","description":"Читает CSV или другой текстовый табличный файл и возвращает DataFrame.","example":"df = pd.read_csv(csv_path)","nuance":"Путь может указывать на локальный файл или доступный URL."},
+    {"name":"sep=","kind":"parameter","description":"Указывает разделитель полей, например точку с запятой или табуляцию.","example":"df = pd.read_csv(csv_path, sep=';')","nuance":"Неверный разделитель часто собирает всю строку в один столбец."},
+    {"name":"header= / names=","kind":"parameter","description":"Управляет строкой заголовка и позволяет явно назначить имена столбцов.","example":"df = pd.read_csv(csv_path, header=None, names=['city', 'sales'])","nuance":"header=None нужен, когда в файле нет строки с названиями."},
+    {"name":"usecols=","kind":"parameter","description":"Читает только выбранные столбцы и уменьшает расход памяти.","example":"df = pd.read_csv(csv_path, usecols=['city', 'sales'])","nuance":"Можно передать список имён или номеров столбцов."},
+    {"name":"dtype= / parse_dates=","kind":"parameter","description":"Явно задаёт типы обычных столбцов и столбцы для разбора дат.","example":"df = pd.read_csv(csv_path, dtype={'id': 'string'}, parse_dates=['date'])","nuance":"Явный dtype помогает сохранить ведущие нули в идентификаторах."},
+    {"name":"encoding= / na_values=","kind":"parameter","description":"Задаёт кодировку текста и дополнительные обозначения пропущенных значений.","example":"df = pd.read_csv(csv_path, encoding='cp1251', na_values=['—'])","nuance":"Эти параметры описывают формат файла, а не исправляют данные после чтения."}
+  ],
+  "columns": [
+    {"name":"df['column']","kind":"pattern","description":"Выбирает один столбец и возвращает Series.","example":"sales = df['sales']","nuance":"Одинарные скобки сохраняют одномерный результат."},
+    {"name":"df[['a', 'b']]","kind":"pattern","description":"Выбирает несколько столбцов и возвращает новый DataFrame.","example":"subset = df[['city', 'sales']]","nuance":"Порядок имён определяет порядок столбцов результата."},
+    {"name":"df[column_names]","kind":"pattern","description":"Выбирает столбцы по заранее подготовленному списку имён.","example":"subset = df[selected_columns]","nuance":"Неизвестное имя столбца вызывает KeyError."},
+    {"name":"df[[]]","kind":"pattern","description":"Возвращает DataFrame без столбцов, сохраняя исходный индекс.","example":"empty_columns = df[[]]","nuance":"Это не то же самое, что полностью пустой DataFrame."}
+  ],
+  "change-columns": [
+    {"name":"df['new'] = value","kind":"pattern","description":"Создаёт новый столбец или заменяет существующий значениями скаляра или Series.","example":"df['status'] = 'active'","nuance":"Скаляр повторяется для каждой строки."},
+    {"name":"df['new'] = expression","kind":"pattern","description":"Создаёт вычисляемый столбец из векторного выражения над другими столбцами.","example":"df['total'] = df['price'] * df['qty']","nuance":"Вычисление выполняется сразу для всех строк без цикла."},
+    {"name":"df.loc[mask, 'column'] = value","kind":"pattern","description":"Изменяет значения столбца только в строках, подходящих под условие.","example":"df.loc[df['score'] >= 80, 'status'] = 'passed'","nuance":"loc предотвращает неоднозначное цепочечное присваивание."},
+    {"name":"df.copy()","kind":"method","description":"Создаёт копию DataFrame перед изменением столбцов.","example":"result = df.copy()","nuance":"Используйте копию, если исходная таблица должна остаться неизменной."}
+  ],
+  "vectorization": [
+    {"name":"Series и скаляр","kind":"operator","description":"Применяет арифметическую операцию к каждому значению Series.","example":"adjusted = prices * 1.2","nuance":"Результат сохраняет индекс исходной Series."},
+    {"name":"Series и Series","kind":"operator","description":"Выполняет операцию после автоматического выравнивания двух Series по индексам.","example":"total = price * quantity","nuance":"Несовпадающие метки индекса дают пропуски."},
+    {"name":"Series.add(fill_value=)","kind":"method","description":"Складывает Series с контролируемой заменой отсутствующих значений при выравнивании.","example":"total = left.add(right, fill_value=0)","nuance":"fill_value применяется до операции к отсутствующим сторонам."},
+    {"name":"Векторное сравнение","kind":"operator","description":"Сравнивает каждое значение Series и возвращает boolean Series.","example":"mask = scores >= 60","nuance":"Boolean Series можно использовать как маску фильтрации."}
+  ],
+  "attributes": [
+    {"name":"df.shape","kind":"attribute","description":"Возвращает размер DataFrame в виде кортежа: число строк и число столбцов.","example":"df.shape  # (100, 5)","nuance":"Это атрибут, поэтому круглые скобки не нужны."},
+    {"name":"df.shape[0]","kind":"attribute","description":"Возвращает количество строк DataFrame.","example":"rows = df.shape[0]","nuance":"Для числа строк также подходит len(df)."},
+    {"name":"df.shape[1]","kind":"attribute","description":"Возвращает количество столбцов DataFrame.","example":"cols = df.shape[1]","nuance":"Число столбцов не зависит от количества строк."}
+  ],
+  "inspection": [
+    {"name":"df.head()","kind":"method","description":"Показывает первые пять строк DataFrame для быстрой проверки данных.","example":"df.head()","nuance":"Метод не изменяет исходную таблицу."},
+    {"name":"df.head(n)","kind":"method","description":"Возвращает первые n строк DataFrame.","example":"df.head(3)","nuance":"head(0) сохраняет схему, но не возвращает строки."},
+    {"name":"df.tail()","kind":"method","description":"Показывает последние пять строк DataFrame.","example":"df.tail()","nuance":"Полезно для проверки конца отсортированных или временных данных."},
+    {"name":"df.tail(n)","kind":"method","description":"Возвращает последние n строк DataFrame.","example":"df.tail(2)","nuance":"Если n больше длины таблицы, вернутся все строки."}
+  ],
+  "dataframe-methods": [
+    {"name":"Series.sum()","kind":"method","description":"Суммирует значения Series и возвращает одно число.","example":"total = df['sales'].sum()","nuance":"Пропуски по умолчанию игнорируются."},
+    {"name":"DataFrame.sum()","kind":"method","description":"Суммирует каждый числовой столбец DataFrame и возвращает Series.","example":"totals = df.sum(numeric_only=True)","nuance":"Результат содержит отдельную сумму для каждого столбца."},
+    {"name":"sum(axis=1)","kind":"parameter","description":"Суммирует значения по строкам, а не по столбцам.","example":"row_totals = df[['a', 'b']].sum(axis=1)","nuance":"axis=0 означает вычисление по столбцам."},
+    {"name":"sum(skipna=)","kind":"parameter","description":"Определяет, игнорировать ли пропуски при подсчёте суммы.","example":"total = series.sum(skipna=False)","nuance":"При skipna=False наличие NaN обычно даёт NaN."},
+    {"name":"sum(min_count=)","kind":"parameter","description":"Требует заданное число непропущенных значений для получения суммы.","example":"total = series.sum(min_count=1)","nuance":"Пустая Series с min_count=1 возвращает NaN вместо нуля."},
+    {"name":"Boolean Series.sum()","kind":"method","description":"Считает количество значений True в boolean Series.","example":"passed_count = (df['score'] >= 60).sum()","nuance":"В арифметике True соответствует 1, а False — 0."}
+  ],
+  "series-methods": [
+    {"name":"Series.value_counts()","kind":"method","description":"Подсчитывает частоту каждого уникального значения Series.","example":"counts = series.value_counts()","nuance":"По умолчанию пропуски не входят в результат."},
+    {"name":"value_counts(dropna=False)","kind":"parameter","description":"Включает пропущенные значения в таблицу частот.","example":"counts = series.value_counts(dropna=False)","nuance":"Пропуск становится отдельной категорией результата."},
+    {"name":"value_counts(normalize=True)","kind":"parameter","description":"Возвращает доли значений вместо абсолютных количеств.","example":"shares = series.value_counts(normalize=True)","nuance":"Сумма долей равна единице с учётом включённых значений."},
+    {"name":"value_counts(sort=False)","kind":"parameter","description":"Не сортирует категории по частоте.","example":"counts = series.value_counts(sort=False)","nuance":"Порядок чаще соответствует порядку категорий или появления."},
+    {"name":"value_counts(bins=)","kind":"parameter","description":"Группирует числовые значения по интервалам перед подсчётом.","example":"counts = ages.value_counts(bins=4)","nuance":"Результат индексируется интервалами, а не исходными числами."}
+  ],
+  "groupby": [
+    {"name":"groupby(key)['value'].sum()","kind":"pattern","description":"Суммирует выбранный столбец отдельно для каждой группы.","example":"totals = df.groupby('city')['sales'].sum()","nuance":"Ключи групп по умолчанию становятся индексом результата."},
+    {"name":"groupby([key1, key2])","kind":"pattern","description":"Группирует строки по комбинации нескольких ключей.","example":"totals = df.groupby(['city', 'category'])['sales'].sum()","nuance":"Результат обычно получает многоуровневый индекс."},
+    {"name":"groupby(..., as_index=False)","kind":"parameter","description":"Оставляет ключи групп обычными столбцами результата.","example":"totals = df.groupby('city', as_index=False)['sales'].sum()","nuance":"Удобно перед последующим merge или экспортом."},
+    {"name":"groupby(..., dropna=False)","kind":"parameter","description":"Сохраняет строки с пропущенным ключом как отдельную группу.","example":"totals = df.groupby('city', dropna=False)['sales'].sum()","nuance":"По умолчанию группы с NaN в ключе исключаются."},
+    {"name":"GroupBy.sum(min_count=)","kind":"parameter","description":"Требует минимум непропущенных значений внутри каждой группы.","example":"totals = df.groupby('city')['sales'].sum(min_count=1)","nuance":"Помогает отличать пустую сумму от реального нуля."}
+  ],
+  "filtering": [
+    {"name":"df.query('condition')","kind":"method","description":"Фильтрует строки DataFrame по условию, записанному строкой.","example":"result = df.query('score >= 60')","nuance":"Имена столбцов доступны внутри выражения без df[]."},
+    {"name":"query с and / or","kind":"operator","description":"Объединяет несколько условий фильтрации логическими операторами.","example":"result = df.query('score >= 60 and active')","nuance":"Скобки помогают явно задать порядок сложных условий."},
+    {"name":"query с @variable","kind":"pattern","description":"Подставляет внешнюю Python-переменную в строку запроса.","example":"result = df.query('score >= @min_score')","nuance":"Префикс @ отличает внешнюю переменную от столбца."},
+    {"name":"query с in","kind":"operator","description":"Оставляет строки, значение которых входит в заданный список.","example":"result = df.query('city in @allowed_cities')","nuance":"Список удобно хранить во внешней переменной."},
+    {"name":"query с `column name`","kind":"pattern","description":"Обращается к столбцу с пробелами или специальными символами через обратные кавычки.","example":"result = df.query('`total sales` > 1000')","nuance":"Обратные кавычки относятся к имени столбца, а не к строке Python."}
+  ],
+  "sorting": [
+    {"name":"sort_values(by)","kind":"method","description":"Сортирует строки DataFrame по значениям выбранного столбца.","example":"result = df.sort_values('score')","nuance":"По умолчанию используется порядок по возрастанию."},
+    {"name":"ascending=","kind":"parameter","description":"Задаёт направление сортировки для одного или нескольких ключей.","example":"result = df.sort_values('score', ascending=False)","nuance":"Для нескольких ключей можно передать список значений True и False."},
+    {"name":"sort_values([key1, key2])","kind":"method","description":"Сортирует сначала по первому ключу, затем разрешает совпадения по следующим.","example":"result = df.sort_values(['city', 'sales'])","nuance":"Порядок ключей влияет на итоговый порядок строк."},
+    {"name":"na_position=","kind":"parameter","description":"Помещает пропуски в начало или конец отсортированного результата.","example":"result = df.sort_values('score', na_position='first')","nuance":"Допустимы значения first и last."},
+    {"name":"ignore_index=","kind":"parameter","description":"Сбрасывает старые метки индекса после сортировки.","example":"result = df.sort_values('score', ignore_index=True)","nuance":"Порядок строк меняется, а новый индекс становится последовательным."},
+    {"name":"kind='stable'","kind":"parameter","description":"Сохраняет исходный порядок строк с одинаковыми ключами.","example":"result = df.sort_values('score', kind='stable')","nuance":"Стабильность важна при последовательных сортировках."}
+  ],
+  "merge": [
+    {"name":"pd.merge(..., on=)","kind":"function","description":"Объединяет две таблицы по столбцу с одинаковым именем.","example":"result = pd.merge(orders, customers, on='id')","nuance":"По умолчанию выполняется внутреннее объединение."},
+    {"name":"how=","kind":"parameter","description":"Выбирает способ объединения: inner, left, right или outer.","example":"result = pd.merge(left, right, on='id', how='left')","nuance":"Left сохраняет все строки левой таблицы."},
+    {"name":"left_on= / right_on=","kind":"parameter","description":"Задаёт ключи с разными именами в левой и правой таблицах.","example":"result = pd.merge(left, right, left_on='user_id', right_on='id')","nuance":"Ключи должны описывать одну и ту же сущность."},
+    {"name":"on=[key1, key2]","kind":"parameter","description":"Объединяет таблицы по составному ключу из нескольких столбцов.","example":"result = pd.merge(left, right, on=['store_id', 'date'])","nuance":"Совпасть должна вся комбинация ключей."},
+    {"name":"suffixes=","kind":"parameter","description":"Задаёт суффиксы для одноимённых неключевых столбцов.","example":"result = pd.merge(left, right, on='id', suffixes=('_old', '_new'))","nuance":"Суффиксы предотвращают неоднозначные названия результата."},
+    {"name":"validate= / indicator=","kind":"parameter","description":"Проверяет ожидаемую кратность ключей и показывает источник каждой строки.","example":"result = pd.merge(left, right, on='id', validate='many_to_one', indicator=True)","nuance":"Параметры помогают обнаружить неожиданные дубли ключей."}
+  ],
+  "pivot": [
+    {"name":"pivot_table(index=, values=)","kind":"method","description":"Строит сводную таблицу, группируя значения по строковым ключам.","example":"result = df.pivot_table(index='city', values='sales')","nuance":"По умолчанию числовые значения агрегируются средним."},
+    {"name":"columns=","kind":"parameter","description":"Разворачивает значения категории в отдельные столбцы сводной таблицы.","example":"result = df.pivot_table(index='city', columns='category', values='sales')","nuance":"Результат может получить многоуровневые столбцы."},
+    {"name":"aggfunc=","kind":"parameter","description":"Выбирает функцию агрегации для повторяющихся комбинаций ключей.","example":"result = df.pivot_table(index='city', values='sales', aggfunc='sum')","nuance":"Можно передать имя функции, функцию или список функций."},
+    {"name":"fill_value=","kind":"parameter","description":"Заполняет пустые ячейки после построения сводной таблицы.","example":"result = df.pivot_table(index='city', columns='category', values='sales', fill_value=0)","nuance":"Заполнение происходит после агрегации."},
+    {"name":"margins=","kind":"parameter","description":"Добавляет итоговые строки и столбцы к сводной таблице.","example":"result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True)","nuance":"Имя итогов можно изменить через margins_name."}
+  ],
+  "dtypes": [
+    {"name":"Series.astype(dtype)","kind":"method","description":"Возвращает Series со значениями, преобразованными к указанному типу.","example":"ids = ids.astype('string')","nuance":"Исходная Series не меняется без присваивания результата."},
+    {"name":"DataFrame.astype(mapping)","kind":"method","description":"Преобразует несколько столбцов к разным типам по словарю.","example":"df = df.astype({'id': 'string', 'score': 'float64'})","nuance":"Столбцы, которых нет в словаре, сохраняют текущие типы."},
+    {"name":"astype('Int64')","kind":"method","description":"Использует nullable-тип целых чисел, который поддерживает пропуски.","example":"values = values.astype('Int64')","nuance":"Int64 с заглавной буквы отличается от NumPy int64."},
+    {"name":"astype('category')","kind":"method","description":"Преобразует повторяющиеся значения в категориальный тип.","example":"df['status'] = df['status'].astype('category')","nuance":"Категории могут экономить память и задавать допустимые значения."},
+    {"name":"index.astype(dtype)","kind":"method","description":"Преобразует тип меток индекса.","example":"df.index = df.index.astype('string')","nuance":"Это не меняет типы обычных столбцов."}
+  ],
+  "datetime": [
+    {"name":"pd.to_datetime(values)","kind":"function","description":"Преобразует строки или числа в datetime-значения pandas.","example":"dates = pd.to_datetime(raw_dates)","nuance":"Некорректное значение по умолчанию вызывает ошибку."},
+    {"name":"format= / dayfirst=","kind":"parameter","description":"Явно описывает формат строк или порядок дня и месяца.","example":"dates = pd.to_datetime(raw_dates, format='%d.%m.%Y')","nuance":"Точный format ускоряет и делает разбор предсказуемым."},
+    {"name":"errors='coerce'","kind":"parameter","description":"Преобразует неразбираемые даты в NaT вместо исключения.","example":"dates = pd.to_datetime(raw_dates, errors='coerce')","nuance":"После преобразования проверьте количество NaT."},
+    {"name":"unit=","kind":"parameter","description":"Задаёт единицу числовых Unix-меток времени.","example":"dates = pd.to_datetime(timestamps, unit='s')","nuance":"Неверная единица даёт даты неправильного масштаба."},
+    {"name":"Series.dt component","kind":"attribute","description":"Извлекает календарный компонент из datetime-Series.","example":"years = dates.dt.year","nuance":"Через dt доступны year, month, day, quarter и другие компоненты."},
+    {"name":"Series.dt.day_name()","kind":"method","description":"Возвращает названия дней недели для datetime-Series.","example":"weekdays = dates.dt.day_name()","nuance":"Результат — строковая Series с тем же индексом."}
+  ],
+  "recipes": [
+    {"name":"fillna(value)","kind":"method","description":"Заменяет пропуски заданным скалярным значением.","example":"filled = series.fillna(0)","nuance":"Выбирайте замену с учётом смысла данных."},
+    {"name":"fillna(mapping)","kind":"method","description":"Заполняет пропуски разными значениями в разных столбцах.","example":"filled = df.fillna({'city': 'Unknown', 'sales': 0})","nuance":"Столбцы, которых нет в словаре, не изменяются."},
+    {"name":"fillna(statistic)","kind":"pattern","description":"Заполняет числовые пропуски рассчитанной статистикой столбца.","example":"filled = series.fillna(series.median())","nuance":"Медиана обычно устойчивее среднего к выбросам."},
+    {"name":"ffill()","kind":"method","description":"Заполняет пропуски последним известным предыдущим значением.","example":"filled = series.ffill()","nuance":"Начальные пропуски останутся, если перед ними нет значения."},
+    {"name":"bfill()","kind":"method","description":"Заполняет пропуски ближайшим следующим известным значением.","example":"filled = series.bfill()","nuance":"Конечные пропуски останутся без следующего значения."},
+    {"name":"limit=","kind":"parameter","description":"Ограничивает число последовательных пропусков, которые можно заполнить.","example":"filled = series.ffill(limit=2)","nuance":"Оставшиеся пропуски сохраняются."}
+  ],
+  "pandas-plots": [
+    {"name":"DataFrame.plot()","kind":"method","description":"Строит быстрый график числовых столбцов DataFrame и возвращает Axes.","example":"ax = df.plot()","nuance":"Метод использует Matplotlib как графический backend."},
+    {"name":"plot(x=, y=)","kind":"parameter","description":"Выбирает столбцы для оси X и одной или нескольких серий Y.","example":"ax = df.plot(x='date', y='sales')","nuance":"В y можно передать список столбцов."},
+    {"name":"plot(kind=)","kind":"parameter","description":"Выбирает тип графика: line, bar, barh, hist и другие.","example":"ax = df.plot(x='city', y='sales', kind='bar')","nuance":"Тип графика должен соответствовать смыслу сравнения."},
+    {"name":"title= / figsize=","kind":"parameter","description":"Задаёт заголовок и размер области построения.","example":"ax = df.plot(title='Продажи', figsize=(8, 4))","nuance":"Размер указывается в дюймах."},
+    {"name":"marker=","kind":"parameter","description":"Добавляет маркеры точек на линейный график.","example":"ax = df.plot(x='date', y='sales', marker='o')","nuance":"Маркеры полезны при небольшом числе наблюдений."}
+  ],
+  "seaborn": [
+    {"name":"sns.barplot(data=, x=, y=)","kind":"function","description":"Сравнивает агрегированное числовое значение между категориями.","example":"ax = sns.barplot(data=df, x='category', y='sales')","nuance":"По умолчанию высота столбца показывает среднее."},
+    {"name":"estimator=","kind":"parameter","description":"Задаёт функцию, которая рассчитывает высоту столбцов.","example":"ax = sns.barplot(data=df, x='category', y='sales', estimator='sum')","nuance":"Для суммы можно передать строку sum в современных версиях Seaborn."},
+    {"name":"hue=","kind":"parameter","description":"Разбивает каждую категорию на дополнительные цветовые группы.","example":"ax = sns.barplot(data=df, x='category', y='sales', hue='region')","nuance":"dodge управляет разнесением групповых столбцов."},
+    {"name":"order= / hue_order=","kind":"parameter","description":"Фиксирует порядок основных и дополнительных категорий.","example":"ax = sns.barplot(data=df, x='category', y='sales', order=category_order)","nuance":"Явный порядок делает сравнение нескольких графиков стабильным."},
+    {"name":"errorbar=None","kind":"parameter","description":"Отключает отображение интервалов неопределённости.","example":"ax = sns.barplot(data=df, x='category', y='sales', errorbar=None)","nuance":"Это не меняет сами агрегированные значения."}
+  ],
+  "matplotlib": [
+    {"name":"ax.plot(y)","kind":"method","description":"Строит линию по значениям Y, используя позиции элементов как X.","example":"line = ax.plot(sales)","nuance":"Метод возвращает список объектов Line2D."},
+    {"name":"ax.plot(x, y)","kind":"method","description":"Строит линию по явно заданным координатам X и Y.","example":"line = ax.plot(dates, sales)","nuance":"Массивы X и Y должны иметь совместимую длину."},
+    {"name":"marker= / linestyle=","kind":"parameter","description":"Настраивает форму маркеров и стиль соединяющей линии.","example":"ax.plot(x, y, marker='o', linestyle='--')","nuance":"Параметры можно комбинировать независимо."},
+    {"name":"color= / linewidth= / alpha=","kind":"parameter","description":"Управляет цветом, толщиной и прозрачностью линии.","example":"ax.plot(x, y, color='blue', linewidth=2, alpha=0.7)","nuance":"alpha принимает значения от 0 до 1."},
+    {"name":"label=","kind":"parameter","description":"Задаёт подпись серии для последующего отображения в легенде.","example":"ax.plot(x, y, label='Продажи')\nax.legend()","nuance":"Одна подпись не отображает легенду без вызова legend()."},
+    {"name":"ax.set_title()","kind":"method","description":"Устанавливает заголовок области построения.","example":"ax.set_title('Продажи по дням')","nuance":"Заголовок относится к конкретному Axes, а не ко всей Figure."}
+  ]
+}

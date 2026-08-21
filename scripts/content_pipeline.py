@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 CATALOG_PATH = ROOT / "content" / "catalog.json"
 THEORY_PATH = ROOT / "content" / "theory_bank.json"
 UNITS_PATH = ROOT / "content" / "knowledge_units.json"
+CHEAT_MODEL_PATH = ROOT / "content" / "cheat_sheet_model.json"
 REPORTS = ROOT / "reports"
 ALLOWED_DOC_HOSTS = {
     "pandas.pydata.org",
@@ -160,52 +161,20 @@ def cheat_name(topic_slug: str, focus: str) -> str:
 
 
 def build_cheat_entries(topic: dict, theory: dict) -> list[dict]:
-    entries = []
-    seen = set()
-    topic_parameters = {}
-    for exercise in topic["exercises"]:
-        article = theory[f"theory-{exercise['id']}"]
-        for method in article.get("methods", []):
-            bucket = topic_parameters.setdefault(method["name"], {})
-            for parameter in method.get("keyParameters", []):
-                bucket[parameter["name"]] = parameter["description"]
-    if topic["slug"] == "reading":
-        read_csv = topic_parameters.setdefault("read_csv", {})
-        read_csv.update({
-            "encoding": "задаёт кодировку текста, например utf-8 или cp1251",
-            "nrows": "ограничивает число читаемых строк",
-            "skiprows": "пропускает строки в начале или по списку номеров",
-        })
-    for exercise in topic["exercises"]:
-        focus = exercise["focus"].strip()
-        example = compact_example(exercise["solution_code"])
-        signature = (cheat_name(topic["slug"], focus), normalized_solution(exercise["solution_code"]))
-        if signature in seen:
-            continue
-        seen.add(signature)
-        article = theory[f"theory-{exercise['id']}"]
-        method = article["methods"][0]
-        documentation_url = method["documentationUrl"]
-        description = method["description"].split("Отдельно разберите", 1)[0].strip()
-        sentences = re.split(r"(?<=[.!?])\s+", description)
-        description = " ".join(sentences[:2]).strip()
-        if len(description) > 240:
-            description = description[:237].rstrip(" ,;:") + "…"
-        entries.append({
-            "id": f"cheat-{exercise['id']}",
+    model = load_json(CHEAT_MODEL_PATH)
+    specs = model.get(topic["slug"])
+    if not specs:
+        raise ValueError(f"No authored cheat-sheet model for {topic['slug']}")
+    documentation_url = theory[f"theory-{topic['exercises'][0]['id']}"]["methods"][0]["documentationUrl"]
+    return [
+        {
+            "id": f"cheat-{topic['slug']}-{position:02d}",
             "group": CHEAT_GROUPS[topic["slug"]],
-            "name": cheat_name(topic["slug"], focus),
-            "kind": cheat_kind(focus),
-            "description": description,
-            "example": example,
-            "parameters": [
-                {"name": name, "description": detail}
-                for name, detail in topic_parameters.get(method["name"], {}).items()
-            ],
-            "nuance": ARTICLE_GUIDES[topic["slug"]]["nuances"][0],
             "documentationUrl": documentation_url,
-        })
-    return entries
+            **spec,
+        }
+        for position, spec in enumerate(specs, start=1)
+    ]
 
 
 RESULT_GUIDES = {
@@ -451,7 +420,13 @@ def audit() -> None:
             errors.append(f"{unit['id']}: cheat sheet and article must be non-empty")
         if not unit.get("documentationLinks") or not unit.get("relatedTaskIds"):
             errors.append(f"{unit['id']}: documentation and related tasks are required")
+        if not 3 <= len(entries) <= 7:
+            errors.append(f"{unit['id']}: cheat sheet must contain 3-7 authored techniques, got {len(entries)}")
+        if len(entries) == len(unit.get("taskIds", [])):
+            errors.append(f"{unit['id']}: cheat-sheet size must not be derived from task count")
         entry_signatures = []
+        descriptions_by_group = defaultdict(list)
+        signature_descriptions = []
         article_text = json.dumps(unit.get("article", {}), ensure_ascii=False)
         for entry in entries:
             missing = [key for key in ("id", "group", "name", "kind", "description", "example", "nuance") if not entry.get(key)]
@@ -466,6 +441,9 @@ def audit() -> None:
                 errors.append(f"{unit['id']}/{entry['id']}: example exceeds three lines")
             signature = (entry["name"].strip().casefold(), entry["example"].strip())
             entry_signatures.append(signature)
+            normalized_description = " ".join(description.casefold().split())
+            descriptions_by_group[entry["group"]].append(normalized_description)
+            signature_descriptions.append((signature, normalized_description))
             parsed = urlparse(entry.get("documentationUrl", ""))
             if parsed.scheme != "https" or parsed.hostname not in ALLOWED_DOC_HOSTS:
                 errors.append(f"{unit['id']}/{entry['id']}: invalid official documentation URL")
@@ -473,6 +451,11 @@ def audit() -> None:
                 errors.append(f"{unit['id']}/{entry['id']}: cheat sheet contains article prose")
         if len(entry_signatures) != len(set(entry_signatures)):
             errors.append(f"{unit['id']}: duplicate cheat-sheet entries")
+        for group, descriptions in descriptions_by_group.items():
+            if len(descriptions) != len(set(descriptions)):
+                errors.append(f"{unit['id']}/{group}: duplicate cheat-sheet descriptions")
+        if len(signature_descriptions) != len(set(signature_descriptions)):
+            errors.append(f"{unit['id']}: duplicate signature + description")
         if not unit.get("article",{}).get("lead") or not unit.get("article",{}).get("summary"):
             errors.append(f"{unit['id']}: detailed article content was lost")
         article = unit.get("article", {})
