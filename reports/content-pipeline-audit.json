@@ -24,18 +24,16 @@
       "columns-010"
     ],
     [
-      "vectorization-001",
-      "vectorization-005",
-      "vectorization-007"
-    ],
-    [
       "vectorization-003",
       "vectorization-006"
     ],
     [
+      "vectorization-005",
+      "vectorization-007"
+    ],
+    [
       "attributes-002",
-      "attributes-003",
-      "attributes-008"
+      "attributes-003"
     ],
     [
       "inspection-002",
@@ -43,23 +41,23 @@
       "inspection-005"
     ],
     [
-      "inspection-004",
-      "inspection-010"
-    ],
-    [
       "inspection-007",
       "inspection-008"
     ],
     [
+      "inspection-009",
+      "inspection-010"
+    ],
+    [
       "dataframe-methods-001",
-      "dataframe-methods-003",
       "dataframe-methods-004",
+      "dataframe-methods-005",
       "dataframe-methods-008",
       "dataframe-methods-010"
     ],
     [
-      "dataframe-methods-005",
-      "dataframe-methods-006"
+      "dataframe-methods-002",
+      "dataframe-methods-003"
     ],
     [
       "series-methods-001",
@@ -107,8 +105,11 @@
       "dtypes-002",
       "dtypes-003",
       "dtypes-004",
+      "dtypes-008"
+    ],
+    [
+      "dtypes-005",
       "dtypes-007",
-      "dtypes-008",
       "dtypes-010"
     ],
     [

@@ -155,13 +155,27 @@ def compact_description(instructions: str) -> str:
 def cheat_name(topic_slug: str, focus: str) -> str:
     if not re.search(r"[А-Яа-яЁё]", focus):
         return focus
-    parameter = re.search(r"\b[A-Za-z_][A-Za-z0-9_]*\s*=\s*(?:[^ ]+)", focus)
+    parameter = re.search(r"\b[A-Za-z_][A-Za-z0-9_]*\s*=\s*(?:True|False|None|['\"][^'\"]+['\"]|[A-Za-z_][A-Za-z0-9_]*|\d+)", focus)
     return f"{CHEAT_NAMES[topic_slug]} — {parameter.group(0)}" if parameter else CHEAT_NAMES[topic_slug]
 
 
 def build_cheat_entries(topic: dict, theory: dict) -> list[dict]:
     entries = []
     seen = set()
+    topic_parameters = {}
+    for exercise in topic["exercises"]:
+        article = theory[f"theory-{exercise['id']}"]
+        for method in article.get("methods", []):
+            bucket = topic_parameters.setdefault(method["name"], {})
+            for parameter in method.get("keyParameters", []):
+                bucket[parameter["name"]] = parameter["description"]
+    if topic["slug"] == "reading":
+        read_csv = topic_parameters.setdefault("read_csv", {})
+        read_csv.update({
+            "encoding": "задаёт кодировку текста, например utf-8 или cp1251",
+            "nrows": "ограничивает число читаемых строк",
+            "skiprows": "пропускает строки в начале или по списку номеров",
+        })
     for exercise in topic["exercises"]:
         focus = exercise["focus"].strip()
         example = compact_example(exercise["solution_code"])
@@ -170,14 +184,25 @@ def build_cheat_entries(topic: dict, theory: dict) -> list[dict]:
             continue
         seen.add(signature)
         article = theory[f"theory-{exercise['id']}"]
-        documentation_url = article["methods"][0]["documentationUrl"]
+        method = article["methods"][0]
+        documentation_url = method["documentationUrl"]
+        description = method["description"].split("Отдельно разберите", 1)[0].strip()
+        sentences = re.split(r"(?<=[.!?])\s+", description)
+        description = " ".join(sentences[:2]).strip()
+        if len(description) > 240:
+            description = description[:237].rstrip(" ,;:") + "…"
         entries.append({
             "id": f"cheat-{exercise['id']}",
             "group": CHEAT_GROUPS[topic["slug"]],
             "name": cheat_name(topic["slug"], focus),
             "kind": cheat_kind(focus),
-            "description": compact_description(exercise["instructions"]),
+            "description": description,
             "example": example,
+            "parameters": [
+                {"name": name, "description": detail}
+                for name, detail in topic_parameters.get(method["name"], {}).items()
+            ],
+            "nuance": ARTICLE_GUIDES[topic["slug"]]["nuances"][0],
             "documentationUrl": documentation_url,
         })
     return entries
@@ -245,7 +270,7 @@ def build_article(topic: dict, entries: list[dict]) -> dict:
         if entry["example"] in seen_examples:
             continue
         seen_examples.add(entry["example"])
-        examples.append({"code": entry["example"], "result": expected, "explanation": entry["description"]})
+        examples.append({"code": entry["example"], "result": expected, "explanation": f"Пример показывает приём {entry['name']} и форму результата, которую он возвращает."})
     parameter_entries = [entry for entry in entries if "=" in entry["name"]]
     paragraphs = START_ARTICLE_PARAGRAPHS if topic["slug"] == "start" else {}
     return {
@@ -379,6 +404,11 @@ def audit() -> None:
         "starter_code", "solution_code", "tests", "hints", "completion_summary",
         "theory_article_id", "documentation_urls",
     }
+    prose_identifiers = {
+        "DataFrame", "Series", "CSV", "NaN", "NaT", "True", "False", "Unix", "datetime",
+        "pandas", "pd", "result", "index", "columns", "dtype", "shape", "values", "nullable",
+        "tail", "apply", "Axes", "X", "Y",
+    }
     if len(units) != len(topics(catalog)):
         errors.append(f"expected {len(topics(catalog))} knowledge units, got {len(units)}")
     unit_ids = [unit["id"] for unit in units]
@@ -391,6 +421,29 @@ def audit() -> None:
     for objective, count in objectives.items():
         if count > 1:
             errors.append(f"duplicate learning objective ({count}): {objective}")
+    for exercise in task_by_id.values():
+        available = set(exercise.get("dataset", {}).get("variables", {}))
+        columns = set()
+        for name, value in exercise.get("dataset", {}).items():
+            if name in {"variables", "files"}:
+                if name == "variables":
+                    for nested in value.values():
+                        if isinstance(nested, dict):
+                            columns.update(nested)
+                continue
+            available.add(name)
+            if isinstance(value, dict):
+                columns.update(value)
+        mentioned = set(re.findall(r"\b[A-Za-z_][A-Za-z0-9_]*\b", exercise["instructions"]))
+        unknown = sorted(
+            token for token in mentioned
+            if token not in prose_identifiers
+            and token not in available
+            and token not in columns
+            and token not in exercise["solution_code"]
+        )
+        if unknown:
+            errors.append(f"{exercise['id']}: instructions mention unavailable identifiers {unknown}")
     for unit in units:
         entries = unit.get("cheatSheet",{}).get("entries", [])
         sections = unit.get("article",{}).get("sections", [])
@@ -401,14 +454,14 @@ def audit() -> None:
         entry_signatures = []
         article_text = json.dumps(unit.get("article", {}), ensure_ascii=False)
         for entry in entries:
-            missing = [key for key in ("id", "group", "name", "kind", "description", "example") if not entry.get(key)]
+            missing = [key for key in ("id", "group", "name", "kind", "description", "example", "nuance") if not entry.get(key)]
             if missing:
                 errors.append(f"{unit['id']}: cheat entry is missing {missing}")
                 continue
             description = entry["description"].strip()
             sentence_ends = re.findall(r"[!?](?=\s|$)|\.(?=\s+[А-ЯA-ZЁ]|$)", description)
-            if len(sentence_ends) > 1 or len(description) > 180:
-                errors.append(f"{unit['id']}/{entry['id']}: description must be one short sentence")
+            if len(sentence_ends) > 2 or len(description) > 240:
+                errors.append(f"{unit['id']}/{entry['id']}: description must be at most two short sentences")
             if len(entry["example"].splitlines()) > 3:
                 errors.append(f"{unit['id']}/{entry['id']}: example exceeds three lines")
             signature = (entry["name"].strip().casefold(), entry["example"].strip())

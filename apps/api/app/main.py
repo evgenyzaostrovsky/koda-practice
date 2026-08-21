@@ -120,9 +120,7 @@ def execute(body:CodeIn,request:Request):
     current_user(request)
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    r=run(body.code,attempt_dataset(e),e['result_variable']);
-    if not r.get('ok'): r['explanation']=explain(r)
-    return r
+    return run(body.code,attempt_dataset(e),e['result_variable'])
 @app.post('/attempts/submit')
 def submit(body:CodeIn,request:Request):
     account=current_user(request)

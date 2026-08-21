@@ -117,11 +117,23 @@ def rename_file(user, file_id: str, requested_name: str) -> dict:
     if conflicts:
         raise HTTPException(409, "Файл с таким именем уже существует")
     rows = rest(owner, "sandbox_files", "PATCH", {"name": name, "logical_path": f"/datasets/{name}"}, params={"id": f"eq.{file_id}", "user_id": f"eq.{owner['id']}"}, prefer="return=representation") or []
-    return public_file(rows[0] if rows else {**row, "name": name, "logical_path": f"/datasets/{name}"})
+    if not rows:
+        raise HTTPException(502, "Не удалось подтвердить переименование файла")
+    return public_file(rows[0])
 
 
 def delete_file(user, file_id: str) -> None:
     owner = require_owner(user)
     row = owned_row(owner, file_id)
+    content = _storage_request(owner, row["storage_key"], "GET").content
     _storage_request(owner, row["storage_key"], "DELETE")
-    rest(owner, "sandbox_files", "DELETE", params={"id": f"eq.{file_id}", "user_id": f"eq.{owner['id']}"}, prefer="return=minimal")
+    try:
+        deleted = rest(owner, "sandbox_files", "DELETE", params={"id": f"eq.{file_id}", "user_id": f"eq.{owner['id']}"}, prefer="return=representation") or []
+        if not deleted:
+            raise HTTPException(502, "Не удалось подтвердить удаление файла")
+    except Exception:
+        try:
+            _storage_request(owner, row["storage_key"], "POST", content)
+        except Exception as restore_error:
+            raise HTTPException(502, "Не удалось согласованно удалить файл") from restore_error
+        raise

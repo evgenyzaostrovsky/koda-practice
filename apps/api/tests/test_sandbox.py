@@ -13,7 +13,7 @@ OTHER = {"id": "22222222-2222-2222-2222-222222222222", "token": "token-b"}
 
 
 class MemoryBackend:
-    def __init__(self): self.rows=[]; self.objects={}
+    def __init__(self): self.rows=[]; self.objects={}; self.empty_patch=False; self.empty_delete=False
     def rest(self,user,path,method="GET",json=None,params=None,prefer=None):
         rows=[row for row in self.rows if row["user_id"]==user["id"]]
         if params:
@@ -25,11 +25,13 @@ class MemoryBackend:
         if method=="POST":
             now=datetime.now(timezone.utc).isoformat();row={**json,"created_at":now,"updated_at":now};self.rows.append(row);return[row]
         if method=="PATCH":
+            if self.empty_patch:return []
             for row in rows:row.update(json);row["updated_at"]=datetime.now(timezone.utc).isoformat()
             return rows
         if method=="DELETE":
+            if self.empty_delete:return []
             for row in rows:self.rows.remove(row)
-            return None
+            return rows
     def object(self,user,key,method,content=None):
         class Response: pass
         response=Response()
@@ -94,9 +96,24 @@ def test_rename_rejects_collision(memory):
     assert error.value.status_code==409
 
 
+def test_rename_does_not_fake_success_when_patch_updates_nothing(memory):
+    item=create(memory);memory.empty_patch=True
+    with pytest.raises(HTTPException) as error:storage.rename_file(USER,item["id"],"new.csv")
+    assert error.value.status_code==502
+    assert memory.rows[0]["name"]=="sales.csv"
+
+
 def test_delete_removes_object_and_metadata(memory):
     item=create(memory);storage.delete_file(USER,item["id"])
     assert storage.list_files(USER)==[] and memory.objects=={}
+
+
+def test_delete_restores_storage_when_metadata_delete_is_not_confirmed(memory):
+    item=create(memory);key=memory.rows[0]["storage_key"];original=memory.objects[key];memory.empty_delete=True
+    with pytest.raises(HTTPException) as error:storage.delete_file(USER,item["id"])
+    assert error.value.status_code==502
+    assert memory.objects[key]==original
+    assert storage.list_files(USER)==[item]
 
 
 def test_other_user_cannot_access_uuid(memory):

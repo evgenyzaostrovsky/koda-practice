@@ -45,6 +45,7 @@ import {
 import { useEffect, useMemo, useState, useRef } from "react";
 import { api } from "./api";
 import type { Module, Progress, RunResult, Topic, Exercise } from "./types";
+import { attemptsAfterPracticeAction, visiblePracticeResult } from "./practice-action";
 import {
   loadLastTask,
   loadTaskState,
@@ -891,28 +892,21 @@ function Practice() {
   }, [e, code, result]);
   const action = useMutation({
     mutationFn: ({ submit }: { submit: boolean }) => {
-      const saved = loadTaskState(eid);
-      saveTaskState(eid, {
-        code,
-        attempts: (saved?.attempts ?? 0) + 1,
-        status: saved?.status ?? "draft",
-        lastRunResult: saved?.lastRunResult ?? null,
-        completedAt: saved?.completedAt ?? null,
-      });
       return api<RunResult>(submit ? "/attempts/submit" : "/executions/run", {
         method: "POST",
         body: JSON.stringify({ exercise_id: eid, code }),
       });
     },
     onSuccess: (r, vars) => {
-      setResult(r);
+      const visibleResult = visiblePracticeResult(r, vars.submit);
+      setResult(visibleResult);
       const saved = loadTaskState(eid);
       saveTaskState(eid, {
         code,
-        status: r.passed ? "completed" : (saved?.status ?? "draft"),
-        attempts: saved?.attempts ?? 1,
-        lastRunResult: r,
-        completedAt: r.passed
+        status: vars.submit && r.passed ? "completed" : (saved?.status ?? "draft"),
+        attempts: attemptsAfterPracticeAction(saved?.attempts ?? 0, r, vars.submit),
+        lastRunResult: visibleResult,
+        completedAt: vars.submit && r.passed
           ? new Date().toISOString()
           : (saved?.completedAt ?? null),
       });

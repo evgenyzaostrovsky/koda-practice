@@ -21,6 +21,8 @@ export type CheatSheetEntry = {
   kind: "method" | "function" | "attribute" | "operator" | "pattern";
   description: string;
   example: string;
+  parameters?: Array<{ name: string; description: string }>;
+  nuance?: string;
   documentationUrl?: string;
 };
 export type KnowledgeUnit = {

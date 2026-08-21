@@ -4541,9 +4541,9 @@
               "learning_objective": "Создайте булев столбец is_high, который равен True, если score >= 80.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
-              "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
-              "solution_code": "result = df.copy()\nresult['is_expensive'] = result['price'] >= price_limit",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ntax_rate = 0.2\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ntax_rate = 0.2\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [80, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [108, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
+              "solution_code": "result = df.copy()\nresult['is_high'] = result['score'] >= 80",
               "theory_article_id": "theory-change-columns-008",
               "required_tokens": [
                 "copy"
@@ -4676,7 +4676,8 @@
                     "Б",
                     "В",
                     "Г"
-                  ]
+                  ],
+                  "tax_rate": 0.2
                 }
               },
               "hints": [
@@ -4897,9 +4898,9 @@
               "learning_objective": "В копии df создайте один столбец price_with_tax как price * (1 + tax_rate). tax_rate уже записан долей, например 0.2.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
-              "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
-              "solution_code": "result = df.copy()\nresult['net'] = result['price'] * result['quantity'] - result['discount']",
+              "setup_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ntax_rate = 0.2\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "import pandas as pd\nprice_limit = 150\nnames = ['А', 'Б', 'В', 'Г']\ntax_rate = 0.2\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
+              "solution_code": "result = df.copy()\nresult['price_with_tax'] = result['price'] * (1 + tax_rate)",
               "theory_article_id": "theory-change-columns-010",
               "required_tokens": [
                 "copy"
@@ -5032,7 +5033,8 @@
                     "Б",
                     "В",
                     "Г"
-                  ]
+                  ],
+                  "tax_rate": 0.2
                 }
               },
               "hints": [
@@ -5084,7 +5086,7 @@
           "summary": "10 упражнений на арифметика Series",
           "theory": "Практическая серия на арифметика Series: от прямого применения к параметрам и пограничным случаям.",
           "syntax": "арифметика Series",
-          "example": "result = values + offset",
+          "example": "result = scores + 5",
           "mistakes": [
             "Изменён исходный объект",
             "Ответ не сохранён в result",
@@ -5104,9 +5106,9 @@
               "learning_objective": "К Series scores прибавьте 5.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\noffset = 1\nvalues = pd.Series([1, 3, 5])",
-              "starter_code": "import pandas as pd\noffset = 1\nvalues = pd.Series([1, 3, 5])\n\nresult = None",
-              "solution_code": "result = values + offset",
+              "setup_code": "import pandas as pd\nscores = pd.Series([1, 3, 5])",
+              "starter_code": "import pandas as pd\nscores = pd.Series([1, 3, 5])\n\nresult = None",
+              "solution_code": "result = scores + 5",
               "theory_article_id": "theory-vectorization-001",
               "required_tokens": [],
               "tests": [
@@ -5121,16 +5123,13 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "scores": {
                     "data": [
                       1,
                       3,
                       5
                     ]
                   }
-                },
-                "variables": {
-                  "offset": 1
                 }
               },
               "hints": [
@@ -5171,9 +5170,9 @@
               "learning_objective": "Из каждого значения Series prices вычтите 10.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\noffset = 2\nvalues = pd.Series([10, 20, 30])",
-              "starter_code": "import pandas as pd\noffset = 2\nvalues = pd.Series([10, 20, 30])\n\nresult = None",
-              "solution_code": "result = values - offset",
+              "setup_code": "import pandas as pd\nprices = pd.Series([10, 20, 30])",
+              "starter_code": "import pandas as pd\nprices = pd.Series([10, 20, 30])\n\nresult = None",
+              "solution_code": "result = prices - 10",
               "theory_article_id": "theory-vectorization-002",
               "required_tokens": [],
               "tests": [
@@ -5188,16 +5187,13 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "prices": {
                     "data": [
                       10,
                       20,
                       30
                     ]
                   }
-                },
-                "variables": {
-                  "offset": 2
                 }
               },
               "hints": [
@@ -5238,9 +5234,9 @@
               "learning_objective": "Умножьте все значения prices на коэффициент rate.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nfactor = 4\nvalues = pd.Series([2, 4, 6])",
-              "starter_code": "import pandas as pd\nfactor = 4\nvalues = pd.Series([2, 4, 6])\n\nresult = None",
-              "solution_code": "result = values * factor",
+              "setup_code": "import pandas as pd\nrate = 3\nprices = pd.Series([2, 4, 6])",
+              "starter_code": "import pandas as pd\nrate = 3\nprices = pd.Series([2, 4, 6])\n\nresult = None",
+              "solution_code": "result = prices * rate",
               "theory_article_id": "theory-vectorization-003",
               "required_tokens": [],
               "tests": [
@@ -5255,7 +5251,7 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "prices": {
                     "data": [
                       2,
                       4,
@@ -5264,7 +5260,7 @@
                   }
                 },
                 "variables": {
-                  "factor": 4
+                  "rate": 3
                 }
               },
               "hints": [
@@ -5305,9 +5301,9 @@
               "learning_objective": "Переведите Series meters в километры делением на 1000.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ndivisor = 3\nvalues = pd.Series([12, 18, 24])",
-              "starter_code": "import pandas as pd\ndivisor = 3\nvalues = pd.Series([12, 18, 24])\n\nresult = None",
-              "solution_code": "result = values / divisor",
+              "setup_code": "import pandas as pd\nmeters = pd.Series([1200, 1800, 2400])",
+              "starter_code": "import pandas as pd\nmeters = pd.Series([1200, 1800, 2400])\n\nresult = None",
+              "solution_code": "result = meters / 1000",
               "theory_article_id": "theory-vectorization-004",
               "required_tokens": [],
               "tests": [
@@ -5322,16 +5318,13 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "meters": {
                     "data": [
-                      12,
-                      18,
-                      24
+                      1200,
+                      1800,
+                      2400
                     ]
                   }
-                },
-                "variables": {
-                  "divisor": 3
                 }
               },
               "hints": [
@@ -5372,9 +5365,9 @@
               "learning_objective": "Сложите online_sales и offline_sales с одинаковыми индексами.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nleft = pd.Series([15, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])",
-              "starter_code": "import pandas as pd\nleft = pd.Series([15, 20, 30], index=['a', 'b', 'c'])\nright = pd.Series([1, 2, 4], index=['a', 'b', 'c'])\n\nresult = None",
-              "solution_code": "result = left + right",
+              "setup_code": "import pandas as pd\nonline_sales = pd.Series([10, 20, 30], index=['a', 'b', 'c'])\noffline_sales = pd.Series([1, 2, 4], index=['a', 'b', 'c'])",
+              "starter_code": "import pandas as pd\nonline_sales = pd.Series([10, 20, 30], index=['a', 'b', 'c'])\noffline_sales = pd.Series([1, 2, 4], index=['a', 'b', 'c'])\n\nresult = None",
+              "solution_code": "result = online_sales + offline_sales",
               "theory_article_id": "theory-vectorization-005",
               "required_tokens": [],
               "tests": [
@@ -5389,9 +5382,9 @@
               ],
               "dataset": {
                 "series": {
-                  "left": {
+                  "online_sales": {
                     "data": [
-                      15,
+                      10,
                       20,
                       30
                     ],
@@ -5401,7 +5394,7 @@
                       "c"
                     ]
                   },
-                  "right": {
+                  "offline_sales": {
                     "data": [
                       1,
                       2,
@@ -5700,9 +5693,9 @@
               "learning_objective": "Для Series scores получите булеву Series: достигло ли каждое значение порога pass_score.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nthreshold = 8\nvalues = pd.Series([4, 8, 12])",
-              "starter_code": "import pandas as pd\nthreshold = 8\nvalues = pd.Series([4, 8, 12])\n\nresult = None",
-              "solution_code": "result = values >= threshold",
+              "setup_code": "import pandas as pd\npass_score = 8\nscores = pd.Series([4, 8, 12])",
+              "starter_code": "import pandas as pd\npass_score = 8\nscores = pd.Series([4, 8, 12])\n\nresult = None",
+              "solution_code": "result = scores >= pass_score",
               "theory_article_id": "theory-vectorization-009",
               "required_tokens": [],
               "tests": [
@@ -5717,7 +5710,7 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "scores": {
                     "data": [
                       4,
                       8,
@@ -5726,7 +5719,7 @@
                   }
                 },
                 "variables": {
-                  "threshold": 8
+                  "pass_score": 8
                 }
               },
               "hints": [
@@ -5767,9 +5760,9 @@
               "learning_objective": "Для Series prices рассчитайте цены с НДС по формуле prices * (1 + vat_rate). Циклы и apply() запрещены.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nprices = pd.Series([100, 200, 150])\nquantities = pd.Series([2, 1, 3])\ndiscount_rate = pd.Series([0.1, 0.2, 0])",
-              "starter_code": "import pandas as pd\nprices = pd.Series([100, 200, 150])\nquantities = pd.Series([2, 1, 3])\ndiscount_rate = pd.Series([0.1, 0.2, 0])\n\nresult = None",
-              "solution_code": "result = (prices * quantities) * (1 - discount_rate)",
+              "setup_code": "import pandas as pd\nvat_rate = 0.2\nprices = pd.Series([100, 200, 150])",
+              "starter_code": "import pandas as pd\nvat_rate = 0.2\nprices = pd.Series([100, 200, 150])\n\nresult = None",
+              "solution_code": "result = prices * (1 + vat_rate)",
               "theory_article_id": "theory-vectorization-010",
               "required_tokens": [],
               "tests": [
@@ -5790,21 +5783,10 @@
                       200,
                       150
                     ]
-                  },
-                  "quantities": {
-                    "data": [
-                      2,
-                      1,
-                      3
-                    ]
-                  },
-                  "discount_rate": {
-                    "data": [
-                      0.1,
-                      0.2,
-                      0
-                    ]
                   }
+                },
+                "variables": {
+                  "vat_rate": 0.2
                 }
               },
               "hints": [
@@ -6090,9 +6072,9 @@
               "learning_objective": "Получите True, если в df нет строк, иначе False.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
-              "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
-              "solution_code": "result = df.shape[0] == expected_rows",
+              "setup_code": "import pandas as pd\nexpected_columns = 2\ndf = pd.DataFrame({'a': [1], 'b': [2]})",
+              "starter_code": "import pandas as pd\nexpected_columns = 2\ndf = pd.DataFrame({'a': [1], 'b': [2]})\n\nresult = None",
+              "solution_code": "result = df.shape[0] == 0",
               "theory_article_id": "theory-attributes-004",
               "required_tokens": [
                 "shape"
@@ -6110,18 +6092,14 @@
               "dataset": {
                 "df": {
                   "a": [
-                    1,
-                    2,
-                    3
+                    1
                   ],
                   "b": [
-                    4,
-                    5,
-                    6
+                    2
                   ]
                 },
                 "variables": {
-                  "expected_rows": 3
+                  "expected_columns": 2
                 }
               },
               "hints": [
@@ -6162,9 +6140,9 @@
               "learning_objective": "Проверьте, совпадает ли форма left_df и right_df.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nexpected_rows = 3\nleft = pd.DataFrame({'a': [1, 2]})\nright = pd.DataFrame({'b': [3, 4]})",
-              "starter_code": "import pandas as pd\nexpected_rows = 3\nleft = pd.DataFrame({'a': [1, 2]})\nright = pd.DataFrame({'b': [3, 4]})\n\nresult = None",
-              "solution_code": "result = left.shape == right.shape",
+              "setup_code": "import pandas as pd\nexpected_columns = 2\nleft_df = pd.DataFrame({'a': [1, 2]})\nright_df = pd.DataFrame({'b': [3, 4]})",
+              "starter_code": "import pandas as pd\nexpected_columns = 2\nleft_df = pd.DataFrame({'a': [1, 2]})\nright_df = pd.DataFrame({'b': [3, 4]})\n\nresult = None",
+              "solution_code": "result = left_df.shape == right_df.shape",
               "theory_article_id": "theory-attributes-005",
               "required_tokens": [
                 "shape",
@@ -6181,20 +6159,20 @@
                 "required_method"
               ],
               "dataset": {
-                "left": {
+                "left_df": {
                   "a": [
                     1,
                     2
                   ]
                 },
-                "right": {
+                "right_df": {
                   "b": [
                     3,
                     4
                   ]
                 },
                 "variables": {
-                  "expected_rows": 3
+                  "expected_columns": 2
                 }
               },
               "hints": [
@@ -6235,9 +6213,9 @@
               "learning_objective": "Найдите, на сколько строк after_df больше before_df.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nexpected_rows = 3\norders = pd.DataFrame({'id': [1, 2, 3]})\nreturns = pd.DataFrame({'id': [2]})",
-              "starter_code": "import pandas as pd\nexpected_rows = 3\norders = pd.DataFrame({'id': [1, 2, 3]})\nreturns = pd.DataFrame({'id': [2]})\n\nresult = None",
-              "solution_code": "result = orders.shape[0] + returns.shape[0]",
+              "setup_code": "import pandas as pd\nexpected_columns = 2\nafter_df = pd.DataFrame({'id': [1, 2, 3]})\nbefore_df = pd.DataFrame({'id': [1]})",
+              "starter_code": "import pandas as pd\nexpected_columns = 2\nafter_df = pd.DataFrame({'id': [1, 2, 3]})\nbefore_df = pd.DataFrame({'id': [1]})\n\nresult = None",
+              "solution_code": "result = after_df.shape[0] - before_df.shape[0]",
               "theory_article_id": "theory-attributes-006",
               "required_tokens": [
                 "shape",
@@ -6254,20 +6232,20 @@
                 "required_method"
               ],
               "dataset": {
-                "orders": {
+                "after_df": {
                   "id": [
                     1,
                     2,
                     3
                   ]
                 },
-                "returns": {
+                "before_df": {
                   "id": [
-                    2
+                    1
                   ]
                 },
                 "variables": {
-                  "expected_rows": 3
+                  "expected_columns": 2
                 }
               },
               "hints": [
@@ -6381,9 +6359,9 @@
               "learning_objective": "Получите True, если у df ровно expected_columns столбцов.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
-              "starter_code": "import pandas as pd\nexpected_rows = 3\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
-              "solution_code": "result = df.shape[1]",
+              "setup_code": "import pandas as pd\nexpected_columns = 2\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})",
+              "starter_code": "import pandas as pd\nexpected_columns = 2\ndf = pd.DataFrame({'a': [1, 2, 3], 'b': [4, 5, 6]})\n\nresult = None",
+              "solution_code": "result = df.shape[1] == expected_columns",
               "theory_article_id": "theory-attributes-008",
               "required_tokens": [
                 "shape"
@@ -6412,7 +6390,7 @@
                   ]
                 },
                 "variables": {
-                  "expected_rows": 3
+                  "expected_columns": 2
                 }
               },
               "hints": [
@@ -6453,9 +6431,9 @@
               "learning_objective": "Верните строку \"left\", если строк больше в left_df, иначе \"right\". Равенства в данных нет.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nexpected_rows = 3\ntrain = pd.DataFrame({'x': [1, 2, 3, 4]})\ntest = pd.DataFrame({'x': [5, 6]})",
-              "starter_code": "import pandas as pd\nexpected_rows = 3\ntrain = pd.DataFrame({'x': [1, 2, 3, 4]})\ntest = pd.DataFrame({'x': [5, 6]})\n\nresult = None",
-              "solution_code": "result = train.shape[0] > test.shape[0]",
+              "setup_code": "import pandas as pd\nexpected_columns = 2\nleft_df = pd.DataFrame({'x': [1, 2, 3, 4]})\nright_df = pd.DataFrame({'x': [5, 6]})",
+              "starter_code": "import pandas as pd\nexpected_columns = 2\nleft_df = pd.DataFrame({'x': [1, 2, 3, 4]})\nright_df = pd.DataFrame({'x': [5, 6]})\n\nresult = None",
+              "solution_code": "result = 'left' if left_df.shape[0] > right_df.shape[0] else 'right'",
               "theory_article_id": "theory-attributes-009",
               "required_tokens": [
                 "shape",
@@ -6472,7 +6450,7 @@
                 "required_method"
               ],
               "dataset": {
-                "train": {
+                "left_df": {
                   "x": [
                     1,
                     2,
@@ -6480,14 +6458,14 @@
                     4
                   ]
                 },
-                "test": {
+                "right_df": {
                   "x": [
                     5,
                     6
                   ]
                 },
                 "variables": {
-                  "expected_rows": 3
+                  "expected_columns": 2
                 }
               },
               "hints": [
@@ -7388,10 +7366,10 @@
               "expected_type": "auto",
               "setup_code": "import pandas as pd\nn = 12\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [10, 20, 30, 40, 50, 60, 70, 80]})",
               "starter_code": "import pandas as pd\nn = 12\ndf = pd.DataFrame({'id': [1, 2, 3, 4, 5, 6, 7, 8], 'value': [10, 20, 30, 40, 50, 60, 70, 80]})\n\nresult = None",
-              "solution_code": "result = df.head(n)",
+              "solution_code": "result = df.tail(n)",
               "theory_article_id": "theory-inspection-010",
               "required_tokens": [
-                "head"
+                "tail"
               ],
               "tests": [
                 "result_type",
@@ -7454,7 +7432,7 @@
                 ".head()` и `.tail()"
               ],
               "required_methods": [
-                "head"
+                "tail"
               ],
               "documentation_urls": [
                 "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
@@ -7640,9 +7618,9 @@
               "learning_objective": "Найдите сумму столбца balance, содержащего положительные, нулевые и отрицательные значения.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
-              "solution_code": "result = values.sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'balance': [10, 0, -4, 8]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'balance': [10, 0, -4, 8]})\n\nresult = None",
+              "solution_code": "result = df['balance'].sum()",
               "theory_article_id": "theory-dataframe-methods-003",
               "required_tokens": [
                 "sum"
@@ -7658,21 +7636,13 @@
                 "required_method"
               ],
               "dataset": {
-                "series": {
-                  "values": {
-                    "data": [
-                      1,
-                      2,
-                      null,
-                      4,
-                      2,
-                      1
-                    ]
-                  }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
+                "df": {
+                  "balance": [
+                    10,
+                    0,
+                    -4,
+                    8
+                  ]
                 }
               },
               "hints": [
@@ -7715,9 +7685,9 @@
               "learning_objective": "Найдите сумму Series amounts с дробными числами. Не округляйте ответ.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
-              "solution_code": "result = values.sum()",
+              "setup_code": "import pandas as pd\namounts = pd.Series([1.5, 2.25, 3.0])",
+              "starter_code": "import pandas as pd\namounts = pd.Series([1.5, 2.25, 3.0])\n\nresult = None",
+              "solution_code": "result = amounts.sum()",
               "theory_article_id": "theory-dataframe-methods-004",
               "required_tokens": [
                 "sum"
@@ -7734,20 +7704,13 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "amounts": {
                     "data": [
-                      1,
-                      2,
-                      null,
-                      4,
-                      2,
-                      1
+                      1.5,
+                      2.25,
+                      3.0
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -7790,9 +7753,9 @@
               "learning_objective": "Найдите сумму sales, позволив pandas пропустить NaN стандартным способом.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
-              "solution_code": "result = values.sum(skipna=True)",
+              "setup_code": "import pandas as pd\nsales = pd.Series([10, None, 20])",
+              "starter_code": "import pandas as pd\nsales = pd.Series([10, None, 20])\n\nresult = None",
+              "solution_code": "result = sales.sum()",
               "theory_article_id": "theory-dataframe-methods-005",
               "required_tokens": [
                 "sum"
@@ -7809,20 +7772,13 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "sales": {
                     "data": [
-                      1,
-                      2,
+                      10,
                       null,
-                      4,
-                      2,
-                      1
+                      20
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -7865,9 +7821,9 @@
               "learning_objective": "Найдите сумму sales так, чтобы наличие NaN дало NaN в результате.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
-              "solution_code": "result = values.sum(skipna=False)",
+              "setup_code": "import pandas as pd\nsales = pd.Series([10, None, 20])",
+              "starter_code": "import pandas as pd\nsales = pd.Series([10, None, 20])\n\nresult = None",
+              "solution_code": "result = sales.sum(skipna=False)",
               "theory_article_id": "theory-dataframe-methods-006",
               "required_tokens": [
                 "sum"
@@ -7884,20 +7840,13 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "sales": {
                     "data": [
-                      1,
-                      2,
+                      10,
                       null,
-                      4,
-                      2,
-                      1
+                      20
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -7940,9 +7889,9 @@
               "learning_objective": "Найдите сумму Series values, только если в ней есть хотя бы required_count непустых значений.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
-              "solution_code": "result = values.sum(min_count=min_required)",
+              "setup_code": "import pandas as pd\nrequired_count = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])",
+              "starter_code": "import pandas as pd\nrequired_count = 5\nbin_count = 3\nvalues = pd.Series([1, 2, None, 4, 2, 1])\n\nresult = None",
+              "solution_code": "result = values.sum(min_count=required_count)",
               "theory_article_id": "theory-dataframe-methods-007",
               "required_tokens": [
                 "sum"
@@ -7971,7 +7920,7 @@
                   }
                 },
                 "variables": {
-                  "min_required": 5,
+                  "required_count": 5,
                   "bin_count": 3
                 }
               },
@@ -8157,9 +8106,9 @@
               "learning_objective": "В булевой Series is_paid посчитайте количество True с помощью .sum().",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nflags = pd.Series([True, False, True, True])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nflags = pd.Series([True, False, True, True])\n\nresult = None",
-              "solution_code": "result = flags.sum()",
+              "setup_code": "import pandas as pd\nrequired_count = 5\nbin_count = 3\nis_paid = pd.Series([True, False, True, True])",
+              "starter_code": "import pandas as pd\nrequired_count = 5\nbin_count = 3\nis_paid = pd.Series([True, False, True, True])\n\nresult = None",
+              "solution_code": "result = is_paid.sum()",
               "theory_article_id": "theory-dataframe-methods-010",
               "required_tokens": [
                 "sum"
@@ -8176,7 +8125,7 @@
               ],
               "dataset": {
                 "series": {
-                  "flags": {
+                  "is_paid": {
                     "data": [
                       true,
                       false,
@@ -8186,7 +8135,7 @@
                   }
                 },
                 "variables": {
-                  "min_required": 5,
+                  "required_count": 5,
                   "bin_count": 3
                 }
               },
@@ -8239,7 +8188,7 @@
           "summary": "10 упражнений на .value_counts()",
           "theory": "Практическая серия на .value_counts(): от прямого применения к параметрам и пограничным случаям.",
           "syntax": ".value_counts()",
-          "example": "result = values.value_counts()",
+          "example": "result = cities.value_counts()",
           "mistakes": [
             "Изменён исходный объект",
             "Ответ не сохранён в result",
@@ -8259,9 +8208,9 @@
               "learning_objective": "Посчитайте, сколько раз каждый город встречается в Series cities.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
-              "solution_code": "result = values.value_counts()",
+              "setup_code": "import pandas as pd\ncities = pd.Series(['Москва', 'Тула', 'Москва', None])",
+              "starter_code": "import pandas as pd\ncities = pd.Series(['Москва', 'Тула', 'Москва', None])\n\nresult = None",
+              "solution_code": "result = cities.value_counts()",
               "theory_article_id": "theory-series-methods-001",
               "required_tokens": [
                 "value_counts"
@@ -8278,20 +8227,14 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "cities": {
                     "data": [
-                      "A",
-                      "B",
-                      "A",
-                      null,
-                      "C",
-                      "A"
+                      "Москва",
+                      "Тула",
+                      "Москва",
+                      null
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -8333,9 +8276,9 @@
               "learning_objective": "Посчитайте частоты целых оценок в Series scores.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
-              "solution_code": "result = values.value_counts()",
+              "setup_code": "import pandas as pd\nscores = pd.Series([5, 4, 5, 3])",
+              "starter_code": "import pandas as pd\nscores = pd.Series([5, 4, 5, 3])\n\nresult = None",
+              "solution_code": "result = scores.value_counts()",
               "theory_article_id": "theory-series-methods-002",
               "required_tokens": [
                 "value_counts"
@@ -8352,20 +8295,14 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "scores": {
                     "data": [
-                      "A",
-                      "B",
-                      "A",
-                      null,
-                      "C",
-                      "A"
+                      5,
+                      4,
+                      5,
+                      3
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -8483,9 +8420,9 @@
               "learning_objective": "Посчитайте частоты в cities, оставив стандартное исключение пропусков.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
-              "solution_code": "result = values.value_counts()",
+              "setup_code": "import pandas as pd\ncities = pd.Series(['Москва', 'Тула', 'Москва', None])",
+              "starter_code": "import pandas as pd\ncities = pd.Series(['Москва', 'Тула', 'Москва', None])\n\nresult = None",
+              "solution_code": "result = cities.value_counts()",
               "theory_article_id": "theory-series-methods-004",
               "required_tokens": [
                 "value_counts"
@@ -8502,20 +8439,14 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "cities": {
                     "data": [
-                      "A",
-                      "B",
-                      "A",
-                      null,
-                      "C",
-                      "A"
+                      "Москва",
+                      "Тула",
+                      "Москва",
+                      null
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -8633,9 +8564,9 @@
               "learning_objective": "Получите долю каждого значения в Series answers.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
-              "solution_code": "result = values.value_counts(normalize=True)",
+              "setup_code": "import pandas as pd\nanswers = pd.Series(['да', 'нет', 'да'])",
+              "starter_code": "import pandas as pd\nanswers = pd.Series(['да', 'нет', 'да'])\n\nresult = None",
+              "solution_code": "result = answers.value_counts(normalize=True)",
               "theory_article_id": "theory-series-methods-006",
               "required_tokens": [
                 "value_counts"
@@ -8652,20 +8583,13 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "answers": {
                     "data": [
-                      "A",
-                      "B",
-                      "A",
-                      null,
-                      "C",
-                      "A"
+                      "да",
+                      "нет",
+                      "да"
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -8858,9 +8782,9 @@
               "learning_objective": "Разбейте числовую Series ages на bin_count равных интервалов через параметр bins и посчитайте элементы.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, 2, 4, 7, 9])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series([1, 2, 2, 4, 7, 9])\n\nresult = None",
-              "solution_code": "result = values.value_counts(bins=bin_count)",
+              "setup_code": "import pandas as pd\nbin_count = 3\nages = pd.Series([18, 25, 31, 45, 52])",
+              "starter_code": "import pandas as pd\nbin_count = 3\nages = pd.Series([18, 25, 31, 45, 52])\n\nresult = None",
+              "solution_code": "result = ages.value_counts(bins=bin_count)",
               "theory_article_id": "theory-series-methods-009",
               "required_tokens": [
                 "value_counts"
@@ -8877,19 +8801,17 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "ages": {
                     "data": [
-                      1,
-                      2,
-                      2,
-                      4,
-                      7,
-                      9
+                      18,
+                      25,
+                      31,
+                      45,
+                      52
                     ]
                   }
                 },
                 "variables": {
-                  "min_required": 5,
                   "bin_count": 3
                 }
               },
@@ -8933,9 +8855,9 @@
               "learning_objective": "Для Series statuses со строками и пропусками получите абсолютные частоты всех значений, включая пропуски.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])",
-              "starter_code": "import pandas as pd\nmin_required = 5\nbin_count = 3\nvalues = pd.Series(['A', 'B', 'A', None, 'C', 'A'])\n\nresult = None",
-              "solution_code": "result = values.value_counts(dropna=False)",
+              "setup_code": "import pandas as pd\nstatuses = pd.Series(['new', None, 'done', 'new'])",
+              "starter_code": "import pandas as pd\nstatuses = pd.Series(['new', None, 'done', 'new'])\n\nresult = None",
+              "solution_code": "result = statuses.value_counts(dropna=False)",
               "theory_article_id": "theory-series-methods-010",
               "required_tokens": [
                 "value_counts"
@@ -8952,20 +8874,14 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "statuses": {
                     "data": [
-                      "A",
-                      "B",
-                      "A",
+                      "new",
                       null,
-                      "C",
-                      "A"
+                      "done",
+                      "new"
                     ]
                   }
-                },
-                "variables": {
-                  "min_required": 5,
-                  "bin_count": 3
                 }
               },
               "hints": [
@@ -9017,7 +8933,7 @@
           "summary": "10 упражнений на .groupby(...).sum()",
           "theory": "Практическая серия на .groupby(...).sum(): от прямого применения к параметрам и пограничным случаям.",
           "syntax": ".groupby(...).sum()",
-          "example": "result = df.groupby('category')['sales'].sum()",
+          "example": "result = df.groupby('store')['sales'].sum()",
           "mistakes": [
             "Изменён исходный объект",
             "Ответ не сохранён в result",
@@ -9037,9 +8953,9 @@
               "learning_objective": "Найдите сумму sales для каждого store.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('category')['sales'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'store': ['Центр', 'Север', 'Центр'], 'sales': [10, 20, 15]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'store': ['Центр', 'Север', 'Центр'], 'sales': [10, 20, 15]})\n\nresult = None",
+              "solution_code": "result = df.groupby('store')['sales'].sum()",
               "theory_article_id": "theory-groupby-001",
               "required_tokens": [
                 "groupby",
@@ -9057,63 +8973,16 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр"
                   ],
                   "sales": [
                     10,
                     20,
-                    null,
                     15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
-                    1,
-                    3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -9158,9 +9027,9 @@
               "learning_objective": "Найдите сумму revenue для каждой category.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('city')['revenue'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'category': ['A', 'B', 'A'], 'revenue': [100, 200, 150]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'category': ['A', 'B', 'A'], 'revenue': [100, 200, 150]})\n\nresult = None",
+              "solution_code": "result = df.groupby('category')['revenue'].sum()",
               "theory_article_id": "theory-groupby-002",
               "required_tokens": [
                 "groupby",
@@ -9181,60 +9050,13 @@
                   "category": [
                     "A",
                     "B",
-                    "A",
-                    null
-                  ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
+                    "A"
                   ],
                   "revenue": [
                     100,
                     200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
-                    1,
-                    3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    150
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -9279,9 +9101,9 @@
               "learning_objective": "Найдите сумму amount для каждого client_id.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('team')['points'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'client_id': [1, 2, 1], 'amount': [100, 80, 50]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'client_id': [1, 2, 1], 'amount': [100, 80, 50]})\n\nresult = None",
+              "solution_code": "result = df.groupby('client_id')['amount'].sum()",
               "theory_article_id": "theory-groupby-003",
               "required_tokens": [
                 "groupby",
@@ -9299,63 +9121,16 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "client_id": [
                     1,
-                    3,
-                    4
+                    2,
+                    1
                   ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                  "amount": [
+                    100,
+                    80,
+                    50
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -9400,9 +9175,9 @@
               "learning_objective": "Для каждой team получите суммы столбцов points и penalties.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('category')[['sales', 'profit']].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'team': ['X', 'Y', 'X'], 'points': [2, 1, 3], 'penalties': [0, 2, 1]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'team': ['X', 'Y', 'X'], 'points': [2, 1, 3], 'penalties': [0, 2, 1]})\n\nresult = None",
+              "solution_code": "result = df.groupby('team')[['points', 'penalties']].sum()",
               "theory_article_id": "theory-groupby-004",
               "required_tokens": [
                 "groupby",
@@ -9420,63 +9195,21 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
                   "team": [
                     "X",
                     "Y",
-                    "X",
-                    "Y"
+                    "X"
                   ],
                   "points": [
                     2,
                     1,
-                    3,
-                    4
+                    3
                   ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                  "penalties": [
+                    0,
+                    2,
+                    1
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -9521,9 +9254,9 @@
               "learning_objective": "Найдите сумму sales для каждой комбинации city и product.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby(['city', 'category'])['sales'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула'], 'product': ['Курс', 'Книга', 'Курс'], 'sales': [10, 20, 15]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула'], 'product': ['Курс', 'Книга', 'Курс'], 'sales': [10, 20, 15]})\n\nresult = None",
+              "solution_code": "result = df.groupby(['city', 'product'])['sales'].sum()",
               "theory_article_id": "theory-groupby-005",
               "required_tokens": [
                 "groupby",
@@ -9541,63 +9274,21 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
                   "city": [
                     "Москва",
-                    "Казань",
                     "Москва",
                     "Тула"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
+                  "product": [
+                    "Курс",
+                    "Книга",
+                    "Курс"
                   ],
                   "sales": [
                     10,
                     20,
-                    null,
                     15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
-                    1,
-                    3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -9642,9 +9333,9 @@
               "learning_objective": "Найдите сумму sales по city, вернув city обычным столбцом.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('category', as_index=False)['sales'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Москва', 'Тула', 'Москва'], 'sales': [10, 20, 15]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Москва', 'Тула', 'Москва'], 'sales': [10, 20, 15]})\n\nresult = None",
+              "solution_code": "result = df.groupby('city', as_index=False)['sales'].sum()",
               "theory_article_id": "theory-groupby-006",
               "required_tokens": [
                 "groupby",
@@ -9662,63 +9353,16 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
                   "city": [
                     "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
+                    "Тула",
+                    "Москва"
                   ],
                   "sales": [
                     10,
                     20,
-                    null,
                     15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
-                    1,
-                    3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -9763,9 +9407,9 @@
               "learning_objective": "Найдите сумму sales по city, не сортируя ключи групп.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('category', sort=False)['sales'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Тула', 'Москва', 'Тула'], 'sales': [10, 20, 15]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Тула', 'Москва', 'Тула'], 'sales': [10, 20, 15]})\n\nresult = None",
+              "solution_code": "result = df.groupby('city', sort=False)['sales'].sum()",
               "theory_article_id": "theory-groupby-007",
               "required_tokens": [
                 "groupby",
@@ -9783,63 +9427,16 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
                   "city": [
-                    "Москва",
-                    "Казань",
+                    "Тула",
                     "Москва",
                     "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
                   ],
                   "sales": [
                     10,
                     20,
-                    null,
                     15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
-                    1,
-                    3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -9884,9 +9481,9 @@
               "learning_objective": "Найдите сумму sales по city, включая строки с пропущенным городом в отдельную группу.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('category', dropna=False)['sales'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Москва', None, 'Москва'], 'sales': [10, 20, 15]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'city': ['Москва', None, 'Москва'], 'sales': [10, 20, 15]})\n\nresult = None",
+              "solution_code": "result = df.groupby('city', dropna=False)['sales'].sum()",
               "theory_article_id": "theory-groupby-008",
               "required_tokens": [
                 "groupby",
@@ -9904,63 +9501,16 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
                   "city": [
                     "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
+                    null,
+                    "Москва"
                   ],
                   "sales": [
                     10,
                     20,
-                    null,
                     15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
-                    1,
-                    3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -10005,9 +9555,9 @@
               "learning_objective": "Сгруппируйте amount по category и суммируйте с min_count=1, чтобы полностью пустая группа дала NaN.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('category')['sales'].sum(min_count=1)",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'category': ['A', 'A', 'B', 'B'], 'amount': [10, None, None, None]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'category': ['A', 'A', 'B', 'B'], 'amount': [10, None, None, None]})\n\nresult = None",
+              "solution_code": "result = df.groupby('category')['amount'].sum(min_count=1)",
               "theory_article_id": "theory-groupby-009",
               "required_tokens": [
                 "groupby",
@@ -10027,61 +9577,16 @@
                 "df": {
                   "category": [
                     "A",
-                    "B",
                     "A",
-                    null
+                    "B",
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
+                  "amount": [
                     10,
-                    20,
                     null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
-                    1,
-                    3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    null,
+                    null
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -10126,9 +9631,9 @@
               "learning_objective": "Для каждого user_id посчитайте число True в столбце is_done через groupby().sum().",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.groupby('team')['won'].sum()",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'user_id': [1, 2, 1, 2], 'is_done': [True, False, True, True]})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'user_id': [1, 2, 1, 2], 'is_done': [True, False, True, True]})\n\nresult = None",
+              "solution_code": "result = df.groupby('user_id')['is_done'].sum()",
               "theory_article_id": "theory-groupby-010",
               "required_tokens": [
                 "groupby",
@@ -10146,63 +9651,18 @@
               ],
               "dataset": {
                 "df": {
-                  "category": [
-                    "A",
-                    "B",
-                    "A",
-                    null
-                  ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
-                    100,
-                    200,
-                    150,
-                    90
-                  ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
+                  "user_id": [
+                    1,
                     2,
                     1,
-                    3,
-                    4
+                    2
                   ],
-                  "won": [
+                  "is_done": [
                     true,
                     false,
                     true,
                     true
                   ]
-                },
-                "variables": {
-                  "total_label": "Итого"
                 }
               },
               "hints": [
@@ -10810,9 +10270,9 @@
               "learning_objective": "Исключите строки со статусом \"cancelled\".",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
-              "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
-              "solution_code": "result = df.query(\"status != 'closed'\")",
+              "setup_code": "import pandas as pd\nmin_score = 60\nmax_score = 90\nallowed_cities = ['Москва', 'Тула']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'cancelled', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "import pandas as pd\nmin_score = 60\nmax_score = 90\nallowed_cities = ['Москва', 'Тула']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [76, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'cancelled', 'open', 'new'], 'price': [104, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
+              "solution_code": "result = df.query(\"status != 'cancelled'\")",
               "theory_article_id": "theory-filtering-004",
               "required_tokens": [
                 "query"
@@ -10855,7 +10315,7 @@
                   ],
                   "status": [
                     "open",
-                    "closed",
+                    "cancelled",
                     "open",
                     "new"
                   ],
@@ -10939,13 +10399,12 @@
                   ]
                 },
                 "variables": {
-                  "min_score": 70,
+                  "min_score": 60,
+                  "max_score": 90,
                   "allowed_cities": [
                     "Москва",
                     "Тула"
-                  ],
-                  "min_price": 90,
-                  "max_price": 200
+                  ]
                 }
               },
               "hints": [
@@ -11878,9 +11337,9 @@
               "learning_objective": "Оставьте строки, где score находится от min_score до max_score включительно. Используйте .query() и внешние переменные.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
-              "starter_code": "import pandas as pd\nmin_score = 70\nallowed_cities = ['Москва', 'Тула']\nmin_price = 90\nmax_price = 200\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
-              "solution_code": "result = df.query('price >= @min_price and price <= @max_price')",
+              "setup_code": "import pandas as pd\nmin_score = 60\nmax_score = 90\nallowed_cities = ['Москва', 'Тула']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
+              "starter_code": "import pandas as pd\nmin_score = 60\nmax_score = 90\nallowed_cities = ['Москва', 'Тула']\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
+              "solution_code": "result = df.query('score >= @min_score and score <= @max_score')",
               "theory_article_id": "theory-filtering-010",
               "required_tokens": [
                 "query"
@@ -12007,13 +11466,12 @@
                   ]
                 },
                 "variables": {
-                  "min_score": 70,
+                  "min_score": 60,
+                  "max_score": 90,
                   "allowed_cities": [
                     "Москва",
                     "Тула"
-                  ],
-                  "min_price": 90,
-                  "max_price": 200
+                  ]
                 }
               },
               "hints": [
@@ -12425,9 +11883,9 @@
               "learning_objective": "Отсортируйте таблицу по city в алфавитном порядке.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
-              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
-              "solution_code": "result = df.sort_values('name')",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'date': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'category': ['B', 'A', 'B', 'A']})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [75, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [103, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'date': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'category': ['B', 'A', 'B', 'A']})\n\nresult = None",
+              "solution_code": "result = df.sort_values('city')",
               "theory_article_id": "theory-sorting-003",
               "required_tokens": [
                 "sort_values"
@@ -12551,6 +12009,18 @@
                     "2026-01-03",
                     "2026-03-01",
                     "2026-01-01"
+                  ],
+                  "date": [
+                    "2026-02-01",
+                    "2026-01-03",
+                    "2026-03-01",
+                    "2026-01-01"
+                  ],
+                  "category": [
+                    "B",
+                    "A",
+                    "B",
+                    "A"
                   ]
                 },
                 "variables": {}
@@ -13105,9 +12575,9 @@
               "learning_objective": "Отсортируйте по date и сразу получите индекс от 0 до n-1.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
-              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
-              "solution_code": "result = df.sort_values('score', ignore_index=True)",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'date': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'category': ['B', 'A', 'B', 'A']})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [79, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [107, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'date': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'category': ['B', 'A', 'B', 'A']})\n\nresult = None",
+              "solution_code": "result = df.sort_values('date', ignore_index=True)",
               "theory_article_id": "theory-sorting-007",
               "required_tokens": [
                 "sort_values"
@@ -13231,6 +12701,18 @@
                     "2026-01-03",
                     "2026-03-01",
                     "2026-01-01"
+                  ],
+                  "date": [
+                    "2026-02-01",
+                    "2026-01-03",
+                    "2026-03-01",
+                    "2026-01-01"
+                  ],
+                  "category": [
+                    "B",
+                    "A",
+                    "B",
+                    "A"
                   ]
                 },
                 "variables": {}
@@ -13617,9 +13099,9 @@
               "learning_objective": "Отсортируйте по category по возрастанию и по score внутри категории по убыванию. Другие преобразования не выполняйте.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})",
-              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01']})\n\nresult = None",
-              "solution_code": "result = df.sort_values(['priority', 'created_at'], ascending=[False, True])",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'date': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'category': ['B', 'A', 'B', 'A']})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'score': [82, 55, 91, None], 'attempts': [1, 3, 2, 1], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'status': ['open', 'closed', 'open', 'new'], 'price': [110, 250, 80, 140], 'quantity': [2, 1, 4, 3], 'discount': [10, 20, 0, 15], 'online': [4, 7, 3, 8], 'offline': [2, 1, 5, 4], 'current': [12, 9, 15, 11], 'previous': [10, 10, 12, 8], 'amount': [200, 250, 320, 420], 'discount_pct': [10, 5, 0, 20], 'total sales': [800, 1200, 1500, 600], 'client name': ['Анна', 'Борис', 'Вера', 'Глеб'], 'priority': [2, 1, 3, 2], 'created_at': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'date': ['2026-02-01', '2026-01-03', '2026-03-01', '2026-01-01'], 'category': ['B', 'A', 'B', 'A']})\n\nresult = None",
+              "solution_code": "result = df.sort_values(['category', 'score'], ascending=[True, False])",
               "theory_article_id": "theory-sorting-010",
               "required_tokens": [
                 "sort_values"
@@ -13743,6 +13225,18 @@
                     "2026-01-03",
                     "2026-03-01",
                     "2026-01-01"
+                  ],
+                  "date": [
+                    "2026-02-01",
+                    "2026-01-03",
+                    "2026-03-01",
+                    "2026-01-01"
+                  ],
+                  "category": [
+                    "B",
+                    "A",
+                    "B",
+                    "A"
                   ]
                 },
                 "variables": {}
@@ -13796,7 +13290,7 @@
           "summary": "10 упражнений на pd.merge()",
           "theory": "Практическая серия на pd.merge(): от прямого применения к параметрам и пограничным случаям.",
           "syntax": "pd.merge()",
-          "example": "result = pd.merge(left, right, on='id')",
+          "example": "result = pd.merge(orders, clients, on='id')",
           "mistakes": [
             "Изменён исходный объект",
             "Ответ не сохранён в result",
@@ -13816,9 +13310,9 @@
               "learning_objective": "Объедините orders и clients по общему столбцу id, сохранив только совпавшие строки.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
-              "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
-              "solution_code": "result = pd.merge(left, right, on='id')",
+              "setup_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
+              "starter_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
+              "solution_code": "result = pd.merge(orders, clients, on='id')",
               "theory_article_id": "theory-merge-001",
               "required_tokens": [
                 "merge"
@@ -13834,7 +13328,7 @@
                 "required_method"
               ],
               "dataset": {
-                "left": {
+                "orders": {
                   "id": [
                     1,
                     2,
@@ -13866,7 +13360,7 @@
                     100
                   ]
                 },
-                "right": {
+                "clients": {
                   "id": [
                     2,
                     3,
@@ -13919,9 +13413,9 @@
               "learning_objective": "Присоедините данные clients к orders, сохранив все строки orders.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
-              "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
-              "solution_code": "result = pd.merge(left, right, on='id', how='left')",
+              "setup_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
+              "starter_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
+              "solution_code": "result = pd.merge(orders, clients, on='id', how='left')",
               "theory_article_id": "theory-merge-002",
               "required_tokens": [
                 "merge"
@@ -13937,7 +13431,7 @@
                 "required_method"
               ],
               "dataset": {
-                "left": {
+                "orders": {
                   "id": [
                     1,
                     2,
@@ -13969,7 +13463,7 @@
                     100
                   ]
                 },
-                "right": {
+                "clients": {
                   "id": [
                     2,
                     3,
@@ -14022,9 +13516,9 @@
               "learning_objective": "Объедините таблицы так, чтобы сохранить все строки правой таблицы clients.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
-              "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
-              "solution_code": "result = pd.merge(left, right, on='id', how='right')",
+              "setup_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})",
+              "starter_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [2, 3, 4], 'label': ['B', 'C', 'D']})\n\nresult = None",
+              "solution_code": "result = pd.merge(orders, clients, on='id', how='right')",
               "theory_article_id": "theory-merge-003",
               "required_tokens": [
                 "merge"
@@ -14040,7 +13534,7 @@
                 "required_method"
               ],
               "dataset": {
-                "left": {
+                "orders": {
                   "id": [
                     1,
                     2,
@@ -14072,7 +13566,7 @@
                     100
                   ]
                 },
-                "right": {
+                "clients": {
                   "id": [
                     2,
                     3,
@@ -14228,9 +13722,9 @@
               "learning_objective": "Объедините orders.client_id с clients.id.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
-              "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})\n\nresult = None",
-              "solution_code": "result = pd.merge(left, right, left_on='client_id', right_on='id')",
+              "setup_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})",
+              "starter_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nclients = pd.DataFrame({'id': [10, 20, 30], 'city': ['Москва', 'Тула', 'Казань'], 'year': [2025, 2025, 2026], 'value': [100, 200, 300], 'category_id': [100, 200, 300], 'category': ['A', 'B', 'C']})\n\nresult = None",
+              "solution_code": "result = pd.merge(orders, clients, left_on='client_id', right_on='id')",
               "theory_article_id": "theory-merge-005",
               "required_tokens": [
                 "merge"
@@ -14246,7 +13740,7 @@
                 "required_method"
               ],
               "dataset": {
-                "left": {
+                "orders": {
                   "id": [
                     1,
                     2,
@@ -14278,7 +13772,7 @@
                     100
                   ]
                 },
-                "right": {
+                "clients": {
                   "id": [
                     10,
                     20,
@@ -14351,9 +13845,9 @@
               "learning_objective": "Объедините две таблицы по паре столбцов store_id и date.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'sales': [10, 20]})\nright = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'plan': [12, 18]})",
-              "starter_code": "import pandas as pd\nleft = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'sales': [10, 20]})\nright = pd.DataFrame({'city': ['Москва', 'Тула'], 'year': [2025, 2026], 'plan': [12, 18]})\n\nresult = None",
-              "solution_code": "result = pd.merge(left, right, on=['city', 'year'])",
+              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'store_id': [1, 2], 'date': ['2026-01-01', '2026-01-02'], 'sales': [10, 20]})\nright = pd.DataFrame({'store_id': [1, 2], 'date': ['2026-01-01', '2026-01-02'], 'plan': [12, 18]})",
+              "starter_code": "import pandas as pd\nleft = pd.DataFrame({'store_id': [1, 2], 'date': ['2026-01-01', '2026-01-02'], 'sales': [10, 20]})\nright = pd.DataFrame({'store_id': [1, 2], 'date': ['2026-01-01', '2026-01-02'], 'plan': [12, 18]})\n\nresult = None",
+              "solution_code": "result = pd.merge(left, right, on=['store_id', 'date'])",
               "theory_article_id": "theory-merge-006",
               "required_tokens": [
                 "merge"
@@ -14370,13 +13864,13 @@
               ],
               "dataset": {
                 "left": {
-                  "city": [
-                    "Москва",
-                    "Тула"
+                  "store_id": [
+                    1,
+                    2
                   ],
-                  "year": [
-                    2025,
-                    2026
+                  "date": [
+                    "2026-01-01",
+                    "2026-01-02"
                   ],
                   "sales": [
                     10,
@@ -14384,13 +13878,13 @@
                   ]
                 },
                 "right": {
-                  "city": [
-                    "Москва",
-                    "Тула"
+                  "store_id": [
+                    1,
+                    2
                   ],
-                  "year": [
-                    2025,
-                    2026
+                  "date": [
+                    "2026-01-01",
+                    "2026-01-02"
                   ],
                   "plan": [
                     12,
@@ -14684,9 +14178,9 @@
               "learning_objective": "Присоедините справочник clients к orders по client_id и проверьте связь «многие к одному» через validate.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'category_id': [100, 200], 'category': ['A', 'B']})",
-              "starter_code": "import pandas as pd\nleft = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10], 'city': ['Москва', 'Тула', 'Москва'], 'year': [2025, 2025, 2026], 'value': [10, 20, 30], 'category_id': [100, 200, 100]})\nright = pd.DataFrame({'category_id': [100, 200], 'category': ['A', 'B']})\n\nresult = None",
-              "solution_code": "result = pd.merge(left, right, on='category_id', validate='many_to_one')",
+              "setup_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10]})\nclients = pd.DataFrame({'client_id': [10, 20], 'client_name': ['Анна', 'Борис']})",
+              "starter_code": "import pandas as pd\norders = pd.DataFrame({'id': [1, 2, 3], 'client_id': [10, 20, 10]})\nclients = pd.DataFrame({'client_id': [10, 20], 'client_name': ['Анна', 'Борис']})\n\nresult = None",
+              "solution_code": "result = pd.merge(orders, clients, on='client_id', validate='many_to_one')",
               "theory_article_id": "theory-merge-009",
               "required_tokens": [
                 "merge"
@@ -14702,7 +14196,7 @@
                 "required_method"
               ],
               "dataset": {
-                "left": {
+                "orders": {
                   "id": [
                     1,
                     2,
@@ -14712,36 +14206,16 @@
                     10,
                     20,
                     10
-                  ],
-                  "city": [
-                    "Москва",
-                    "Тула",
-                    "Москва"
-                  ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026
-                  ],
-                  "value": [
-                    10,
-                    20,
-                    30
-                  ],
-                  "category_id": [
-                    100,
-                    200,
-                    100
                   ]
                 },
-                "right": {
-                  "category_id": [
-                    100,
-                    200
+                "clients": {
+                  "client_id": [
+                    10,
+                    20
                   ],
-                  "category": [
-                    "A",
-                    "B"
+                  "client_name": [
+                    "Анна",
+                    "Борис"
                   ]
                 }
               },
@@ -14865,7 +14339,7 @@
           "summary": "10 упражнений на .pivot_table()",
           "theory": "Практическая серия на .pivot_table(): от прямого применения к параметрам и пограничным случаям.",
           "syntax": ".pivot_table()",
-          "example": "result = df.pivot_table(index='city', values='sales')",
+          "example": "result = df.pivot_table(index='city', values='amount')",
           "mistakes": [
             "Изменён исходный объект",
             "Ответ не сохранён в result",
@@ -14885,9 +14359,9 @@
               "learning_objective": "Создайте сводную таблицу со средней amount для каждого city, используя стандартную агрегацию.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', values='sales')",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', values='amount')",
               "theory_article_id": "theory-pivot-001",
               "required_tokens": [
                 "pivot_table"
@@ -14904,59 +14378,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15003,9 +14453,9 @@
               "learning_objective": "Создайте сводную с суммой amount для каждого city.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum')",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', values='amount', aggfunc='sum')",
               "theory_article_id": "theory-pivot-002",
               "required_tokens": [
                 "pivot_table"
@@ -15022,59 +14472,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15121,9 +14547,9 @@
               "learning_objective": "Создайте сводную: строки — city, столбцы — category, значения — средняя amount.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum')",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', columns='category', values='amount')",
               "theory_article_id": "theory-pivot-003",
               "required_tokens": [
                 "pivot_table"
@@ -15140,59 +14566,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15239,9 +14641,9 @@
               "learning_objective": "Получите сумму amount для каждой комбинации city и store.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index=['city', 'year'], values='sales', aggfunc='sum')",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index=['city', 'store'], values='amount', aggfunc='sum')",
               "theory_article_id": "theory-pivot-004",
               "required_tokens": [
                 "pivot_table"
@@ -15258,59 +14660,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15357,9 +14735,9 @@
               "learning_objective": "Для каждого city получите средние значения amount и quantity.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', values=['sales', 'profit'], aggfunc='sum')",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', values=['amount', 'quantity'])",
               "theory_article_id": "theory-pivot-005",
               "required_tokens": [
                 "pivot_table"
@@ -15376,59 +14754,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15475,9 +14829,9 @@
               "learning_objective": "Создайте сводную city × category по сумме amount, заменив отсутствующие комбинации нулём.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', fill_value=0)",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', columns='category', values='amount', aggfunc='sum', fill_value=0)",
               "theory_article_id": "theory-pivot-006",
               "required_tokens": [
                 "pivot_table"
@@ -15494,59 +14848,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15593,9 +14923,9 @@
               "learning_objective": "Добавьте к сводной строку и столбец общих итогов.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True)",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', values='amount', aggfunc='sum', margins=True)",
               "theory_article_id": "theory-pivot-007",
               "required_tokens": [
                 "pivot_table"
@@ -15612,59 +14942,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15711,9 +15017,9 @@
               "learning_objective": "Создайте сводную с итогами и назовите итоговую строку/столбец \"Всего\".",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True, margins_name=total_label)",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', values='amount', aggfunc='sum', margins=True, margins_name=total_label)",
               "theory_article_id": "theory-pivot-008",
               "required_tokens": [
                 "pivot_table"
@@ -15730,59 +15036,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15829,9 +15111,9 @@
               "learning_objective": "Создайте сводную, сохранив порядок появления категорий во входных данных.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', values='sales', aggfunc='sum', sort=False)",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', values='amount', aggfunc='sum', sort=False)",
               "theory_article_id": "theory-pivot-009",
               "required_tokens": [
                 "pivot_table"
@@ -15848,59 +15130,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -15947,9 +15205,9 @@
               "learning_objective": "Для категориальных столбцов city и category создайте сводную со всеми категориями, включая не встречавшиеся комбинации.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})",
-              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'category': ['A', 'B', 'A', None], 'city': ['Москва', 'Казань', 'Москва', 'Тула'], 'year': [2025, 2025, 2026, 2026], 'sales': [10, 20, None, 15], 'profit': [2, 5, 3, 4], 'revenue': [100, 200, 150, 90], 'team': ['X', 'Y', 'X', 'Y'], 'points': [2, 1, 3, 4], 'won': [True, False, True, True]})\n\nresult = None",
-              "solution_code": "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', observed=False)",
+              "setup_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})",
+              "starter_code": "import pandas as pd\ntotal_label = 'Итого'\ndf = pd.DataFrame({'city': ['Москва', 'Москва', 'Тула', 'Тула'], 'category': ['A', 'B', 'A', 'B'], 'store': ['Центр', 'Север', 'Центр', 'Север'], 'amount': [100, 200, 150, 90], 'quantity': [1, 2, 3, 1]})\n\nresult = None",
+              "solution_code": "result = df.pivot_table(index='city', columns='category', values='amount', aggfunc='sum', observed=False)",
               "theory_article_id": "theory-pivot-010",
               "required_tokens": [
                 "pivot_table"
@@ -15966,59 +15224,35 @@
               ],
               "dataset": {
                 "df": {
+                  "city": [
+                    "Москва",
+                    "Москва",
+                    "Тула",
+                    "Тула"
+                  ],
                   "category": [
                     "A",
                     "B",
                     "A",
-                    null
+                    "B"
                   ],
-                  "city": [
-                    "Москва",
-                    "Казань",
-                    "Москва",
-                    "Тула"
+                  "store": [
+                    "Центр",
+                    "Север",
+                    "Центр",
+                    "Север"
                   ],
-                  "year": [
-                    2025,
-                    2025,
-                    2026,
-                    2026
-                  ],
-                  "sales": [
-                    10,
-                    20,
-                    null,
-                    15
-                  ],
-                  "profit": [
-                    2,
-                    5,
-                    3,
-                    4
-                  ],
-                  "revenue": [
+                  "amount": [
                     100,
                     200,
                     150,
                     90
                   ],
-                  "team": [
-                    "X",
-                    "Y",
-                    "X",
-                    "Y"
-                  ],
-                  "points": [
-                    2,
+                  "quantity": [
                     1,
+                    2,
                     3,
-                    4
-                  ],
-                  "won": [
-                    true,
-                    false,
-                    true,
-                    true
+                    1
                   ]
                 },
                 "variables": {
@@ -16162,9 +15396,9 @@
               "learning_objective": "Преобразуйте Series prices в числа с плавающей точкой.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
-              "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
-              "solution_code": "result = values.astype('float64')",
+              "setup_code": "import pandas as pd\nprices = pd.Series(['1.5', '2.0', '3.25'])",
+              "starter_code": "import pandas as pd\nprices = pd.Series(['1.5', '2.0', '3.25'])\n\nresult = None",
+              "solution_code": "result = prices.astype('float64')",
               "theory_article_id": "theory-dtypes-002",
               "required_tokens": [
                 "astype"
@@ -16181,11 +15415,11 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "prices": {
                     "data": [
-                      "1",
-                      "2",
-                      "3"
+                      "1.5",
+                      "2.0",
+                      "3.25"
                     ]
                   }
                 }
@@ -16230,9 +15464,9 @@
               "learning_objective": "Преобразуйте Series codes в pandas-тип string.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
-              "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
-              "solution_code": "result = values.astype('string')",
+              "setup_code": "import pandas as pd\ncodes = pd.Series(['A1', 'B2', 'C3'])",
+              "starter_code": "import pandas as pd\ncodes = pd.Series(['A1', 'B2', 'C3'])\n\nresult = None",
+              "solution_code": "result = codes.astype('string')",
               "theory_article_id": "theory-dtypes-003",
               "required_tokens": [
                 "astype"
@@ -16249,11 +15483,11 @@
               ],
               "dataset": {
                 "series": {
-                  "values": {
+                  "codes": {
                     "data": [
-                      "1",
-                      "2",
-                      "3"
+                      "A1",
+                      "B2",
+                      "C3"
                     ]
                   }
                 }
@@ -16366,9 +15600,9 @@
               "learning_objective": "В копии df преобразуйте только столбец age в int64.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
-              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})\n\nresult = None",
-              "solution_code": "result = df.copy()\nresult['score'] = result['score'].astype('int64')",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'age': ['20', '30', '40'], 'price': ['1.5', '2.0', '3.25']})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'age': ['20', '30', '40'], 'price': ['1.5', '2.0', '3.25']})\n\nresult = None",
+              "solution_code": "result = df.copy()\nresult['age'] = result['age'].astype('int64')",
               "theory_article_id": "theory-dtypes-005",
               "required_tokens": [
                 "copy",
@@ -16386,20 +15620,15 @@
               ],
               "dataset": {
                 "df": {
-                  "count": [
-                    "1",
-                    "2",
-                    "3"
+                  "age": [
+                    "20",
+                    "30",
+                    "40"
                   ],
                   "price": [
                     "1.5",
                     "2.0",
                     "3.25"
-                  ],
-                  "score": [
-                    "7",
-                    "8",
-                    "9"
                   ]
                 }
               },
@@ -16444,9 +15673,9 @@
               "learning_objective": "В копии df преобразуйте age в int64, а price в float64 одним вызовом .astype() со словарём.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})",
-              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'count': ['1', '2', '3'], 'price': ['1.5', '2.0', '3.25'], 'score': ['7', '8', '9']})\n\nresult = None",
-              "solution_code": "result = df.astype({'count': 'int64', 'price': 'float64'})",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'age': ['20', '30', '40'], 'price': ['1.5', '2.0', '3.25']})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'age': ['20', '30', '40'], 'price': ['1.5', '2.0', '3.25']})\n\nresult = None",
+              "solution_code": "result = df.astype({'age': 'int64', 'price': 'float64'})",
               "theory_article_id": "theory-dtypes-006",
               "required_tokens": [
                 "astype"
@@ -16463,20 +15692,15 @@
               ],
               "dataset": {
                 "df": {
-                  "count": [
-                    "1",
-                    "2",
-                    "3"
+                  "age": [
+                    "20",
+                    "30",
+                    "40"
                   ],
                   "price": [
                     "1.5",
                     "2.0",
                     "3.25"
-                  ],
-                  "score": [
-                    "7",
-                    "8",
-                    "9"
                   ]
                 }
               },
@@ -16520,11 +15744,12 @@
               "learning_objective": "Преобразуйте столбец status в категориальный тип.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
-              "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
-              "solution_code": "result = values.astype('category')",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'status': ['new', 'done', 'new']})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'status': ['new', 'done', 'new']})\n\nresult = None",
+              "solution_code": "result = df.copy()\nresult['status'] = result['status'].astype('category')",
               "theory_article_id": "theory-dtypes-007",
               "required_tokens": [
+                "copy",
                 "astype"
               ],
               "tests": [
@@ -16538,14 +15763,12 @@
                 "required_method"
               ],
               "dataset": {
-                "series": {
-                  "values": {
-                    "data": [
-                      "1",
-                      "2",
-                      "3"
-                    ]
-                  }
+                "df": {
+                  "status": [
+                    "new",
+                    "done",
+                    "new"
+                  ]
                 }
               },
               "hints": [
@@ -16572,6 +15795,7 @@
                 ".astype()"
               ],
               "required_methods": [
+                "copy",
                 "astype"
               ],
               "documentation_urls": [
@@ -16734,11 +15958,12 @@
               "learning_objective": "В копии df преобразуйте client_id в pandas-тип string, чтобы значения вроде \"0012\" оставались строками.",
               "result_variable": "result",
               "expected_type": "auto",
-              "setup_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])",
-              "starter_code": "import pandas as pd\nvalues = pd.Series(['1', '2', '3'])\n\nresult = None",
-              "solution_code": "result = values.astype('string')",
+              "setup_code": "import pandas as pd\ndf = pd.DataFrame({'client_id': ['0012', '0040', '0100']})",
+              "starter_code": "import pandas as pd\ndf = pd.DataFrame({'client_id': ['0012', '0040', '0100']})\n\nresult = None",
+              "solution_code": "result = df.copy()\nresult['client_id'] = result['client_id'].astype('string')",
               "theory_article_id": "theory-dtypes-010",
               "required_tokens": [
+                "copy",
                 "astype"
               ],
               "tests": [
@@ -16752,14 +15977,12 @@
                 "required_method"
               ],
               "dataset": {
-                "series": {
-                  "values": {
-                    "data": [
-                      "1",
-                      "2",
-                      "3"
-                    ]
-                  }
+                "df": {
+                  "client_id": [
+                    "0012",
+                    "0040",
+                    "0100"
+                  ]
                 }
               },
               "hints": [
@@ -16786,6 +16009,7 @@
                 ".astype()"
               ],
               "required_methods": [
+                "copy",
                 "astype"
               ],
               "documentation_urls": [

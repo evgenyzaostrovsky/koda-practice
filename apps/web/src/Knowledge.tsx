@@ -192,7 +192,7 @@ export function KnowledgeArticle() {
     return <div className="empty">Загрузка материала…</div>;
   const needle = cheatQuery.trim().toLocaleLowerCase("ru");
   const cheatEntries = unit.cheatSheet.entries.filter((entry) =>
-    [entry.name, entry.description, entry.group]
+    [entry.name, entry.description, entry.group, entry.nuance, ...(entry.parameters ?? []).flatMap((item) => [item.name, item.description])]
       .join(" ")
       .toLocaleLowerCase("ru")
       .includes(needle),
@@ -272,7 +272,18 @@ export function KnowledgeArticle() {
                         </a>
                       )}
                     </div>
-                    <p role="cell">{entry.description}</p>
+                    <div className="cheat-description" role="cell">
+                      <p>{entry.description}</p>
+                      {entry.parameters && entry.parameters.length > 0 && (
+                        <div className="cheat-parameters">
+                          <b>Параметры</b>
+                          {entry.parameters.map((parameter) => (
+                            <span key={parameter.name}><code>{parameter.name}</code> — {parameter.description}</span>
+                          ))}
+                        </div>
+                      )}
+                      {entry.nuance && <small>{entry.nuance}</small>}
+                    </div>
                     <div className="cheat-example" role="cell">
                       <code>{entry.example}</code>
                       <button onClick={() => copyExample(entry.id, entry.example)} aria-label={`Копировать пример: ${entry.name}`}>

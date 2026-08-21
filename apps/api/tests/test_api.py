@@ -24,10 +24,10 @@ def test_catalog_and_private_solutions():
 def test_groupby_full_cycle():
     with TestClient(app) as client:
         eid='groupby-001'
-        bad=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = df.groupby("category")["sales"].mean()')}).json()
+        bad=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = df.groupby("store")["sales"].mean()')}).json()
         assert bad['passed'] is False and bad['explanation']['check']
         assert client.post(f'/exercises/{eid}/hints/1').json()['content']
-        good=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = df.groupby("category")["sales"].sum()')}).json()
+        good=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = df.groupby("store")["sales"].sum()')}).json()
         assert good['passed'] is True and good['tests_passed']==1
 
 
@@ -35,6 +35,21 @@ def test_runner_blocks_dangerous_import():
     with TestClient(app) as client:
         response=client.post('/executions/run',json={'exercise_id':'start-001','code':'import os\nresult = 1'}).json()
         assert not response['ok'] and response['error_type']=='SecurityError'
+        assert 'passed' not in response and 'explanation' not in response and 'tests_passed' not in response
+
+
+def test_only_submit_returns_checker_feedback_and_records_an_attempt():
+    with TestClient(app) as client:
+        eid='start-001';code=prepared(eid,'result = None')
+        before=client.get('/progress').json()['attempts']
+        executed=client.post('/executions/run',json={'exercise_id':eid,'code':code}).json()
+        after_run=client.get('/progress').json()['attempts']
+        checked=client.post('/attempts/submit',json={'exercise_id':eid,'code':code}).json()
+        after_check=client.get('/progress').json()['attempts']
+        assert 'passed' not in executed and 'explanation' not in executed
+        assert after_run==before
+        assert checked['passed'] is False and checked['explanation']['check']
+        assert after_check==before+1
 
 
 def test_dataframe_creation_contract_and_precise_diff():

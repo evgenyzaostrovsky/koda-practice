@@ -90,6 +90,7 @@ export function Sandbox() {
     [message, setMessage] = useState("Подготовка Python…"),
     [runtimeMetrics, setRuntimeMetrics] = useState<RuntimeMetrics | null>(null),
     [uploadProgress, setUploadProgress] = useState<number | null>(null),
+    [fileError, setFileError] = useState(""),
     [mobileTab, setMobileTab] = useState<"files" | "code" | "result">("code"),
     [copied, setCopied] = useState("");
   const runtime = useRef<SandboxRuntime | null>(null),
@@ -143,6 +144,7 @@ export function Sandbox() {
     for (const file of Array.from(list)) {
       setUploadProgress(0);
       try {
+        setFileError("");
         const uploaded = await uploadCsv(file, setUploadProgress);
         emitAchievementEvent(
           "csv_uploaded",
@@ -151,8 +153,7 @@ export function Sandbox() {
         );
         await refetch();
       } catch (e) {
-        setMessage(e instanceof Error ? e.message : String(e));
-        setRuntimeState("error");
+        setFileError(e instanceof Error ? e.message : String(e));
       } finally {
         setUploadProgress(null);
       }
@@ -167,22 +168,24 @@ export function Sandbox() {
     const name = prompt("Новое имя CSV", file.name);
     if (!name || name === file.name) return;
     try {
+      setFileError("");
       await api(`/sandbox/files/${file.id}`, {
         method: "PATCH",
         body: JSON.stringify({ name }),
       });
       await refetch();
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : String(e));
+      setFileError(e instanceof Error ? e.message : String(e));
     }
   };
   const remove = async (file: SandboxFile) => {
     if (!confirm(`Удалить ${file.name}?`)) return;
     try {
+      setFileError("");
       await api(`/sandbox/files/${file.id}`, { method: "DELETE" });
       await refetch();
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : String(e));
+      setFileError(e instanceof Error ? e.message : String(e));
     }
   };
   const run = async () => {
@@ -406,10 +409,19 @@ export function Sandbox() {
               onChange={(e) => e.target.files && selectFiles(e.target.files)}
             />
           </div>
+          {fileError && (
+            <div className="sandbox-error" role="alert">
+              <span>{fileError}</span>
+              <button onClick={() => { setFileError(""); void refetch(); }}>Обновить список</button>
+            </div>
+          )}
           {isLoading ? (
             <p className="sandbox-empty">Загрузка списка…</p>
           ) : error ? (
-            <p className="sandbox-error">{(error as Error).message}</p>
+            <div className="sandbox-error" role="alert">
+              <span>{(error as Error).message}</span>
+              <button onClick={() => void refetch()}>Повторить</button>
+            </div>
           ) : files.length === 0 ? (
             <p className="sandbox-empty">
               Загрузите CSV. Он появится в Python по пути{" "}

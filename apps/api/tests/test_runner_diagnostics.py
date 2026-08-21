@@ -64,4 +64,4 @@ def test_setup_code_and_representative_course_inputs():
         csv=client.get('/exercises/reading-001').json()
         assert "csv_path = 'data.csv'" in csv['setup_code']
         merged=client.get('/exercises/merge-001').json()
-        assert 'left = pd.DataFrame' in merged['setup_code'] and 'right = pd.DataFrame' in merged['setup_code']
+        assert 'orders = pd.DataFrame' in merged['setup_code'] and 'clients = pd.DataFrame' in merged['setup_code']

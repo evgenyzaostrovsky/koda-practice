@@ -8,24 +8,37 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "task_bank.md"
 TARGET = ROOT / "content" / "catalog.json"
 EDITORIAL = ROOT / "content" / "task_editorial.json"
+REPAIR_EXECUTABLE_IDS = {
+    "change-columns-008", "change-columns-010",
+    "vectorization-001", "vectorization-002", "vectorization-003", "vectorization-004", "vectorization-005", "vectorization-009", "vectorization-010",
+    "attributes-004", "attributes-005", "attributes-006", "attributes-008", "attributes-009",
+    "inspection-010",
+    "dataframe-methods-003", "dataframe-methods-004", "dataframe-methods-005", "dataframe-methods-006", "dataframe-methods-007", "dataframe-methods-010",
+    "series-methods-001", "series-methods-002", "series-methods-004", "series-methods-006", "series-methods-009", "series-methods-010",
+    *{f"groupby-{index:03d}" for index in range(1, 11)},
+    "merge-001", "merge-002", "merge-003", "merge-005", "merge-006", "merge-009",
+    *{f"pivot-{index:03d}" for index in range(1, 11)},
+    "filtering-004", "filtering-010", "sorting-003", "sorting-007", "sorting-010",
+    "dtypes-002", "dtypes-003", "dtypes-005", "dtypes-006", "dtypes-007", "dtypes-010",
+}
 
 
 SOLUTIONS = {
 "start": ["result = pd.DataFrame(data)", "result = pd.DataFrame.from_records(records)", "result = pd.DataFrame(rows, columns=column_names)", "result = pd.DataFrame(data, columns=column_order)", "result = pd.DataFrame(data, index=row_labels)", "result = pd.DataFrame.from_records(rows, columns=column_names)", "result = pd.DataFrame(columns=column_names)", "result = pd.DataFrame({'score': scores})", "result = pd.DataFrame(data, columns=column_order)", "result = pd.DataFrame(records, columns=column_order, index=row_labels)"],
 "reading": ["result = pd.read_csv(csv_path)", "result = pd.read_csv(csv_path, sep=';')", "result = pd.read_csv(csv_path, sep='\\t')", "result = pd.read_csv(csv_path, header=None)", "result = pd.read_csv(csv_path, header=None, names=column_names)", "result = pd.read_csv(csv_path, usecols=needed_columns)", "result = pd.read_csv(csv_path, index_col='id')", "result = pd.read_csv(csv_path, dtype={'client_id': 'string'})", "result = pd.read_csv(csv_path, parse_dates=['date'])", "result = pd.read_csv(csv_path, na_values=['нет', '-'])"],
 "columns": ["result = df['name']", "result = df[['name']]", "result = df[['name', 'score']]", "result = df[['score', 'name']]", "result = df[selected_columns]", "result = df[['price', 'quantity', 'discount']]", "result = df[selected_columns]", "result = df[['score', 'score']]", "result = df[['client name', 'total sales']]", "result = df[report_columns]"],
-"change-columns": ["result = df.copy()\nresult['status'] = 'new'", "result = df.copy()\nresult['price_copy'] = result['price']", "result = df.copy()\nresult['total'] = result['online'] + result['offline']", "result = df.copy()\nresult['change'] = result['current'] - result['previous']", "result = df.copy()\nresult['revenue'] = result['price'] * result['quantity']", "result = df.copy()\nresult['unit_price'] = result['amount'] / result['quantity']", "result = df.copy()\nresult['discount_amount'] = result['price'] * result['discount_pct'] / 100", "result = df.copy()\nresult['is_expensive'] = result['price'] >= price_limit", "result = df.copy()\nresult['name'] = names", "result = df.copy()\nresult['net'] = result['price'] * result['quantity'] - result['discount']"],
-"vectorization": ["result = values + offset", "result = values - offset", "result = values * factor", "result = values / divisor", "result = left + right", "result = left * right", "result = left + right", "result = left.add(right, fill_value=0)", "result = values >= threshold", "result = (prices * quantities) * (1 - discount_rate)"],
-"attributes": ["result = df.shape", "result = df.shape[0]", "result = df.shape[1]", "result = df.shape[0] == expected_rows", "result = left.shape == right.shape", "result = orders.shape[0] + returns.shape[0]", "result = df.shape[0] * df.shape[1]", "result = df.shape[1]", "result = train.shape[0] > test.shape[0]", "result = {'rows': df.shape[0], 'columns': df.shape[1]}"],
-"inspection": ["result = df.head()", "result = df.head(3)", "result = df.head(1)", "result = df.head(n)", "result = df.head(0)", "result = df.tail()", "result = df.tail(2)", "result = df.tail(1)", "result = df.tail(n)", "result = df.head(n)"],
-"dataframe-methods": ["result = values.sum()", "result = df['sales'].sum()", "result = values.sum()", "result = values.sum()", "result = values.sum(skipna=True)", "result = values.sum(skipna=False)", "result = values.sum(min_count=min_required)", "result = df.sum()", "result = df.sum(axis=1)", "result = flags.sum()"],
-"series-methods": ["result = values.value_counts()", "result = values.value_counts()", "result = values.value_counts()", "result = values.value_counts()", "result = values.value_counts(dropna=False)", "result = values.value_counts(normalize=True)", "result = values.value_counts(sort=False)", "result = values.value_counts(ascending=True)", "result = values.value_counts(bins=bin_count)", "result = values.value_counts(dropna=False)"],
-"groupby": ["result = df.groupby('category')['sales'].sum()", "result = df.groupby('city')['revenue'].sum()", "result = df.groupby('team')['points'].sum()", "result = df.groupby('category')[['sales', 'profit']].sum()", "result = df.groupby(['city', 'category'])['sales'].sum()", "result = df.groupby('category', as_index=False)['sales'].sum()", "result = df.groupby('category', sort=False)['sales'].sum()", "result = df.groupby('category', dropna=False)['sales'].sum()", "result = df.groupby('category')['sales'].sum(min_count=1)", "result = df.groupby('team')['won'].sum()"],
-"filtering": ["result = df.query('score > 80')", "result = df.query('score >= 60')", "result = df.query(\"city == 'Москва'\")", "result = df.query(\"status != 'closed'\")", "result = df.query('score >= 60 and attempts <= 2')", "result = df.query(\"city == 'Москва' or city == 'Казань'\")", "result = df.query('score >= @min_score')", "result = df.query('city in @allowed_cities')", "result = df.query('`total sales` > 1000')", "result = df.query('price >= @min_price and price <= @max_price')"],
-"sorting": ["result = df.sort_values('score')", "result = df.sort_values('score', ascending=False)", "result = df.sort_values('name')", "result = df.sort_values(['city', 'score'])", "result = df.sort_values(['city', 'score'], ascending=[True, False])", "result = df.sort_values('score', na_position='first')", "result = df.sort_values('score', ignore_index=True)", "result = df.sort_values('name', key=lambda s: s.str.lower())", "result = df.sort_values('score', kind='stable')", "result = df.sort_values(['priority', 'created_at'], ascending=[False, True])"],
-"merge": ["result = pd.merge(left, right, on='id')", "result = pd.merge(left, right, on='id', how='left')", "result = pd.merge(left, right, on='id', how='right')", "result = pd.merge(left, right, on='id', how='outer')", "result = pd.merge(left, right, left_on='client_id', right_on='id')", "result = pd.merge(left, right, on=['city', 'year'])", "result = pd.merge(left, right, on='id', suffixes=('_old', '_new'))", "result = pd.merge(left, right, on='id', how='outer', indicator=True)", "result = pd.merge(left, right, on='category_id', validate='many_to_one')", "result = pd.merge(left, right, left_index=True, right_index=True)"],
-"pivot": ["result = df.pivot_table(index='city', values='sales')", "result = df.pivot_table(index='city', values='sales', aggfunc='sum')", "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum')", "result = df.pivot_table(index=['city', 'year'], values='sales', aggfunc='sum')", "result = df.pivot_table(index='city', values=['sales', 'profit'], aggfunc='sum')", "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', fill_value=0)", "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True)", "result = df.pivot_table(index='city', values='sales', aggfunc='sum', margins=True, margins_name=total_label)", "result = df.pivot_table(index='city', values='sales', aggfunc='sum', sort=False)", "result = df.pivot_table(index='city', columns='category', values='sales', aggfunc='sum', observed=False)"],
-"dtypes": ["result = values.astype('int64')", "result = values.astype('float64')", "result = values.astype('string')", "result = values.astype('bool')", "result = df.copy()\nresult['score'] = result['score'].astype('int64')", "result = df.astype({'count': 'int64', 'price': 'float64'})", "result = values.astype('category')", "result = values.astype('Int64')", "result = df.copy()\nresult.index = result.index.astype('string')", "result = values.astype('string')"],
+"change-columns": ["result = df.copy()\nresult['status'] = 'new'", "result = df.copy()\nresult['price_copy'] = result['price']", "result = df.copy()\nresult['total'] = result['online'] + result['offline']", "result = df.copy()\nresult['change'] = result['current'] - result['previous']", "result = df.copy()\nresult['revenue'] = result['price'] * result['quantity']", "result = df.copy()\nresult['unit_price'] = result['amount'] / result['quantity']", "result = df.copy()\nresult['discount_amount'] = result['price'] * result['discount_pct'] / 100", "result = df.copy()\nresult['is_high'] = result['score'] >= 80", "result = df.copy()\nresult['name'] = names", "result = df.copy()\nresult['price_with_tax'] = result['price'] * (1 + tax_rate)"],
+"vectorization": ["result = scores + 5", "result = prices - 10", "result = prices * rate", "result = meters / 1000", "result = online_sales + offline_sales", "result = left + right", "result = left + right", "result = left.add(right, fill_value=0)", "result = scores >= pass_score", "result = prices * (1 + vat_rate)"],
+"attributes": ["result = df.shape", "result = df.shape[0]", "result = df.shape[1]", "result = df.shape[0] == 0", "result = left_df.shape == right_df.shape", "result = after_df.shape[0] - before_df.shape[0]", "result = df.shape[0] * df.shape[1]", "result = df.shape[1] == expected_columns", "result = 'left' if left_df.shape[0] > right_df.shape[0] else 'right'", "result = {'rows': df.shape[0], 'columns': df.shape[1]}"],
+"inspection": ["result = df.head()", "result = df.head(3)", "result = df.head(1)", "result = df.head(n)", "result = df.head(0)", "result = df.tail()", "result = df.tail(2)", "result = df.tail(1)", "result = df.tail(n)", "result = df.tail(n)"],
+"dataframe-methods": ["result = values.sum()", "result = df['sales'].sum()", "result = df['balance'].sum()", "result = amounts.sum()", "result = sales.sum()", "result = sales.sum(skipna=False)", "result = values.sum(min_count=required_count)", "result = df.sum()", "result = df.sum(axis=1)", "result = is_paid.sum()"],
+"series-methods": ["result = cities.value_counts()", "result = scores.value_counts()", "result = values.value_counts()", "result = cities.value_counts()", "result = values.value_counts(dropna=False)", "result = answers.value_counts(normalize=True)", "result = values.value_counts(sort=False)", "result = values.value_counts(ascending=True)", "result = ages.value_counts(bins=bin_count)", "result = statuses.value_counts(dropna=False)"],
+"groupby": ["result = df.groupby('store')['sales'].sum()", "result = df.groupby('category')['revenue'].sum()", "result = df.groupby('client_id')['amount'].sum()", "result = df.groupby('team')[['points', 'penalties']].sum()", "result = df.groupby(['city', 'product'])['sales'].sum()", "result = df.groupby('city', as_index=False)['sales'].sum()", "result = df.groupby('city', sort=False)['sales'].sum()", "result = df.groupby('city', dropna=False)['sales'].sum()", "result = df.groupby('category')['amount'].sum(min_count=1)", "result = df.groupby('user_id')['is_done'].sum()"],
+"filtering": ["result = df.query('score > 80')", "result = df.query('score >= 60')", "result = df.query(\"city == 'Москва'\")", "result = df.query(\"status != 'cancelled'\")", "result = df.query('score >= 60 and attempts <= 3')", "result = df.query(\"city == 'Москва' or city == 'Казань'\")", "result = df.query('score >= @min_score')", "result = df.query('city in @allowed_cities')", "result = df.query('`total sales` > 1000')", "result = df.query('score >= @min_score and score <= @max_score')"],
+"sorting": ["result = df.sort_values('score')", "result = df.sort_values('score', ascending=False)", "result = df.sort_values('city')", "result = df.sort_values(['city', 'score'])", "result = df.sort_values(['city', 'score'], ascending=[True, False])", "result = df.sort_values('score', na_position='first')", "result = df.sort_values('date', ignore_index=True)", "result = df.sort_values('name', key=lambda s: s.str.lower())", "result = df.sort_values('score', kind='stable')", "result = df.sort_values(['category', 'score'], ascending=[True, False])"],
+"merge": ["result = pd.merge(orders, clients, on='id')", "result = pd.merge(orders, clients, on='id', how='left')", "result = pd.merge(orders, clients, on='id', how='right')", "result = pd.merge(left, right, on='id', how='outer')", "result = pd.merge(orders, clients, left_on='client_id', right_on='id')", "result = pd.merge(left, right, on=['store_id', 'date'])", "result = pd.merge(left, right, on='id', suffixes=('_old', '_new'))", "result = pd.merge(left, right, on='id', how='outer', indicator=True)", "result = pd.merge(orders, clients, on='client_id', validate='many_to_one')", "result = pd.merge(left, right, left_index=True, right_index=True)"],
+"pivot": ["result = df.pivot_table(index='city', values='amount')", "result = df.pivot_table(index='city', values='amount', aggfunc='sum')", "result = df.pivot_table(index='city', columns='category', values='amount')", "result = df.pivot_table(index=['city', 'store'], values='amount', aggfunc='sum')", "result = df.pivot_table(index='city', values=['amount', 'quantity'])", "result = df.pivot_table(index='city', columns='category', values='amount', aggfunc='sum', fill_value=0)", "result = df.pivot_table(index='city', values='amount', aggfunc='sum', margins=True)", "result = df.pivot_table(index='city', values='amount', aggfunc='sum', margins=True, margins_name=total_label)", "result = df.pivot_table(index='city', values='amount', aggfunc='sum', sort=False)", "result = df.pivot_table(index='city', columns='category', values='amount', aggfunc='sum', observed=False)"],
+"dtypes": ["result = values.astype('int64')", "result = prices.astype('float64')", "result = codes.astype('string')", "result = values.astype('bool')", "result = df.copy()\nresult['age'] = result['age'].astype('int64')", "result = df.astype({'age': 'int64', 'price': 'float64'})", "result = df.copy()\nresult['status'] = result['status'].astype('category')", "result = values.astype('Int64')", "result = df.copy()\nresult.index = result.index.astype('string')", "result = df.copy()\nresult['client_id'] = result['client_id'].astype('string')"],
 "datetime": ["result = pd.to_datetime(dates)", "result = pd.to_datetime(dates, dayfirst=True)", "result = pd.to_datetime(dates, format=date_format)", "result = pd.to_datetime(dates, errors='coerce')", "result = pd.to_datetime(timestamps, unit='s')", "result = dates.dt.year", "result = dates.dt.month", "result = dates.dt.day", "result = dates.dt.day_name()", "result = dates.dt.quarter"],
 "recipes": ["result = values.fillna(0)", "result = cities.fillna('Неизвестно')", "result = scores.fillna(fill_value)", "result = df.copy()\nresult['discount'] = result['discount'].fillna(0)", "result = df.copy()\nresult['age'] = result['age'].fillna(result['age'].mean())", "result = df.copy()\nresult['salary'] = result['salary'].fillna(result['salary'].median())", "result = df.fillna({'city': 'Неизвестно', 'score': 0})", "result = prices.ffill()", "result = prices.bfill()", "result = values.fillna(0, limit=fill_limit)"],
 "pandas-plots": ["result = df.plot()", "result = df.plot(y='sales')", "result = df.plot(x='date', y='sales')", "result = df.plot(x='category', y='sales', kind='bar')", "result = df.plot(x='category', y='sales', kind='barh')", "result = df.plot(y='score', kind='hist')", "result = df.plot(y='sales', title=chart_title)", "result = df.plot(y='sales', figsize=figure_size)", "result = df.plot(y='sales', marker='o')", "result = df.plot(x='month', y=['plan', 'fact'])"],
@@ -114,43 +127,79 @@ def dataset(slug, n):
     if slug in {"columns","change-columns","filtering","sorting"}:
         variables={}
         if slug=="columns": variables={"selected_columns":[] if n==7 else ["city","score"],"report_columns":["name","city","score"]}
-        if slug=="change-columns": variables={"price_limit":150,"names":["А","Б","В","Г"]}
-        if slug=="filtering": variables={"min_score":70,"allowed_cities":["Москва","Тула"],"min_price":90,"max_price":200}
+        if slug=="change-columns": variables={"price_limit":150,"names":["А","Б","В","Г"],"tax_rate":0.2}
+        if slug=="filtering": variables={"min_score":60,"max_score":90,"allowed_cities":["Москва","Тула"]}
+        if slug=="sorting": base={**base,"date":["2026-02-01","2026-01-03","2026-03-01","2026-01-01"],"category":["B","A","B","A"]}
+        if slug=="filtering" and n==4: base={**base,"status":["open","cancelled","open","new"]}
         return {"df":base,"variables":variables}
     if slug == "vectorization":
-        if n in (5,6,7,8): return {"series":{"left":{"data":[10+k,20,30],"index":["a","b","c"]},"right":{"data":[1,2,4],"index":["b","c","d"] if n in (7,8) else ["a","b","c"]}}}
-        names={1:("values",[1,3,5],"offset",k),2:("values",[10,20,30],"offset",k),3:("values",[2,4,6],"factor",k+1),4:("values",[12,18,24],"divisor",3),9:("values",[4,8,12],"threshold",8)}
+        if n==5:return {"series":{"online_sales":{"data":[10,20,30],"index":["a","b","c"]},"offline_sales":{"data":[1,2,4],"index":["a","b","c"]}}}
+        if n in (6,7,8): return {"series":{"left":{"data":[10+k,20,30],"index":["a","b","c"]},"right":{"data":[1,2,4],"index":["b","c","d"] if n in (7,8) else ["c","a","b"]}}}
+        names={1:("scores",[1,3,5],"unused",0),2:("prices",[10,20,30],"unused",0),3:("prices",[2,4,6],"rate",3),4:("meters",[1200,1800,2400],"unused",0),9:("scores",[4,8,12],"pass_score",8)}
         if n in names:
-            a,v,b,x=names[n]; return {**series(a,v),"variables":{b:x}}
-        return {"series":{"prices":{"data":[100,200,150]},"quantities":{"data":[2,1,3]},"discount_rate":{"data":[.1,.2,0]}}}
+            a,v,b,x=names[n]
+            payload=series(a,v)
+            if b != "unused": payload["variables"]={b:x}
+            return payload
+        return {"series":{"prices":{"data":[100,200,150]}},"variables":{"vat_rate":0.2}}
     if slug == "attributes":
         frames={"df":{"a":[1,2,3],"b":[4,5,6]}}
-        if n==5: frames={"left":{"a":[1,2]},"right":{"b":[3,4]}}
-        if n==6: frames={"orders":{"id":[1,2,3]},"returns":{"id":[2]}}
-        if n==9: frames={"train":{"x":[1,2,3,4]},"test":{"x":[5,6]}}
-        return {**frames,"variables":{"expected_rows":3}}
+        if n==4: frames={"df":{"a":[1],"b":[2]}}
+        if n==5: frames={"left_df":{"a":[1,2]},"right_df":{"b":[3,4]}}
+        if n==6: frames={"after_df":{"id":[1,2,3]},"before_df":{"id":[1]}}
+        if n==9: frames={"left_df":{"x":[1,2,3,4]},"right_df":{"x":[5,6]}}
+        return {**frames,"variables":{"expected_columns":2}}
     if slug == "inspection": return {"df":{"id":list(range(1,9)),"value":[k*x for x in range(1,9)]},"variables":{"n":12 if n==10 else (2+k%4)}}
     if slug in {"dataframe-methods","series-methods"}:
         vals=[1,2,None,4,2,1] if slug=="dataframe-methods" else ([1,2,2,4,7,9] if n==9 else ["A","B","A",None,"C","A"])
         if n==8 and slug=="dataframe-methods": return {"df":{"sales":[10,20,30],"profit":[2,5,7]}}
         if n==9 and slug=="dataframe-methods": return {"df":{"q1":[1,2,3],"q2":[4,5,6]}}
         if n==2 and slug=="dataframe-methods": return {"df":{"sales":[10,20,30]}}
-        key="flags" if n==10 and slug=="dataframe-methods" else "values"
-        data=[True,False,True,True] if key=="flags" else vals
-        return {**series(key,data),"variables":{"min_required":5,"bin_count":3}}
-    if slug in {"groupby","pivot"}:
-        frame={"category":["A","B","A",None],"city":["Москва","Казань","Москва","Тула"],"year":[2025,2025,2026,2026],"sales":[10,20,None,15],"profit":[2,5,3,4],"revenue":[100,200,150,90],"team":["X","Y","X","Y"],"points":[2,1,3,4],"won":[True,False,True,True]}
+        if slug=="dataframe-methods" and n==3:return {"df":{"balance":[10,0,-4,8]}}
+        if slug=="dataframe-methods" and n==4:return series("amounts",[1.5,2.25,3.0])
+        if slug=="dataframe-methods" and n in (5,6):return series("sales",[10,None,20])
+        if slug=="series-methods" and n in (1,4):return series("cities",["Москва","Тула","Москва",None])
+        if slug=="series-methods" and n==2:return series("scores",[5,4,5,3])
+        if slug=="series-methods" and n==6:return series("answers",["да","нет","да"])
+        if slug=="series-methods" and n==9:return {**series("ages",[18,25,31,45,52]),"variables":{"bin_count":3}}
+        if slug=="series-methods" and n==10:return series("statuses",["new",None,"done","new"])
+        key="is_paid" if n==10 and slug=="dataframe-methods" else "values"
+        data=[True,False,True,True] if key=="is_paid" else vals
+        return {**series(key,data),"variables":{"required_count":5,"bin_count":3}}
+    if slug == "groupby":
+        variants = {
+            1:{"store":["Центр","Север","Центр"],"sales":[10,20,15]},
+            2:{"category":["A","B","A"],"revenue":[100,200,150]},
+            3:{"client_id":[1,2,1],"amount":[100,80,50]},
+            4:{"team":["X","Y","X"],"points":[2,1,3],"penalties":[0,2,1]},
+            5:{"city":["Москва","Москва","Тула"],"product":["Курс","Книга","Курс"],"sales":[10,20,15]},
+            6:{"city":["Москва","Тула","Москва"],"sales":[10,20,15]},
+            7:{"city":["Тула","Москва","Тула"],"sales":[10,20,15]},
+            8:{"city":["Москва",None,"Москва"],"sales":[10,20,15]},
+            9:{"category":["A","A","B","B"],"amount":[10,None,None,None]},
+            10:{"user_id":[1,2,1,2],"is_done":[True,False,True,True]},
+        }
+        return {"df":variants[n]}
+    if slug == "pivot":
+        frame={"city":["Москва","Москва","Тула","Тула"],"category":["A","B","A","B"],"store":["Центр","Север","Центр","Север"],"amount":[100,200,150,90],"quantity":[1,2,3,1]}
         return {"df":frame,"variables":{"total_label":"Итого"}}
     if slug == "merge":
         left={"id":[1,2,3],"client_id":[10,20,10],"city":["Москва","Тула","Москва"],"year":[2025,2025,2026],"value":[10,20,30],"category_id":[100,200,100]}
         right={"id":[10,20,30],"city":["Москва","Тула","Казань"],"year":[2025,2025,2026],"value":[100,200,300],"category_id":[100,200,300],"category":["A","B","C"]}
         if n<5: right={"id":[2,3,4],"label":["B","C","D"]}
-        if n==6: left={"city":["Москва","Тула"],"year":[2025,2026],"sales":[10,20]}; right={"city":["Москва","Тула"],"year":[2025,2026],"plan":[12,18]}
-        if n==9: right={"category_id":[100,200],"category":["A","B"]}
+        if n in (1,2,3): return {"orders":left,"clients":right}
+        if n==5: return {"orders":left,"clients":right}
+        if n==6: left={"store_id":[1,2],"date":["2026-01-01","2026-01-02"],"sales":[10,20]}; right={"store_id":[1,2],"date":["2026-01-01","2026-01-02"],"plan":[12,18]}
+        if n==9: return {"orders":{"id":[1,2,3],"client_id":[10,20,10]},"clients":{"client_id":[10,20],"client_name":["Анна","Борис"]}}
         if n==10: left={"value":[10,20]}; right={"label":["A","B"]}
         return {"left":left,"right":right}
     if slug == "dtypes":
-        if n in (5,6,9): return {"df":{"count":["1","2","3"],"price":["1.5","2.0","3.25"],"score":["7","8","9"]}}
+        if n in (5,6): return {"df":{"age":["20","30","40"],"price":["1.5","2.0","3.25"]}}
+        if n==7:return {"df":{"status":["new","done","new"]}}
+        if n==9:return {"df":{"count":["1","2","3"],"price":["1.5","2.0","3.25"],"score":["7","8","9"]}}
+        if n==10:return {"df":{"client_id":["0012","0040","0100"]}}
+        if n==2:return series("prices",["1.5","2.0","3.25"])
+        if n==3:return series("codes",["A1","B2","C3"])
         vals=["1","2","3"] if n not in (4,8) else ([0,1,1] if n==4 else [1,None,3])
         return series("values",vals)
     if slug == "datetime":
@@ -191,7 +240,7 @@ def parse_bank():
             generated={"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":copy["title"],"instructions":copy["instructions"],"focus":focus,"learning_objective":copy["learning_objective"],"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":prepared,"starter_code":starter,"solution_code":solution,"theory_article_id":f"theory-{eid}","required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":copy["hints"],"completion_summary":copy["completion_summary"],"explanation":copy["explanation"],"is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]}
             # Editorial imports are not allowed to rewrite executable task contracts.
             # Existing technical fields win; only the explicit learner-facing copy changes.
-            if eid in existing:
+            if eid in existing and eid not in REPAIR_EXECUTABLE_IDS:
                 generated={**existing[eid], **{key:copy[key] for key in ("title","instructions","learning_objective","hints","completion_summary","explanation")}}
             exercises.append(generated)
         slug=exercises[0]["id"].rsplit("-",1)[0]
