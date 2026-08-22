@@ -310,9 +310,19 @@ export function Sandbox() {
     } catch (e) {
       const text = e instanceof Error ? e.message : String(e);
       if (runtime.current === activeRuntime) {
+        setResult({
+          ok: false,
+          stdout: "",
+          plots: [],
+          errorType: "RuntimeError",
+          message: text,
+          traceback: text,
+        });
+        setMobileTab("result");
         activeRuntime.terminate();
         createRuntime();
         setMessage(text);
+        requestAnimationFrame(() => outputPanel.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
       }
     } finally {
       running.current = false;

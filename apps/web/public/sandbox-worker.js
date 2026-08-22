@@ -78,7 +78,7 @@ function mount(files) {
 }
 
 const RUNNER = String.raw`
-import ast, base64, contextlib, io, json, sys, time, traceback
+import ast, base64, contextlib, io, json, math, sys, time, traceback
 
 MAX_STDOUT = 100_000
 MAX_VALUE = 20_000
@@ -88,7 +88,22 @@ class _KodaPreparationRequired(Exception):
 
 def _safe(value):
     if value is None: return None
-    if isinstance(value, (bool, int, float, str)): return value
+    try:
+        import pandas as pd
+        if value is pd.NA or value is pd.NaT: return None
+        missing = pd.isna(value)
+        if isinstance(missing, bool) and missing: return None
+        if type(missing).__name__ == "bool_" and bool(missing): return None
+    except (TypeError, ValueError):
+        pass
+    if isinstance(value, float):
+        if math.isnan(value): return None
+        if math.isinf(value): return str(value)
+        return value
+    if isinstance(value, (bool, int, str)): return value
+    if type(value).__module__.startswith("numpy") and hasattr(value, "item"):
+        try: return _safe(value.item())
+        except (TypeError, ValueError): pass
     return str(value)
 
 def _table(value):
@@ -173,7 +188,7 @@ except BaseException as error:
     error_output = stderr.getvalue()
     trace = traceback.format_exc()
     __koda_payload = {"ok": False, "stdout": output[:MAX_STDOUT], "stderr": error_output[:MAX_STDOUT], "stdoutTruncated": len(output) > MAX_STDOUT, "stderrTruncated": len(error_output) > MAX_STDOUT, "errorType": type(error).__name__, "message": str(error)[:MAX_VALUE], "traceback": trace[:MAX_STDOUT], "plots": [], "pythonTiming": {key: round((value - __timing["bootstrapStart"]) * 1000, 3) for key, value in __timing.items()}}
-return json.dumps(__koda_payload, ensure_ascii=False)
+return json.dumps(__koda_payload, ensure_ascii=False, allow_nan=False)
 `;
 
 // Compile the execution harness once during cold start. Re-parsing and compiling

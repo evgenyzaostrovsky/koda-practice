@@ -65,6 +65,14 @@ def test_upload_list_content_and_stable_path(memory):
     assert body.startswith(b"city,sales") and name=="sales.csv"
 
 
+def test_upload_preserves_minimal_csv_with_missing_value(memory):
+    content="city,sales\nМосква,10\nКазань,\n".encode("utf-8")
+    item=create(memory,"minimal-missing.csv",content)
+    body,name=storage.file_content(USER,item["id"])
+    assert item["logicalPath"]=="/datasets/minimal-missing.csv"
+    assert name=="minimal-missing.csv" and body==content
+
+
 @pytest.mark.parametrize("name",["data.txt","../sales.csv","/sales.csv","dir\\sales.csv","bad\x00.csv",""])
 def test_rejects_unsupported_or_unsafe_names(memory,name):
     with pytest.raises(HTTPException):create(memory,name)

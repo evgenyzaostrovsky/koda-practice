@@ -44,7 +44,7 @@ export type RuntimeMetrics = {
   packagesReadyMs: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
-const WORKER_PROTOCOL_VERSION = "9";
+const WORKER_PROTOCOL_VERSION = "10";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;
@@ -138,7 +138,17 @@ export class SandboxRuntime {
         }
       }
     };
-    this.worker.onerror = () => this.fatalListener?.("Python Worker завершился с ошибкой");
+    this.worker.onerror = (event) => {
+      const message = event.message || "Python Worker завершился с ошибкой";
+      const error = new Error(message);
+      this.readyReject(error);
+      for (const pending of this.pending.values()) {
+        if (pending.timer) window.clearTimeout(pending.timer);
+        pending.reject(error);
+      }
+      this.pending.clear();
+      this.fatalListener?.(message);
+    };
   }
 
   ready() {

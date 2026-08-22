@@ -4,11 +4,12 @@ import { SandboxRuntime } from "./sandbox-runtime";
 class FakeWorker {
   static instances: FakeWorker[] = [];
   onmessage?: (event: MessageEvent) => void;
-  onerror?: () => void;
+  onerror?: (event: ErrorEvent) => void;
   postMessage = vi.fn();
   terminate = vi.fn();
   constructor() { FakeWorker.instances.push(this); }
   emit(data: unknown) { this.onmessage?.({ data } as MessageEvent); }
+  fail(message: string) { this.onerror?.({ message } as ErrorEvent); }
 }
 
 describe("SandboxRuntime lifecycle", () => {
@@ -106,5 +107,17 @@ describe("SandboxRuntime lifecycle", () => {
     worker.emit({ type: "result", requestId, payload: { ok: true, stdout: "", plots: [] } });
     await expect(result).resolves.toMatchObject({ ok: true });
     expect(FakeWorker.instances).toHaveLength(1);
+  });
+
+  it("rejects an active run when the worker crashes", async () => {
+    const fatal = vi.fn();
+    const runtime = new SandboxRuntime(fatal);
+    const worker = FakeWorker.instances[0];
+    worker.emit({ type: "ready", version: "0.27.7", metrics: { workerCreatedMs: 1, pyodideReadyMs: 2, packagesReadyMs: 3 } });
+    const result = runtime.run("1 + 1", [], async () => []);
+    await Promise.resolve();
+    worker.fail("Worker serialization failed");
+    await expect(result).rejects.toThrow("Worker serialization failed");
+    expect(fatal).toHaveBeenCalledWith("Worker serialization failed");
   });
 });

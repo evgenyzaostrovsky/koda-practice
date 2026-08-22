@@ -10,6 +10,11 @@ await pyodide.loadPackage(["numpy", "pandas"]);
 pyodide.runPython("__koda_globals = {'__name__': '__main__'}");
 pyodide.runPython(`def __koda_run():\n${runner.split("\n").map((line) => `    ${line}`).join("\n")}`);
 const loadedPackages = ["python", "numpy", "pandas"];
+pyodide.FS.mkdirTree("/datasets");
+pyodide.FS.writeFile(
+  "/datasets/minimal-missing.csv",
+  new TextEncoder().encode("city,sales\nМосква,10\nКазань,\n"),
+);
 
 const run = async (code) => {
   pyodide.globals.set("__koda_code", code);
@@ -34,12 +39,20 @@ payload = await run("a + 5");
 expect(payload.result?.value === "15", "persistent globals failed");
 payload = await run("import pandas as pd\npd.DataFrame({'a': [1, 2]})");
 expect(payload.result?.kind === "dataframe" && payload.result.data.length === 2, "DataFrame preview failed");
+payload = await run("pd.DataFrame({'integer': [1], 'float': [1.5], 'boolean': [True], 'text': ['KODA']})");
+expect(JSON.stringify(payload.result?.data?.[0]) === JSON.stringify([1, 1.5, true, "KODA"]), "non-missing values changed during preview serialization");
 payload = await run("import numpy as np\nnp.array([1, 2, 3])");
 expect(payload.result?.value === "array([1, 2, 3])", "NumPy result failed");
 payload = await run("pd.Series([1, 2, 3])");
 expect(payload.result?.kind === "series" && payload.result.data.length === 3, "Series preview failed");
 payload = await run("df = pd.DataFrame({'a': [1, 2]})\ndf.head()");
 expect(payload.result?.kind === "dataframe" && payload.result.shape[0] === 2, "DataFrame operation failed");
+payload = await run("missing_df = pd.read_csv('/datasets/minimal-missing.csv')\nprint(missing_df)\nmissing_df.head()");
+expect(payload.ok && payload.stdout.includes("NaN") && payload.result?.data?.[1]?.[1] === null, "CSV NaN preview normalization failed");
+payload = await run("missing_matrix = pd.DataFrame({'none': [None], 'float_nan': [float('nan')], 'pd_na': pd.array([pd.NA], dtype='Int64'), 'nat': [pd.NaT], 'np_nan': [np.nan], 'np_nat': [np.datetime64('NaT')]})\nmissing_matrix");
+expect(payload.ok && payload.result?.data?.[0]?.every((value) => value === null), "missing dtype matrix normalization failed");
+payload = await run("bool(missing_matrix.isna().all().all())");
+expect(payload.ok && payload.result?.value === "True", "preview serialization mutated the DataFrame");
 payload = await run("1 / 0");
 expect(!payload.ok && payload.errorType === "ZeroDivisionError" && Array.isArray(payload.plots), "error contract failed");
 payload = await run("10");
