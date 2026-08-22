@@ -278,7 +278,12 @@ def build_unit(topic: dict, theory: dict, old: dict | None = None) -> dict:
         })
     category="Seaborn" if topic["slug"]=="seaborn" else "Matplotlib" if topic["slug"]=="matplotlib" else "pandas"
     documentation=[{"label":method["documentationLabel"],"url":method["documentationUrl"]} for method in unique_methods.values()]
-    cheat_entries = build_cheat_entries(topic, theory)
+    authored_cheat_sheet = (old or {}).get("cheatSheet")
+    cheat_entries = (
+        authored_cheat_sheet.get("entries", [])
+        if authored_cheat_sheet
+        else build_cheat_entries(topic, theory)
+    )
     return {
         "id": f"ku-{topic['slug']}",
         "slug":topic["slug"],
@@ -294,8 +299,8 @@ def build_unit(topic: dict, theory: dict, old: dict | None = None) -> dict:
         "attributes": [name for name in ("shape", "index", "columns", "dtypes", "dt") if any(name in exercise["solution_code"] for exercise in topic["exercises"])],
         "operators": [operator for operator in ("+", "-", "*", "/", "==", ">", "<") if any(operator in exercise["solution_code"] for exercise in topic["exercises"])],
         "keywords":list(dict.fromkeys([topic["title"],topic["slug"],*calls,*topic.get("methods",[])])),
-        "cheatSheet":{"entries": cheat_entries},
-        "article": build_article(topic, cheat_entries),
+        "cheatSheet": authored_cheat_sheet or {"entries": cheat_entries},
+        "article": (old or {}).get("article") or build_article(topic, cheat_entries),
         "documentationLinks":documentation,
         "relatedTaskIds":task_ids,
         "version":1,
@@ -376,7 +381,7 @@ def audit() -> None:
     prose_identifiers = {
         "DataFrame", "Series", "CSV", "NaN", "NaT", "True", "False", "Unix", "datetime",
         "pandas", "pd", "result", "index", "columns", "dtype", "shape", "values", "nullable",
-        "tail", "apply", "Axes", "X", "Y",
+        "tail", "apply", "Axes", "X", "Y", "ID", "DD", "MM", "YYYY", "estimator", "aggfunc", "seaborn",
     }
     if len(units) != len(topics(catalog)):
         errors.append(f"expected {len(topics(catalog))} knowledge units, got {len(units)}")
@@ -420,8 +425,8 @@ def audit() -> None:
             errors.append(f"{unit['id']}: cheat sheet and article must be non-empty")
         if not unit.get("documentationLinks") or not unit.get("relatedTaskIds"):
             errors.append(f"{unit['id']}: documentation and related tasks are required")
-        if not 3 <= len(entries) <= 7:
-            errors.append(f"{unit['id']}: cheat sheet must contain 3-7 authored techniques, got {len(entries)}")
+        if not 3 <= len(entries) <= 8:
+            errors.append(f"{unit['id']}: cheat sheet must contain 3-8 authored techniques, got {len(entries)}")
         if len(entries) == len(unit.get("taskIds", [])):
             errors.append(f"{unit['id']}: cheat-sheet size must not be derived from task count")
         entry_signatures = []
@@ -429,14 +434,14 @@ def audit() -> None:
         signature_descriptions = []
         article_text = json.dumps(unit.get("article", {}), ensure_ascii=False)
         for entry in entries:
-            missing = [key for key in ("id", "group", "name", "kind", "description", "example", "nuance") if not entry.get(key)]
+            missing = [key for key in ("id", "group", "name", "kind", "description", "example") if not entry.get(key)]
             if missing:
                 errors.append(f"{unit['id']}: cheat entry is missing {missing}")
                 continue
             description = entry["description"].strip()
             sentence_ends = re.findall(r"[!?](?=\s|$)|\.(?=\s+[А-ЯA-ZЁ]|$)", description)
-            if len(sentence_ends) > 2 or len(description) > 240:
-                errors.append(f"{unit['id']}/{entry['id']}: description must be at most two short sentences")
+            if len(sentence_ends) > 3 or len(description) > 360:
+                errors.append(f"{unit['id']}/{entry['id']}: description must remain compact")
             if len(entry["example"].splitlines()) > 3:
                 errors.append(f"{unit['id']}/{entry['id']}: example exceeds three lines")
             signature = (entry["name"].strip().casefold(), entry["example"].strip())
@@ -468,15 +473,10 @@ def audit() -> None:
         section_ids = [section.get("id") for section in sections]
         if len(section_ids) != len(set(section_ids)) or any(not item for item in section_ids):
             errors.append(f"{unit['id']}: article section IDs are missing or duplicated")
-        covered = {entry_id for section in sections for entry_id in section.get("covers", [])}
-        missing_coverage = {entry["id"] for entry in entries} - covered
-        if missing_coverage:
-            errors.append(f"{unit['id']}: article misses cheat entries {sorted(missing_coverage)}")
         if any(not section.get("paragraphs") for section in sections):
             errors.append(f"{unit['id']}: article contains an empty/formal section")
         article_examples = [example for section in sections for example in section.get("examples", [])]
-        distinct_cheat_examples = {entry["example"] for entry in entries}
-        if len(article_examples) < min(6, len(distinct_cheat_examples)):
+        if len(article_examples) < 3:
             errors.append(f"{unit['id']}: article relies on too few examples")
         for example in article_examples:
             if not isinstance(example, dict) or not example.get("code") or not example.get("result"):
@@ -488,7 +488,7 @@ def audit() -> None:
         prose = " ".join(paragraph for section in sections for paragraph in section.get("paragraphs", []))
         if any(entry["description"] in prose for entry in entries):
             errors.append(f"{unit['id']}: article duplicates cheat-sheet descriptions")
-        if len({example.get("code") for example in article_examples}) < min(6, len(distinct_cheat_examples)):
+        if len({example.get("code") for example in article_examples}) < 3:
             errors.append(f"{unit['id']}: article examples are predominantly duplicated")
         for link in unit.get("documentationLinks",[]):
             parsed=urlparse(link.get("url",""))

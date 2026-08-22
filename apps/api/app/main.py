@@ -61,7 +61,12 @@ class SandboxRenameIn(BaseModel): name:str
 def used_methods(code:str)->set[str]:
     try: tree=ast.parse(code)
     except SyntaxError: return set()
-    return {n.attr for n in ast.walk(tree) if isinstance(n,ast.Attribute)} | {n.id for n in ast.walk(tree) if isinstance(n,ast.Name)}
+    return (
+        {n.attr for n in ast.walk(tree) if isinstance(n,ast.Attribute)}
+        | {n.id for n in ast.walk(tree) if isinstance(n,ast.Name)}
+        | {n.arg for n in ast.walk(tree) if isinstance(n,ast.keyword) and n.arg}
+        | {n.value for n in ast.walk(tree) if isinstance(n,ast.Constant) and isinstance(n.value,str) and n.value.isidentifier()}
+    )
 
 def json_preview(value):
     if value is None:return None

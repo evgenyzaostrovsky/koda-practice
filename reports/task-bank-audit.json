@@ -150,7 +150,7 @@
   ],
   "processing_note": "Совпадающие короткие выражения сохранены только там, где различаются учебная цель, входные данные или проверяемое поведение API.",
   "unique_learning_objectives": 200,
-  "unique_hints": 600,
+  "structured_hints": 600,
   "completion_summaries": 200,
   "runtime_input_checks_passed": 200,
   "reference_solutions_passed": 200,

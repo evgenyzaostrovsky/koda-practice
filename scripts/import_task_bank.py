@@ -8,6 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "content" / "task_bank.md"
 TARGET = ROOT / "content" / "catalog.json"
 EDITORIAL = ROOT / "content" / "task_editorial.json"
+RUNTIME_FIXES_PATH = ROOT / "content" / "runtime-fixes.v3.1.json"
 REPAIR_EXECUTABLE_IDS = {
     "change-columns-008", "change-columns-010",
     "vectorization-001", "vectorization-002", "vectorization-003", "vectorization-004", "vectorization-005", "vectorization-009", "vectorization-010",
@@ -131,6 +132,7 @@ def dataset(slug, n):
         if slug=="filtering": variables={"min_score":60,"max_score":90,"allowed_cities":["Москва","Тула"]}
         if slug=="sorting": base={**base,"date":["2026-02-01","2026-01-03","2026-03-01","2026-01-01"],"category":["B","A","B","A"]}
         if slug=="filtering" and n==4: base={**base,"status":["open","cancelled","open","new"]}
+        if slug=="filtering" and n==10: base={**base,"score":[60,59,90,None]}
         return {"df":base,"variables":variables}
     if slug == "vectorization":
         if n==5:return {"series":{"online_sales":{"data":[10,20,30],"index":["a","b","c"]},"offline_sales":{"data":[1,2,4],"index":["a","b","c"]}}}
@@ -165,7 +167,7 @@ def dataset(slug, n):
         if slug=="series-methods" and n==10:return series("statuses",["new",None,"done","new"])
         key="is_paid" if n==10 and slug=="dataframe-methods" else "values"
         data=[True,False,True,True] if key=="is_paid" else vals
-        return {**series(key,data),"variables":{"required_count":5,"bin_count":3}}
+        return {**series(key,data),"variables":{"required_count":6 if slug=="dataframe-methods" and n==7 else 5,"bin_count":3}}
     if slug == "groupby":
         variants = {
             1:{"store":["Центр","Север","Центр"],"sales":[10,20,15]},
@@ -182,6 +184,8 @@ def dataset(slug, n):
         return {"df":variants[n]}
     if slug == "pivot":
         frame={"city":["Москва","Москва","Тула","Тула"],"category":["A","B","A","B"],"store":["Центр","Север","Центр","Север"],"amount":[100,200,150,90],"quantity":[1,2,3,1]}
+        if n==6: frame={"city":["Москва","Москва","Тула"],"category":["A","B","A"],"store":["Центр","Север","Центр"],"amount":[100,200,150],"quantity":[1,2,3]}
+        if n==9: frame={"city":["Тула","Тула","Москва","Москва"],"category":["A","B","A","B"],"store":["Центр","Север","Центр","Север"],"amount":[150,90,100,200],"quantity":[3,1,1,2]}
         return {"df":frame,"variables":{"total_label":"Итого"}}
     if slug == "merge":
         left={"id":[1,2,3],"client_id":[10,20,10],"city":["Москва","Тула","Москва"],"year":[2025,2025,2026],"value":[10,20,30],"category_id":[100,200,100]}
@@ -189,7 +193,7 @@ def dataset(slug, n):
         if n<5: right={"id":[2,3,4],"label":["B","C","D"]}
         if n in (1,2,3): return {"orders":left,"clients":right}
         if n==5: return {"orders":left,"clients":right}
-        if n==6: left={"store_id":[1,2],"date":["2026-01-01","2026-01-02"],"sales":[10,20]}; right={"store_id":[1,2],"date":["2026-01-01","2026-01-02"],"plan":[12,18]}
+        if n==6: left={"store_id":[1,1,2],"date":["2026-01-01","2026-01-02","2026-01-01"],"sales":[10,12,20]}; right={"store_id":[1,1,2],"date":["2026-01-01","2026-01-02","2026-01-01"],"plan":[11,13,18]}
         if n==9: return {"orders":{"id":[1,2,3],"client_id":[10,20,10]},"clients":{"client_id":[10,20],"client_name":["Анна","Борис"]}}
         if n==10: left={"value":[10,20]}; right={"label":["A","B"]}
         return {"left":left,"right":right}
@@ -221,6 +225,7 @@ def dataset(slug, n):
 def parse_bank():
     text=SOURCE.read_text(encoding="utf-8")
     editorial=json.loads(EDITORIAL.read_text(encoding="utf-8"))["tasks"]
+    runtime_fixes={item["id"]:item for item in json.loads(RUNTIME_FIXES_PATH.read_text(encoding="utf-8"))["tasks"]} if RUNTIME_FIXES_PATH.exists() else {}
     existing={e["id"]:e for m in json.loads(TARGET.read_text(encoding="utf-8")).get("modules",[]) for t in m.get("topics",[]) for e in t.get("exercises",[])} if TARGET.exists() else {}
     topics=[]
     for block in re.split(r"(?m)^## ", text)[1:]:
@@ -238,6 +243,11 @@ def parse_bank():
             copy=editorial.get(eid)
             if not copy: raise ValueError(f"Missing editorial content for {eid}")
             generated={"id":eid,"topic_id":int(order),"difficulty":difficulty,"title":copy["title"],"instructions":copy["instructions"],"focus":focus,"learning_objective":copy["learning_objective"],"result_variable":"result","expected_type":"plot" if slug in {"pandas-plots","seaborn","matplotlib"} else "auto","setup_code":prepared,"starter_code":starter,"solution_code":solution,"theory_article_id":f"theory-{eid}","required_tokens":[token for token in re.findall(r"(?:pd\.|sns\.|\.)([A-Za-z_]+)",solution)][:2],"tests":["result_type","values","shape","column_order","index","dtype","input_immutability","required_method"],"dataset":data,"hints":copy["hints"],"completion_summary":copy["completion_summary"],"explanation":copy["explanation"],"is_control":position==10,"xp":{1:15,2:25,3:40}[difficulty]}
+            if eid in runtime_fixes:
+                fix=runtime_fixes[eid]
+                for field in ("setup_code","starter_code"):
+                    if field in fix: generated[field]=fix[field]
+                generated.update(fix.get("validation_patch",{}))
             # Editorial imports are not allowed to rewrite executable task contracts.
             # Existing technical fields win; only the explicit learner-facing copy changes.
             if eid in existing and eid not in REPAIR_EXECUTABLE_IDS:

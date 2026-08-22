@@ -1,0 +1,28 @@
+{
+  "version": 4,
+  "scope": "cheatSheet-only",
+  "knowledgeUnitsUpdated": 20,
+  "cheatEntriesIntegrated": 140,
+  "knowledgeUnitIds": [
+    "ku-start",
+    "ku-reading",
+    "ku-columns",
+    "ku-change-columns",
+    "ku-vectorization",
+    "ku-attributes",
+    "ku-inspection",
+    "ku-dataframe-methods",
+    "ku-series-methods",
+    "ku-groupby",
+    "ku-filtering",
+    "ku-sorting",
+    "ku-merge",
+    "ku-pivot",
+    "ku-dtypes",
+    "ku-datetime",
+    "ku-recipes",
+    "ku-pandas-plots",
+    "ku-seaborn",
+    "ku-matplotlib"
+  ]
+}
