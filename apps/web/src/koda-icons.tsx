@@ -1,0 +1,16 @@
+import { KodaIcon, type KodaIconProps } from "./ui/KodaIcon";
+type IconProps = Omit<KodaIconProps, "name">;
+export const KodaHome = (props: IconProps) => <KodaIcon {...props} name="Home" />;
+export const KodaCodePath = (props: IconProps) => <KodaIcon {...props} name="Practice" />;
+export const KodaModules = (props: IconProps) => <KodaIcon {...props} name="Route" />;
+export const KodaBook = (props: IconProps) => <KodaIcon {...props} name="Knowledge" />;
+export const KodaLab = (props: IconProps) => <KodaIcon {...props} name="Sandbox" />;
+export const KodaTrace = (props: IconProps) => <KodaIcon {...props} name="Reset" />;
+export const KodaSignal = (props: IconProps) => <KodaIcon {...props} name="Progress" />;
+export const KodaBadge = (props: IconProps) => <KodaIcon {...props} name="Achievement" />;
+export const KodaProfile = (props: IconProps) => <KodaIcon {...props} name="Profile" />;
+export const KodaRun = (props: IconProps) => <KodaIcon {...props} name="Run" />;
+export const KodaCheck = (props: IconProps) => <KodaIcon {...props} name="Check" />;
+export const KodaHint = (props: IconProps) => <KodaIcon {...props} name="Hint" />;
+export const KodaTheory = (props: IconProps) => <KodaIcon {...props} name="Knowledge" />;
+export const KodaReset = (props: IconProps) => <KodaIcon {...props} name="Reset" />;

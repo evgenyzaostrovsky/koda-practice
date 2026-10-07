@@ -134,12 +134,15 @@ def compare_results(actual, expected):
         if (ar,ac)!=(er,ec): return False,{'expected':f'DataFrame {er} × {ec}','actual':f'DataFrame {ar} × {ac}','difference':f'Ожидался DataFrame размером {er} × {ec}, получен DataFrame размером {ar} × {ac}.'}
         if a.get('columns')!=e.get('columns'): return False,{'expected':', '.join(e['columns']),'actual':', '.join(a['columns']),'difference':f"Столбцы не совпадают. Ожидались: {', '.join(e['columns'])}. Получены: {', '.join(a['columns'])}."}
         if a.get('index')!=e.get('index'): return False,{'expected':str(e['index']),'actual':str(a['index']),'difference':'Индекс или порядок строк не совпадает.'}
+        if a.get('dtypes')!=e.get('dtypes'): return False,{'expected':str(e.get('dtypes')),'actual':str(a.get('dtypes')),'difference':'Типы столбцов DataFrame не совпадают.'}
         for i,(ra,re) in enumerate(zip(a['data'],e['data'])):
             for j,(va,ve) in enumerate(zip(ra,re)):
                 if va!=ve: return False,{'expected':str(ve),'actual':str(va),'difference':f"Значение в строке {i}, столбце {e['columns'][j]}: ожидалось {ve}, получено {va}."}
     elif a.get('kind')=='series':
         if len(a.get('data',[]))!=len(e.get('data',[])): return False,{'expected':f"Series длиной {len(e.get('data',[]))}",'actual':f"Series длиной {len(a.get('data',[]))}",'difference':'Длина Series не совпадает.'}
         if a.get('index')!=e.get('index'): return False,{'expected':str(e['index']),'actual':str(a['index']),'difference':'Индекс Series не совпадает.'}
+        if a.get('dtype')!=e.get('dtype'): return False,{'expected':str(e.get('dtype')),'actual':str(a.get('dtype')),'difference':'dtype Series не совпадает.'}
+        if a.get('name')!=e.get('name'): return False,{'expected':str(e.get('name')),'actual':str(a.get('name')),'difference':'Имя Series не совпадает.'}
         for i,(va,ve) in enumerate(zip(a['data'],e['data'])):
             if va!=ve:return False,{'expected':str(ve),'actual':str(va),'difference':f'Значение Series в позиции {i}: ожидалось {ve}, получено {va}.'}
     elif a!=e: return False,{'expected':str(e.get('data')),'actual':str(a.get('data')),'difference':'Значение result не совпадает с ожидаемым.'}

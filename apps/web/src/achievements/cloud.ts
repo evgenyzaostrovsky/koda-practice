@@ -7,7 +7,8 @@ let currentUser: User | null = null;
 let timer: ReturnType<typeof setTimeout> | null = null;
 const empty = (): AchievementSnapshot => ({ events: [], unlocked: {}, activeCosmetics: {}, backfillVersion: 0, timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || "UTC" });
 
-export function setAchievementCloudUser(user: User | null) { currentUser = user; if (!user && timer) clearTimeout(timer); }
+const cacheKey = (userId?: string) => userId ? `${KEY}:${userId}` : KEY;
+export function setAchievementCloudUser(user: User | null) { if(currentUser?.id!==user?.id&&timer){clearTimeout(timer);timer=null} currentUser = user; }
 
 export async function hydrateAchievementsFromCloud() {
   if (!supabase || !currentUser) return;
@@ -21,7 +22,7 @@ export async function hydrateAchievementsFromCloud() {
   const failure = [eventsResult, unlocksResult, statsResult, cosmeticsResult].find((x) => x.error)?.error;
   if (failure) throw failure;
   let local = empty();
-  try { local = { ...local, ...JSON.parse(localStorage.getItem(KEY) || "{}") }; } catch { /* corrupt cache */ }
+  try { local = { ...local, ...JSON.parse(localStorage.getItem(cacheKey(userId)) || "{}") }; } catch { /* corrupt cache */ }
   const events = new Map(local.events.map((event) => [event.eventId, event]));
   for (const row of eventsResult.data || []) {
     const eventId = row.id.startsWith(`${userId}:`) ? row.id.slice(userId.length + 1) : row.id;
@@ -32,7 +33,8 @@ export async function hydrateAchievementsFromCloud() {
   const activeCosmetics = { ...local.activeCosmetics };
   for (const row of cosmeticsResult.data || []) if (row.active) activeCosmetics[row.kind] = row.reward_id;
   const merged: AchievementSnapshot = { ...local, events: [...events.values()], unlocked, activeCosmetics, timezone: statsResult.data?.timezone || local.timezone, backfillVersion: Math.max(local.backfillVersion, statsResult.data?.backfill_version || 0) };
-  localStorage.setItem(KEY, JSON.stringify(merged));
+  if(currentUser?.id!==userId)return;
+  localStorage.setItem(cacheKey(userId), JSON.stringify(merged));
   window.dispatchEvent(new CustomEvent("koda-achievements-updated"));
   await persistAchievementsToCloud(merged, userId);
 }
@@ -66,7 +68,8 @@ async function persistAchievementsToCloud(snapshot: AchievementSnapshot, expecte
 
 export function scheduleAchievementCloudSave(snapshot: AchievementSnapshot) {
   if (!currentUser) return;
+  const userId=currentUser.id;
   if (timer) clearTimeout(timer);
   const copy = structuredClone(snapshot);
-  timer = setTimeout(() => persistAchievementsToCloud(copy).catch(() => {}), 400);
+  timer = setTimeout(() => persistAchievementsToCloud(copy,userId).catch(() => {}), 400);
 }

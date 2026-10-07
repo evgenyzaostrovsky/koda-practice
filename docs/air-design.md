@@ -1,0 +1,19 @@
+# KODA Air production design
+
+The approved airy reference is the visual direction for the production web application, not a demo-only recolor. `apps/web/src/theme/air.css` is the final theme layer and semantic token source. The theme registry exposes KODA Air; new installs default to it, and a one-time versioned migration updates the previous default reference-dark selection. Other explicitly selected themes remain available.
+
+The visual language uses cloud-white surfaces, ink text, teal actions, serif teaching headings, thin separators and open layouts. Shared SVG icons are authored in `src/ui/KodaIcon.tsx`; legacy icon exports adapt these components. The wave BrandMark and lowercase wordmark replace the previous linked-shape mark. No learning content or identifiers change.
+
+All production surfaces are covered: dashboard, catalog, topic, practice, knowledge index/article, sandbox, progress, errors, achievements, profile/settings/history and authentication. Practice retains the application sidebar, shows actual catalog task links on the curved route, uses a light Monaco editor and preserves real Run/Check, hints, theory, result rendering and panel resizing. No notes feature, artificial stats or simulated save claims were introduced. Real learning and persistence ownership stays in existing controllers/services.
+
+Responsive behavior stacks the workspace at narrow widths, exposes a mobile navigation overlay and Escape dismissal, retains visible focus and readable controls. Run remains outlined secondary; Check is filled primary. Colors and controls are adapted through the final theme bridge rather than changes to execution or data semantics. Browser Pyodide isolation is unchanged.
+
+Validation is reported by the orchestrator: typecheck and production build are necessary but not sufficient; production-route browser checks must cover desktop/mobile and live practice behavior. No independent QA PASS is implied by this implementation document.
+
+The implementation and bounded independent QA were delegated sequentially under the Founder's selective-agent policy. Product scope is all existing screens; UX retains the approved airy brand and readable actions; learning/content identities are unchanged; behavioral hierarchy keeps Check primary and Run secondary; technical review preserves browser-worker isolation and controller ownership; analytics events and commercial scope are unchanged.
+
+Release verification: production build and lint passed. The web suite passed 104/105 in a concurrent run; the isolated focus test and related theme/navigation checks then passed 16/16. Backend tests passed 50/50; content audit passed. Browser checks exercised real sandbox `1 + 1`, mobile practice Run, draft reload and stale-response isolation. QA discovered direct-link API/SPA collisions and mobile achievement-filter overflow; both were fixed with regressions. Achievement dialogs are acknowledged through their real buttons during practice acceptance. Final route and Run/Check rerun results are recorded before push.
+
+Authenticated cloud profile flows cannot be verified without a configured account in this local environment. Both delegated agents reached usage limits; final authored QA tests were executed by the orchestrator rather than independently signed off. Deployment to the remote hosting service is not implied by a successful Git push.
+
+Final acceptance: all 11 production routes passed desktop 1440px and mobile 390px checks, including heading contrast, overflow, direct links and mobile menu Escape/focus. Real Run/Check/reset passed after correcting a test race with disappearing achievement dialogs; draft reload/stale-response and mobile Run passed in the earlier unchanged run. Real Pyodide scalar execution passed. Final API suite passed 50 tests. The pending content/editorial working-tree edits are not part of this design release.

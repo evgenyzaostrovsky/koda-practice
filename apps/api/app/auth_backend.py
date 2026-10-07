@@ -31,7 +31,8 @@ def record_attempt(user,task_id,code,passed,result_type,feedback,execution_ms):
     rest(user,'solution_attempts','POST',{'user_id':user['id'],'task_id':task_id,'code':code,'passed':bool(passed),'result_type':result_type,'feedback':feedback,'execution_ms':execution_ms},prefer='return=minimal')
     rows=rest(user,'task_progress','GET',params={'user_id':f"eq.{user['id']}",'task_id':f'eq.{task_id}','select':'attempts_count,hints_opened,status'}) or []
     old=rows[0] if rows else {}; status='completed' if passed or old.get('status')=='completed' else 'in_progress'
-    payload={'user_id':user['id'],'task_id':task_id,'code':code,'status':status,'attempts_count':old.get('attempts_count',0)+1,'hints_opened':old.get('hints_opened',0),'last_run_status':'passed' if passed else 'failed','last_run_result':feedback}
+    payload={'user_id':user['id'],'task_id':task_id,'code':code,'status':status,'attempts_count':old.get('attempts_count',0)+1,'last_run_status':'passed' if passed else 'failed','last_run_result':feedback}
     if passed:payload['completed_at']=__import__('datetime').datetime.now(__import__('datetime').timezone.utc).isoformat()
-    rest(user,'task_progress?on_conflict=user_id,task_id','POST',payload,prefer='resolution=merge-duplicates,return=minimal')
-    return payload['attempts_count'],payload['hints_opened']
+    rest(user,'task_progress?on_conflict=user_id,task_id','POST',{'user_id':user['id'],'task_id':task_id},prefer='resolution=ignore-duplicates,missing=default,return=minimal')
+    rest(user,'task_progress','PATCH',payload,params={'user_id':f"eq.{user['id']}",'task_id':f'eq.{task_id}'},prefer='return=minimal')
+    return payload['attempts_count'],old.get('hints_opened',0)

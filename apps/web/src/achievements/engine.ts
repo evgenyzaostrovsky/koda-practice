@@ -9,7 +9,14 @@ import type {
 import { achievementRules } from "./rules";
 import { scheduleAchievementCloudSave } from "./cloud";
 import { v2Progress } from "./v2-evaluator";
-const KEY = "koda:achievements:v1",
+const LEGACY_KEY = "koda:achievements:v1";
+let storageUserId: string | null = null;
+const storageKey = () => storageUserId ? `${LEGACY_KEY}:${storageUserId}` : LEGACY_KEY;
+export function setAchievementStorageUser(userId: string | null) {
+  storageUserId = userId;
+  if (userId && !localStorage.getItem(storageKey()) && localStorage.getItem(LEGACY_KEY)) localStorage.setItem(storageKey(), localStorage.getItem(LEGACY_KEY)!);
+}
+const KEY = LEGACY_KEY,
   BACKFILL = 2;
 const SESSION_KEY = "koda:achievement-session:v2";
 const blank = (): AchievementSnapshot => ({
@@ -21,13 +28,13 @@ const blank = (): AchievementSnapshot => ({
 });
 export const loadSnapshot = (): AchievementSnapshot => {
   try {
-    return { ...blank(), ...JSON.parse(localStorage.getItem(KEY) || "{}") };
+    return { ...blank(), ...JSON.parse(localStorage.getItem(storageKey()) || "{}") };
   } catch {
     return blank();
   }
 };
 export const saveSnapshot = (s: AchievementSnapshot) => {
-  localStorage.setItem(KEY, JSON.stringify(s));
+  localStorage.setItem(storageKey(), JSON.stringify(s));
   scheduleAchievementCloudSave(s);
   window.dispatchEvent(new CustomEvent("koda-achievements-updated"));
 };
@@ -369,7 +376,7 @@ export function evaluate(manifest: AchievementManifest, s = loadSnapshot()) {
     }
   }
   if (changed) {
-    localStorage.setItem(KEY, JSON.stringify(s));
+    localStorage.setItem(storageKey(), JSON.stringify(s));
     scheduleAchievementCloudSave(s);
   }
   return {

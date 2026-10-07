@@ -10,11 +10,33 @@ let user:User|null=null,status:SyncStatus='saved',listeners=new Set<(value:SyncS
 const setStatus=(value:SyncStatus)=>{status=value;listeners.forEach(fn=>fn(value))};
 export const getCloudUser=()=>user;
 export const watchSyncStatus=(fn:(value:SyncStatus)=>void)=>{listeners.add(fn);fn(status);return()=>listeners.delete(fn)};
-export const setCloudUser=(value:User|null)=>{user=value};
+export const setCloudUser=(value:User|null)=>{if(user?.id!==value?.id){for(const timer of timers.values())clearTimeout(timer);timers.clear();pending.clear()}user=value};
 
-function row(task:TaskState){return{user_id:user!.id,task_id:task.taskId,code:task.code,status:task.status==='completed'?'completed':task.code?'in_progress':'not_started',attempts_count:task.attempts,hints_opened:0,last_run_status:task.lastRunResult?.passed?'passed':task.lastRunResult?'failed':null,last_run_result:task.lastRunResult,completed_at:task.completedAt,updated_at:task.updatedAt}}
-export async function saveCloudTask(task:TaskState){if(!supabase||!user)return;pending.set(task.taskId,task);setStatus('saving');const{error}=await supabase.from('task_progress').upsert(row(task),{onConflict:'user_id,task_id'});if(error){setStatus(navigator.onLine?'error':'offline');throw error}pending.delete(task.taskId);setStatus(pending.size?'saving':'saved')}
-export function scheduleCloudTask(task:TaskState){if(!user)return;pending.set(task.taskId,task);clearTimeout(timers.get(task.taskId));timers.set(task.taskId,setTimeout(()=>saveCloudTask(task).catch(()=>{}),600))}
+function draftRow(task:TaskState,userId:string){return{user_id:userId,task_id:task.taskId,code:task.code,last_run_status:task.lastRunResult?.passed?'passed':task.lastRunResult?'failed':null,last_run_result:task.lastRunResult,updated_at:task.updatedAt}}
+export async function saveCloudTask(task:TaskState,expectedUserId=user?.id){
+ if(!supabase||!user||!expectedUserId||user.id!==expectedUserId)return;
+ pending.set(task.taskId,task);setStatus('saving');
+ // Insert defaults only for a new row; conflict-ignore cannot overwrite evidence.
+ const initial=await supabase.from('task_progress').upsert([{...draftRow(task,expectedUserId),status:task.code?'in_progress':'not_started'}],{onConflict:'user_id,task_id',ignoreDuplicates:true,defaultToNull:false});
+ if(user?.id!==expectedUserId)return;
+ let error=initial.error;
+ if(!error){
+  const {user_id,task_id,...patch}=draftRow(task,expectedUserId);
+  const updated=await supabase.from('task_progress').update(patch).eq('user_id',user_id).eq('task_id',task_id);
+  error=updated.error;
+ }
+ if(user?.id!==expectedUserId)return;
+ if(error){setStatus(navigator.onLine?'error':'offline');throw error}
+ if(pending.get(task.taskId)===task)pending.delete(task.taskId);
+ setStatus(pending.size?'saving':'saved');
+}
+// Explicit legacy import: existing account progress always wins on conflict.
+export async function importCloudTask(task:TaskState,expectedUserId=user?.id){
+ if(!supabase||!user||!expectedUserId||user.id!==expectedUserId)return;
+ const {error}=await supabase.from('task_progress').upsert([{...draftRow(task,expectedUserId),status:task.status==='completed'?'completed':task.code?'in_progress':'not_started',attempts_count:task.attempts,completed_at:task.completedAt}],{onConflict:'user_id,task_id',ignoreDuplicates:true,defaultToNull:false});
+ if(error)throw error;
+}
+export function scheduleCloudTask(task:TaskState){if(!user)return;const userId=user.id;pending.set(task.taskId,task);clearTimeout(timers.get(task.taskId));timers.set(task.taskId,setTimeout(()=>saveCloudTask(task,userId).catch(()=>{}),600))}
 if(typeof window!=='undefined')window.addEventListener('online',()=>{for(const task of pending.values())saveCloudTask(task).catch(()=>{})});
 export async function loadCloudTasks(){if(!supabase||!user)return[];const{data,error}=await supabase.from('task_progress').select('*');if(error)throw error;return(data||[]).map(x=>({taskId:x.task_id,code:x.code,status:x.status==='completed'?'completed':'draft',attempts:x.attempts_count,lastRunResult:x.last_run_result,completedAt:x.completed_at,updatedAt:x.updated_at})as TaskState)}
 export async function loadProfile(){if(!supabase||!user)return null;const{data,error}=await supabase.from('profiles').select('*').single();if(error)throw error;return data as ProfileRecord}

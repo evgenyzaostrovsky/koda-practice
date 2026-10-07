@@ -93,6 +93,25 @@ describe("SandboxRuntime lifecycle", () => {
     vi.useRealTimers();
   });
 
+  it("does not spend the user-code budget while a cold package is loading", async () => {
+    vi.useFakeTimers();
+    const runtime = new SandboxRuntime();
+    const worker = FakeWorker.instances[0];
+    worker.emit({ type: "ready", version: "0.27.7", metrics: { workerCreatedMs: 1, pyodideReadyMs: 2, packagesReadyMs: 3 } });
+    const result = runtime.run("import matplotlib.pyplot as plt", [], async () => [], 1000);
+    await Promise.resolve();
+    const requestId = worker.postMessage.mock.calls.at(-1)?.[0].requestId;
+    worker.emit({ type: "status", phase: "running", detail: "Выполнение…", requestId });
+    worker.emit({ type: "status", phase: "packages", detail: "Загрузка Matplotlib…", requestId });
+    await vi.advanceTimersByTimeAsync(10_000);
+    expect(worker.terminate).not.toHaveBeenCalled();
+    worker.emit({ type: "status", phase: "running", detail: "Выполнение…", requestId });
+    worker.emit({ type: "result", requestId, payload: { ok: true, stdout: "", plots: [] } });
+    await vi.advanceTimersByTimeAsync(1);
+    await expect(result).resolves.toMatchObject({ ok: true });
+    vi.useRealTimers();
+  });
+
   it("loads only files requested by the worker and resumes the same request", async () => {
     const runtime = new SandboxRuntime();
     const worker = FakeWorker.instances[0];

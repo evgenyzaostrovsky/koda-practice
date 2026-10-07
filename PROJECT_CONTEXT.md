@@ -1,5 +1,15 @@
 # KODA Practice — current project context
 
+## Architecture review (2026-10-06)
+
+Eight-role review identified overloaded App.tsx/main.py responsibilities and conflicting ownership of progress/hint state. The resulting decomposition extracts frontend pages, practice controller/layout/event adapter and shared previews, plus backend routers and practice/progress services. Draft synchronization preserves server learning evidence; task responses capture task/code/account identity. Account actions no longer write anonymous SQLite, and solution access checks account hints. See [architecture](docs/architecture.md) and [the integrated review](docs/architecture-review-2026-10-06.md) for boundaries, evidence and remaining limits.
+
+## Editorial task revision (2026-09-26)
+
+- Learner-facing task text was revised across all 200 stable tasks. Hints now follow idea → tool → syntax and avoid repeating the condition or inserting Markdown/code fences.
+- Column-selection starters now show only the small DataFrame and variables needed by the exercise; the shared runtime fixture remains unchanged for validation compatibility.
+- Stable task, theory, topic and KnowledgeUnit identifiers and reference solutions remain unchanged. `npm run content:audit` passes after the editorial patch.
+
 Updated: 2026-08-14
 
 ## Учебный язык контента
@@ -67,3 +77,22 @@ Validation commands and their latest results belong in the implementation commit
 - Measured baseline: production Sandbox ready 6,436 ms; a trivial Run took 2,929 ms, of which 2,844 ms was synchronous preflight/runner work. After precompiling the harness once, a cached production cold boot measured about 3,536 ms and warm trivial Python executions measured 42–71 ms (click-to-render stayed below roughly 350 ms in an uncontended tab). The UI reports `executionMs`, not cold boot, network preparation, or React time. Package and network timings vary by cache and device, so the invariant is that a warm Run performs no runtime/package/file startup.
 - Pyodide's versioned jsDelivr JS/WASM/package URLs return a one-year public browser-cache policy. The application does not self-host or permanently cache mutable Sandbox/API resources.
 - A follow-up regression audit verified that the production Worker → UI success contract still returned `2`, but exposed seconds of promise/scheduling overhead around `runPythonAsync` while the instrumented Python body itself took about 1 ms. The compiled synchronous harness now runs with `runPython` inside the dedicated Worker; Stop/timeout remain safe because termination happens from the responsive main thread. Error payloads always include the complete result shape, execution time comes from the runner's user-code interval rather than package/file/UI work, and the UI retains a successful result after readiness and achievement effects. Automated tests cover value + stdout + timing, error recovery, matching/stale request IDs, ten sequential Runs, NumPy, Series, DataFrame and empty output; the real runner contract is executed under Pyodide in `npm test`.
+# Release-blocker stability notes (2026-08-27)
+
+- Sandbox execution keeps the 15-second budget for user code; cold package and dataset preparation have a separate bounded phase.
+- Task validation traces required methods through assignments that produce `result` and compares pandas dtype metadata and Series names.
+- Task and achievement persistence is identity-bound; delayed saves are cancelled or rejected after account switches.
+- Practice API failures are shown inline with retry while preserving editor code and clearly labeling any previous output.
+- Machine-readable evidence is stored in `reports/task-learning-audit.json` and `reports/system-stability-review.json`.
+
+## Design direction prototype (2026-10-06)
+
+## Reusable KODA Soft Line kit (2026-10-07)
+
+## Production KODA Air rollout (2026-10-07)
+
+The approved airy visual direction is now the production web theme: lowercase wave brand, grouped sidebar, serif headings, teal controls, shared original SVG icons, light editors and real catalog route links. The layout applies across the application; existing execution, content IDs and persistence remain in their controllers. Browser HTML navigation is distinguished from JSON/API requests so deep links reach the SPA. Details and validation are recorded in `docs/air-design.md`.
+
+Original semantic SVG icons and native React button components live in `apps/web/src/ui/`. The isolated `/design-system` gallery demonstrates their variants, states and local interactions. This is the shared source of truth for future adoption; existing production icons and buttons have not been migrated. API, tokens and proportional product/UX/behavior/technical review are documented in `docs/design-system.md`.
+
+The Founder requested a light Google/Apple-inspired mockup after rejecting the earlier visual direction. `/design-prototype` is a separate interactive demonstration of overview, practice, catalog and progress. Its data and execution feedback are local samples, with no production progress writes. The integrated eight-role decision and acceptance criteria are documented in `docs/design-prototype.md`.

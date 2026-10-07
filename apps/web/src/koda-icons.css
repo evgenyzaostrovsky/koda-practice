@@ -1,0 +1,6 @@
+/* KODA Data Glyphs: a shared interaction language for branded SVG icons. */
+svg[aria-hidden="true"] { vector-effect: non-scaling-stroke; }
+.app nav a { position: relative; min-height: 44px; }
+.app nav a.active::before { content: ""; position: absolute; inset-block: 9px; left: 0; width: 2px; border-radius: 3px; background: var(--nav-accent-line, var(--orange)); }
+.app nav a:focus-visible, .icon-btn:focus-visible, .task-nav button:focus-visible, .mobile-menu:focus-visible { outline: 2px solid var(--focus-ring, var(--orange)); outline-offset: 3px; }
+.koda-glyph { flex: none; stroke-width: var(--icon-stroke, 1.75); }

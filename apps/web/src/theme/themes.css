@@ -25,6 +25,9 @@ html[data-theme="reference-dark"] {
   --theme-error: #d97875;
   --theme-error-soft: #2b1919;
   --theme-warning: #d3a05e;
+  --theme-icon-stroke: 1.75;
+  --theme-focus-ring: #2f7df6;
+  --theme-nav-accent-line: #2f7df6;
 }
 
 html[data-theme="neutral-light"] {
@@ -98,6 +101,9 @@ html[data-theme="midnight-blue"] {
   --red: var(--theme-error);
   --red-soft: var(--theme-error-soft);
   --warning: var(--theme-warning);
+  --icon-stroke: var(--theme-icon-stroke);
+  --focus-ring: var(--theme-focus-ring);
+  --nav-accent-line: var(--theme-nav-accent-line);
 }
 
 /* Final semantic bridge; imported after the component stylesheet. */

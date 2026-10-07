@@ -97,7 +97,8 @@ export function Sandbox() {
     runtimeId = useRef(crypto.randomUUID()),
     running = useRef(false),
     input = useRef<HTMLInputElement>(null),
-    outputPanel = useRef<HTMLDivElement>(null);
+    outputPanel = useRef<HTMLDivElement>(null),
+    copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const createRuntime = () => {
     runtimeId.current = crypto.randomUUID();
     setRuntimeState("loading");
@@ -137,7 +138,10 @@ export function Sandbox() {
   };
   useEffect(() => {
     const activeRuntime = createRuntime();
-    return () => activeRuntime.terminate();
+    return () => {
+      activeRuntime.terminate();
+      if (copyTimer.current) clearTimeout(copyTimer.current);
+    };
   }, []);
   useEffect(() => localStorage.setItem(STORAGE_KEY, code), [code]);
   const selectFiles = async (list: FileList | File[]) => {
@@ -162,7 +166,11 @@ export function Sandbox() {
   const copy = async (text: string, key: string) => {
     await navigator.clipboard.writeText(text);
     setCopied(key);
-    setTimeout(() => setCopied(""), 1200);
+    if (copyTimer.current) clearTimeout(copyTimer.current);
+    copyTimer.current = setTimeout(() => {
+      copyTimer.current = null;
+      setCopied("");
+    }, 1200);
   };
   const rename = async (file: SandboxFile) => {
     const name = prompt("Новое имя CSV", file.name);
@@ -500,7 +508,7 @@ export function Sandbox() {
           <Editor
             height="100%"
             language="python"
-            theme="vs-dark"
+            theme={document.documentElement.dataset.theme === "airy" || document.documentElement.dataset.theme === "neutral-light" ? "light" : "vs-dark"}
             value={code}
             onChange={(value) => setCode(value ?? "")}
             options={{

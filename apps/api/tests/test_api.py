@@ -3,7 +3,8 @@ from pathlib import Path
 
 sys.path.insert(0,str(Path(__file__).parents[1]))
 from fastapi.testclient import TestClient
-from app.main import app
+from app.main import app, used_methods
+from app.runner import compare_results
 from app.content import EXERCISES
 
 def prepared(eid,code):
@@ -36,6 +37,21 @@ def test_runner_blocks_dangerous_import():
         response=client.post('/executions/run',json={'exercise_id':'start-001','code':'import os\nresult = 1'}).json()
         assert not response['ok'] and response['error_type']=='SecurityError'
         assert 'passed' not in response and 'explanation' not in response and 'tests_passed' not in response
+
+
+def test_required_method_evidence_must_produce_result_but_supports_temporaries():
+    assert 'astype' not in used_methods("if False:\n    df.astype('int64')\nresult = df")
+    assert 'astype' not in used_methods("unused = df.astype('int64')\nresult = df")
+    assert 'astype' in used_methods("converted = df.astype('int64')\nresult = converted")
+
+
+def test_pandas_metadata_is_part_of_result_equality():
+    expected={'result':{'kind':'dataframe','columns':['x'],'index':['0'],'data':[[1]],'dtypes':['int64']}}
+    actual={'result':{'kind':'dataframe','columns':['x'],'index':['0'],'data':[[1]],'dtypes':['float64']}}
+    assert compare_results(actual,expected)[0] is False
+    expected_series={'result':{'kind':'series','name':'sales','index':['0'],'data':[1],'dtype':'int64'}}
+    actual_series={'result':{'kind':'series','name':'other','index':['0'],'data':[1],'dtype':'int64'}}
+    assert compare_results(actual_series,expected_series)[0] is False
 
 
 def test_only_submit_returns_checker_feedback_and_records_an_attempt():

@@ -49,6 +49,7 @@ type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;
   timer?: number;
+  preparationTimer?: number;
   timeoutMs?: number;
   postMessageAt: number;
   fileLoader?: (paths: string[]) => Promise<MountedFile[]>;
@@ -83,7 +84,18 @@ export class SandboxRuntime {
       const message = event.data;
       if (message.type === "status") {
         const pending = message.requestId ? this.pending.get(message.requestId) : undefined;
+        if (message.phase === "packages" && pending) {
+          if (pending.timer) window.clearTimeout(pending.timer);
+          pending.timer = undefined;
+          if (!pending.preparationTimer) pending.preparationTimer = window.setTimeout(() => {
+            this.pending.delete(message.requestId);
+            this.terminate();
+            pending.reject(new Error("Подготовка Python-пакетов превысила лимит 120 секунд. Среда перезапущена."));
+          }, 120_000);
+        }
         if (message.phase === "running" && pending?.timeoutMs && !pending.timer) {
+          if (pending.preparationTimer) window.clearTimeout(pending.preparationTimer);
+          pending.preparationTimer = undefined;
           pending.timer = window.setTimeout(() => {
             this.pending.delete(message.requestId);
             this.terminate();
@@ -105,6 +117,11 @@ export class SandboxRuntime {
           window.clearTimeout(pending.timer);
           pending.timer = undefined;
         }
+        if (!pending.preparationTimer) pending.preparationTimer = window.setTimeout(() => {
+          this.pending.delete(message.requestId);
+          this.terminate();
+          pending.reject(new Error("Подготовка файлов превысила лимит 120 секунд. Среда перезапущена."));
+        }, 120_000);
         void pending.fileLoader(message.paths).then((loaded) => {
           if (this.terminated || !this.pending.has(message.requestId)) return;
           const loadedByPath = new Map(loaded.map((file) => [file.logicalPath, file]));
@@ -121,6 +138,7 @@ export class SandboxRuntime {
         const pending = this.pending.get(message.requestId);
         if (pending) {
           if (pending.timer) window.clearTimeout(pending.timer);
+          if (pending.preparationTimer) window.clearTimeout(pending.preparationTimer);
           this.pending.delete(message.requestId);
           if (message.type === "result") {
             message.payload.mainTiming = {
@@ -144,6 +162,7 @@ export class SandboxRuntime {
       this.readyReject(error);
       for (const pending of this.pending.values()) {
         if (pending.timer) window.clearTimeout(pending.timer);
+        if (pending.preparationTimer) window.clearTimeout(pending.preparationTimer);
         pending.reject(error);
       }
       this.pending.clear();
@@ -199,6 +218,7 @@ export class SandboxRuntime {
     this.readyReject(error);
     for (const pending of this.pending.values()) {
       if (pending.timer) window.clearTimeout(pending.timer);
+      if (pending.preparationTimer) window.clearTimeout(pending.preparationTimer);
       pending.reject(error);
     }
     this.pending.clear();
