@@ -14,6 +14,20 @@ for (const width of [1440, 390]) {
         await expect(page.locator('html')).toHaveAttribute('data-theme', 'airy');
         await expect(page.locator('.app main h1').first()).toBeVisible();
         if (route === '/practice/start-001') await expect(page.locator('.monaco-editor textarea')).toBeVisible();
+        if (route === '/practice/start-001') {
+          const heights = await page.locator('.air-learning-route i').evaluateAll(dots => dots.map(dot => dot.getBoundingClientRect().top));
+          expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(1);
+        }
+        if (route === '/') {
+          await expect(page.locator('.module-row').first()).toBeVisible();
+          expect(await page.locator('.module-row').first().evaluate(row => parseFloat(getComputedStyle(row).paddingLeft))).toBeGreaterThanOrEqual(16);
+          expect(await page.locator('.hero').evaluate(hero => hero.getBoundingClientRect().height)).toBeLessThan(260);
+          await page.screenshot({ path: testInfo.outputPath(`air-dashboard-${width}.png`), fullPage: true });
+        }
+        if (route === '/catalog') {
+          expect(await page.locator('.module-card').first().evaluate(card => getComputedStyle(card).backgroundColor)).toBe('rgb(255, 255, 255)');
+          await page.screenshot({ path: testInfo.outputPath(`air-catalog-${width}.png`), fullPage: true });
+        }
         if (route === '/achievements') await expect(page.locator('button.family-preview').first()).toBeVisible();
         const appearance = await page.locator('.app main h1').first().evaluate(heading => {
           const body = getComputedStyle(document.body), title = getComputedStyle(heading);
