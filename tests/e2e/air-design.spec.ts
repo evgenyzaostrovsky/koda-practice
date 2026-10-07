@@ -29,6 +29,13 @@ for (const width of [1440, 390]) {
           await page.screenshot({ path: testInfo.outputPath(`air-catalog-${width}.png`), fullPage: true });
         }
         if (route === '/achievements') await expect(page.locator('button.family-preview').first()).toBeVisible();
+        if (route === '/knowledge') {
+          await expect(page.locator('.knowledge-card').first()).toBeVisible();
+          expect(await page.locator('.knowledge-card').first().evaluate(card => getComputedStyle(card).backgroundColor)).toBe('rgb(255, 255, 255)');
+          expect(await page.locator('.knowledge-controls>label').evaluate(label => getComputedStyle(label).backgroundColor)).toBe('rgb(255, 255, 255)');
+          expect(await page.locator('.knowledge-progress>i').first().evaluate(bar => getComputedStyle(bar).backgroundColor)).toBe('rgb(228, 236, 229)');
+          await page.screenshot({ path: testInfo.outputPath(`air-knowledge-${width}.png`), fullPage: true });
+        }
         const appearance = await page.locator('.app main h1').first().evaluate(heading => {
           const body = getComputedStyle(document.body), title = getComputedStyle(heading);
           const channel = (v: number) => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; };
