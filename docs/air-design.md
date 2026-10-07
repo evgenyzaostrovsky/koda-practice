@@ -23,3 +23,5 @@ Visual refinement (2026-10-07): compact dashboard hero and counter; padded learn
 Founder correction: restored the gentle wave behind the route while keeping every dot at the same height. Replaced the hook-like progress glyph with a smooth rising chart and small arrowhead. Build/typecheck and all 11 routes at desktop/mobile passed; production screenshot inspected.
 
 Route geometry correction: each wave segment now connects adjacent dot centers. Uniform grid cells keep dots and numbers on a shared baseline, including the horizontally scrolling mobile route. Desktop screenshot confirms the wave crosses every center. Build/typecheck and 11-route desktop/mobile browser checks passed.
+
+Reference color update: sampled the supplied KODA Life button bitmap; dominant fill RGB(65,109,83), #416D53. Applied it as the Air brand/action accent with related green hover, focus, route and selection colors. Build/typecheck and desktop/mobile 11-route browser checks passed; dashboard screenshot inspected.
