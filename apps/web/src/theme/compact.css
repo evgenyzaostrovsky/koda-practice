@@ -555,3 +555,7 @@ html[data-theme="airy"] .achievement-modal .achievement-art { width: 160px; heig
   html[data-theme="airy"] .family-modal article > header { flex-wrap: wrap; min-width: 0; }
 }
 html[data-theme="airy"] .app.compact-app .family-path .family-step { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; white-space: normal; overflow-wrap: anywhere; }
+html[data-theme="airy"] .app.compact-app .family-preview.not-started .achievement-art, html[data-theme="airy"] .app.compact-app .family-step.future .achievement-art { filter: grayscale(1); opacity: .38; }
+html[data-theme="airy"] .app.compact-app .family-preview.not-started { background: #fafbf8; border-color: #e3e9e1; }
+html[data-theme="airy"] .app.compact-app .family-preview.started { background: white; border-color: #cbd8c6; }
+html[data-theme="airy"] .app.compact-app .family-preview.not-started .family-preview-art i { background: #f3f3f1; color: #90978f; border-color: #e3e9e1; }
