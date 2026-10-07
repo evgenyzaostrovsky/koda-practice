@@ -511,3 +511,13 @@ html[data-theme="airy"] .app.compact-app .sandbox-file-list article > code { gri
 html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div { grid-column: 2; grid-row: 1 / 4; align-self: center; display: flex; gap: 6px; }
 html[data-theme="airy"] .app.compact-app .sandbox-file-list button { min-height: 34px; padding: 5px 8px; font-size: 11px; border-color: #e3e9e1; background: white; color: #416d53; }
 @media(max-width:760px) { html[data-theme="airy"] .app.compact-app:not(.sidebar-collapsed) { display: block; } html[data-theme="airy"] .app.compact-app > aside.open { width: 240px; } html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div { grid-column: 1 / -1; grid-row: auto; flex-wrap: wrap; } }
+/* Dense file manager: compact upload and metadata rows. */
+html[data-theme="airy"] .app.compact-app .sandbox-files { padding: 12px 16px; }
+html[data-theme="airy"] .app.compact-app .sandbox-files .sandbox-panel-title { min-height: 24px; margin-bottom: 6px; padding: 0; }
+html[data-theme="airy"] .app.compact-app .sandbox-drop { min-height: 38px; padding: 6px 10px; margin-bottom: 6px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article { gap: 2px 12px; padding: 8px 0; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > b { margin: 0; font-size: 12px; line-height: 18px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > small { margin: 0; line-height: 14px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > code { padding: 0; margin: 0; line-height: 15px; background: transparent; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div button { min-height: 28px; padding: 3px 7px; font-size: 11px; line-height: 18px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div button svg { width: 12px; height: 12px; }
