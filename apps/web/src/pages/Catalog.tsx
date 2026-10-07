@@ -20,8 +20,9 @@ export function Catalog() {
   );
   return (
     <>
-      <Header title="Каталог тем" />
+      <Header title="Найдите следующую тему" crumb="Практика" />
       <section className="page">
+        <p className="lead">От первых строк Python до анализа данных. Выберите то, что нужно сейчас.</p>
         <div className="filters">
           {[
             ["all", "Все"],

@@ -7,11 +7,10 @@ export function Errors() {
   const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
   return (
     <>
-      <Header title="Работа над ошибками" />
+      <Header title="Вернуться к сложному" crumb="Повторение" />
       <section className="page">
         <p className="lead">
-          Здесь собраны последние неудачные попытки и задачи, которые стоит
-          пройти повторно.
+          Ошибки подсказывают, что стоит ещё немного потренировать.
         </p>
         {!p?.recent_errors.length ? (
           <div className="empty big">

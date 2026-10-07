@@ -28,13 +28,13 @@ export function AchievementsPage() {
   const totalXp = Object.values(model.snapshot.unlocked).reduce((total, item) => total + item.xp, 0);
   const active = selectedSlug ? families.find((family) => family.slug === selectedSlug) : null;
   return <section className="ach-page">
-    <header className="ach-head"><div><small>ПРОГРЕСС</small><h1>Достижения</h1></div><div className="ach-summary"><span><b>{unlocked} / {manifest.achievement_count}</b> получено</span><span><b>{totalXp}</b> XP</span><span><b>{model.stats.currentStreak}</b> серия</span><span><b>{model.stats.maxStreak}</b> максимум</span><span><Shield/>{model.stats.stabilizer ? "Стабилизатор" : "Нет стабилизатора"}</span></div></header>
+    <header className="ach-head"><div><small>ВАШИ ДОСТИЖЕНИЯ</small><h1>Маленькие шаги, заметные результаты</h1></div><div className="ach-summary"><span><b>{unlocked} / {manifest.achievement_count}</b> получено</span><span><b>{totalXp}</b> XP</span><span><b>{model.stats.currentStreak}</b> серия</span><span><b>{model.stats.maxStreak}</b> максимум</span><span><Shield/>{model.stats.stabilizer ? "Стабилизатор" : "Нет стабилизатора"}</span></div></header>
     <div className="ach-body"><div className="ach-section-head"><h2>Линейки достижений</h2><div className="ach-filters" aria-label="Фильтры линеек">{[["all","Все"],["started","Начатые"],["not-started","Не начатые"],["completed","Завершённые"]].map(([id,label])=><button key={id} className={filter===id?"active":""} aria-pressed={filter===id} onClick={()=>setFilter(id)}>{label}</button>)}</div></div><div className="family-grid">{visible.map((family)=><FamilyPreview key={family.slug} family={family} manifestVersion={manifest.version} onOpen={openFamily}/>)}</div></div>
     {active && <Suspense fallback={null}><AchievementFamilyDialog family={active} onClose={()=>setSelectedSlug(null)}/></Suspense>}
   </section>;
 }
 
-function AchievementSkeleton() { return <section className="ach-page"><header className="ach-head"><div><small>ПРОГРЕСС</small><h1>Достижения</h1></div></header><div className="ach-body"><div className="ach-section-head"><h2>Линейки достижений</h2></div><div className="family-grid achievement-grid-skeleton" aria-label="Загрузка коллекции">{Array.from({length:12},(_,index)=><i key={index}/>)}</div></div></section>; }
+function AchievementSkeleton() { return <section className="ach-page"><header className="ach-head"><div><small>ВАШИ ДОСТИЖЕНИЯ</small><h1>Маленькие шаги, заметные результаты</h1></div></header><div className="ach-body"><div className="ach-section-head"><h2>Линейки достижений</h2></div><div className="family-grid achievement-grid-skeleton" aria-label="Загрузка коллекции">{Array.from({length:12},(_,index)=><i key={index}/>)}</div></div></section>; }
 
 const FamilyPreview = memo(function FamilyPreview({ family, manifestVersion, onOpen }: { family: AchievementFamilyView; manifestVersion: string; onOpen: (slug: string) => void }) {
   const item = family.highestUnlockedAchievement || family.achievements[0];
@@ -45,3 +45,4 @@ const FamilyPreview = memo(function FamilyPreview({ family, manifestVersion, onO
     <span className="family-preview-copy"><b>{concealed?"Секретное достижение":family.name}</b><small>{family.isStarted?label:concealed?"Условие скрыто":"Не начато"}</small></span><em>{family.completedCount} / {family.totalCount}</em>
   </button>;
 });
+

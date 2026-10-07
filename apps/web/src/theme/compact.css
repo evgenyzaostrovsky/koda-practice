@@ -475,3 +475,22 @@ html[data-theme="airy"] .compact-app .sandbox-output { min-height: 180px; }
 
 
 
+/* Remaining sections follow the prototype's bounded cards and title rhythm. */
+html[data-theme="airy"] :is(.compact-catalog,.compact-progress,.compact-errors,.compact-achievements,.compact-profile,.compact-profile-settings,.compact-profile-history) { font-family: Arial,Helvetica,sans-serif; }
+html[data-theme="airy"] :is(.compact-catalog,.compact-progress,.compact-errors) > header .metrics { display: none; }
+html[data-theme="airy"] :is(.compact-catalog,.compact-progress,.compact-errors) > header small { font-size: 10px; letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 10px; color: #416d53; }
+html[data-theme="airy"] :is(.compact-catalog,.compact-progress,.compact-errors) > header small svg { display: none; }
+html[data-theme="airy"] :is(.compact-catalog,.compact-progress,.compact-errors) > header h1, html[data-theme="airy"] .compact-achievements h1 { font: 400 32px/38px Georgia,serif; margin-bottom: 10px; }
+html[data-theme="airy"] :is(.compact-catalog,.compact-progress,.compact-errors) > header { margin-bottom: 10px; }
+html[data-theme="airy"] :is(.compact-catalog,.compact-progress,.compact-errors) .lead { font-size: 14px; color: #748077; margin: 0 0 26px; }
+html[data-theme="airy"] .compact-progress .page > h2 { font: 400 24px/30px Georgia,serif; margin: 30px 0 14px; }
+html[data-theme="airy"] .compact-week-card { padding: 22px; border: 1px solid #e3e9e1; border-radius: 10px; background: white; }
+html[data-theme="airy"] .compact-week-chart { display: flex; align-items: flex-end; gap: 12px; height: 165px; }
+html[data-theme="airy"] .compact-week-chart > div { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; text-align: center; height: 100%; }
+html[data-theme="airy"] .compact-week-chart span { display: block; background: #d6e5cd; border-radius: 4px 4px 0 0; }
+html[data-theme="airy"] .compact-week-chart small { font-size: 10px; color: #748077; margin-top: 7px; }
+html[data-theme="airy"] .compact-errors .exercise-list { padding: 2px 22px; }
+html[data-theme="airy"] .compact-errors .exercise-list a { padding: 18px 0; gap: 16px; }
+html[data-theme="airy"] .compact-achievements .family-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+html[data-theme="airy"] .compact-achievements .family-preview { padding: 22px; min-height: 0; }
+@media(max-width:760px) { html[data-theme="airy"] .compact-achievements .family-grid { grid-template-columns: 1fr; } }

@@ -7,8 +7,9 @@ export function ProgressPage() {
   const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
   return (
     <>
-      <Header title="Прогресс" />
+      <Header title="Видно, как растёт уверенность" crumb="Ваше обучение" />
       <section className="page">
+        <p className="lead">Каждая решённая задача — ещё один навык, который можно применить.</p>
         <Link className="achievements-entry" to="/achievements">
           <Award />
           Открыть достижения
@@ -22,7 +23,9 @@ export function ProgressPage() {
           <Card label="Попыток" value={p?.attempts ?? 0} icon={<Code2 />} />
           <Card label="XP" value={p?.xp ?? 0} icon={<Trophy />} />
         </div>
-        <h3>Освоение модулей</h3>
+        <h2>Практика за неделю</h2>
+        <div className="compact-week-card"><div className="compact-week-chart">{Array.from({length:7}, (_, i) => { const day = new Date(); day.setDate(day.getDate() - 6 + i); const count = p?.activity.find(a => a.day === day.toISOString().slice(0,10))?.solved ?? 0; const maximum = Math.max(1, ...(p?.activity.map(a => a.solved) ?? [])); return <div key={i}><span title={`${count} решённых задач`} style={{height: `${Math.max(2, count / maximum * 120)}px`}}/><small>{day.toLocaleDateString("ru", {weekday:"short"})}</small></div>; })}</div></div>
+        <h2>Прогресс по темам</h2>
         <div className="module-list">
           {p?.modules.map((m) => (
             <Link to={`/topics/${m.slug}`} className="module-row" key={m.slug}>
