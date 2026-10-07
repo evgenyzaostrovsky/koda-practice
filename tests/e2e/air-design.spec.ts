@@ -41,6 +41,16 @@ for (const width of [1440, 390]) {
           expect(await page.locator('.cheat-search').evaluate(search => getComputedStyle(search).backgroundColor)).toBe('rgb(255, 255, 255)');
           expect(await page.locator('.cheat-example').first().evaluate(example => getComputedStyle(example).backgroundColor)).toBe('rgb(242, 246, 242)');
           await page.screenshot({ path: testInfo.outputPath(`air-cheatsheet-${width}.png`), fullPage: true });
+          await page.getByRole('button', { name: 'Статья', exact: true }).click();
+          await expect(page.locator('.knowledge-reading')).toBeVisible();
+          expect(await page.locator('.knowledge-practice').evaluate(block => getComputedStyle(block).backgroundColor)).toBe('rgb(237, 243, 238)');
+          const darkSurfaces = await page.locator('.knowledge-reading *').evaluateAll(elements => elements.filter(element => {
+            const color = getComputedStyle(element).backgroundColor;
+            const channels = (color.match(/[\d.]+/g) || []).map(Number);
+            return channels.length >= 3 && (channels.length < 4 || channels[3] > .5) && Math.max(...channels.slice(0, 3)) < 100;
+          }).map(element => element.className));
+          expect(darkSurfaces).toEqual([]);
+          await page.screenshot({ path: testInfo.outputPath(`air-article-${width}.png`), fullPage: true });
         }
         const appearance = await page.locator('.app main h1').first().evaluate(heading => {
           const body = getComputedStyle(document.body), title = getComputedStyle(heading);
