@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Award, Check, Code2, Trophy } from "lucide-react";
+import { Check, Code2, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, Header } from "../components/practice-shared";
 import { progressQ } from "../queries";
@@ -10,10 +10,6 @@ export function ProgressPage() {
       <Header title="Видно, как растёт уверенность" crumb="Ваше обучение" />
       <section className="page">
         <p className="lead">Каждая решённая задача — ещё один навык, который можно применить.</p>
-        <Link className="achievements-entry" to="/achievements">
-          <Award />
-          Открыть достижения
-        </Link>
         <div className="stats">
           <Card
             label="Решено задач"
