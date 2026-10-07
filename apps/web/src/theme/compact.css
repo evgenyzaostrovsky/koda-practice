@@ -410,3 +410,10 @@ html[data-theme="airy"] .compact-app .article-example>div { flex-wrap: wrap; }
   html[data-theme="airy"] .compact-app .sandbox-output:not(.mobile-result) { display: none; }
 }
 
+/* Final compact alignment with the approved light mockup. */
+html[data-theme="airy"] .compact-app { max-width: 1200px; margin: 0 auto; }
+html[data-theme="airy"] .compact-app > aside { width: 184px; padding: 24px 14px 20px; }
+html[data-theme="airy"] .compact-app > aside nav a { min-height: 38px; padding: 8px 10px; gap: 9px; font-size: 12px; }
+html[data-theme="airy"] .compact-app h1 { font-size: 28px; line-height: 34px; }
+html[data-theme="airy"] .compact-app h2 { font-size: 22px; line-height: 28px; }
+html[data-theme="airy"] .compact-app p { font-size: 13px; line-height: 20px; }

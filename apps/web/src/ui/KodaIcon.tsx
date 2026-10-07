@@ -5,11 +5,11 @@ const shapes = {
   History: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M3 7C5 2 13 1 15 6s0 5-2 6c-2 1 1 4-2 5s-2-3-4-2-4-1-4-3 M2 3v4q0 1 1 1h4 M9 5c-1 2-1 3 0 4l3 1" /></g>,
   Errors: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M5 5C6 2 12 2 13 5l3 8q1 3-2 3H4q-3 0-2-3Z M9 6v4 M9 13v.2" /></g>,
   Home: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M2 9C5 8 6 2 9 3s3 5 7 5 M4 8v5c0 2 2 1 2 3s2 1 2-1v-3q1-2 3 0v2c0 3 3 2 3-1V8" /></g>,
-  Practice: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M2 14c2-1 3-5 5-5s3 5 5 5 3-7 6-7 M15 7h3v3" /></g>,
+  Practice: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M2 13c2-4 4-4 6 0s4 4 6 0 3-4 4-1" /></g>,
   Route: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M2 6C4 2 6 2 9 5s5 3 7-1 M2 11c3-4 5-4 8-1s4 2 6-1 M2 16c3-4 5-4 8-1s4 2 6-1" /></g>,
   Topics: <><rect x="3.5" y="3.5" width="7" height="7" rx="2" /><rect x="13.5" y="3.5" width="7" height="7" rx="2" /><rect x="3.5" y="13.5" width="7" height="7" rx="2" /><path d="M14 17h6m-3-3v6" /></>,
   Knowledge: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M9 5C6 2 3 3 2 4v9c3-1 4 0 5 2s2 2 2-1c2-2 4-2 7-1V4c-2-2-5-1-7 1Z M9 5c-1 4 1 5 0 9 M4 7q2-1 3 1 M11 7q2-1 3 0" /></g>,
-  Sandbox: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M2 14c2-1 3-5 5-5s3 5 5 5 3-7 6-7 M15 7h3v3" /></g>,
+  Sandbox: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M4 4h10l2 3v8l-2 2H4l-2-2V7z M4 4l2 3h8l2-3 M6 11h5" /></g>, 
   Progress: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M2 15c3 0 3-6 6-5s2 3 4-2 3-2 4-5 M13 3h3v3" /></g>,
   Achievement: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M9 2c2 0 2 3 4 3s3 2 2 4-1 4-3 4-2 3-4 2-3-1-3-3-3-2-2-4 3-2 3-4Z M6 9l2 2 4-4" /></g>,
   Profile: <g transform="scale(1.333333)" strokeWidth={1.4}><path d="M9 2c-4 0-4 6 0 6s4-6 0-6 M3 16c0-8 12-8 12 0" /></g>,
@@ -32,4 +32,5 @@ export function KodaIcon({ name, size = 20, title, ...props }: KodaIconProps) {
   const titleId = useId();
   return <svg {...props} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.65} strokeLinecap="round" strokeLinejoin="round" focusable="false" role={title ? "img" : undefined} aria-hidden={title ? undefined : true} aria-labelledby={title ? titleId : undefined}>{title && <title id={titleId}>{title}</title>}{shapes[name]}</svg>;
 }
+
 
