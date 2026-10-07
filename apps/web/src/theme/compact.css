@@ -411,7 +411,7 @@ html[data-theme="airy"] .compact-app .article-example>div { flex-wrap: wrap; }
 }
 
 /* Final compact alignment with the approved light mockup. */
-html[data-theme="airy"] .compact-app { max-width: 1200px; margin: 0 auto; }
+html[data-theme="airy"] .compact-app { max-width: 1440px; margin: 0 auto; }
 html[data-theme="airy"] .compact-app > aside { width: 184px; padding: 24px 14px 20px; }
 html[data-theme="airy"] .compact-app > aside nav a { min-height: 38px; padding: 8px 10px; gap: 9px; font-size: 12px; }
 html[data-theme="airy"] .compact-app h1 { font-size: 28px; line-height: 34px; }
@@ -496,7 +496,7 @@ html[data-theme="airy"] .compact-achievements .family-preview { padding: 22px; m
 @media(max-width:760px) { html[data-theme="airy"] .compact-achievements .family-grid { grid-template-columns: 1fr; } }
 
 /* Compact shell dimensions explicitly override legacy Air selectors. */
-html[data-theme="airy"] .app.compact-app:not(.sidebar-collapsed) { grid-template-columns: 208px minmax(0,1fr); max-width: 1200px; margin-inline: auto; }
+html[data-theme="airy"] .app.compact-app:not(.sidebar-collapsed) { grid-template-columns: 208px minmax(0,1fr); max-width: 1440px; margin-inline: auto; }
 html[data-theme="airy"] .app.compact-app > aside { width: 208px; padding: 32px 18px 24px; }
 html[data-theme="airy"] .app.compact-app > aside nav a { min-height: 40px; padding: 8px 13px; margin: 3px 0; line-height: 20px; font: 13px/20px Arial,Helvetica,sans-serif; }
 html[data-theme="airy"] .app.compact-app .side-brand { margin-bottom: 30px; }
@@ -521,3 +521,4 @@ html[data-theme="airy"] .app.compact-app .sandbox-file-list article > small { ma
 html[data-theme="airy"] .app.compact-app .sandbox-file-list article > code { padding: 0; margin: 0; line-height: 15px; background: transparent; }
 html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div button { min-height: 28px; padding: 3px 7px; font-size: 11px; line-height: 18px; }
 html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div button svg { width: 12px; height: 12px; }
+
