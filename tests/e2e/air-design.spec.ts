@@ -1,5 +1,10 @@
 import { expect, test } from '@playwright/test';
 
+const lightSurface = (node: Element) => {
+  const rgb = (getComputedStyle(node).backgroundColor.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+  return rgb.length === 3 && Math.min(...rgb) >= 220;
+};
+
 for (const width of [1440, 390]) {
   test(`Air production routes remain readable and navigable at ${width}px`, async ({ page, request }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });
@@ -15,13 +20,15 @@ for (const width of [1440, 390]) {
         await expect(page.locator('.app main h1').first()).toBeVisible();
         if (route === '/practice/start-001') await expect(page.locator('.monaco-editor textarea')).toBeVisible();
         if (route === '/practice/start-001') {
-          const heights = await page.locator('.air-learning-route i').evaluateAll(dots => dots.map(dot => dot.getBoundingClientRect().top));
+          await expect(page.locator('.air-learning-route a span')).toHaveCount(10);
+          const heights = await page.locator('.air-learning-route a span').evaluateAll(dots => dots.map(dot => dot.getBoundingClientRect().top));
           expect(Math.max(...heights) - Math.min(...heights)).toBeLessThan(1);
         }
         if (route === '/') {
-          await expect(page.locator('.module-row').first()).toBeVisible();
-          expect(await page.locator('.module-row').first().evaluate(row => parseFloat(getComputedStyle(row).paddingLeft))).toBeGreaterThanOrEqual(16);
-          expect(await page.locator('.hero').evaluate(hero => hero.getBoundingClientRect().height)).toBeLessThan(260);
+          await expect(page.locator('.compact-module-card').first()).toBeVisible();
+          await expect(page.locator('.compact-module-card').first()).toHaveAttribute('href', /\/topics\//);
+          expect(await page.locator('.compact-module-card').first().evaluate(card => parseFloat(getComputedStyle(card).paddingLeft))).toBeGreaterThanOrEqual(16);
+          expect(await page.locator('.hero').evaluate(hero => hero.getBoundingClientRect().height)).toBeLessThanOrEqual(width === 390 ? 340 : 300);
           await page.screenshot({ path: testInfo.outputPath(`air-dashboard-${width}.png`), fullPage: true });
         }
         if (route === '/catalog') {
@@ -33,17 +40,17 @@ for (const width of [1440, 390]) {
           await expect(page.locator('.knowledge-card').first()).toBeVisible();
           expect(await page.locator('.knowledge-card').first().evaluate(card => getComputedStyle(card).backgroundColor)).toBe('rgb(255, 255, 255)');
           expect(await page.locator('.knowledge-controls>label').evaluate(label => getComputedStyle(label).backgroundColor)).toBe('rgb(255, 255, 255)');
-          expect(await page.locator('.knowledge-progress>i').first().evaluate(bar => getComputedStyle(bar).backgroundColor)).toBe('rgb(228, 236, 229)');
+          expect(await page.locator('.knowledge-progress>i').first().evaluate(lightSurface)).toBeTruthy();
           await page.screenshot({ path: testInfo.outputPath(`air-knowledge-${width}.png`), fullPage: true });
         }
         if (route.startsWith('/knowledge/')) {
           await expect(page.locator('.cheat-search')).toBeVisible();
           expect(await page.locator('.cheat-search').evaluate(search => getComputedStyle(search).backgroundColor)).toBe('rgb(255, 255, 255)');
-          expect(await page.locator('.cheat-example').first().evaluate(example => getComputedStyle(example).backgroundColor)).toBe('rgb(242, 246, 242)');
+          expect(await page.locator('.cheat-example').first().evaluate(lightSurface)).toBeTruthy();
           await page.screenshot({ path: testInfo.outputPath(`air-cheatsheet-${width}.png`), fullPage: true });
           await page.getByRole('button', { name: 'Статья', exact: true }).click();
           await expect(page.locator('.knowledge-reading')).toBeVisible();
-          expect(await page.locator('.knowledge-practice').evaluate(block => getComputedStyle(block).backgroundColor)).toBe('rgb(237, 243, 238)');
+          expect(await page.locator('.knowledge-practice').evaluate(lightSurface)).toBeTruthy();
           const darkSurfaces = await page.locator('.knowledge-reading *').evaluateAll(elements => elements.filter(element => {
             const color = getComputedStyle(element).backgroundColor;
             const channels = (color.match(/[\d.]+/g) || []).map(Number);

@@ -52,7 +52,7 @@ function Layout() {
     });
   return (
     <div
-      className={`app ${focus ? "practice-shell" : ""} ${collapsed ? "sidebar-collapsed" : ""}`}
+      className={`app compact-app ${focus ? "practice-shell" : ""} ${collapsed ? "sidebar-collapsed" : ""}`}
     >
       {(
         <>
@@ -136,7 +136,7 @@ function Layout() {
           </aside>
         </>
       )}
-      <main>
+      <main className={`compact-main compact-${pathname.startsWith("/practice/") ? "practice" : pathname.startsWith("/topics/") ? "topic" : pathname.startsWith("/knowledge/") ? "material" : pathname === "/" ? "home" : pathname.split("/").filter(Boolean).join("-")}`}>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/catalog" element={<Catalog />} />

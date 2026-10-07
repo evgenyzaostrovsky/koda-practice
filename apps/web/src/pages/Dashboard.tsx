@@ -16,10 +16,9 @@ export function Dashboard() {
         <div className="hero">
           <div>
             <span className="eyebrow">ЕЖЕДНЕВНАЯ ПРАКТИКА</span>
-            <h2>Десять минут, которые закрепляют pandas</h2>
+            <h2>Вернитесь к своей практике</h2>
             <p>
-              Короткая очередь из новой задачи, слабой темы и запланированного
-              повторения.
+              Продолжите последнюю задачу или выберите следующую тему pandas.
             </p>
             <button
               onClick={() =>
@@ -47,19 +46,19 @@ export function Dashboard() {
             icon={<Code2 />}
           />
         </div>
-        <h3>Прогресс обучения</h3>
-        <div className="module-list">
-          {p?.modules.slice(0, 6).map((m) => (
-            <Link to={`/topics/${m.slug}`} className="module-row" key={m.slug}>
-              <span>{m.title}</span>
-              <div className="bar">
-                <i style={{ width: `${m.mastery}%` }} />
-              </div>
-              <b>{m.mastery}%</b>
-              <ChevronRight />
+        <div className="compact-section-head"><h2>Ваш маршрут</h2><Link to="/catalog">Все темы →</Link></div>
+        <div className="compact-module-grid">
+          {p?.modules.slice(0, 6).map((m, index) => (
+            <Link to={`/topics/${m.slug}`} className="compact-module-card" key={m.slug}>
+              <small>{String(index + 1).padStart(2, "0")} · {m.solved} / {m.total} задач</small>
+              <h3>{m.title}</h3>
+              <div className="bar"><i style={{ width: `${m.mastery}%` }} /></div>
+              <div className="compact-module-footer"><span>{m.mastery}% освоено</span><ChevronRight /></div>
             </Link>
           ))}
         </div>
+        <div className="compact-section-head"><h2>Под рукой</h2></div>
+        <div className="compact-tool-links"><Link to="/knowledge">База знаний →</Link><Link to="/sandbox">Песочница →</Link><Link to="/errors">Разбор ошибок →</Link></div>
       </section>
     </>
   );

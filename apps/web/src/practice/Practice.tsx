@@ -17,7 +17,7 @@ function PracticeSession() {
   if(!e) return <Loading />;
   return (
     <div className="practice">
-      <div className="air-practice-heading"><div><small>PYTHON · PANDAS</small><h1>Место для ясных мыслей</h1><p>{moduleTitle} · {number} из {total}</p></div><nav className="air-learning-route" aria-label="Задачи темы">{routeTasks.map((task, index) => <Link key={task.id} to={`/practice/${task.id}`} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}>{index < routeTasks.length - 1 && <svg viewBox="0 0 100 24" preserveAspectRatio="none" aria-hidden="true"><path d={index % 2 === 0 ? "M0 12 C33 0 67 0 100 12" : "M0 12 C33 24 67 24 100 12"} /></svg>}<i /><span>{index + 1}</span></Link>)}</nav></div>
+      <div className="air-practice-heading"><div><small>PYTHON · PANDAS</small><h1>{moduleTitle}</h1><p>{moduleTitle} · {number} из {total}</p></div><nav className="air-learning-route" aria-label="Задачи темы"><svg className="compact-route-wave" viewBox="0 0 480 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 C40 0 80 0 120 24 S200 48 240 24 S320 0 360 24 S440 48 480 24" /></svg>{routeTasks.map((task, index) => <Link key={task.id} to={`/practice/${task.id}`} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}><span>{index + 1}</span></Link>)}</nav></div>
       <div className="focus-header">
         <button
           className="icon-btn"

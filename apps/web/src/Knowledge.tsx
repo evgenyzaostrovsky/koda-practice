@@ -209,7 +209,7 @@ export function KnowledgeArticle() {
     window.setTimeout(() => setCopiedId(null), 1600);
   };
   return (
-    <main className="knowledge-article-page">
+    <main className={`knowledge-article-page compact-material-${mode}`}>
       <div className="knowledge-breadcrumbs">
         <Link to="/knowledge">
           <ArrowLeft /> База знаний

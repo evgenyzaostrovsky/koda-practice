@@ -3,10 +3,10 @@ import { useRef, useState } from "react";
 export function usePracticeLayout() {
   const splitRef = useRef<HTMLDivElement>(null);
   const [left, setLeft] = useState(
-    () => Number(localStorage.getItem("koda:left-pane")) || 43,
+    () => Number(localStorage.getItem("koda:left-pane")) || 38,
   ),
     [editorH, setEditorH] = useState(
-      () => Number(localStorage.getItem("koda:editor-height")) || 360,
+      () => Number(localStorage.getItem("koda:editor-height")) || 320,
     );
   const dragColumns = (ev: React.PointerEvent) => {
     ev.currentTarget.setPointerCapture(ev.pointerId);

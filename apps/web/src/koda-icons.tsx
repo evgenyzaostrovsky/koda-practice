@@ -5,7 +5,7 @@ export const KodaCodePath = (props: IconProps) => <KodaIcon {...props} name="Pra
 export const KodaModules = (props: IconProps) => <KodaIcon {...props} name="Route" />;
 export const KodaBook = (props: IconProps) => <KodaIcon {...props} name="Knowledge" />;
 export const KodaLab = (props: IconProps) => <KodaIcon {...props} name="Sandbox" />;
-export const KodaTrace = (props: IconProps) => <KodaIcon {...props} name="Reset" />;
+export const KodaTrace = (props: IconProps) => <KodaIcon {...props} name="Errors" />;
 export const KodaSignal = (props: IconProps) => <KodaIcon {...props} name="Progress" />;
 export const KodaBadge = (props: IconProps) => <KodaIcon {...props} name="Achievement" />;
 export const KodaProfile = (props: IconProps) => <KodaIcon {...props} name="Profile" />;
