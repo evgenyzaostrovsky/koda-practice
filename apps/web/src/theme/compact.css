@@ -430,3 +430,21 @@ html[data-theme="airy"] .compact-app .air-learning-route > svg { height: 48px; t
 html[data-theme="airy"] .compact-app > .compact-main { padding-top: 76px; }
 html[data-theme="airy"] .compact-profile-link { max-width: 220px; }
 html[data-theme="airy"] .compact-profile-link b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px; }
+/* Home uses the approved mockup composition and exact visual tokens. */
+html[data-theme="airy"] .compact-home .dashboard-mockup { max-width: 880px; font-family: Arial,Helvetica,sans-serif; }
+html[data-theme="airy"] .dashboard-mockup .dashboard-greeting { margin-bottom: 26px; }
+html[data-theme="airy"] .dashboard-mockup .eyebrow { font-size: 10px; line-height: 15.5px; letter-spacing: 1.8px; font-weight: 600; color: #416d53; margin: 0 0 10px; }
+html[data-theme="airy"] .dashboard-mockup h1 { font: 400 32px/38px Georgia,serif; letter-spacing: -.6px; margin: 0 0 10px; }
+html[data-theme="airy"] .dashboard-mockup .lead { font-size: 14px; color: #748077; margin: 0; }
+html[data-theme="airy"] .dashboard-mockup .hero { display: flex; align-items: center; justify-content: space-between; gap: 20px; background: #e9f0e3; border: 1px solid #dbe6d3; padding: 28px; border-radius: 10px; min-height: 0; }
+html[data-theme="airy"] .dashboard-mockup .hero h2 { font: 400 26px/34px Georgia,serif; margin: 0 0 12px; }
+html[data-theme="airy"] .dashboard-mockup .hero p { font-size: 13px; line-height: 20px; color: #64715e; margin: 0 0 16px; max-width: 410px; }
+html[data-theme="airy"] .dashboard-mockup .hero button { min-height: 44px; padding: 0 18px; font-size: 13px; }
+html[data-theme="airy"] .dashboard-mockup .hero-art { width: 155px; min-width: 110px; flex-shrink: 0; color: #416d53; }
+html[data-theme="airy"] .dashboard-mockup .stats { margin: 25px 0; }
+html[data-theme="airy"] .dashboard-mockup .stat { padding: 20px 24px; border-right: 1px solid #e3e9e1; }
+html[data-theme="airy"] .dashboard-mockup .stat:last-child { border: 0; }
+html[data-theme="airy"] .dashboard-mockup .stat strong { display: block; font: 400 28px/36px Georgia,serif; }
+html[data-theme="airy"] .dashboard-mockup .stat span { font-size: 11px; color: #748077; }
+@media(max-width:760px) { html[data-theme="airy"] .dashboard-mockup .hero-art { display: none; } html[data-theme="airy"] .dashboard-mockup .stat { padding: 14px 10px; } }
+html[data-theme="airy"] .dashboard-mockup .dashboard-meta { margin-top: 14px; font-size: 11px; color: #748077; }
