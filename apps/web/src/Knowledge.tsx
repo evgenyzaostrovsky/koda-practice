@@ -94,14 +94,13 @@ export function KnowledgeIndex() {
     <>
       <header className="knowledge-header">
         <div>
-          <small>СПРАВОЧНИК И УЧЕБНЫЕ МАТЕРИАЛЫ</small>
-          <h1>База знаний</h1>
+          <small>БАЗА ЗНАНИЙ</small>
+          <h1>Понимание, к которому можно вернуться</h1>
         </div>
       </header>
       <section className="knowledge-page">
         <p className="knowledge-lead">
-          Читайте подробные материалы, быстро повторяйте синтаксис и переходите
-          к связанным задачам.
+          Короткий путь от «почему не работает» до ясного понимания.
         </p>
         <div className="knowledge-controls">
           <label>

@@ -448,3 +448,26 @@ html[data-theme="airy"] .dashboard-mockup .stat strong { display: block; font: 4
 html[data-theme="airy"] .dashboard-mockup .stat span { font-size: 11px; color: #748077; }
 @media(max-width:760px) { html[data-theme="airy"] .dashboard-mockup .hero-art { display: none; } html[data-theme="airy"] .dashboard-mockup .stat { padding: 14px 10px; } }
 html[data-theme="airy"] .dashboard-mockup .dashboard-meta { margin-top: 14px; font-size: 11px; color: #748077; }
+/* Practice and knowledge share the compact prototype's typography and surfaces. */
+html[data-theme="airy"] .compact-practice .practice { max-width: 1180px; font-family: Arial,Helvetica,sans-serif; }
+html[data-theme="airy"] .compact-practice .problem { padding: 24px; }
+html[data-theme="airy"] .compact-practice .problem h1 { font: 400 22px/29px Georgia,serif; }
+html[data-theme="airy"] .compact-practice .problem p { font-size: 13px; line-height: 20px; color: #56645b; }
+html[data-theme="airy"] .compact-practice .workspace.resizable { gap: 0; }
+html[data-theme="airy"] .compact-practice .editor-area { background: #fcfcfa; border-radius: 0; }
+html[data-theme="airy"] .compact-practice .editor-head { font-size: 11px; }
+html[data-theme="airy"] .compact-practice .result { background: white; padding: 18px 20px; }
+html[data-theme="airy"] .compact-knowledge .knowledge-page { max-width: 960px; font-family: Arial,Helvetica,sans-serif; }
+html[data-theme="airy"] .compact-knowledge .knowledge-header { max-width: 960px; margin-bottom: 10px; }
+html[data-theme="airy"] .compact-knowledge .knowledge-header h1 { font: 400 32px/38px Georgia,serif; letter-spacing: -.6px; }
+html[data-theme="airy"] .compact-knowledge .knowledge-lead { font-size: 14px; color: #748077; margin: 0 0 26px; }
+html[data-theme="airy"] .compact-knowledge .knowledge-card { padding: 22px; background: white; border: 1px solid #e3e9e1; border-radius: 10px; }
+html[data-theme="airy"] .compact-knowledge .knowledge-card h3 { font-size: 16px; line-height: 24px; font-weight: 600; }
+html[data-theme="airy"] .compact-knowledge .knowledge-card p { font-size: 13px; line-height: 20px; color: #748077; }
+html[data-theme="airy"] .compact-app .sandbox-grid { grid-template-columns: minmax(0,1fr); gap: 18px; max-width: 960px; }
+html[data-theme="airy"] .compact-app .sandbox-page { max-width: 960px; }
+html[data-theme="airy"] .compact-app .sandbox-grid > .sandbox-output { grid-column: 1; }
+html[data-theme="airy"] .compact-app .sandbox-grid > :is(.sandbox-files,.sandbox-code,.sandbox-output) { display: block !important; grid-column: 1; }
+html[data-theme="airy"] .compact-app .sandbox-mobile-tabs { display: none !important; }
+html[data-theme="airy"] .compact-app .sandbox-code { height: 440px; }
+html[data-theme="airy"] .compact-app .sandbox-output { min-height: 180px; }
