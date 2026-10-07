@@ -1,17 +1,17 @@
 /* Approved compact production composition. Legacy themes remain available;
    this layer owns the default Air presentation without changing application state. */
 html[data-theme="airy"] {
-  --theme-app-bg: #fcfdfb; --theme-sidebar-bg: #f9fbf7; --theme-header-bg: #fcfdfb;
-  --theme-surface-1: #fff; --theme-surface-2: #f6f8f3; --theme-surface-3: #f0f5ed;
-  --theme-editor-bg: #fdfefc; --theme-border: #e5ebe3; --theme-border-strong: #d1ddd0;
+  --theme-app-bg: #fafbf8; --theme-sidebar-bg: #f6f8f2; --theme-header-bg: #fafbf8;
+  --theme-surface-1: #fff; --theme-surface-2: #f3f5ef; --theme-surface-3: #edf3ea;
+  --theme-editor-bg: #fcfcfa; --theme-border: #e3e9e1; --theme-border-strong: #cbd8c6;
   --theme-text: #24332b; --theme-text-secondary: #626e65; --theme-text-muted: #748077;
   --theme-accent: #416d53; --theme-accent-soft: #edf3ea; --theme-active-bg: #e3ecde;
   --theme-active-text: #416d53; --theme-success: #416d53; --theme-success-soft: #edf3ea;
   --theme-error: #a4483f; --theme-error-soft: #fff5f3; --theme-warning: #8b6127;
   --theme-focus-ring: #416d53; --theme-nav-accent-line: #416d53;
-  --bg: #fcfdfb; --card: #fff; --card2: #f6f8f3; --surface: #fff;
-  --surface-subtle: #f6f8f3; --surface-muted: #f0f5ed; --line: #e5ebe3;
-  --line-strong: #d1ddd0; --text: #24332b; --muted: #626e65; --muted-light: #748077;
+  --bg: #fafbf8; --card: #fff; --card2: #f3f5ef; --surface: #fff;
+  --surface-subtle: #f3f5ef; --surface-muted: #edf3ea; --line: #e3e9e1;
+  --line-strong: #cbd8c6; --text: #24332b; --muted: #626e65; --muted-light: #748077;
   --orange: #416d53; --green: #416d53; --red: #a4483f;
   color-scheme: light;
 }
@@ -20,7 +20,7 @@ html[data-theme="airy"], html[data-theme="airy"] body { overflow-x: hidden; scro
 html[data-theme="airy"]::-webkit-scrollbar, html[data-theme="airy"] body::-webkit-scrollbar { width: 0; height: 0; }
 html[data-theme="airy"] :is(.compact-app,.auth-page) { font: 15px/23px Inter,system-ui,sans-serif; color: var(--text); }
 html[data-theme="airy"] .compact-app { display: grid; grid-template-columns: 208px minmax(0,1fr); max-width: 1440px; min-height: 100vh; border: 0; background: var(--bg); }
-html[data-theme="airy"] .compact-app > aside { position: sticky; top: 0; left: auto; width: 208px; height: 100dvh; padding: 32px 18px 24px; background: #f9fbf7; border-right: 1px solid var(--line); overflow-y: auto; }
+html[data-theme="airy"] .compact-app > aside { position: sticky; top: 0; left: auto; width: 208px; height: 100dvh; padding: 32px 18px 24px; background: #f6f8f2; border-right: 1px solid var(--line); overflow-y: auto; }
 html[data-theme="airy"] .compact-app .side-brand { align-items: flex-start; padding: 0 12px; margin-bottom: 30px; }
 html[data-theme="airy"] .compact-app .logo { display: flex; flex-direction: column; gap: 0; align-items: flex-start; color: #416d53; }
 html[data-theme="airy"] .compact-app .logo > span { display: block; width: 94px; height: 47px; padding: 0; border: 0; background: transparent; color: #416d53; }
@@ -75,7 +75,7 @@ html[data-theme="airy"] .compact-app :is(.knowledge-header,.topic-topbar,.profil
 html[data-theme="airy"] .compact-main > header small { display: flex; align-items: center; gap: 7px; font-size: 12px; margin-bottom: 15px; }
 html[data-theme="airy"] .compact-app .metrics span { border: 0; background: transparent; color: var(--muted); }
 html[data-theme="airy"] .compact-app .metrics b { color: var(--text); }
-html[data-theme="airy"] .compact-app .hero { border: 1px solid #dbe6d3; border-radius: 10px; padding: 28px; background: #eef4e9; box-shadow: none; }
+html[data-theme="airy"] .compact-app .hero { border: 1px solid #dbe6d3; border-radius: 10px; padding: 28px; background: #e9f0e3; box-shadow: none; }
 html[data-theme="airy"] .compact-app .hero h2 { max-width: 440px; font-size: 26px; line-height: 34px; margin: 10px 0 12px; }
 html[data-theme="airy"] .compact-app .hero p { max-width: 410px; margin-bottom: 20px; }
 html[data-theme="airy"] .compact-app .ring { background: transparent; border: 1px solid #c4d4bd; color: #416d53; box-shadow: none; width: 116px; height: 116px; flex-shrink: 0; }
@@ -471,3 +471,5 @@ html[data-theme="airy"] .compact-app .sandbox-grid > :is(.sandbox-files,.sandbox
 html[data-theme="airy"] .compact-app .sandbox-mobile-tabs { display: none !important; }
 html[data-theme="airy"] .compact-app .sandbox-code { height: 440px; }
 html[data-theme="airy"] .compact-app .sandbox-output { min-height: 180px; }
+
+
