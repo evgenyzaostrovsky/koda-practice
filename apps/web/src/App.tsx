@@ -138,7 +138,7 @@ function Layout() {
         </>
       )}
       <main className={`compact-main compact-${pathname.startsWith("/practice/") ? "practice" : pathname.startsWith("/topics/") ? "topic" : pathname.startsWith("/knowledge/") ? "material" : pathname === "/" ? "home" : pathname.split("/").filter(Boolean).join("-")}`}>
-        <Link className="compact-profile" to="/profile" aria-label="Открыть профиль">
+        <Link className="compact-profile-link" to="/profile" aria-label="Открыть профиль">
           <span className="compact-profile-avatar">{(user?.user_metadata?.display_name || user?.email || "П").trim().charAt(0).toLocaleUpperCase("ru")}</span>
           <span><b>{user?.user_metadata?.display_name || user?.email?.split("@")[0] || "Ваш профиль"}</b><small>Профиль →</small></span>
         </Link>

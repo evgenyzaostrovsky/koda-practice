@@ -43,11 +43,11 @@ html[data-theme="airy"] .compact-app.sidebar-collapsed .logo svg { width: 40px; 
 html[data-theme="airy"] .compact-app.sidebar-collapsed :is(.air-nav-label,.logo>b,.side-stat,.side-foot) { display: none; }
 html[data-theme="airy"] .compact-app > .compact-main { padding: 30px 32px 64px; min-width: 0; background: transparent; }
 html[data-theme="airy"] .compact-main { position: relative; }
-html[data-theme="airy"] .compact-profile { position: absolute; top: 24px; right: 32px; z-index: 3; display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; }
+html[data-theme="airy"] .compact-profile-link { position: absolute; top: 24px; right: 32px; z-index: 3; display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; }
 html[data-theme="airy"] .compact-profile-avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #dfead9; color: #416d53; font-size: 12px; font-weight: 600; }
-html[data-theme="airy"] .compact-profile b, html[data-theme="airy"] .compact-profile small { display: block; line-height: 16px; }
-html[data-theme="airy"] .compact-profile b { font-size: 12px; font-weight: 600; }
-html[data-theme="airy"] .compact-profile small { color: var(--muted); font-size: 10px; }
+html[data-theme="airy"] .compact-profile-link b, html[data-theme="airy"] .compact-profile-link small { display: block; line-height: 16px; }
+html[data-theme="airy"] .compact-profile-link b { font-size: 12px; font-weight: 600; }
+html[data-theme="airy"] .compact-profile-link small { color: var(--muted); font-size: 10px; }
 html[data-theme="airy"] .compact-app .side-foot { display: none; }
 html[data-theme="airy"] .compact-main { --compact-width: 960px; }
 html[data-theme="airy"] .compact-home { --compact-width: 880px; }
@@ -361,8 +361,8 @@ html[data-theme="airy"] .compact-app .article-example>div { flex-wrap: wrap; }
   html[data-theme="airy"] .compact-app > aside.open { display: flex; }
   html[data-theme="airy"] .compact-app.sidebar-collapsed > aside.open :is(.air-nav-label,.logo>b,.side-stat,.side-foot,nav a span) { display: block; }
   html[data-theme="airy"] .compact-app .mobile-menu { display: grid; place-items: center; position: fixed; top: 10px; right: 12px; z-index: 100; width: 44px; height: 44px; padding: 0; color: #416d53; background: #fafbf8; border: 1px solid var(--line); }
-  html[data-theme="airy"] .compact-app .compact-profile { top: 16px; right: 66px; }
-  html[data-theme="airy"] .compact-app .compact-profile > span:last-child { display: none; }
+  html[data-theme="airy"] .compact-app .compact-profile-link { top: 16px; right: 66px; }
+  html[data-theme="airy"] .compact-app .compact-profile-link > span:last-child { display: none; }
   html[data-theme="airy"] .compact-app .air-nav-backdrop { position: fixed; inset: 0; z-index: 80; background: #24332b55; border: 0; border-radius: 0; }
   html[data-theme="airy"] .compact-app :is(.compact-main>header,.knowledge-header,.topic-topbar,.profile-detail-head,.ach-head,.sandbox-head) { padding-right: 48px; }
   html[data-theme="airy"] .compact-app .metrics { display: none; }
@@ -417,3 +417,14 @@ html[data-theme="airy"] .compact-app > aside nav a { min-height: 38px; padding: 
 html[data-theme="airy"] .compact-app h1 { font-size: 28px; line-height: 34px; }
 html[data-theme="airy"] .compact-app h2 { font-size: 22px; line-height: 28px; }
 html[data-theme="airy"] .compact-app p { font-size: 13px; line-height: 20px; }
+
+/* Route links own their hover surface; profile occupies a separate header row. */
+html[data-theme="airy"] .compact-app .air-learning-route > a,
+html[data-theme="airy"] .compact-app .air-learning-route > a:hover,
+html[data-theme="airy"] .compact-app .air-learning-route > a:focus { background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; border-radius: 0; }
+html[data-theme="airy"] .compact-app .air-learning-route { display: flex; align-items: center; gap: 0; }
+html[data-theme="airy"] .compact-app .air-learning-route > a { flex: 1; height: 48px; min-height: 48px; transform: none !important; }
+html[data-theme="airy"] .compact-app .air-learning-route > a > span { box-sizing: border-box; margin: 0; }
+html[data-theme="airy"] .compact-app > .compact-main { padding-top: 76px; }
+html[data-theme="airy"] .compact-profile-link { max-width: 220px; }
+html[data-theme="airy"] .compact-profile-link b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px; }
