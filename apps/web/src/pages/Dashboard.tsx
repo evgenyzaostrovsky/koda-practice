@@ -4,23 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { Card, Header } from "../components/practice-shared";
 import { progressQ } from "../queries";
 import { loadLastTask } from "../task-storage";
-import { useAuth } from "../auth";
 export function Dashboard() {
   const nav = useNavigate();
   const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
   const next = p?.modules.find((m) => m.solved < m.total)?.slug || "start",
     lastTask = loadLastTask();
-  const { user } = useAuth();
-  const name = user?.user_metadata?.display_name || user?.email?.split("@")[0];
   return (
     <>
       <Header title="Ваш следующий шаг" />
       <section className="page">
         <div className="hero">
           <div>
-            <span className="eyebrow">ВАШ СЛЕДУЮЩИЙ ШАГ</span>
-            <h2>Рады видеть вас{name ? `, ${name}` : ""}</h2>
-            <p>Немного практики сегодня — больше уверенности завтра.</p>
+            <span className="eyebrow">ПРОДОЛЖИТЬ ОБУЧЕНИЕ</span>
+            <h2>От таблицы — к нужным данным</h2>
+            <p>Вы уже умеете читать CSV. Следующий шаг — выбрать столбцы для анализа.</p>
             <button
               onClick={() =>
                 nav(lastTask ? `/practice/${lastTask}` : `/topics/${next}`)
