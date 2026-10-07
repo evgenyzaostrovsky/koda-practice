@@ -17,7 +17,7 @@ function PracticeSession() {
   if(!e) return <Loading />;
   return (
     <div className="practice">
-      <div className="air-practice-heading"><div><small>PYTHON · PANDAS</small><h1>{moduleTitle}</h1><p>{moduleTitle} · {number} из {total}</p></div><nav className="air-learning-route" aria-label="Задачи темы"><svg className="compact-route-wave" viewBox="0 0 480 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0 24 C40 0 80 0 120 24 S200 48 240 24 S320 0 360 24 S440 48 480 24" /></svg>{routeTasks.map((task, index) => <Link key={task.id} to={`/practice/${task.id}`} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}><span>{index + 1}</span></Link>)}</nav></div>
+      <div className="air-practice-heading"><div><small>PYTHON · PANDAS</small><h1>{moduleTitle}</h1><p>{moduleTitle} · {number} из {total}</p></div><nav className="air-learning-route" aria-label="Задачи темы"><svg className="compact-route-wave" viewBox="0 0 480 48" preserveAspectRatio="none" aria-hidden="true"><path d={routeTasks.length > 1 ? `M0 24 L${240 / routeTasks.length} 24 ` + routeTasks.slice(1).map((_, i) => { const start = (i + 0.5) * 480 / routeTasks.length; const end = (i + 1.5) * 480 / routeTasks.length; const bend = i % 2 === 0 ? 8 : 40; return `C${start + (end-start)/3} ${bend} ${end - (end-start)/3} ${bend} ${end} 24`; }).join(" ") + " L480 24" : "M0 24 H480"} /></svg>{routeTasks.map((task, index) => <Link key={task.id} to={`/practice/${task.id}`} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}><span>{index + 1}</span></Link>)}</nav></div>
       <div className="focus-header">
         <button
           className="icon-btn"
@@ -234,3 +234,4 @@ function PracticeSession() {
     </div>
   );
 }
+
