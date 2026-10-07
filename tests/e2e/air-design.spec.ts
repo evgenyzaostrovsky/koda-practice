@@ -36,6 +36,12 @@ for (const width of [1440, 390]) {
           expect(await page.locator('.knowledge-progress>i').first().evaluate(bar => getComputedStyle(bar).backgroundColor)).toBe('rgb(228, 236, 229)');
           await page.screenshot({ path: testInfo.outputPath(`air-knowledge-${width}.png`), fullPage: true });
         }
+        if (route.startsWith('/knowledge/')) {
+          await expect(page.locator('.cheat-search')).toBeVisible();
+          expect(await page.locator('.cheat-search').evaluate(search => getComputedStyle(search).backgroundColor)).toBe('rgb(255, 255, 255)');
+          expect(await page.locator('.cheat-example').first().evaluate(example => getComputedStyle(example).backgroundColor)).toBe('rgb(242, 246, 242)');
+          await page.screenshot({ path: testInfo.outputPath(`air-cheatsheet-${width}.png`), fullPage: true });
+        }
         const appearance = await page.locator('.app main h1').first().evaluate(heading => {
           const body = getComputedStyle(document.body), title = getComputedStyle(heading);
           const channel = (v: number) => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; };
