@@ -30,3 +30,8 @@ html[data-theme="airy"] .app .catalog .module-card h2{font-size:24px;line-height
 html[data-theme="airy"] .app .catalog .module-card>div{padding-top:22px}
 html[data-theme="airy"] .air-learning-route{padding-top:15px}
 @media(max-width:520px){html[data-theme="airy"] .hero h2{font-size:25px}html[data-theme="airy"] .module-list .module-row{padding:14px 16px}html[data-theme="airy"] .app .catalog .module-card{min-height:180px}}
+html[data-theme="airy"] .air-learning-route{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(44px,1fr);gap:0}
+html[data-theme="airy"] .air-learning-route>a{position:relative;overflow:visible;transform:none;min-width:44px}
+html[data-theme="airy"] .air-learning-route>a>svg{position:absolute;left:50%;top:-8px;width:100%;height:24px;overflow:visible;pointer-events:none;z-index:-1}
+html[data-theme="airy"] .air-learning-route>a>svg path{fill:none;stroke:#99ceca;stroke-width:1;vector-effect:non-scaling-stroke}
+html[data-theme="airy"] .air-learning-route i{flex-shrink:0;position:relative;z-index:1}
