@@ -93,6 +93,7 @@ export function Sandbox() {
     [fileError, setFileError] = useState(""),
     [mobileTab, setMobileTab] = useState<"files" | "code" | "result">("code"),
     [copied, setCopied] = useState("");
+  const filesDialog = useRef<HTMLDialogElement>(null);
   const runtime = useRef<SandboxRuntime | null>(null),
     runtimeId = useRef(crypto.randomUUID()),
     running = useRef(false),
@@ -390,6 +391,9 @@ export function Sandbox() {
         ))}
       </nav>
       <div className="sandbox-grid">
+        <div className="sandbox-files-trigger"><button onClick={() => filesDialog.current?.showModal()}><FileUp /> Загрузить файл</button></div>
+        <dialog className="sandbox-files-dialog" ref={filesDialog} aria-labelledby="sandbox-files-title">
+        <div className="sandbox-files-dialog-head"><h2 id="sandbox-files-title">Ваши файлы</h2><button aria-label="Закрыть файлы" onClick={() => filesDialog.current?.close()}>✕</button></div>
         <aside className={`sandbox-files mobile-${mobileTab}`}>
           <div className="sandbox-panel-title">
             <b>Файлы</b>
@@ -476,6 +480,7 @@ export function Sandbox() {
             </div>
           )}
         </aside>
+        </dialog>
         <div className={`sandbox-code mobile-${mobileTab}`}>
           <div className="sandbox-toolbar">
             <span>solution.py</span>

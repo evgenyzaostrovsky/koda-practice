@@ -522,3 +522,11 @@ html[data-theme="airy"] .app.compact-app .sandbox-file-list article > code { pad
 html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div button { min-height: 28px; padding: 3px 7px; font-size: 11px; line-height: 18px; }
 html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div button svg { width: 12px; height: 12px; }
 
+html[data-theme="airy"] .app.compact-app .sandbox-files-trigger { display: flex; justify-content: flex-start; }
+html[data-theme="airy"] .sandbox-files-dialog { width: min(760px,calc(100vw - 32px)); max-height: calc(100dvh - 64px); padding: 20px; border: 1px solid #e3e9e1; border-radius: 14px; background: white; color: #25372c; overflow: auto; }
+html[data-theme="airy"] .sandbox-files-dialog::backdrop { background: #24332b55; }
+html[data-theme="airy"] .sandbox-files-dialog-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+html[data-theme="airy"] .sandbox-files-dialog-head h2 { margin: 0; }
+html[data-theme="airy"] .app.compact-app .sandbox-files-dialog-head button { background: transparent; color: #416d53; border: 0; width: 40px; padding: 0; }
+html[data-theme="airy"] .app.compact-app .sandbox-files-dialog .sandbox-files { display: block !important; padding: 0; border: 0; width: 100%; }
+html[data-theme="airy"] .app.compact-app .sandbox-files-dialog .sandbox-panel-title { display: none; }
