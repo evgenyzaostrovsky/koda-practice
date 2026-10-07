@@ -101,7 +101,7 @@ const renderQueue = (child?: ReactNode) =>
   );
 const scene = () => screen.getByRole("dialog");
 const confirm = async () => {
-  fireEvent.click(screen.getByRole("button", { name: "Получить" }));
+  fireEvent.click(screen.getByRole("button", { name: "Продолжить" }));
   fireEvent.animationEnd(document.querySelector(".celebration-content")!);
   await waitFor(() =>
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument(),
@@ -142,7 +142,7 @@ describe("achievement celebration queue", () => {
     store();
     renderQueue();
     await screen.findByRole("dialog");
-    fireEvent.click(screen.getByRole("button", { name: "Получить" }));
+    fireEvent.click(screen.getByRole("button", { name: "Продолжить" }));
     expect(scene()).toBeInTheDocument();
     fireEvent.animationEnd(document.querySelector(".celebration-content")!);
     await waitFor(() =>
@@ -158,7 +158,7 @@ describe("achievement celebration queue", () => {
     expect(scene()).toHaveTextContent("Решена первая задача");
     expect(scene()).toHaveTextContent("+50 XP");
     expect(scene()).toHaveTextContent("Награда: Рамка профиля");
-    expect(screen.getByRole("button", { name: "Получить" })).toHaveFocus();
+    expect(screen.getByRole("button", { name: "Продолжить" })).toHaveFocus();
   });
 
   it("awards XP before confirmation and never awards it twice", async () => {
@@ -200,7 +200,7 @@ describe("achievement celebration queue", () => {
     renderQueue();
     expect(await screen.findByText("Первопроходец")).toBeInTheDocument();
     expect(scene()).toHaveTextContent("1 из 2");
-    fireEvent.click(screen.getByRole("button", { name: "Получить" }));
+    fireEvent.click(screen.getByRole("button", { name: "Продолжить" }));
     fireEvent.animationEnd(document.querySelector(".celebration-content")!);
     expect(await screen.findByText("Первый запуск")).toBeInTheDocument();
     expect(scene()).toHaveTextContent("2 из 2");
@@ -244,7 +244,7 @@ describe("achievement celebration queue", () => {
       store();
       renderQueue();
       await screen.findByRole("dialog");
-      const button = screen.getByRole("button", { name: "Получить" });
+      const button = screen.getByRole("button", { name: "Продолжить" });
       fireEvent.keyDown(document, { key: "Tab" });
       expect(button).toHaveFocus();
       fireEvent.keyDown(button, { key });

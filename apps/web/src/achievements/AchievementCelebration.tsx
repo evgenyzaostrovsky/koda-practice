@@ -1,3 +1,4 @@
+import { AchievementArt } from "./AchievementArt";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
@@ -176,7 +177,7 @@ export function AchievementCelebrationQueue() {
         <strong className="celebration-kicker">НОВОЕ ДОСТИЖЕНИЕ</strong>
         {count && <small className="celebration-count">{count}</small>}
         <div className="celebration-art">
-          <img src={`/achievements/${definition.icon}`} alt="" />
+          <AchievementArt id={definition.id} />
         </div>
         <div className="celebration-copy" aria-live="assertive">
           <h2 id="celebration-title">
@@ -206,7 +207,7 @@ export function AchievementCelebrationQueue() {
             }}
             disabled={confirming}
           >
-            {current.bulk ? "Посмотреть достижения" : "Получить"}
+            {current.bulk ? "Посмотреть достижения" : "Продолжить"}
           </button>
         </div>
       </div>

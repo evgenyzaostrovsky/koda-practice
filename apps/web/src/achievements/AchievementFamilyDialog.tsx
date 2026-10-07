@@ -1,3 +1,4 @@
+import { AchievementArt } from "./AchievementArt";
 import { useEffect, useRef, useState } from "react";
 import { Check, Lock } from "lucide-react";
 import type { AchievementFamilyView } from "./families";
@@ -144,7 +145,7 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
                 aria-label={`${displayName}. ${state === "unlocked" ? "Получено" : state === "next" ? "Следующая цель" : "Будущая ступень"}`}
               >
                 <span className="step-line" />
-                <img src={`/achievements/${item.def.icon}`} alt="" />
+                <AchievementArt id={item.def.id} />
                 <i>{item.unlock ? <Check /> : <Lock />}</i>
                 <b>{displayName}</b>
                 <small>
@@ -165,7 +166,7 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
             className={`family-step-details ${selected.unlock ? "unlocked" : "locked"}`}
             data-achievement-id={selected.def.id}
           >
-            <img src={`/achievements/${selected.def.icon}`} alt="" />
+            <AchievementArt id={selected.def.id} />
             <div>
               <small>
                 {selected.unlock ? "ПОЛУЧЕНО" : "НЕ ПОЛУЧЕНО"} ·{" "}

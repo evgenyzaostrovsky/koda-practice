@@ -1,3 +1,4 @@
+import { AchievementArt } from "./AchievementArt";
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, RotateCcw } from "lucide-react";
@@ -29,7 +30,7 @@ export function ProfileAchievements() {
   return <Link className="profile-module profile-achievements-card" to="/achievements">
     <header><div><small>КОЛЛЕКЦИЯ</small><h2>Достижения</h2></div><ArrowRight/></header>
     <div className="profile-achievement-summary"><strong>{unlocked.length} / {manifest.achievement_count}</strong><span>{totalXp} XP</span><span>Серия: {model.stats.maxStreak}</span></div>
-    {unlocked.length ? <div className="profile-unlocked-icons">{unlocked.slice(0, 6).map(({definition}) => <img key={definition!.id} src={achievementThumbnailUrl(definition!,manifest.version)} loading="lazy" decoding="async" width="160" height="160" onError={(event)=>fallbackToOriginal(event,definition!)} alt={definition!.name} title={`${definition!.name} · ${definition!.rarity_ru}`}/>)}</div> : <div className="profile-achievements-empty"><b>Пока нет полученных достижений</b><span>Первая награда появится после выполненного условия.</span></div>}
+    {unlocked.length ? <div className="profile-unlocked-icons">{unlocked.slice(0, 6).map(({definition}) => <AchievementArt key={definition!.id} id={definition!.id} label={definition!.name}/>)}</div> : <div className="profile-achievements-empty"><b>Пока нет полученных достижений</b><span>Первая награда появится после выполненного условия.</span></div>}
     <b className="profile-more">Все достижения →</b>
   </Link>;
 }

@@ -530,3 +530,28 @@ html[data-theme="airy"] .sandbox-files-dialog-head h2 { margin: 0; }
 html[data-theme="airy"] .app.compact-app .sandbox-files-dialog-head button { background: transparent; color: #416d53; border: 0; width: 40px; padding: 0; }
 html[data-theme="airy"] .app.compact-app .sandbox-files-dialog .sandbox-files { display: block !important; padding: 0; border: 0; width: 100%; }
 html[data-theme="airy"] .app.compact-app .sandbox-files-dialog .sandbox-panel-title { display: none; }
+/* Calm achievements: bounded grid, no inherited primary-button surfaces. */
+html[data-theme="airy"] .achievement-art { width: 100px; height: 100px; flex-shrink: 0; }
+html[data-theme="airy"] .family-preview-art .achievement-art { width: 120px; height: 120px; }
+html[data-theme="airy"] .app.compact-app .family-path { display: grid; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); gap: 12px; overflow: visible; padding: 12px 0; }
+html[data-theme="airy"] .app.compact-app .family-path .family-step { width: auto; min-width: 0; height: auto; min-height: 170px; padding: 12px; border: 1px solid #e3e9e1; border-radius: 10px; background: #fafbf8; color: #25372c; box-shadow: none; }
+html[data-theme="airy"] .app.compact-app .family-path .family-step.selected { border-color: #416d53; background: #edf3ea; box-shadow: none; }
+html[data-theme="airy"] .family-step .step-line { display: none; }
+html[data-theme="airy"] .family-step b { color: #25372c; font-size: 12px; line-height: 18px; }
+html[data-theme="airy"] .family-step small { color: #748077; }
+html[data-theme="airy"] .family-step.future .achievement-art { opacity: .55; }
+html[data-theme="airy"] .family-step-details { display: flex; gap: 18px; background: #f3f5ef; border-color: #e3e9e1; }
+html[data-theme="airy"] .family-modal > article { width: min(960px,calc(100vw - 32px)); max-height: calc(100dvh - 48px); overflow: auto; }
+html[data-theme="airy"] .family-current { flex-wrap: wrap; }
+html[data-theme="airy"] .family-current p { margin: 0; }
+html[data-theme="airy"] .ach-summary span:nth-child(n+3) { display: none; }
+html[data-theme="airy"] .achievement-modal .achievement-art { width: 160px; height: 160px; }
+@media(max-width:600px) {
+  html[data-theme="airy"] .app.compact-app .family-modal > article { box-sizing: border-box; padding: 18px; min-width: 0; }
+  html[data-theme="airy"] .app.compact-app .family-path { width: 100%; min-width: 0; grid-template-columns: repeat(2,minmax(0,1fr)); }
+  html[data-theme="airy"] .app.compact-app .family-path .family-step { width: 100%; max-width: 100%; box-sizing: border-box; }
+  html[data-theme="airy"] .family-step-details { flex-wrap: wrap; min-width: 0; }
+  html[data-theme="airy"] .family-step-details > div { min-width: 0; overflow-wrap: anywhere; }
+  html[data-theme="airy"] .family-modal article > header { flex-wrap: wrap; min-width: 0; }
+}
+html[data-theme="airy"] .app.compact-app .family-path .family-step { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; white-space: normal; overflow-wrap: anywhere; }
