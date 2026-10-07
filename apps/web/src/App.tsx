@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { useAuth } from "./auth";
 import { AlertTriangle, Award, BookOpen, ChartNoAxesCombined, Circle, Code2, Flame, FlaskConical, Home, Layers3, Menu, PanelLeftClose, PanelLeftOpen, X } from "lucide-react";
 import { Fragment, lazy, Suspense, useEffect, useState } from "react";
 import { Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
@@ -26,6 +27,7 @@ function Layout() {
       () => localStorage.getItem("koda:sidebar") === "collapsed",
     );
   const { pathname } = useLocation();
+  const { user } = useAuth();
   const lastPracticeTask = loadLastTask();
   const focus = pathname.startsWith("/practice/");
   const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
@@ -83,7 +85,7 @@ function Layout() {
               </button>
             </div>
             <nav>
-              <small className="air-nav-label">ПРАКТИКА И РОСТ</small>
+              <small className="air-nav-label">УЧИТЬСЯ</small>
               {[
                 [KodaHome, "Главная", "/"],
                 [
@@ -93,16 +95,15 @@ function Layout() {
                     ? `/practice/${lastPracticeTask}`
                     : "/catalog",
                 ],
-                [KodaModules, "Мой маршрут", "/catalog"],
-                [KodaSignal, "Мой прогресс", "/progress"],
                 [KodaBook, "База знаний", "/knowledge"],
                 [KodaLab, "Песочница", "/sandbox"],
+                [KodaSignal, "Прогресс", "/progress"],
                 [KodaTrace, "Ошибки", "/errors"],
                 [KodaBadge, "Достижения", "/achievements"],
-                [KodaProfile, "Профиль", "/profile"],
+                [KodaProfile, "История", "/profile/history"],
                ].map(([I, t, to], index) => (
                 <Fragment key={String(t)}>
-                {index === 4 && <small className="air-nav-label air-tools-label">ИНСТРУМЕНТЫ</small>}
+                {index === 4 && <small className="air-nav-label air-tools-label">ВАШ ПУТЬ</small>}
                 <NavLink
                   key={String(t)}
                   to={String(to)}
@@ -137,6 +138,10 @@ function Layout() {
         </>
       )}
       <main className={`compact-main compact-${pathname.startsWith("/practice/") ? "practice" : pathname.startsWith("/topics/") ? "topic" : pathname.startsWith("/knowledge/") ? "material" : pathname === "/" ? "home" : pathname.split("/").filter(Boolean).join("-")}`}>
+        <Link className="compact-profile" to="/profile" aria-label="Открыть профиль">
+          <span className="compact-profile-avatar">{(user?.user_metadata?.display_name || user?.email || "П").trim().charAt(0).toLocaleUpperCase("ru")}</span>
+          <span><b>{user?.user_metadata?.display_name || user?.email?.split("@")[0] || "Ваш профиль"}</b><small>Профиль →</small></span>
+        </Link>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/catalog" element={<Catalog />} />
