@@ -117,19 +117,6 @@ function Layout() {
                 </Fragment>
               ))}
             </nav>
-            <div className="side-stat">
-              <small>РЕШЕНО</small>
-              <strong>
-                {p?.solved ?? 0} <i>/ {p?.total ?? 60}</i>
-              </strong>
-              <div className="bar">
-                <span
-                  style={{
-                    width: `${((p?.solved ?? 0) / (p?.total || 60)) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
             <div className="side-foot">
               <Flame size={16} />
               <span>Локальный прогресс</span>
@@ -168,3 +155,4 @@ function Layout() {
 export default function App() {
   return <Routes><Route path="/design-system" element={<Suspense fallback={<div>Загрузка UI Kit…</div>}><DesignSystem /></Suspense>} /><Route path="/design-prototype" element={<Suspense fallback={<div>Загрузка демо…</div>}><DesignPrototype /></Suspense>} /><Route path="/*" element={<Layout />} /></Routes>;
 }
+

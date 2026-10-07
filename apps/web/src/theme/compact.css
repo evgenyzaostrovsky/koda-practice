@@ -495,3 +495,19 @@ html[data-theme="airy"] .compact-achievements .family-grid { grid-template-colum
 html[data-theme="airy"] .compact-achievements .family-preview { padding: 22px; min-height: 0; }
 @media(max-width:760px) { html[data-theme="airy"] .compact-achievements .family-grid { grid-template-columns: 1fr; } }
 
+/* Compact shell dimensions explicitly override legacy Air selectors. */
+html[data-theme="airy"] .app.compact-app:not(.sidebar-collapsed) { grid-template-columns: 208px minmax(0,1fr); max-width: 1200px; margin-inline: auto; }
+html[data-theme="airy"] .app.compact-app > aside { width: 208px; padding: 32px 18px 24px; }
+html[data-theme="airy"] .app.compact-app > aside nav a { min-height: 40px; padding: 8px 13px; margin: 3px 0; line-height: 20px; font: 13px/20px Arial,Helvetica,sans-serif; }
+html[data-theme="airy"] .app.compact-app .side-brand { margin-bottom: 30px; }
+html[data-theme="airy"] .app.compact-app .logo b { font-size: 35px; }
+html[data-theme="airy"] .app.compact-app.sidebar-collapsed > aside { width: 76px; padding-inline: 8px; }
+html[data-theme="airy"] .app.compact-app .sandbox-drop { min-height: 54px; padding: 10px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list { gap: 0; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 4px 16px; padding: 12px 0; border: 0; border-bottom: 1px solid #e3e9e1; border-radius: 0; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article b { font-size: 13px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > small { grid-column: 1; font-size: 11px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > code { grid-column: 1; font-size: 11px; overflow-wrap: anywhere; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div { grid-column: 2; grid-row: 1 / 4; align-self: center; display: flex; gap: 6px; }
+html[data-theme="airy"] .app.compact-app .sandbox-file-list button { min-height: 34px; padding: 5px 8px; font-size: 11px; border-color: #e3e9e1; background: white; color: #416d53; }
+@media(max-width:760px) { html[data-theme="airy"] .app.compact-app:not(.sidebar-collapsed) { display: block; } html[data-theme="airy"] .app.compact-app > aside.open { width: 240px; } html[data-theme="airy"] .app.compact-app .sandbox-file-list article > div { grid-column: 1 / -1; grid-row: auto; flex-wrap: wrap; } }
