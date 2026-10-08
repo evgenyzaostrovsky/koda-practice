@@ -41,7 +41,7 @@ html[data-theme="airy"] .compact-app.sidebar-collapsed .side-brand { padding: 0;
 html[data-theme="airy"] .compact-app.sidebar-collapsed .logo > span,
 html[data-theme="airy"] .compact-app.sidebar-collapsed .logo svg { width: 40px; }
 html[data-theme="airy"] .compact-app.sidebar-collapsed :is(.air-nav-label,.logo>b,.side-stat,.side-foot) { display: none; }
-html[data-theme="airy"] .compact-app > .compact-main { padding: 30px 32px 64px; min-width: 0; background: transparent; }
+html[data-theme="airy"] .compact-app > .compact-main { padding: 30px 20px 64px; min-width: 0; background: transparent; }
 html[data-theme="airy"] .compact-main { position: relative; }
 html[data-theme="airy"] .compact-profile-link { position: absolute; top: 24px; right: 32px; z-index: 3; display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; }
 html[data-theme="airy"] .compact-profile-avatar { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: #dfead9; color: #416d53; font-size: 12px; font-weight: 600; }
@@ -69,9 +69,9 @@ html[data-theme="airy"] .compact-app button:hover:not(:disabled) { filter: brigh
 html[data-theme="airy"] .compact-app button:disabled { cursor: not-allowed; opacity: .5; }
 html[data-theme="airy"] .compact-app :is(input,select,textarea) { min-height: 44px; padding: 10px 13px; border: 1px solid var(--line); border-radius: 6px; color: var(--text); background: white; font-size: 15px; }
 html[data-theme="airy"] :is(.compact-app,.auth-page) :focus-visible { outline: 3px solid #779d82; outline-offset: 3px; }
-html[data-theme="airy"] .compact-app .page { width: 100%; max-width: var(--compact-width); padding: 0; margin: auto; }
+html[data-theme="airy"] .compact-app .page { width: 100%; max-width: var(--compact-width); padding: 0; margin: auto 0; }
 html[data-theme="airy"] .compact-main > header,
-html[data-theme="airy"] .compact-app :is(.knowledge-header,.topic-topbar,.profile-detail-head) { position: static; width: 100%; max-width: var(--compact-width); height: auto; min-height: 0; margin: 0 auto 26px; padding: 0; border: 0; background: transparent; color: var(--muted); box-shadow: none; }
+html[data-theme="airy"] .compact-app :is(.knowledge-header,.topic-topbar,.profile-detail-head) { position: static; width: 100%; max-width: var(--compact-width); height: auto; min-height: 0; margin: 0 0 26px; padding: 0; border: 0; background: transparent; color: var(--muted); box-shadow: none; }
 html[data-theme="airy"] .compact-main > header small { display: flex; align-items: center; gap: 7px; font-size: 12px; margin-bottom: 15px; }
 html[data-theme="airy"] .compact-app .metrics span { border: 0; background: transparent; color: var(--muted); }
 html[data-theme="airy"] .compact-app .metrics b { color: var(--text); }
@@ -119,7 +119,7 @@ html[data-theme="airy"] .compact-app .activity span.hot { background: #416d53; }
 html[data-theme="airy"] .compact-app .empty.big { background: white; border: 1px solid var(--line); color: var(--muted); }
 
 /* Topic: teaching and ordered tasks retain the original catalog contents. */
-html[data-theme="airy"] .compact-app .topic-page { max-width: 900px; padding: 0; margin: auto; }
+html[data-theme="airy"] .compact-app .topic-page { max-width: 900px; padding: 0; margin: auto 0; }
 html[data-theme="airy"] .compact-app .topic-topbar { font-size: 12px; }
 html[data-theme="airy"] .compact-app .topic-hero { display: grid; grid-template-columns: minmax(0,1fr) 220px; border: 1px solid #dbe6d3; border-radius: 10px; background: #e9f0e3; overflow: hidden; }
 html[data-theme="airy"] .compact-app .topic-hero::before { display: none; }
@@ -141,7 +141,7 @@ html[data-theme="airy"] .compact-app .topic-outcomes nav a { background: #f3f5ef
 html[data-theme="airy"] .compact-app .topic-code { border-color: var(--line); background: #f3f5ef; }
 
 /* Coding workspace: controllers, draggable dividers and Monaco stay intact. */
-html[data-theme="airy"] .compact-app .practice { width: 100%; max-width: 1180px; padding: 0; margin: auto; min-height: 0; background: transparent; border: 0; border-radius: 0; overflow: visible; }
+html[data-theme="airy"] .compact-app .practice { width: 100%; max-width: 1180px; padding: 0; margin: auto 0; min-height: 0; background: transparent; border: 0; border-radius: 0; overflow: visible; }
 html[data-theme="airy"] .compact-app .air-practice-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 0 0 20px; }
 html[data-theme="airy"] .compact-app .air-practice-heading h1 { font-size: 25px; line-height: 32px; margin: 4px 0; }
 html[data-theme="airy"] .compact-app .air-practice-heading small { font-size: 10px; letter-spacing: 1.5px; }
@@ -207,7 +207,7 @@ html[data-theme="airy"] .compact-app .sandbox-mobile-tabs button { background: t
 html[data-theme="airy"] .compact-app .sandbox-mobile-tabs button.active { background: #fff; color: #416d53; border-color: var(--line); }
 
 /* Knowledge: broad light cheat sheet and a separate readable article. */
-html[data-theme="airy"] .compact-app .knowledge-page { max-width: 960px; padding: 0; margin: auto; }
+html[data-theme="airy"] .compact-app .knowledge-page { max-width: 960px; padding: 0; margin: auto 0; }
 html[data-theme="airy"] .compact-app .knowledge-controls { margin: 22px 0; }
 html[data-theme="airy"] .compact-app :is(.knowledge-controls>label,.cheat-search) { background: white; border-color: var(--line); color: var(--muted); }
 html[data-theme="airy"] .compact-app .knowledge-controls input { border: 0; }
@@ -223,7 +223,7 @@ html[data-theme="airy"] .compact-app :is(.knowledge-progress b,.knowledge-breadc
 html[data-theme="airy"] .compact-app :is(.knowledge-card footer a,.knowledge-practice>a,.knowledge-doc,.theory-method a) { color: #416d53; }
 html[data-theme="airy"] .compact-app .chips > span { background: #edf3ea; border-color: #d5e1d8; color: #416d53; }
 html[data-theme="airy"] .compact-app .theory-secondary .chips > span { background: #edf3ea !important; color: #416d53 !important; border-color: #d5e1d8 !important; }
-html[data-theme="airy"] .compact-app .knowledge-article-page { width: 100%; padding: 0; max-width: 940px; margin: auto; }
+html[data-theme="airy"] .compact-app .knowledge-article-page { width: 100%; padding: 0; max-width: 940px; margin: auto 0; }
 html[data-theme="airy"] .compact-app .compact-material-cheat { max-width: 980px; }
 html[data-theme="airy"] .compact-app .knowledge-article-head { position: static; display: block; height: auto; min-height: 0; padding: 20px 0 0; background: transparent; border: 0; }
 html[data-theme="airy"] .compact-app .knowledge-mode { margin: 24px 0; background: #fafbf8; border-color: var(--line); }
@@ -257,7 +257,7 @@ html[data-theme="airy"] .compact-app .theory-full-link { color: #416d53 !importa
 html[data-theme="airy"] .compact-app .knowledge-practice { margin-top: 28px; }
 
 /* Identity, account forms and achievements use actual account state. */
-html[data-theme="airy"] .compact-app .profile-overview { max-width: 860px; margin: auto; padding: 0; }
+html[data-theme="airy"] .compact-app .profile-overview { max-width: 860px; margin: auto 0; padding: 0; }
 html[data-theme="airy"] .compact-app :is(.profile-identity-card,.profile-module,.profile-settings-section,.profile-achievements) { background: white; color: var(--text); border: 1px solid var(--line); border-radius: 10px; box-shadow: none; padding: 22px; }
 html[data-theme="airy"] .compact-app .profile-identity-card { margin-bottom: 22px; }
 html[data-theme="airy"] .compact-app .profile-avatar { background: #dde8d8; color: #416d53; border: 0; }
@@ -267,13 +267,13 @@ html[data-theme="airy"] .compact-app :is(.profile-module,.profile-achievements) 
 html[data-theme="airy"] .compact-app .profile-module :is(p,small,dt) { color: var(--muted); }
 html[data-theme="airy"] .compact-app .profile-identity { min-width: 0; overflow-wrap: anywhere; }
 html[data-theme="airy"] .compact-app .profile-identity-metrics { color: var(--text); border-color: var(--line); }
-html[data-theme="airy"] .compact-app .profile-detail-page { max-width: 720px; padding: 0; margin: auto; background: transparent; }
+html[data-theme="airy"] .compact-app .profile-detail-page { max-width: 720px; padding: 0; margin: auto 0; background: transparent; }
 html[data-theme="airy"] .compact-app .profile-activity-list li { background: white; border-color: var(--line); color: var(--text); }
 html[data-theme="airy"] .compact-app .profile-settings-section label { color: var(--muted); font-size: 14px; }
 html[data-theme="airy"] .compact-app .profile-settings-section header { position: static; height: auto; padding: 0; background: transparent; border: 0; }
 html[data-theme="airy"] .compact-app .profile-settings-section { margin-bottom: 18px; }
 html[data-theme="airy"] .compact-app .profile-more { color: #416d53; }
-html[data-theme="airy"] .compact-app .ach-page { max-width: 960px; margin: auto; min-height: 0; background: transparent; }
+html[data-theme="airy"] .compact-app .ach-page { max-width: 960px; margin: auto 0; min-height: 0; background: transparent; }
 html[data-theme="airy"] .compact-app .ach-head { position: static; padding: 0; min-height: 0; height: auto; background: transparent; margin-bottom: 24px; border: 0; }
 html[data-theme="airy"] .compact-app .ach-body { padding: 0; max-width: 960px; background: transparent; }
 html[data-theme="airy"] .compact-app .ach-summary { background: white; border: 1px solid var(--line); border-radius: 9px; padding: 8px; }
@@ -288,10 +288,10 @@ html[data-theme="airy"] .compact-app .family-modal > article { max-width: 960px;
 html[data-theme="airy"] .compact-app .family-modal article > header { padding: 0 45px 16px 0; background: transparent; }
 
 /* Sandbox preserves independent worker outputs and mobile Files/Code/Result tabs. */
-html[data-theme="airy"] .compact-app .sandbox-page { max-width: 1180px; margin: auto; padding: 0; min-height: 0; background: transparent; }
+html[data-theme="airy"] .compact-app .sandbox-page { max-width: 1180px; margin: auto 0; padding: 0; min-height: 0; background: transparent; }
 html[data-theme="airy"] .compact-app .sandbox-head { position: static; padding: 0; min-height: 72px; height: auto; max-height: none; border: 0; background: transparent; }
 html[data-theme="airy"] .compact-app .sandbox-runtime { max-width: 55%; background: transparent; color: var(--muted); white-space: normal; overflow: visible; font-size: 12px; }
-html[data-theme="airy"] .compact-app .sandbox-grid { display: grid; grid-template-columns: 200px minmax(0,1fr) 270px; gap: 14px; padding: 16px 0 0; max-width: 1180px; }
+html[data-theme="airy"] .compact-app .sandbox-grid { display: grid; grid-template-columns: 200px minmax(0,1fr) 270px; gap: 14px; padding: 16px 0 0; max-width: 1180px; margin-inline: 0; }
 html[data-theme="airy"] .compact-app :is(.sandbox-files,.sandbox-code,.sandbox-output) { width: 100%; min-width: 0; background: white; color: var(--text); border: 1px solid var(--line); border-radius: 9px; }
 html[data-theme="airy"] .compact-app .sandbox-files { max-height: none; padding: 16px; }
 html[data-theme="airy"] .compact-app .sandbox-file-list { display: flex; flex-direction: column; overflow: visible; }
@@ -336,7 +336,6 @@ html[data-theme="airy"] .compact-app .knowledge-reading { overflow-wrap: anywher
 html[data-theme="airy"] .compact-app .article-example>div { flex-wrap: wrap; }
 
 @media (max-width: 1200px) {
-  html[data-theme="airy"] .compact-app > .compact-main { padding-inline: 26px; }
   html[data-theme="airy"] .compact-app .sandbox-grid { grid-template-columns: 180px minmax(0,1fr); }
   html[data-theme="airy"] .compact-app .sandbox-output { grid-column: 2; }
 }
@@ -464,8 +463,8 @@ html[data-theme="airy"] .compact-knowledge .knowledge-lead { font-size: 14px; co
 html[data-theme="airy"] .compact-knowledge .knowledge-card { padding: 22px; background: white; border: 1px solid #e3e9e1; border-radius: 10px; }
 html[data-theme="airy"] .compact-knowledge .knowledge-card h3 { font-size: 16px; line-height: 24px; font-weight: 600; }
 html[data-theme="airy"] .compact-knowledge .knowledge-card p { font-size: 13px; line-height: 20px; color: #748077; }
-html[data-theme="airy"] .compact-app .sandbox-grid { grid-template-columns: minmax(0,1fr); gap: 18px; max-width: 960px; }
-html[data-theme="airy"] .compact-app .sandbox-page { max-width: 960px; }
+html[data-theme="airy"] .compact-app .sandbox-grid { grid-template-columns: minmax(0,1fr); gap: 18px; max-width: 100%; }
+html[data-theme="airy"] .compact-app .sandbox-page { max-width: 100%; }
 html[data-theme="airy"] .compact-app .sandbox-grid > .sandbox-output { grid-column: 1; }
 html[data-theme="airy"] .compact-app .sandbox-grid > :is(.sandbox-files,.sandbox-code,.sandbox-output) { display: block !important; grid-column: 1; }
 html[data-theme="airy"] .compact-app .sandbox-mobile-tabs { display: none !important; }
