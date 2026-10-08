@@ -1,0 +1,63 @@
+{
+  "sha256": "5f9975f27db9c37e45cbcd9e3ab78d3968d07b5dd424c286a259d4fac2c1c6ba",
+  "headings": [
+    "KODA Market — готовые задачи 73–87",
+    "Визуализация",
+    "73. Выручка городов",
+    "74. Динамика продаж",
+    "75. Сравнение каналов",
+    "76. Распределение доставки",
+    "77. Оценки категорий",
+    "Итоговые pandas-кейсы",
+    "78. Отчёт руководителя",
+    "79. Проблемный канал",
+    "80. Лучший клиент",
+    "81. Прибыль категорий",
+    "82. Пять выводов",
+    "SQL",
+    "83. Дорогие оплаченные заказы",
+    "84. Выручка городов SQL",
+    "85. Показатели каналов SQL",
+    "86. Повторные клиенты SQL",
+    "87. Доля отмен SQL"
+  ],
+  "methodsAndFunctions": [
+    "histplot",
+    "plot"
+  ],
+  "parameters": [
+    "kind",
+    "marker"
+  ],
+  "lineCount": 157,
+  "sourceTitle": "KODA Market authored v2",
+  "coverage": {
+    "histplot": {
+      "status": "new",
+      "taskIds": []
+    },
+    "plot": {
+      "status": "covered",
+      "taskIds": [
+        "pandas-plots-001",
+        "pandas-plots-002",
+        "pandas-plots-004",
+        "pandas-plots-005",
+        "pandas-plots-007",
+        "pandas-plots-008",
+        "pandas-plots-009",
+        "pandas-plots-010",
+        "matplotlib-001",
+        "matplotlib-002",
+        "matplotlib-003",
+        "matplotlib-004",
+        "matplotlib-005",
+        "matplotlib-006",
+        "matplotlib-007",
+        "matplotlib-008",
+        "matplotlib-009",
+        "matplotlib-010"
+      ]
+    }
+  }
+}

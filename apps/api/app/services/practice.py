@@ -51,22 +51,30 @@ def attempt_dataset(e):
 def submit_attempt(body, account):
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    actual=run(body.code,attempt_dataset(e),e['result_variable'],exercise_mode=e.get('exercise_mode','python'))
+    contract={**e.get('validation_spec', {}), 'reference_code': e['solution_code']}
+    actual=run(body.code,attempt_dataset(e),e['result_variable'],setup_code=e['setup_code'],exercise_mode=e.get('exercise_mode','python'),validation_spec=contract)
     expected=EXPECTED_RESULTS.get(body.exercise_id)
     if expected is None:
-        expected=run(e['solution_code'],e['dataset'],e['result_variable'],setup_code=e['setup_code'],exercise_mode=e.get('exercise_mode','python'));EXPECTED_RESULTS[body.exercise_id]=expected
-    equal,diff=compare_results(actual,expected) if actual.get('ok') else (False,{})
+        expected=run(e['solution_code'],e['dataset'],e['result_variable'],setup_code=e['setup_code'],exercise_mode=e.get('exercise_mode','python'),validation_spec=contract);EXPECTED_RESULTS[body.exercise_id]=expected
+    equal,diff=compare_results(actual,expected,contract) if actual.get('ok') else (False,{})
     missing=set(e.get('required_tokens',[]))-used_methods(body.code)
     missing |= set(e.get('required_calls',[]))-used_methods(body.code,calls_only=True)
-    passed=actual.get('ok') and equal and not actual.get('mutated_inputs') and not missing
+    interaction_missing=actual.get('validation_missing',[])
+    passed=actual.get('ok') and equal and not actual.get('mutated_inputs') and not missing and not interaction_missing
     if actual.get('ok') and actual.get('mutated_inputs'):
         actual.update(diff); actual.update(error_type='WrongAnswer',error='Исходные данные были изменены.',difference=f"Не изменяйте входные переменные: {', '.join(actual['mutated_inputs'])}.")
     elif actual.get('ok') and not passed: actual.update(error_type='WrongAnswer',error='Код выполнен, но result не совпал с ожидаемым.',**diff)
+    if interaction_missing:
+        actual.update(error_type='WrongMethod',error='Проверьте взаимодействия отчёта.',difference='; '.join(interaction_missing))
     num,hints=persist_attempt(account,body.exercise_id,body.code,passed,actual,None if passed else explain(actual))
     if missing and actual.get('ok') and equal:
         calls=', '.join(f"pd.{name}()" if name.startswith('read_') else f"{name}()" for name in sorted(missing))
         actual.update(error_type='WrongMethod',error='Результат верный, но задача проверяет конкретный приём.',difference=f"Используйте вызов {calls}, не раскрывая готовое решение.")
     details=explain(actual)
+    mode=e.get('exercise_mode','python')
+    if mode != 'python' and details.get('kind') == 'runtime_error':
+        label={'sql':'SQL','excel':'Excel','power-bi':'Power BI'}.get(mode,'симулятора')
+        details.update(title=f'Ошибка {label}',python_error=None,check='Проверьте запрос и поля таблиц.' if mode == 'sql' else 'Проверьте формулы и настройки учебного отчёта.')
     if not passed:
         details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)]['text'])
     evidence=achievement_evidence(body.code,e['solution_code']) if passed and e.get('exercise_mode','python') == 'python' else None

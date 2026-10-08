@@ -26,7 +26,9 @@ def test_catalog_and_private_solutions():
         assert len(published_ids)==len(EXERCISES)
         assert set(published_ids)==set(EXERCISES)
         assert BASELINE_IDS <= set(published_ids)
-        assert all(1 <= len(t['exercises']) <= 10 for m in modules for t in m['topics'])
+        topics = [topic for module in modules for topic in module['topics']]
+        assert all(len(topic['exercises']) <= 10 and (topic['exercises'] or topic.get('knowledge_only')) for topic in topics)
+        assert {topic['slug'] for topic in topics if not topic['exercises']} == {'market-selection', 'market-date-filters'}
         assert 'solution_code' not in str(modules)
 
 

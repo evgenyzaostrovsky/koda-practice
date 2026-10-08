@@ -8,7 +8,7 @@ from app.content import EXERCISES
 
 CASES = [
     ('reading-009', 'read_csv', "result = pd.read_table(csv_path, sep=',', parse_dates=['order_date'])", "loaded = pd.read_csv(csv_path, parse_dates=['order_date'])\nresult = loaded"),
-    ('market-groupby-report-002', 'agg', "grouped = orders.groupby('city')\nresult = pd.concat([grouped.order_id.count().rename('orders_count'), grouped.revenue.sum().rename('total_revenue'), grouped.revenue.mean().rename('avg_revenue'), grouped.delivery_days.mean().rename('avg_delivery')], axis=1).round(2).sort_values('total_revenue', ascending=False)", "grouped = orders.groupby('city')\nsummary = grouped.agg(orders_count=('order_id','count'),total_revenue=('revenue','sum'),avg_revenue=('revenue','mean'),avg_delivery=('delivery_days','mean'))\nresult = summary.round(2).sort_values('total_revenue', ascending=False)"),
+    ('market-groupby-report-002', 'agg', "grouped = orders.groupby('city')\nresult = pd.concat([grouped.order_id.count().rename('order_count'), grouped.revenue.sum().rename('total_revenue'), grouped.revenue.mean().rename('avg_revenue'), grouped.delivery_days.mean().rename('avg_delivery_days')], axis=1).sort_values('total_revenue', ascending=False)", "grouped = orders.groupby('city')\nsummary = grouped.agg(order_count=('order_id','count'),total_revenue=('revenue','sum'),avg_revenue=('revenue','mean'),avg_delivery_days=('delivery_days','mean'))\nresult = summary.sort_values('total_revenue', ascending=False)"),
     ('market-transform-001', 'transform', "totals = orders.groupby('city').revenue.sum()\nresult = orders.assign(city_revenue=orders.city.map(totals))", "totals = orders.groupby('city').revenue.transform(lambda values: values.sum())\nresult = orders.assign(city_revenue=totals)"),
 ]
 

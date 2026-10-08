@@ -362,7 +362,7 @@ export function KnowledgeArticle() {
           </article>
         </div>
       )}
-      <div className="knowledge-practice">
+      {unit.relatedTaskIds.length > 0 && <div className="knowledge-practice">
         <div>
           <BookOpen />
           <span>
@@ -373,7 +373,7 @@ export function KnowledgeArticle() {
         <Link to={`/topics/${unit.slug}`}>
           Перейти к практике <ArrowRight />
         </Link>
-      </div>
+      </div>}
     </main>
   );
 }

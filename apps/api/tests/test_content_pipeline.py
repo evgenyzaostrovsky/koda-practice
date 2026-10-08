@@ -18,7 +18,9 @@ def test_existing_bank_is_fully_linked_to_stable_knowledge_units():
     topics=[topic for module in catalog['modules'] for topic in module['topics']]
     assert len(units)==len(topics)
     assert original_ids <= set(tasks)
-    assert all(1 <= len(unit['taskIds']) <= 10 for unit in units)
+    assert all(len(unit['taskIds']) <= 10 and (unit['taskIds'] or unit.get('knowledge_only')) for unit in units)
+    assert {unit['slug'] for unit in units if not unit['taskIds']} == {'market-selection', 'market-date-filters'}
+    assert all(unit['article']['sections'] and unit['cheatSheet']['entries'] for unit in units if unit.get('knowledge_only'))
     assert {task_id for unit in units for task_id in unit['taskIds']}==set(tasks)
     assert all(tasks[task_id]['knowledge_unit_id']==unit['id'] for unit in units for task_id in unit['taskIds'])
 

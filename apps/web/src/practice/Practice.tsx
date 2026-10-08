@@ -14,14 +14,15 @@ export function Practice() {
   return <PracticeSession key={`${user?.id ?? "anonymous"}:${eid}`} />;
 }
 function PracticeSession() {
-  const { routeTasks, taskHref, e, exerciseError, refetchExercise, isFetching, code, updateCode, result, hints, hintsOpen, setHintsOpen, solution, theory, setTheory, left, editorH, splitRef, moduleTitle, number, total, action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist } = usePracticeController();
+  const { routeTasks, taskHref, sourceCourseTotal, e, exerciseError, refetchExercise, isFetching, code, updateCode, result, hints, hintsOpen, setHintsOpen, solution, theory, setTheory, left, editorH, splitRef, moduleTitle, number, total, action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist } = usePracticeController();
   if(exerciseError) return <QueryError retry={() => refetchExercise()} pending={isFetching} focus />;
   if(!e) return <Loading />;
   const mode = e.exercise_mode ?? "python";
   const label = { python: "PYTHON · PANDAS", sql: "SQL", excel: "EXCEL · УЧЕБНЫЙ СИМУЛЯТОР", "power-bi": "POWER BI · УЧЕБНЫЙ СИМУЛЯТОР" }[mode];
+  const position = sourceCourseTotal ? e.source_number ?? number : number;
   return (
     <div className="practice">
-      <div className="air-practice-heading"><div><small>{label}</small><h1>{moduleTitle}</h1><p>{moduleTitle} · {number} из {total}</p></div><nav className="air-learning-route" aria-label="Задачи темы"><svg className="compact-route-wave" viewBox="0 0 480 48" preserveAspectRatio="none" aria-hidden="true"><path d={routeTasks.length > 1 ? `M0 24 L${240 / routeTasks.length} 24 ` + routeTasks.slice(1).map((_, i) => { const start = (i + 0.5) * 480 / routeTasks.length; const end = (i + 1.5) * 480 / routeTasks.length; const bend = i % 2 === 0 ? 8 : 40; return `C${start + (end-start)/3} ${bend} ${end - (end-start)/3} ${bend} ${end} 24`; }).join(" ") + " L480 24" : "M0 24 H480"} /></svg>{routeTasks.map((task, index) => <Link key={task.id} to={taskHref(task.id)} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}><span>{index + 1}</span></Link>)}</nav></div>
+      <div className="air-practice-heading"><div><small>{label}</small><h1>{moduleTitle}</h1><p>{moduleTitle} · {position} из {sourceCourseTotal ?? total}</p></div><nav className="air-learning-route" aria-label="Задачи темы"><svg className="compact-route-wave" viewBox="0 0 480 48" preserveAspectRatio="none" aria-hidden="true"><path d={routeTasks.length > 1 ? `M0 24 L${240 / routeTasks.length} 24 ` + routeTasks.slice(1).map((_, i) => { const start = (i + 0.5) * 480 / routeTasks.length; const end = (i + 1.5) * 480 / routeTasks.length; const bend = i % 2 === 0 ? 8 : 40; return `C${start + (end-start)/3} ${bend} ${end - (end-start)/3} ${bend} ${end} 24`; }).join(" ") + " L480 24" : "M0 24 H480"} /></svg>{routeTasks.map((task, index) => <Link key={task.id} to={taskHref(task.id)} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}><span>{task.source_number ?? index + 1}</span></Link>)}</nav></div>
       <div className="focus-header">
         <button
           className="icon-btn"
@@ -33,7 +34,7 @@ function PracticeSession() {
         <nav className="air-practice-tabs" aria-label="Материал задачи"><button aria-pressed={!theory} onClick={() => setTheory(null)}>Задача</button><button aria-pressed={Boolean(theory)} onClick={openTheory}>Теория</button></nav>
         <div className="task-position">
           <span>
-            Задача {number} из {total}
+            Задача {position} из {sourceCourseTotal ?? total}
           </span>
           <div className="topic-progress">
             <i style={{ width: `${(number / total) * 100}%` }} />
@@ -78,12 +79,16 @@ function PracticeSession() {
               <KodaTheory /> Теория
             </button>
           </div>
-          <p>{e.instructions}</p>
-          <div className="target">{mode === "python" ? <>Сохраните результат в <code>result</code></> : mode === "sql" ? "Напишите SQL-запрос: его результат будет проверен." : "Настройте решение и нажмите «Проверить»."}</div>
+          {e.situation && <div className="authored-task-copy"><h3>Ситуация</h3><p>{e.situation}</p></div>}
+          {e.question && <h3>Задание</h3>}
+          <p className="authored-task-copy">{e.question ?? e.instructions}</p>
+          {e.source_expected_result && <div className="authored-task-copy"><h3>Ожидаемый результат</h3><p>{e.source_expected_result}</p></div>}
+          <div className="target">{e.answer_contract ? <><b>Формат ответа</b><p>{e.answer_contract}</p></> : mode === "python" ? <>Сохраните результат в <code>result</code></> : mode === "sql" ? "Напишите SQL-запрос: его результат будет проверен." : "Настройте решение и нажмите «Проверить»."}</div>
           <div className="section-title">
             <h3>Исходные данные</h3>
           </div>
           <DataPreview dataset={e.preview_dataset ?? e.dataset} />
+          {e.dataset.files != null && typeof e.dataset.files === "object" && <p><small>Подготовленные файлы: {Object.keys(e.dataset.files).join(", ")}</small></p>}
           <div className="hints">
             <div className="hint-head">
               <span>
@@ -102,7 +107,7 @@ function PracticeSession() {
               hints.map((x, i) => (
                 <div className="hint-item" key={x}>
                   <b>{i + 1}</b>
-                  <p>{x}</p>
+                  <p className="authored-task-copy">{x}</p>
                 </div>
               ))}
             {hints.length < 3 ? (
@@ -138,7 +143,7 @@ function PracticeSession() {
             </button>
           </div>
           <div className="editor-area" style={{ height: editorH }}>
-            {mode === "excel" || mode === "power-bi" ? <ModeControls exercise={e} code={code} onChange={updateCode} disabled={action.isPending} /> : <Editor
+            {mode === "excel" || mode === "power-bi" ? <ModeControls exercise={e} code={code} onChange={updateCode} onPreview={nextCode => run(false, nextCode)} disabled={action.isPending} /> : <Editor
               height="100%"
               language={mode === "sql" ? "sql" : "python"}
               theme={document.documentElement.dataset.theme === "airy" || document.documentElement.dataset.theme === "neutral-light" ? "light" : "vs-dark"}
@@ -191,7 +196,7 @@ function PracticeSession() {
                   </div>
                 )}
                 {result ? (
-                  <>{action.isError && <small>Предыдущий результат</small>}{(mode === "excel" || mode === "power-bi") && result.ok && result.passed !== false ? <ModeReport result={result} /> : <ResultView r={result} />}</>
+                  <>{action.isError && <small>Предыдущий результат</small>}{(mode === "excel" || mode === "power-bi") && result.ok && result.passed !== false ? <ModeReport result={result} dataset={e.preview_dataset ?? e.dataset} code={code} disabled={action.isPending} onPreview={nextCode => { updateCode(nextCode); run(false, nextCode); }} /> : <ResultView r={result} />}</>
                 ) : !action.isError ? (
                   <div className="empty">Результат выполнения появится здесь</div>
                 ) : null}
@@ -208,11 +213,13 @@ function PracticeSession() {
                     <span>Подсказок: {result.hints_used}</span>
                     <span>{result.execution_ms} мс</span>
                   </div>
-                  <p>
+                  {!e.analysis && <p>
                     {result.completion_summary ||
                       result.approach ||
                       e.completion_summary}
-                  </p>
+                  </p>}
+                  {e.analysis && <div className="authored-task-copy"><h3>Разбор</h3><p>{e.analysis}</p></div>}
+                  {e.reflection && <p className="authored-task-copy">{e.reflection}</p>}
                   <button onClick={() => go(number + 1)}>
                     Следующая задача <ChevronRight />
                   </button>

@@ -21,7 +21,8 @@ def validate_catalog():
         raise ValueError('Catalog is missing a stable foundation task ID')
     if len(KNOWLEDGE_UNITS)!=len(TOPICS): raise ValueError('Every topic must have a knowledge unit')
     for topic in TOPICS.values():
-        if not 1 <= len(topic['exercises']) <= 10: raise ValueError(f"{topic['slug']}: expected one to ten exercises")
+        archived=topic.get('knowledge_only') is True and not topic['exercises'] and KNOWLEDGE_BY_SLUG[topic['slug']].get('knowledge_only') is True
+        if not archived and not 1 <= len(topic['exercises']) <= 10: raise ValueError(f"{topic['slug']}: expected one to ten exercises")
         for exercise in topic['exercises']:
             missing=required-set(exercise)
             if missing: raise ValueError(f"{exercise.get('id','unknown')}: missing {sorted(missing)}")

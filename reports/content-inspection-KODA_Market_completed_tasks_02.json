@@ -1,0 +1,118 @@
+{
+  "sha256": "5248901611934b9ea31b5d723c5c0dc8ef9d9643ae100991008ac1e029c05ec3",
+  "headings": [
+    "KODA Market — готовые задачи 28–42",
+    "Новые колонки",
+    "28. Выручка до скидки",
+    "29. Крупный заказ",
+    "30. Размер заказа",
+    "31. Выручка за единицу",
+    "32. Долгая доставка",
+    "Transform",
+    "33. Выручка города в каждой строке",
+    "34. Доля заказа в городе",
+    "35. Отклонение от среднего чека канала",
+    "36. Средняя доставка города",
+    "37. Выше среднего своей категории",
+    "Пропуски",
+    "38. Количество пропусков",
+    "39. Заказы без оценки",
+    "40. Заполнение оценки",
+    "41. Доля пропусков по каналам",
+    "42. Пропуски в ключевых полях"
+  ],
+  "methodsAndFunctions": [
+    "cut",
+    "fillna",
+    "isna",
+    "sum",
+    "transform"
+  ],
+  "parameters": [
+    "axis"
+  ],
+  "lineCount": 174,
+  "sourceTitle": "KODA Market authored v2",
+  "coverage": {
+    "cut": {
+      "status": "covered",
+      "taskIds": [
+        "market-features-002",
+        "market-mapping-004"
+      ]
+    },
+    "fillna": {
+      "status": "covered",
+      "taskIds": [
+        "recipes-001",
+        "recipes-002",
+        "recipes-003",
+        "recipes-004",
+        "recipes-005",
+        "recipes-006",
+        "recipes-007",
+        "recipes-010",
+        "market-mapping-003"
+      ]
+    },
+    "isna": {
+      "status": "covered",
+      "taskIds": [
+        "market-overview-002",
+        "market-quality-002",
+        "market-quality-003",
+        "market-quality-004",
+        "market-missing-counts-001"
+      ]
+    },
+    "sum": {
+      "status": "covered",
+      "taskIds": [
+        "dataframe-methods-001",
+        "dataframe-methods-002",
+        "dataframe-methods-003",
+        "dataframe-methods-004",
+        "dataframe-methods-005",
+        "dataframe-methods-006",
+        "dataframe-methods-007",
+        "dataframe-methods-008",
+        "dataframe-methods-009",
+        "dataframe-methods-010",
+        "groupby-001",
+        "groupby-002",
+        "groupby-003",
+        "groupby-004",
+        "groupby-005",
+        "groupby-006",
+        "groupby-007",
+        "groupby-008",
+        "groupby-009",
+        "groupby-010",
+        "pandas-plots-003",
+        "market-overview-002",
+        "market-groupby-003",
+        "market-groupby-006",
+        "market-missing-counts-001",
+        "market-duplicates-005",
+        "market-joins-004",
+        "market-time-001",
+        "market-time-002",
+        "market-time-003",
+        "market-time-004",
+        "market-charts-001",
+        "market-channel-charts-001",
+        "market-category-profit-001"
+      ]
+    },
+    "transform": {
+      "status": "covered",
+      "taskIds": [
+        "market-transform-001",
+        "market-transform-002",
+        "market-transform-003",
+        "market-transform-004",
+        "market-transform-005"
+      ]
+    }
+  }
+}

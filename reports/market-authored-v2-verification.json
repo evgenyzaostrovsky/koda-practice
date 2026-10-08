@@ -1,0 +1,52 @@
+{
+  "revision": "market-authored-v2",
+  "authoritative_source": "KODA_Market_Codex_upload.zip",
+  "source_steps": 115,
+  "lessons": 19,
+  "catalog_tasks": 295,
+  "knowledge_units": 41,
+  "structured_hints": 885,
+  "foundation_ids_preserved": 200,
+  "affected_ids": 128,
+  "retired_market_ids": 12,
+  "validation": {
+    "content_audit": "PASS",
+    "staged_content_audit_excluding_prior_edits": "PASS",
+    "api_tests": 397,
+    "web_tests": 139,
+    "focused_post_fix_runtime_tests": 8,
+    "focused_report_tests": 5,
+    "core_preparation_regressions": 2,
+    "sandbox_contract": "PASS",
+    "typecheck_build": "PASS",
+    "independent_browser_unique_scenarios": 25,
+    "final_browser_fixes_suite": {
+      "passed": 7,
+      "total": 7
+    }
+  },
+  "runtime_findings": [
+    "Mobile descendant overflow was reproduced, fixed and verified with panel bounds and local keyboard table scrolling.",
+    "Sandbox cold core import boundary was reproduced; initialization now imports trusted libraries before ready. Initial, Restart, reload, 15-second timeout and recovery passed.",
+    "Earlier browser run had a transient HTML404 during dist replacement and repeated Sandbox timeout; neither was counted as PASS until verified reruns."
+  ],
+  "actual_8014": {
+    "database_backup": "local task snapshot",
+    "unrelated_rows_exactly_preserved": {
+      "attempts": 5,
+      "hints": 1,
+      "reviews": 1
+    },
+    "revision_archives": 1,
+    "solved_ids": [
+      "start-001"
+    ],
+    "xp": 15,
+    "catalog_total": 295,
+    "independent_readonly_verification": "PASS"
+  },
+  "limitations": [
+    "Excel and Power BI are bounded educational simulators; native Office execution/export is not verified.",
+    "Authenticated remote Supabase execution unavailable; revision namespaces and isolation were verified with test fixtures."
+  ]
+}

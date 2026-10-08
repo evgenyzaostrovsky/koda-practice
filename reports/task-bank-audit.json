@@ -1,6 +1,6 @@
 {
-  "total_exercises": 294,
-  "final_exercises": 294,
+  "total_exercises": 295,
+  "final_exercises": 295,
   "removed_exercises": [],
   "reworked_exercises": [
     "start-002",
@@ -15,10 +15,6 @@
     [
       "columns-005",
       "columns-007"
-    ],
-    [
-      "inspection-009",
-      "inspection-010"
     ],
     [
       "series-methods-001",
@@ -58,17 +54,15 @@
       "attributes-003"
     ],
     [
+      "inspection-001",
       "inspection-002",
       "inspection-003",
       "inspection-005"
     ],
     [
       "inspection-007",
-      "inspection-008"
-    ],
-    [
-      "inspection-009",
-      "inspection-010"
+      "inspection-008",
+      "inspection-009"
     ],
     [
       "dataframe-methods-001",
@@ -97,9 +91,7 @@
       "groupby-010"
     ],
     [
-      "filtering-001",
       "filtering-003",
-      "filtering-004",
       "filtering-006",
       "filtering-007",
       "filtering-009",
@@ -110,9 +102,17 @@
       "sorting-003"
     ],
     [
+      "sorting-005",
+      "sorting-010"
+    ],
+    [
       "merge-002",
       "merge-003",
       "merge-004"
+    ],
+    [
+      "merge-009",
+      "market-product-enrichment-001"
     ],
     [
       "pivot-006",
@@ -143,25 +143,21 @@
       "seaborn-008"
     ],
     [
-      "market-power-bi-003",
-      "market-power-bi-009"
-    ],
-    [
-      "market-power-bi-004",
-      "market-power-bi-005"
+      "market-sorting-001",
+      "market-recent-orders-001"
     ]
   ],
   "processing_note": "Совпадающие короткие выражения сохранены только там, где различаются учебная цель, входные данные или проверяемое поведение API.",
-  "unique_learning_objectives": 294,
-  "structured_hints": 882,
-  "completion_summaries": 294,
-  "runtime_input_checks_passed": 294,
-  "reference_solutions_passed": 294,
-  "theory_articles": 294,
+  "unique_learning_objectives": 295,
+  "structured_hints": 885,
+  "completion_summaries": 295,
+  "runtime_input_checks_passed": 295,
+  "reference_solutions_passed": 295,
+  "theory_articles": 295,
   "theory_articles_word_range": {
     "foundation": "150-350",
     "market": "compatibility links into separately authored complete KnowledgeUnits"
   },
-  "theory_official_links_checked": 673,
+  "theory_official_links_checked": 1075,
   "theory_duplicate_articles": 0
 }

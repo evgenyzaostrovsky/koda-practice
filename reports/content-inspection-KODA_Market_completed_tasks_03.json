@@ -1,0 +1,76 @@
+{
+  "sha256": "949ebd81f8a9d443923f072ab571001a069b01774dc0db6af66be0c4c7851cdb",
+  "headings": [
+    "KODA Market — готовые задачи 43–57",
+    "Дубликаты",
+    "43. Повторяющиеся номера",
+    "44. Полные дубликаты",
+    "45. Повторные покупки товара",
+    "46. Очистка дублей",
+    "47. Контроль возможного задвоения",
+    "Pivot и reshape",
+    "48. Выручка городов по категориям",
+    "49. Заказы по статусам",
+    "50. Каналы по месяцам",
+    "51. Несколько показателей",
+    "52. Сводная в длинный формат",
+    "Даты",
+    "53. Выручка по месяцам",
+    "54. Будни и выходные",
+    "55. Лучшие дни",
+    "56. Накопительная выручка",
+    "57. Последние семь дней"
+  ],
+  "methodsAndFunctions": [
+    "duplicated",
+    "melt",
+    "reset_index",
+    "to_period"
+  ],
+  "parameters": [
+    "aggfunc",
+    "columns",
+    "fill_value",
+    "id_vars",
+    "index",
+    "keep",
+    "result",
+    "value_name",
+    "values",
+    "var_name"
+  ],
+  "lineCount": 159,
+  "sourceTitle": "KODA Market authored v2",
+  "coverage": {
+    "duplicated": {
+      "status": "covered",
+      "taskIds": [
+        "market-duplicates-001",
+        "market-duplicates-002",
+        "market-duplicates-005",
+        "market-repeat-products-001"
+      ]
+    },
+    "melt": {
+      "status": "covered",
+      "taskIds": [
+        "market-reshape-003"
+      ]
+    },
+    "reset_index": {
+      "status": "covered",
+      "taskIds": [
+        "market-groupby-006",
+        "market-reshape-003",
+        "market-cases-003"
+      ]
+    },
+    "to_period": {
+      "status": "covered",
+      "taskIds": [
+        "market-reshape-001",
+        "market-time-001"
+      ]
+    }
+  }
+}

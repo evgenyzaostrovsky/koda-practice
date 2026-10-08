@@ -1,0 +1,147 @@
+{
+  "sha256": "74d4cb8f7e542d9ec7f54607ab271cc355390c2383dbf9a9f53782dc37da65f7",
+  "headings": [
+    "KODA Market — готовые задачи 13–27",
+    "Загрузка и обзор данных",
+    "13. Загрузите продажи",
+    "14. Узнайте размер таблицы",
+    "15. Посмотрите первые заказы",
+    "16. Посмотрите последние заказы",
+    "17. Найдите пропуски",
+    "Выбор и фильтрация данных",
+    "18. Короткая таблица продаж",
+    "19. Крупные заказы",
+    "20. Два города",
+    "21. Отличные оценки",
+    "22. Неоплаченные заказы",
+    "Сортировка",
+    "23. Самые дорогие заказы",
+    "24. Самая долгая доставка",
+    "25. Заказы по городам и сумме",
+    "26. Самый дешёвый заказ города",
+    "27. Последние заказы"
+  ],
+  "methodsAndFunctions": [
+    "head",
+    "idxmin",
+    "isin",
+    "isna",
+    "sort_values",
+    "sum",
+    "tail"
+  ],
+  "parameters": [
+    "ascending",
+    "parse_dates",
+    "result"
+  ],
+  "lineCount": 129,
+  "sourceTitle": "KODA Market authored v2",
+  "coverage": {
+    "head": {
+      "status": "covered",
+      "taskIds": [
+        "inspection-001",
+        "inspection-002",
+        "inspection-003",
+        "inspection-004",
+        "inspection-005",
+        "market-sorting-001",
+        "market-recent-orders-001",
+        "market-cases-003"
+      ]
+    },
+    "idxmin": {
+      "status": "covered",
+      "taskIds": [
+        "market-sorting-002"
+      ]
+    },
+    "isin": {
+      "status": "covered",
+      "taskIds": [
+        "filtering-008"
+      ]
+    },
+    "isna": {
+      "status": "covered",
+      "taskIds": [
+        "market-overview-002",
+        "market-quality-002",
+        "market-quality-003",
+        "market-quality-004",
+        "market-missing-counts-001"
+      ]
+    },
+    "sort_values": {
+      "status": "covered",
+      "taskIds": [
+        "sorting-001",
+        "sorting-002",
+        "sorting-003",
+        "sorting-004",
+        "sorting-005",
+        "sorting-006",
+        "sorting-007",
+        "sorting-008",
+        "sorting-009",
+        "sorting-010",
+        "market-sorting-001",
+        "market-recent-orders-001",
+        "market-groupby-005",
+        "market-groupby-report-002",
+        "market-charts-001",
+        "market-cases-003"
+      ]
+    },
+    "sum": {
+      "status": "covered",
+      "taskIds": [
+        "dataframe-methods-001",
+        "dataframe-methods-002",
+        "dataframe-methods-003",
+        "dataframe-methods-004",
+        "dataframe-methods-005",
+        "dataframe-methods-006",
+        "dataframe-methods-007",
+        "dataframe-methods-008",
+        "dataframe-methods-009",
+        "dataframe-methods-010",
+        "groupby-001",
+        "groupby-002",
+        "groupby-003",
+        "groupby-004",
+        "groupby-005",
+        "groupby-006",
+        "groupby-007",
+        "groupby-008",
+        "groupby-009",
+        "groupby-010",
+        "pandas-plots-003",
+        "market-overview-002",
+        "market-groupby-003",
+        "market-groupby-006",
+        "market-missing-counts-001",
+        "market-duplicates-005",
+        "market-joins-004",
+        "market-time-001",
+        "market-time-002",
+        "market-time-003",
+        "market-time-004",
+        "market-charts-001",
+        "market-channel-charts-001",
+        "market-category-profit-001"
+      ]
+    },
+    "tail": {
+      "status": "covered",
+      "taskIds": [
+        "inspection-006",
+        "inspection-007",
+        "inspection-008",
+        "inspection-009",
+        "inspection-010"
+      ]
+    }
+  }
+}

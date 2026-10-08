@@ -1,70 +1,14 @@
 {
   "id": "koda-market",
-  "title": "KODA Market — проект аналитика",
+  "title": "KODA Market — авторский курс аналитика",
+  "revision": "market-authored-v2",
   "lessons": [
     {
       "id": "market-1",
-      "title": "Загрузка и обзор данных",
-      "exercise_mode": "python",
-      "taskIds": [
-        "reading-009",
-        "attributes-001",
-        "inspection-001",
-        "market-overview-001",
-        "market-overview-002"
-      ]
-    },
-    {
-      "id": "market-2",
-      "title": "Выбор данных",
-      "exercise_mode": "python",
-      "taskIds": [
-        "columns-010",
-        "filtering-001",
-        "filtering-008",
-        "market-selection-001",
-        "filtering-005"
-      ]
-    },
-    {
-      "id": "market-3",
-      "title": "Сортировка",
-      "exercise_mode": "python",
-      "taskIds": [
-        "market-sorting-001",
-        "sorting-002",
-        "market-sorting-002",
-        "market-sorting-003",
-        "sorting-005"
-      ]
-    },
-    {
-      "id": "market-4",
-      "title": "Новые колонки",
-      "exercise_mode": "python",
-      "taskIds": [
-        "market-features-001",
-        "change-columns-008",
-        "market-features-002",
-        "change-columns-006"
-      ]
-    },
-    {
-      "id": "market-5",
-      "title": "Фильтрация и даты",
-      "exercise_mode": "python",
-      "taskIds": [
-        "market-date-filters-001",
-        "market-date-filters-002",
-        "filtering-002",
-        "market-date-filters-003",
-        "market-date-filters-004"
-      ]
-    },
-    {
-      "id": "market-6",
       "title": "GroupBy и агрегации",
       "exercise_mode": "python",
+      "source_start": 1,
+      "source_end": 12,
       "taskIds": [
         "groupby-001",
         "market-groupby-001",
@@ -81,9 +25,67 @@
       ]
     },
     {
-      "id": "market-7",
-      "title": "`transform`",
+      "id": "market-2",
+      "title": "Загрузка и обзор данных",
       "exercise_mode": "python",
+      "source_start": 13,
+      "source_end": 17,
+      "taskIds": [
+        "reading-009",
+        "attributes-001",
+        "inspection-001",
+        "inspection-009",
+        "market-overview-002"
+      ]
+    },
+    {
+      "id": "market-3",
+      "title": "Выбор и фильтрация данных",
+      "exercise_mode": "python",
+      "source_start": 18,
+      "source_end": 22,
+      "taskIds": [
+        "columns-010",
+        "filtering-001",
+        "filtering-008",
+        "filtering-005",
+        "filtering-004"
+      ]
+    },
+    {
+      "id": "market-4",
+      "title": "Сортировка",
+      "exercise_mode": "python",
+      "source_start": 23,
+      "source_end": 27,
+      "taskIds": [
+        "market-sorting-001",
+        "sorting-002",
+        "sorting-005",
+        "market-sorting-002",
+        "market-recent-orders-001"
+      ]
+    },
+    {
+      "id": "market-5",
+      "title": "Новые колонки",
+      "exercise_mode": "python",
+      "source_start": 28,
+      "source_end": 32,
+      "taskIds": [
+        "market-features-001",
+        "change-columns-008",
+        "market-features-002",
+        "change-columns-006",
+        "market-delivery-flag-001"
+      ]
+    },
+    {
+      "id": "market-6",
+      "title": "Transform",
+      "exercise_mode": "python",
+      "source_start": 33,
+      "source_end": 37,
       "taskIds": [
         "market-transform-001",
         "market-transform-002",
@@ -93,11 +95,13 @@
       ]
     },
     {
-      "id": "market-8",
-      "title": "Пропуски и качество",
+      "id": "market-7",
+      "title": "Пропуски",
       "exercise_mode": "python",
+      "source_start": 38,
+      "source_end": 42,
       "taskIds": [
-        "market-overview-002",
+        "market-missing-counts-001",
         "market-quality-002",
         "recipes-003",
         "market-quality-003",
@@ -105,44 +109,39 @@
       ]
     },
     {
-      "id": "market-9",
+      "id": "market-8",
       "title": "Дубликаты",
       "exercise_mode": "python",
+      "source_start": 43,
+      "source_end": 47,
       "taskIds": [
         "market-duplicates-001",
         "market-duplicates-002",
+        "market-repeat-products-001",
         "market-duplicates-003",
-        "market-duplicates-004",
         "market-duplicates-005"
       ]
     },
     {
-      "id": "market-10",
+      "id": "market-9",
       "title": "Pivot и reshape",
       "exercise_mode": "python",
+      "source_start": 48,
+      "source_end": 52,
       "taskIds": [
         "pivot-006",
-        "market-reshape-001",
         "market-reshape-002",
-        "market-reshape-003",
-        "market-reshape-004"
+        "market-reshape-001",
+        "market-reshape-004",
+        "market-reshape-003"
       ]
     },
     {
-      "id": "market-11",
-      "title": "Объединение таблиц",
+      "id": "market-10",
+      "title": "Даты",
       "exercise_mode": "python",
-      "taskIds": [
-        "merge-009",
-        "market-joins-002",
-        "market-joins-003",
-        "market-joins-004"
-      ]
-    },
-    {
-      "id": "market-12",
-      "title": "Даты и временные ряды",
-      "exercise_mode": "python",
+      "source_start": 53,
+      "source_end": 57,
       "taskIds": [
         "market-time-001",
         "market-time-002",
@@ -152,57 +151,81 @@
       ]
     },
     {
-      "id": "market-13",
-      "title": "Строки и категории",
+      "id": "market-11",
+      "title": "Merge",
       "exercise_mode": "python",
+      "source_start": 58,
+      "source_end": 62,
+      "taskIds": [
+        "merge-009",
+        "market-product-enrichment-001",
+        "market-joins-002",
+        "market-joins-003",
+        "market-joins-004"
+      ]
+    },
+    {
+      "id": "market-12",
+      "title": "Строки",
+      "exercise_mode": "python",
+      "source_start": 63,
+      "source_end": 67,
       "taskIds": [
         "market-strings-001",
         "market-strings-002",
-        "market-mapping-001",
+        "market-channel-code-001",
         "market-strings-004",
         "market-strings-005"
       ]
     },
     {
-      "id": "market-14",
-      "title": "`map`, `apply`, `lambda`",
+      "id": "market-13",
+      "title": "Map, apply, lambda",
       "exercise_mode": "python",
+      "source_start": 68,
+      "source_end": 72,
       "taskIds": [
         "market-mapping-001",
         "market-mapping-002",
         "market-mapping-003",
         "market-mapping-004",
-        "market-mapping-005"
+        "market-discount-percent-001"
       ]
     },
     {
-      "id": "market-15",
+      "id": "market-14",
       "title": "Визуализация",
       "exercise_mode": "python",
+      "source_start": 73,
+      "source_end": 77,
       "taskIds": [
         "market-charts-001",
         "pandas-plots-003",
-        "market-charts-002",
+        "market-channel-charts-001",
         "pandas-plots-006",
         "market-charts-003"
       ]
     },
     {
-      "id": "market-16",
+      "id": "market-15",
       "title": "Итоговые pandas-кейсы",
       "exercise_mode": "python",
+      "source_start": 78,
+      "source_end": 82,
       "taskIds": [
-        "market-cases-001",
+        "market-cases-006",
         "market-cases-002",
         "market-cases-003",
-        "market-cases-004",
+        "market-category-profit-001",
         "market-cases-005"
       ]
     },
     {
-      "id": "market-17",
-      "title": "SQL на тех же данных",
+      "id": "market-16",
+      "title": "SQL",
       "exercise_mode": "sql",
+      "source_start": 83,
+      "source_end": 92,
       "taskIds": [
         "market-sql-001",
         "market-sql-002",
@@ -217,9 +240,11 @@
       ]
     },
     {
-      "id": "market-18",
+      "id": "market-17",
       "title": "Excel",
       "exercise_mode": "excel",
+      "source_start": 93,
+      "source_end": 102,
       "taskIds": [
         "market-excel-001",
         "market-excel-002",
@@ -234,9 +259,11 @@
       ]
     },
     {
-      "id": "market-19",
+      "id": "market-18",
       "title": "Power BI",
       "exercise_mode": "power-bi",
+      "source_start": 103,
+      "source_end": 112,
       "taskIds": [
         "market-power-bi-001",
         "market-power-bi-002",
@@ -248,6 +275,18 @@
         "market-power-bi-008",
         "market-power-bi-009",
         "market-power-bi-010"
+      ]
+    },
+    {
+      "id": "market-19",
+      "title": "Итоговые сквозные кейсы",
+      "exercise_mode": "power-bi",
+      "source_start": 113,
+      "source_end": 115,
+      "taskIds": [
+        "market-final-report-001",
+        "market-final-report-002",
+        "market-final-report-003"
       ]
     }
   ]

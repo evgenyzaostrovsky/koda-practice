@@ -1,7 +1,7 @@
 {
-  "knowledgeUnits": 40,
-  "tasks": 294,
-  "theoryArticles": 294,
+  "knowledgeUnits": 41,
+  "tasks": 295,
+  "theoryArticles": 295,
   "duplicateCandidatesReviewed": [
     [
       "start-003",
@@ -35,17 +35,15 @@
       "attributes-003"
     ],
     [
+      "inspection-001",
       "inspection-002",
       "inspection-003",
       "inspection-005"
     ],
     [
       "inspection-007",
-      "inspection-008"
-    ],
-    [
-      "inspection-009",
-      "inspection-010"
+      "inspection-008",
+      "inspection-009"
     ],
     [
       "dataframe-methods-001",
@@ -74,9 +72,7 @@
       "groupby-010"
     ],
     [
-      "filtering-001",
       "filtering-003",
-      "filtering-004",
       "filtering-006",
       "filtering-007",
       "filtering-009",
@@ -87,9 +83,17 @@
       "sorting-003"
     ],
     [
+      "sorting-005",
+      "sorting-010"
+    ],
+    [
       "merge-002",
       "merge-003",
       "merge-004"
+    ],
+    [
+      "merge-009",
+      "market-product-enrichment-001"
     ],
     [
       "pivot-006",
@@ -120,21 +124,12 @@
       "seaborn-008"
     ],
     [
-      "market-excel-006",
-      "market-power-bi-002"
+      "market-sorting-001",
+      "market-recent-orders-001"
     ],
     [
-      "market-excel-007",
-      "market-power-bi-004",
-      "market-power-bi-005"
-    ],
-    [
-      "market-excel-009",
-      "market-power-bi-006"
-    ],
-    [
-      "market-power-bi-003",
-      "market-power-bi-009"
+      "market-excel-010",
+      "market-power-bi-010"
     ]
   ],
   "status": "passed"

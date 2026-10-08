@@ -1,9 +1,16 @@
 export type ExerciseMode = "python" | "sql" | "excel" | "power-bi";
 export type Exercise = {
+  source_number?: number;
+  situation?: string;
+  question?: string;
+  answer_contract?: string;
+  source_expected_result?: string;
+  analysis?: string;
+  reflection?: string;
   exercise_mode?: ExerciseMode;
   response_spec?: {
     initial: Record<string, unknown>;
-    fields: Array<{ key: string; label: string; type: "text" | "number" | "select" | "checkbox" | "multiselect" | "json"; options?: string[]; default?: unknown }>;
+    fields: Array<{ key: string; label: string; type: "text" | "number" | "select" | "checkbox" | "multiselect" | "json" | "textarea"; options?: string[]; default?: unknown }>;
   };
   id: string;
   difficulty: number;

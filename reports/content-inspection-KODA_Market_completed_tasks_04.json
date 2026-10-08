@@ -1,0 +1,108 @@
+{
+  "sha256": "1e97b79e451f510097f3ba3dfababfee6c2094bb49bcd93f2a0e55af0430742b",
+  "headings": [
+    "KODA Market — готовые задачи 58–72",
+    "Merge",
+    "58. Сегмент клиента",
+    "59. Бренд и себестоимость",
+    "60. Заказы без клиента",
+    "61. Почему inner опасен",
+    "62. Выручка по стажу менеджеров",
+    "Строки",
+    "63. Названия категорий",
+    "64. Заказы с монитором",
+    "65. Код канала",
+    "66. Проверка пробелов",
+    "67. Первая буква товара",
+    "Map, apply, lambda",
+    "68. Коды статусов",
+    "69. Уровень клиента",
+    "70. Текст по оценке",
+    "71. Ценовой сегмент товара",
+    "72. Скидка в процентах"
+  ],
+  "methodsAndFunctions": [
+    "apply",
+    "contains",
+    "cut",
+    "lower",
+    "map",
+    "strip",
+    "upper",
+    "value_counts"
+  ],
+  "parameters": [
+    "axis",
+    "case",
+    "how",
+    "indicator",
+    "na",
+    "result",
+    "validate"
+  ],
+  "lineCount": 159,
+  "sourceTitle": "KODA Market authored v2",
+  "coverage": {
+    "apply": {
+      "status": "covered",
+      "taskIds": [
+        "market-mapping-002"
+      ]
+    },
+    "contains": {
+      "status": "covered",
+      "taskIds": [
+        "market-strings-002"
+      ]
+    },
+    "cut": {
+      "status": "covered",
+      "taskIds": [
+        "market-features-002",
+        "market-mapping-004"
+      ]
+    },
+    "lower": {
+      "status": "covered",
+      "taskIds": [
+        "sorting-008",
+        "market-strings-001"
+      ]
+    },
+    "map": {
+      "status": "covered",
+      "taskIds": [
+        "market-mapping-001",
+        "market-mapping-003"
+      ]
+    },
+    "strip": {
+      "status": "covered",
+      "taskIds": [
+        "market-strings-004"
+      ]
+    },
+    "upper": {
+      "status": "covered",
+      "taskIds": [
+        "market-channel-code-001"
+      ]
+    },
+    "value_counts": {
+      "status": "covered",
+      "taskIds": [
+        "series-methods-001",
+        "series-methods-002",
+        "series-methods-003",
+        "series-methods-004",
+        "series-methods-005",
+        "series-methods-006",
+        "series-methods-007",
+        "series-methods-008",
+        "series-methods-009",
+        "series-methods-010",
+        "market-strings-005"
+      ]
+    }
+  }
+}

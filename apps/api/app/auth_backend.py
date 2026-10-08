@@ -28,6 +28,8 @@ def rest(user,path,method='GET',json=None,params=None,prefer=None):
     return response.json() if response.content else None
 
 def record_attempt(user,task_id,code,passed,result_type,feedback,execution_ms):
+    from .content_revision import cloud_task_id
+    task_id = cloud_task_id(task_id)
     rest(user,'solution_attempts','POST',{'user_id':user['id'],'task_id':task_id,'code':code,'passed':bool(passed),'result_type':result_type,'feedback':feedback,'execution_ms':execution_ms},prefer='return=minimal')
     rows=rest(user,'task_progress','GET',params={'user_id':f"eq.{user['id']}",'task_id':f'eq.{task_id}','select':'attempts_count,hints_opened,status'}) or []
     old=rows[0] if rows else {}; status='completed' if passed or old.get('status')=='completed' else 'in_progress'

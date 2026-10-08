@@ -42,9 +42,10 @@ export type RuntimeMetrics = {
   workerCreatedMs: number;
   pyodideReadyMs: number;
   packagesReadyMs: number;
+  coreImportMs?: number;
 };
 export type RuntimePhase = "booting" | "packages" | "ready" | "running" | "failed" | "terminated";
-const WORKER_PROTOCOL_VERSION = "10";
+const WORKER_PROTOCOL_VERSION = "11";
 type Pending = {
   resolve: (value: unknown) => void;
   reject: (error: Error) => void;

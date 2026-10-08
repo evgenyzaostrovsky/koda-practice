@@ -2,8 +2,9 @@ import{createContext,useContext,useEffect,useState,type FormEvent,type ReactNode
 import type{Session,User}from'@supabase/supabase-js';
 import{authConfigured,authEnabled,authErrorMessage,supabase}from'./supabase';
 import{getCloudUser,loadCloudTasks,importCloudTask,setCloudUser}from'./cloud-sync';
-import{hasLegacyTasks,mergeCloudTaskStates,migrateLegacyTasks,setStorageUser}from'./task-storage';
+import{hasLegacyTasks,mergeCloudTaskStates,migrateLegacyTasks,setStorageUser,hasRevisionNotice,dismissRevisionNotice}from'./task-storage';
 import{BrandMark}from'./BrandMark';
+import { revisionNotice } from './content-revision';
 import{hydrateAchievementsFromCloud,setAchievementCloudUser}from'./achievements/cloud';
 import{setAchievementStorageUser}from'./achievements/engine';
 
@@ -27,12 +28,30 @@ function AuthForm(){
 
 export function AuthProvider({children}:{children:ReactNode}){
  const[session,setSession]=useState<Session|null>(null),[loading,setLoading]=useState(authConfigured),[migration,setMigration]=useState(false),[migrating,setMigrating]=useState(false);
+ const[readyUserId,setReadyUserId]=useState<string|null>(()=>{setStorageUser(null);return null});
+ const[showRevisionNotice,setShowRevisionNotice]=useState(()=>hasRevisionNotice());
  useEffect(()=>{if(!supabase)return;supabase.auth.getSession().then(({data})=>{setSession(data.session);accessToken=data.session?.access_token??null;setLoading(false)});const{data}=supabase.auth.onAuthStateChange((_event,next)=>{setSession(next);accessToken=next?.access_token??null;setLoading(false)});return()=>data.subscription.unsubscribe()},[]);
- useEffect(()=>{const current=session?.user??null;setCloudUser(current);setAchievementCloudUser(current);setAchievementStorageUser(current?.id??null);setStorageUser(current?.id??null);if(current){loadCloudTasks().then(tasks=>{if(getCloudUser()?.id===current.id)mergeCloudTaskStates(tasks)}).catch(()=>{}).finally(()=>{if(getCloudUser()?.id===current.id)setMigration(hasLegacyTasks()&&localStorage.getItem(`koda:migrated:v1:${current.id}`)!=='yes')});hydrateAchievementsFromCloud().catch(()=>{})}},[session?.user.id]);
+ useEffect(()=>{
+  let cancelled=false;
+  const current=authEnabled?session?.user??null:null;
+  setCloudUser(current);setAchievementCloudUser(current);setAchievementStorageUser(current?.id??null);setStorageUser(current?.id??null);
+  setShowRevisionNotice(hasRevisionNotice());
+  if(current){
+   // Local revision happens before hydration and before a practice editor can
+   // mount. Old remote keys cannot decode into active completion evidence.
+   loadCloudTasks().then(tasks=>{if(!cancelled&&getCloudUser()?.id===current.id)mergeCloudTaskStates(tasks)}).catch(()=>{}).finally(()=>{
+    if(!cancelled&&getCloudUser()?.id===current.id){setMigration(hasLegacyTasks()&&localStorage.getItem(`koda:migrated:v1:${current.id}`)!=='yes');setReadyUserId(current.id);}
+   });
+   hydrateAchievementsFromCloud().catch(()=>{});
+  }else{setMigration(false);setReadyUserId(null);}
+  return()=>{cancelled=true};
+ },[session?.user.id]);
+ const notice=showRevisionNotice?<div className="migration-banner" role="status"><p>{revisionNotice}</p><button onClick={()=>{dismissRevisionNotice();setShowRevisionNotice(false)}}>Понятно</button></div>:null;
  if(authEnabled&&!authConfigured)return <main className="auth-page"><div className="auth-card"><h1>Авторизация не настроена</h1><p>Для включения аккаунтов задайте публичные переменные Supabase при сборке.</p></div></main>;
- if(!authEnabled)return <>{children}</>;
+ if(!authEnabled)return <>{children}{notice}</>;
  if(loading)return <main className="auth-page"><div className="auth-card"><p>Проверяем сессию…</p></div></main>;
  if(!session)return <AuthForm/>;
+ if(readyUserId!==session.user.id)return <main className="auth-page"><div className="auth-card"><p>Подготавливаем прогресс…</p></div></main>;
  const migrate=async()=>{const expectedUserId=session.user.id;setMigrating(true);try{for(const task of migrateLegacyTasks()){if(getCloudUser()?.id!==expectedUserId)return;await importCloudTask(task,expectedUserId)}if(getCloudUser()?.id!==expectedUserId)return;const tasks=await loadCloudTasks();if(getCloudUser()?.id!==expectedUserId)return;localStorage.setItem(`koda:migrated:v1:${expectedUserId}`,'yes');setMigration(false);mergeCloudTaskStates(tasks)}finally{setMigrating(false)}};
- return <AuthContext.Provider value={{user:session.user,session,updateEmail:async email=>{const{error}=await supabase!.auth.updateUser({email},{emailRedirectTo:`${location.origin}/profile/settings`});if(error)throw error},updatePassword:async password=>{const{error}=await supabase!.auth.updateUser({password});if(error)throw error},signOut:async()=>{setCloudUser(null);setAchievementCloudUser(null);setStorageUser(null);await supabase!.auth.signOut();accessToken=null}}}>{children}{migration&&<div className="migration-banner"><p>На этом устройстве найден локальный прогресс. Перенести его в аккаунт?</p><button onClick={migrate} disabled={migrating}>{migrating?'Переносим…':'Перенести'}</button><button className="ghost" onClick={()=>setMigration(false)}>Пропустить</button></div>}</AuthContext.Provider>;
+ return <AuthContext.Provider value={{user:session.user,session,updateEmail:async email=>{const{error}=await supabase!.auth.updateUser({email},{emailRedirectTo:location.origin+'/profile/settings'});if(error)throw error},updatePassword:async password=>{const{error}=await supabase!.auth.updateUser({password});if(error)throw error},signOut:async()=>{setCloudUser(null);setAchievementCloudUser(null);setStorageUser(null);await supabase!.auth.signOut();accessToken=null}}}>{children}{notice}{migration&&<div className="migration-banner"><p>На этом устройстве найден локальный прогресс. Перенести его в аккаунт?</p><button onClick={migrate} disabled={migrating}>{migrating?'Переносим…':'Перенести'}</button><button className="ghost" onClick={()=>setMigration(false)}>Пропустить</button></div>}</AuthContext.Provider>;
 }

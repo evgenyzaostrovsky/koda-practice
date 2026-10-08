@@ -1,0 +1,195 @@
+{
+  "sha256": "1566f5475dbb3f656b2716638db477d932df6af710e85fd14c82c85638bfa369",
+  "headings": [
+    "KODA Market — урок `groupby`",
+    "Контекст",
+    "Колонки датафрейма",
+    "Задачи одного рабочего дня",
+    "1. Выручка по городам",
+    "2. Средний чек по каналам",
+    "3. Заказы менеджеров",
+    "4. Продажи по городам и категориям",
+    "5. Только оплаченные заказы",
+    "6. Доля отменённых заказов",
+    "7. Клиенты с повторными заказами",
+    "8. Лучшая категория каждого города",
+    "9. Средняя оценка по категориям",
+    "10. Средний срок доставки по городам",
+    "11. Доля новых клиентов по каналам",
+    "12. Итоговый отчёт для директора",
+    "Что закрепляет урок"
+  ],
+  "methodsAndFunctions": [
+    "agg",
+    "groupby",
+    "idxmax",
+    "mean",
+    "nunique",
+    "read_csv",
+    "round",
+    "sum"
+  ],
+  "parameters": [
+    "orders",
+    "orders_count",
+    "parse_dates",
+    "result",
+    "status"
+  ],
+  "lineCount": 285,
+  "sourceTitle": "KODA Market authored v2",
+  "coverage": {
+    "agg": {
+      "status": "covered",
+      "taskIds": [
+        "market-groupby-002",
+        "market-groupby-report-002",
+        "market-cases-002",
+        "market-cases-003",
+        "market-cases-006"
+      ]
+    },
+    "groupby": {
+      "status": "covered",
+      "taskIds": [
+        "groupby-001",
+        "groupby-002",
+        "groupby-003",
+        "groupby-004",
+        "groupby-005",
+        "groupby-006",
+        "groupby-007",
+        "groupby-008",
+        "groupby-009",
+        "groupby-010",
+        "pandas-plots-003",
+        "market-sorting-002",
+        "market-groupby-001",
+        "market-groupby-002",
+        "market-groupby-003",
+        "market-groupby-004",
+        "market-groupby-005",
+        "market-groupby-006",
+        "market-groupby-007",
+        "market-groupby-008",
+        "market-groupby-report-001",
+        "market-groupby-report-002",
+        "market-transform-001",
+        "market-transform-002",
+        "market-transform-003",
+        "market-transform-004",
+        "market-transform-005",
+        "market-quality-003",
+        "market-joins-004",
+        "market-time-001",
+        "market-time-002",
+        "market-time-003",
+        "market-time-004",
+        "market-mapping-002",
+        "market-charts-001",
+        "market-charts-003",
+        "market-channel-charts-001",
+        "market-cases-002",
+        "market-cases-003",
+        "market-cases-006",
+        "market-category-profit-001"
+      ]
+    },
+    "idxmax": {
+      "status": "covered",
+      "taskIds": [
+        "market-groupby-006"
+      ]
+    },
+    "mean": {
+      "status": "covered",
+      "taskIds": [
+        "recipes-005",
+        "market-groupby-001",
+        "market-groupby-004",
+        "market-groupby-007",
+        "market-groupby-008",
+        "market-groupby-report-001",
+        "market-quality-003",
+        "market-charts-003",
+        "market-cases-002",
+        "market-cases-006"
+      ]
+    },
+    "nunique": {
+      "status": "covered",
+      "taskIds": [
+        "market-groupby-005",
+        "market-mapping-002"
+      ]
+    },
+    "read_csv": {
+      "status": "covered",
+      "taskIds": [
+        "reading-001",
+        "reading-002",
+        "reading-003",
+        "reading-004",
+        "reading-005",
+        "reading-006",
+        "reading-007",
+        "reading-008",
+        "reading-009",
+        "reading-010"
+      ]
+    },
+    "round": {
+      "status": "covered",
+      "taskIds": [
+        "market-groupby-001",
+        "market-groupby-004",
+        "market-groupby-007",
+        "market-groupby-008",
+        "market-groupby-report-001",
+        "market-transform-002",
+        "market-quality-003",
+        "market-discount-percent-001",
+        "market-charts-003"
+      ]
+    },
+    "sum": {
+      "status": "covered",
+      "taskIds": [
+        "dataframe-methods-001",
+        "dataframe-methods-002",
+        "dataframe-methods-003",
+        "dataframe-methods-004",
+        "dataframe-methods-005",
+        "dataframe-methods-006",
+        "dataframe-methods-007",
+        "dataframe-methods-008",
+        "dataframe-methods-009",
+        "dataframe-methods-010",
+        "groupby-001",
+        "groupby-002",
+        "groupby-003",
+        "groupby-004",
+        "groupby-005",
+        "groupby-006",
+        "groupby-007",
+        "groupby-008",
+        "groupby-009",
+        "groupby-010",
+        "pandas-plots-003",
+        "market-overview-002",
+        "market-groupby-003",
+        "market-groupby-006",
+        "market-missing-counts-001",
+        "market-duplicates-005",
+        "market-joins-004",
+        "market-time-001",
+        "market-time-002",
+        "market-time-003",
+        "market-time-004",
+        "market-charts-001",
+        "market-channel-charts-001",
+        "market-category-profit-001"
+      ]
+    }
+  }
+}

@@ -23,6 +23,12 @@ async function initialize() {
   const pyodideReadyMs = performance.now() - bootStarted;
   status("packages", "Загрузка pandas…");
   await runtime.loadPackage(["numpy", "pandas"]);
+  const coreImportStarted = performance.now();
+  // Loading wheels does not initialize their Python modules. Complete the trusted
+  // cold imports before ready so the first learner Run keeps its execution budget.
+  // Imports remain outside the learner namespace; sys.modules caches them.
+  runtime.runPython("import numpy\nimport pandas");
+  const coreImportMs = performance.now() - coreImportStarted;
   loadedPackages.add("numpy");
   loadedPackages.add("pandas");
   runtime.runPython("__koda_globals = {'__name__': '__main__'}");
@@ -32,7 +38,7 @@ async function initialize() {
   postMessage({
     type: "ready",
     version: PYODIDE_VERSION,
-    metrics: { workerCreatedMs, pyodideReadyMs, packagesReadyMs },
+    metrics: { workerCreatedMs, pyodideReadyMs, packagesReadyMs, coreImportMs },
   });
 }
 

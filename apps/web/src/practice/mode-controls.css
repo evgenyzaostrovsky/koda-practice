@@ -15,4 +15,37 @@
 .mode-report svg { width: 100%; max-height: 180px; }
 .mode-bars > div { display: grid; grid-template-columns: minmax(80px, 1fr) minmax(60px, 2fr) auto; gap: 8px; align-items: center; margin: 8px 0; }
 .mode-bars meter { width: 100%; }
+.mode-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 14px 0; }
+.mode-kpis > div { padding: 12px; border: 1px solid var(--border, #606570); border-radius: 8px; }
+.mode-kpis span, .mode-kpis strong { display: block; }
+.mode-kpis strong { font-size: 22px; margin-top: 8px; }
+.mode-bars button { text-align: left; padding: 6px; min-height: 36px; font: inherit; color: inherit; background: transparent; border: 1px solid var(--border, #606570); border-radius: 6px; }
+.mode-bars button[aria-pressed="true"] { outline: 2px solid var(--accent, #9786ff); }
+.mode-report-actions { margin: 12px 0; }
+.mode-field textarea { font: inherit; color: inherit; background: var(--surface, #20232c); width: 100%; box-sizing: border-box; padding: 8px; border-radius: 6px; border: 1px solid var(--border, #606570); resize: vertical; }
+.authored-task-copy { white-space: pre-line; }
+.mode-report-slicers { display: flex; flex-wrap: wrap; gap: 16px; }
+.mode-report-slicers fieldset { min-width: 140px; margin: 0; border: 1px solid var(--border, #606570); border-radius: 6px; padding: 10px; }
+.mode-report-slicers label { display: flex; align-items: center; gap: 8px; min-height: 34px; }
+.mode-report .mode-highlighted-row[data-format-style="light-red"] > td { background-color: rgba(240, 128, 128, 0.22); }
+.mode-report .mode-highlighted-row[data-format-style="red"] > td { background-color: rgba(220, 70, 80, 0.22); }
+.mode-report .mode-highlighted-row[data-format-style="green"] > td { background-color: rgba(30, 170, 80, 0.18); }
+@media (max-width: 760px) {
+  .practice .workspace.resizable { align-items: stretch; }
+  .practice .workspace.resizable > .problem,
+  .practice .workspace.resizable > .solution,
+  .practice .result,
+  .practice .mode-report,
+  .practice .mode-controls,
+  .practice .table-wrap {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .practice .table-wrap { overflow-x: auto; }
+  .practice .authored-task-copy,
+  .practice .target,
+  .practice .problem > p { overflow-wrap: anywhere; }
+}
 [data-theme="airy"] .mode-field input, [data-theme="airy"] .mode-field select, [data-theme="neutral-light"] .mode-field input, [data-theme="neutral-light"] .mode-field select { background: #fff; }

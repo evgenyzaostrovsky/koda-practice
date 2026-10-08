@@ -12,6 +12,7 @@ export const marketCourseQuery = {
     return course;
   },
   staleTime: 60_000,
+  refetchOnMount: "always" as const,
 };
 export function marketTaskHref(taskId: string, lessonId: string) {
   return `/practice/${encodeURIComponent(taskId)}?course=koda-market&lesson=${encodeURIComponent(lessonId)}`;

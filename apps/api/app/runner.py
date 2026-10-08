@@ -1,4 +1,4 @@
-import ast, atexit, json, os, queue, subprocess, sys, tempfile, threading, time
+import ast, atexit, json, math, os, queue, subprocess, sys, tempfile, threading, time
 from pathlib import Path
 
 BLOCKED={'os','sys','subprocess','socket','pathlib','shutil','requests','urllib','http','ctypes','multiprocessing'}
@@ -104,7 +104,7 @@ WORKER=PersistentWorker();atexit.register(WORKER.stop)
 def warmup():
     started=time.perf_counter();WORKER.start();return {'ready':True,'import_ms':WORKER.import_ms,'warmup_ms':round((time.perf_counter()-started)*1000)}
 
-def run(code,dataset,result_variable='result',timeout_ms=10000,setup_code='',exercise_mode='python'):
+def run(code,dataset,result_variable='result',timeout_ms=10000,setup_code='',exercise_mode='python',validation_spec=None):
     started=time.perf_counter()
     if len(code)>50_000:return {'ok':False,'error_type':'SecurityError','error':'Код превышает допустимый размер.','execution_ms':0}
     if exercise_mode == 'python':
@@ -115,10 +115,10 @@ def run(code,dataset,result_variable='result',timeout_ms=10000,setup_code='',exe
               'execution_ms':round((time.perf_counter()-started)*1000),'timings':{'validation':0}}
         err=validate(code)
         if err:return {'ok':False,'error_type':'SecurityError','error':err,'execution_ms':round((time.perf_counter()-started)*1000)}
-        needs_plot=any(token in code for token in ('plt.','sns.','.plot(','hist(','scatter('))
+        needs_plot=any(token in code+'\n'+setup_code for token in ('plt.','sns.','.plot(','hist(','scatter('))
     else:
         needs_plot=False
-    data=WORKER.execute({'code':code,'dataset':dataset,'setup_code':setup_code,'result_variable':result_variable,'needs_plot':needs_plot,'exercise_mode':exercise_mode},timeout_ms)
+    data=WORKER.execute({'code':code,'dataset':dataset,'setup_code':setup_code,'result_variable':result_variable,'needs_plot':needs_plot,'exercise_mode':exercise_mode,'validation_spec':validation_spec},timeout_ms)
     data['execution_ms']=round((time.perf_counter()-started)*1000)
     return data
 
@@ -127,8 +127,77 @@ def explain(result):
     advice={'SyntaxError':'Проверьте скобки, кавычки и двоеточия рядом с указанной строкой.','KeyError':'Такого столбца нет. Сверьте регистр и написание с таблицей данных.','NameError':'Имя не определено. Используйте переменные из условия и сохраните ответ в result.','TypeError':'Операция получила неподходящий тип данных. Проверьте dtypes и аргументы метода.','TimeoutError':'Вероятен бесконечный цикл или слишком тяжёлая операция. Упростите вычисление.','WrongAnswer':'Сравните форму, порядок столбцов, индекс и значения результата.'}.get(typ,'Проверьте синтаксис метода и входные данные.')
     return {'title':typ,'what':msg,'where':'Runner или скрытая проверка результата','difference':result.get('difference','Ожидаемый результат не получен.'),'check':advice,'nudge':'Начните с просмотра названий столбцов и типа объекта.'}
 
-def compare_results(actual, expected):
-    a,e=actual.get('result'),expected.get('result')
+def compare_results(actual, expected, validation_spec=None):
+    contract = validation_spec or {}
+    if actual.get('validation_missing'): return False, {'difference':'; '.join(actual['validation_missing'])}
+    actual_variants, expected_variants = actual.get('variant_results', []), expected.get('variant_results', [])
+    if len(actual_variants) != len(expected_variants): return False, {'difference':'Проверочные примеры не выполнены.'}
+    for actual_variant, expected_variant in zip(actual_variants, expected_variants):
+        if not actual_variant['result'].get('ok'):
+            return False, {'difference':f"Проверочный пример {actual_variant['name']}: {actual_variant['result'].get('error', 'неверный ответ')}"}
+        same, difference = compare_results(actual_variant['result'], expected_variant['result'], contract)
+        if not same: return False, {**difference, 'difference':f"Проверочный пример {actual_variant['name']}: {difference.get('difference', 'ответ отличается')}"}
+    a,e=actual.get('validation_result', actual.get('result')),expected.get('validation_result', expected.get('result'))
+    if contract.get('memo_evidence') and a and e:
+        def evidence_only(result):
+            result = json.loads(json.dumps(result))
+            if result.get('kind') == 'scalar' and isinstance(result.get('data'), dict):
+                for statement in result['data'].get('statements', []): statement.pop('text', None)
+            return result
+        a,e=evidence_only(a),evidence_only(e)
+    if contract.get('ignore_plot_title') and a and e:
+        def without_title(result):
+            result = json.loads(json.dumps(result))
+            if result.get('kind') == 'scalar' and isinstance(result.get('data'), dict): result['data'].pop('title', None)
+            return result
+        a,e=without_title(a),without_title(e)
+    if contract.get('ignore_series_name') and a and e and a.get('kind') == e.get('kind') == 'series':
+        a={**a,'name':None}; e={**e,'name':None}
+    if contract.get('categorical_series') and a and e and a.get('kind') == e.get('kind') == 'series' and {a.get('dtype'),e.get('dtype')} <= {'object','category'}:
+        a={**a,'dtype':'category'}; e={**e,'dtype':'category'}
+    if contract.get('categorical_columns') and a and e and a.get('kind') == e.get('kind') == 'dataframe' and a.get('columns') == e.get('columns'):
+        a={**a,'dtypes':list(a.get('dtypes',[]))}; e={**e,'dtypes':list(e.get('dtypes',[]))}
+        for column in contract['categorical_columns']:
+            if column in a['columns']:
+                position=a['columns'].index(column)
+                if position < len(a['dtypes']) and position < len(e['dtypes']) and {a['dtypes'][position],e['dtypes'][position]} <= {'object','category'}:
+                    a['dtypes'][position]=e['dtypes'][position]='category'
+    if 'numeric_decimals' in contract and a and e:
+        decimals = contract['numeric_decimals']
+        if not isinstance(decimals, int) or not 0 <= decimals <= 6: raise ValueError('Некорректная точность контракта задачи.')
+        def round_numbers(value):
+            if isinstance(value,float): return round(value,decimals)
+            if isinstance(value,list): return [round_numbers(item) for item in value]
+            if isinstance(value,dict): return {key:round_numbers(item) for key,item in value.items()}
+            return value
+        a,e=round_numbers(a),round_numbers(e)
+    if a and e and a.get('kind') == e.get('kind') == 'dataframe' and a.get('columns') == e.get('columns'):
+        def ordered_rows(result):
+            result = json.loads(json.dumps(result)); rows = list(zip(result.get('index', []), result.get('data', [])))
+            if contract.get('unordered_rows'):
+                rows.sort(key=lambda pair: json.dumps(pair[1], ensure_ascii=True, sort_keys=True))
+            elif contract.get('tie_groups'):
+                positions = [result['columns'].index(column) for column in contract['tie_groups'] if column in result['columns']]
+                if len(positions) != len(contract['tie_groups']): return result
+                ordered = []; begin = 0
+                while begin < len(rows):
+                    end = begin + 1; key = [rows[begin][1][position] for position in positions]
+                    while end < len(rows) and [rows[end][1][position] for position in positions] == key: end += 1
+                    ordered.extend(sorted(rows[begin:end], key=lambda pair: json.dumps(pair[1], ensure_ascii=True, sort_keys=True))); begin = end
+                rows = ordered
+            result['index'] = [pair[0] for pair in rows]; result['data'] = [pair[1] for pair in rows]
+            return result
+        if contract.get('unordered_rows') or contract.get('tie_groups'): a,e=ordered_rows(a),ordered_rows(e)
+    if contract.get('numeric_tolerance') and a and e:
+        tolerance = contract['numeric_tolerance']
+        if not isinstance(tolerance, (int,float)) or not 0 < tolerance <= 0.000001: raise ValueError('Некорректная числовая погрешность контракта.')
+        def align_numbers(value, reference):
+            if isinstance(value,(int,float)) and not isinstance(value,bool) and isinstance(reference,(int,float)) and not isinstance(reference,bool):
+                return reference if math.isclose(value,reference,rel_tol=0,abs_tol=tolerance) else value
+            if isinstance(value,list) and isinstance(reference,list): return [align_numbers(item,reference[index]) if index < len(reference) else item for index,item in enumerate(value)]
+            if isinstance(value,dict) and isinstance(reference,dict): return {key:align_numbers(item,reference[key]) if key in reference else item for key,item in value.items()}
+            return value
+        a=align_numbers(a,e)
     if a and e and a.get('kind')=='plot' and e.get('kind')=='plot':
         # Rendering bytes are display artifacts, not an answer identity.
         a={key:value for key,value in a.items() if key!='image'}

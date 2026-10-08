@@ -14,7 +14,7 @@ def execute(body:CodeIn,request:Request):
     current_user(request)
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    return run(body.code,attempt_dataset(e),e['result_variable'],exercise_mode=e.get('exercise_mode','python'))
+    return run(body.code,attempt_dataset(e),e['result_variable'],setup_code=e['setup_code'],exercise_mode=e.get('exercise_mode','python'))
 @router.post('/attempts/submit')
 def submit(body: CodeIn, request: Request):
     return submit_attempt(body, current_user(request))

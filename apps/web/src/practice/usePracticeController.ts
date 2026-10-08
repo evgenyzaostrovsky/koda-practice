@@ -105,8 +105,8 @@ export function usePracticeController() {
       // it explicit that it belongs to the previous request.
     },
   });
-  const run = (submit: boolean) => {
-    if(e) action.mutate({ submit, taskId: e.id, submittedCode: code, exercise: e, topicId: slug, accountId: getCloudUser()?.id ?? null });
+  const run = (submit: boolean, submittedCode = code) => {
+    if(e) action.mutate({ submit, taskId: e.id, submittedCode, exercise: e, topicId: slug, accountId: getCloudUser()?.id ?? null });
   };
   useEffect(() => {
     const f = (x: KeyboardEvent) => {
@@ -186,6 +186,7 @@ export function usePracticeController() {
     refetchExercise: () => Promise.all([refetchExercise(), refetchModules(), ...(courseRequested ? [refetchCourse()] : [])]),
     isFetching: isFetching || modulesFetching || (courseRequested && courseFetching),
     routeTasks, taskHref,
+    sourceCourseTotal: courseRequested && course ? course.lessons.reduce((count, item) => count + item.taskIds.length, 0) : undefined,
     code, updateCode, result, hints, hintsOpen, setHintsOpen, solution,
     theory, setTheory, left, editorH, splitRef, moduleTitle, number, total,
     action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist,

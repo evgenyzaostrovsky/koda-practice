@@ -264,6 +264,9 @@ def build_article(topic: dict, entries: list[dict]) -> dict:
 
 
 def build_unit(topic: dict, theory: dict, old: dict | None = None) -> dict:
+    if topic.get('knowledge_only') is True and not topic['exercises']:
+        if not old or not old.get('article') or not old.get('cheatSheet'): raise ValueError('Archived unit requires existing authored teaching')
+        return {**old,'knowledge_only':True,'taskIds':[],'relatedTaskIds':[],'theoryArticleIds':[]}
     task_ids = [exercise["id"] for exercise in topic["exercises"]]
     calls = list(dict.fromkeys(call for exercise in topic["exercises"] for call in code_calls(exercise["solution_code"])))
     concepts = list(dict.fromkeys([topic.get("syntax", ""), *topic.get("methods", [])]))
@@ -420,6 +423,7 @@ def audit() -> None:
             and token not in available
             and token not in columns
             and token not in exercise["solution_code"]
+            and not any(token in filename for filename in exercise['dataset'].get('files',{}))
         )
         if unknown:
             errors.append(f"{exercise['id']}: instructions mention unavailable identifiers {unknown}")
@@ -428,10 +432,11 @@ def audit() -> None:
         sections = unit.get("article",{}).get("sections", [])
         if not entries or not sections:
             errors.append(f"{unit['id']}: cheat sheet and article must be non-empty")
-        if not unit.get("documentationLinks") or not unit.get("relatedTaskIds"):
+        if not unit.get("documentationLinks") or (not unit.get("relatedTaskIds") and not unit.get('knowledge_only')):
             errors.append(f"{unit['id']}: documentation and related tasks are required")
-        if not 3 <= len(entries) <= 8:
-            errors.append(f"{unit['id']}: cheat sheet must contain 3-8 authored techniques, got {len(entries)}")
+        maximum=16 if unit.get('sourceVersion')=='market-authored-v2' else 8
+        if not 3 <= len(entries) <= maximum:
+            errors.append(f"{unit['id']}: cheat sheet must contain 3-{maximum} authored techniques, got {len(entries)}")
         entry_signatures = []
         descriptions_by_group = defaultdict(list)
         signature_descriptions = []

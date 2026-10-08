@@ -629,6 +629,22 @@
         {
           "label": "pd.read_csv(..., dtype=, na_values=)",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+        },
+        {
+          "label": "pd.read_excel()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_excel.html"
+        },
+        {
+          "label": "pd.read_json()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_json.html"
+        },
+        {
+          "label": "pd.read_sql()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_sql.html"
+        },
+        {
+          "label": "pd.read_parquet()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_parquet.html"
         }
       ],
       "relatedTaskIds": [
@@ -1044,8 +1060,7 @@
       ],
       "methods": [
         "copy",
-        "assign",
-        "round"
+        "assign"
       ],
       "functions": [],
       "attributes": [],
@@ -1061,7 +1076,6 @@
         "change-columns",
         "copy",
         "assign",
-        "round",
         "присваивание"
       ],
       "cheatSheet": {
@@ -1307,8 +1321,32 @@
           "url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html"
         },
         {
+          "label": "df['new'] = ...",
+          "url": "https://pandas.pydata.org/docs/user_guide/indexing.html"
+        },
+        {
           "label": "df.assign()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.assign.html"
+        },
+        {
+          "label": "Series.map()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html"
+        },
+        {
+          "label": "Series.replace()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.replace.html"
+        },
+        {
+          "label": "Series.apply()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.apply.html"
+        },
+        {
+          "label": "DataFrame.apply(axis=1)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html"
+        },
+        {
+          "label": "pd.to_numeric()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.to_numeric.html"
         }
       ],
       "relatedTaskIds": [
@@ -1959,6 +1997,26 @@
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
         },
         {
+          "label": "df.columns",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.columns.html"
+        },
+        {
+          "label": "df.index",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.index.html"
+        },
+        {
+          "label": "df.dtypes",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dtypes.html"
+        },
+        {
+          "label": "df.size",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.size.html"
+        },
+        {
+          "label": "df.ndim",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.ndim.html"
+        },
+        {
           "label": "Официальная документация: Размерность DataFrame",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
         }
@@ -2263,6 +2321,30 @@
         {
           "label": "df.head(n)",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
+        },
+        {
+          "label": "df.tail(n)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.tail.html"
+        },
+        {
+          "label": "df.sample(n)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sample.html"
+        },
+        {
+          "label": "df.info()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.info.html"
+        },
+        {
+          "label": "df.describe()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.describe.html"
+        },
+        {
+          "label": "df.isna().sum()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isna.html"
+        },
+        {
+          "label": "df.duplicated().sum()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html"
         },
         {
           "label": "Официальная документация: Просмотр строк",
@@ -3248,6 +3330,10 @@
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.agg.html"
         },
         {
+          "label": "count() vs size()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.size.html"
+        },
+        {
           "label": "GroupBy.transform()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.transform.html"
         },
@@ -3920,8 +4006,28 @@
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
         },
         {
+          "label": "ascending=False",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+        },
+        {
           "label": "sort_values(['a', 'b'])",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+        },
+        {
+          "label": "ascending=[True, False]",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+        },
+        {
+          "label": "na_position='first' / 'last'",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+        },
+        {
+          "label": "key=...",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+        },
+        {
+          "label": "df.sort_index()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html"
         },
         {
           "label": "Официальная документация: Сортировка значений",
@@ -4258,6 +4364,30 @@
         {
           "label": "pd.merge(left, right, on=...)",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+        },
+        {
+          "label": "how='left' / 'right' / 'outer'",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+        },
+        {
+          "label": "left_on= / right_on=",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+        },
+        {
+          "label": "on=['a', 'b']",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+        },
+        {
+          "label": "suffixes=('_left', '_right')",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+        },
+        {
+          "label": "validate='many_to_one'",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
+        },
+        {
+          "label": "indicator=True",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.merge.html"
         }
       ],
       "relatedTaskIds": [
@@ -4590,6 +4720,30 @@
         },
         {
           "label": "df.pivot_table(index=, values=)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "label": "aggfunc='sum'",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "label": "columns=...",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "label": "index=[...] / values=[...]",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "label": "fill_value=0",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "label": "margins=True, margins_name=...",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "label": "sort=False",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
         },
         {
@@ -5294,6 +5448,7 @@
       ],
       "methods": [
         "fillna",
+        "assign",
         "copy",
         "mean",
         "median",
@@ -5302,13 +5457,12 @@
       ],
       "functions": [],
       "attributes": [],
-      "operators": [
-        "-"
-      ],
+      "operators": [],
       "keywords": [
         "Полезные рецепты",
         "recipes",
         "fillna",
+        "assign",
         "copy",
         "mean",
         "median",
@@ -5575,6 +5729,26 @@
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
         },
         {
+          "label": "ffill() / bfill()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.ffill.html"
+        },
+        {
+          "label": "dropna(subset=...)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html"
+        },
+        {
+          "label": "isna() / notna()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isna.html"
+        },
+        {
+          "label": "drop_duplicates()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html"
+        },
+        {
+          "label": "reset_index(drop=True)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html"
+        },
+        {
           "label": "Официальная документация: Заполнение пропусков",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.fillna.html"
         },
@@ -5645,18 +5819,24 @@
       ],
       "methods": [
         "plot",
+        "line",
         "sum",
-        "groupby"
+        "groupby",
+        "hist"
       ],
       "functions": [],
       "attributes": [],
-      "operators": [],
+      "operators": [
+        "-"
+      ],
       "keywords": [
         "Графики pandas",
         "pandas-plots",
         "plot",
+        "line",
         "sum",
         "groupby",
+        "hist",
         ".plot()"
       ],
       "cheatSheet": {
@@ -5918,6 +6098,10 @@
         },
         {
           "label": "plot(kind='scatter', x=, y=)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+        },
+        {
+          "label": "figsize= / title= / grid=",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
         }
       ],
@@ -6629,30 +6813,25 @@
       "description": "2 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "21",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Загрузка и обзор данных",
         "dtypes",
         "isna"
       ],
       "methods": [
-        "astype",
         "sum",
         "isna"
       ],
       "functions": [],
-      "attributes": [
-        "dtypes",
-        "dt"
-      ],
+      "attributes": [],
       "operators": [
         ">"
       ],
       "keywords": [
         "Загрузка и обзор данных",
         "market-overview",
-        "astype",
         "sum",
         "isna",
         "dtypes"
@@ -6703,6 +6882,24 @@
             "id": "cheat-market-overview-05",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-overview-v2-tail",
+            "group": "Практические приёмы",
+            "name": "tail(n)",
+            "kind": "pattern",
+            "description": "Показывает последние n строк в исходном порядке.",
+            "example": "frame.tail(3)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.tail.html"
+          },
+          {
+            "id": "cheat-market-overview-v2-missing",
+            "group": "Практические приёмы",
+            "name": "Профиль пропусков",
+            "kind": "pattern",
+            "description": "Считает пропуски и оставляет только проблемные поля.",
+            "example": "missing = frame.isna().sum()\nmissing[missing > 0]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isna.html"
           }
         ]
       },
@@ -6849,11 +7046,77 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-overview-v2-tail",
+            "title": "Начало, конец и порядок",
+            "paragraphs": [
+              "Просмотр начала и конца отвечает на разные вопросы: head помогает понять структуру, tail — проверить завершение выгрузки. Оба метода сохраняют индекс и порядок; последние строки не обязательно содержат самые поздние даты, если файл не отсортирован.",
+              "Для проверки последней календарной записи сначала сортируют по дате. Количество строк просмотра не меняет исходную таблицу."
+            ],
+            "covers": [
+              "cheat-market-overview-v2-tail"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'id':[8,3,5,2]})\nprint(frame.tail(2)['id'].tolist())",
+                "result": "[5, 2]",
+                "explanation": "Конец таблицы определяется положением, а не величиной идентификатора."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame.sort_values('id').tail(2)",
+                "why": "Сортировка меняет смысл: это крупнейшие номера, а не конец выгрузки.",
+                "correctCode": "frame.tail(2)"
+              }
+            ]
+          },
+          {
+            "id": "article-market-overview-v2-missing",
+            "title": "Пустое значение не равно нулю",
+            "paragraphs": [
+              "isna создаёт булеву таблицу той же формы. Сумма булевых значений по столбцам показывает число пропусков; фильтр положительных сумм оставляет только поля с проблемой.",
+              "Nullable-типы Int64 и string сохраняют отсутствие значения как pd.NA. Среднее пропускает отсутствующие оценки, тогда как замена нулём добавляет наблюдение с реальной нулевой оценкой. Перед заполнением нужно объяснить бизнес-смысл замены."
+            ],
+            "covers": [
+              "cheat-market-overview-v2-missing"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'rating':pd.Series([5,None,3],dtype='Int64'),'amount':[0,10,20]})\nmissing = frame.isna().sum()\nprint(missing[missing > 0].to_dict())\nprint(frame['rating'].mean())",
+                "result": "{'rating': 1}\n4.0",
+                "explanation": "Нулевая сумма заказа заполнена; пустая оценка не участвует в среднем."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame['rating'].fillna(0).mean()",
+                "why": "Отсутствующая оценка превращается в низкую оценку и снижает среднее.",
+                "correctCode": "frame['rating'].mean()"
+              }
+            ]
           }
         ],
         "summary": "Размер, превью, типы и карта пропусков отвечают на разные вопросы. Вместе они дают основание для дальнейшего анализа."
       },
       "documentationLinks": [
+        {
+          "label": "pd.read_csv",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html"
+        },
+        {
+          "label": ".shape",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.shape.html"
+        },
+        {
+          "label": ".head()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html"
+        },
         {
           "label": ".dtypes",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dtypes.html"
@@ -6861,256 +7124,25 @@
         {
           "label": ".isna().sum()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isna.html"
+        },
+        {
+          "label": "tail(n)",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.tail.html"
+        },
+        {
+          "label": "Профиль пропусков",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isna.html"
         }
       ],
       "relatedTaskIds": [
-        "market-overview-001",
         "market-overview-002"
       ],
       "version": 1,
       "theoryArticleIds": [
-        "theory-market-overview-001",
         "theory-market-overview-002"
       ],
       "taskIds": [
-        "market-overview-001",
         "market-overview-002"
-      ],
-      "createdAt": "2026-10-07T00:00:00Z",
-      "updatedAt": "2026-10-07T00:00:00Z"
-    },
-    {
-      "id": "ku-market-selection",
-      "slug": "market-selection",
-      "title": "Выбор данных",
-      "description": "1 шагов проекта KODA Market",
-      "category": "pandas",
-      "topicId": "22",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
-      "concepts": [
-        "Выбор данных",
-        "head"
-      ],
-      "methods": [
-        "head"
-      ],
-      "functions": [],
-      "attributes": [],
-      "operators": [
-        "=="
-      ],
-      "keywords": [
-        "Выбор данных",
-        "market-selection",
-        "head"
-      ],
-      "cheatSheet": {
-        "entries": [
-          {
-            "name": "Список столбцов",
-            "description": "Сохраняет нужные поля в заданном порядке.",
-            "example": "frame[['city','amount']]",
-            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html",
-            "id": "cheat-market-selection-01",
-            "group": "Работа с данными",
-            "kind": "pattern"
-          },
-          {
-            "name": ".query()",
-            "description": "Отбирает строки по выражению.",
-            "example": "frame.query('amount > 100')",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html",
-            "id": "cheat-market-selection-02",
-            "group": "Работа с данными",
-            "kind": "pattern"
-          },
-          {
-            "name": ".loc с маской",
-            "description": "Выбирает строки и поля одним обращением.",
-            "example": "frame.loc[frame.city.eq('A'), ['amount']]",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html",
-            "id": "cheat-market-selection-03",
-            "group": "Работа с данными",
-            "kind": "pattern"
-          },
-          {
-            "name": ".isin()",
-            "description": "Проверяет принадлежность набору значений.",
-            "example": "frame.city.isin(['A','B'])",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.isin.html",
-            "id": "cheat-market-selection-04",
-            "group": "Работа с данными",
-            "kind": "pattern"
-          }
-        ]
-      },
-      "article": {
-        "lead": "Проекция выбирает поля, фильтр выбирает наблюдения. Разделяйте эти действия и называйте границы отбора явно.",
-        "sections": [
-          {
-            "title": "Ширина таблицы",
-            "paragraphs": [
-              "Двойные скобки со списком возвращают DataFrame, один строковый ключ — Series. Порядок списка определяет порядок полей; число строк при проекции сохраняется."
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nframe = pd.DataFrame({'id':[1,2], 'city':['A','B'], 'amount':[100,200]})\nprint(frame[['city','amount']].to_dict('list'))",
-                "result": "{'city': ['A', 'B'], 'amount': [100, 200]}",
-                "explanation": "Проекция не исключает заказы."
-              }
-            ],
-            "errors": [],
-            "id": "article-market-selection-01",
-            "covers": [
-              "cheat-market-selection-01"
-            ],
-            "syntax": null,
-            "nuances": []
-          },
-          {
-            "title": "Строгий порог",
-            "paragraphs": [
-              "query использует имена полей внутри выражения. > исключает границу, >= включает. Сам фильтр не сортирует и не сбрасывает индекс."
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nframe = pd.DataFrame({'amount':[100,200,300]})\nprint(frame.query('amount > 200').amount.tolist())",
-                "result": "[300]",
-                "explanation": "Строка на границе не входит в отбор."
-              }
-            ],
-            "errors": [],
-            "id": "article-market-selection-02",
-            "covers": [
-              "cheat-market-selection-02"
-            ],
-            "syntax": null,
-            "nuances": [
-              "Переменную окружения запроса можно передать через @threshold; текст значения не нужно вручную подставлять в выражение."
-            ]
-          },
-          {
-            "title": "Две оси loc",
-            "paragraphs": [
-              "Первый аргумент loc выбирает строки, второй — столбцы. Маска строится на том же индексе, что и таблица. Исходные метки строк сохраняются."
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nframe = pd.DataFrame({'city':['A','B','A'], 'amount':[100,200,300]})\nprint(frame.loc[frame.city.eq('A'), ['amount']].to_dict('list'))",
-                "result": "{'amount': [100, 300]}",
-                "explanation": "Город отобран до вывода суммы."
-              }
-            ],
-            "errors": [],
-            "id": "article-market-selection-03",
-            "covers": [
-              "cheat-market-selection-03"
-            ],
-            "syntax": null,
-            "nuances": [
-              "loc выравнивает маску по меткам индекса, поэтому маска от другой таблицы может не соответствовать наблюдениям."
-            ]
-          },
-          {
-            "title": "Набор и пересечение",
-            "paragraphs": [
-              "isin создаёт маску для списка допустимых значений. & требует выполнения обоих условий, | допускает любое. Каждое сравнение заключают в скобки из-за приоритета операторов."
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nframe = pd.DataFrame({'city':['A','B','C'], 'amount':[100,200,300]})\nprint(frame.loc[frame.city.isin(['A','B']) & (frame.amount >= 150), 'city'].tolist())",
-                "result": "['B']",
-                "explanation": "Пересечение двух критериев оставляет один город."
-              }
-            ],
-            "errors": [],
-            "id": "article-market-selection-04",
-            "covers": [
-              "cheat-market-selection-04"
-            ],
-            "syntax": null,
-            "nuances": [
-              "После сброса индекса маска, созданная до преобразования, уже не обязательно относится к тем же строкам."
-            ]
-          },
-          {
-            "title": "Неизвестное и пустой отбор",
-            "paragraphs": [
-              "При nullable boolean маске неизвестность можно явно исключить через fillna(False). Пустая таблица допустима, если искали нарушения и не нашли их. Она отличается от ошибки вычисления."
-            ],
-            "examples": [],
-            "errors": [],
-            "id": "article-market-selection-05",
-            "covers": [],
-            "syntax": null,
-            "nuances": []
-          },
-          {
-            "title": "Ошибки скобок и логики",
-            "paragraphs": [
-              "Python and не выполняет поэлементное сравнение Series. Кортеж имён также не является списком полей."
-            ],
-            "examples": [],
-            "errors": [
-              {
-                "wrongCode": "(frame.amount > 100) and (frame.city == 'A')",
-                "why": "Нельзя свести целый столбец к одному логическому значению.",
-                "correctCode": "(frame.amount > 100) & (frame.city == 'A')"
-              },
-              {
-                "wrongCode": "frame['city','amount']",
-                "why": "Обычно ищется один составной ключ, а не два поля.",
-                "correctCode": "frame[['city','amount']]"
-              }
-            ],
-            "id": "article-market-selection-06",
-            "covers": [],
-            "syntax": null,
-            "nuances": []
-          },
-          {
-            "title": "Контроль условий",
-            "paragraphs": [
-              "Проверьте строку на границе, комбинацию одного подходящего и одного неподходящего признака, количество оставшихся строк и сохранность ключа. Используйте отдельный объект для отбора, чтобы исходный набор оставался доступен."
-            ],
-            "examples": [],
-            "errors": [],
-            "id": "article-market-selection-07",
-            "covers": [],
-            "syntax": null,
-            "nuances": []
-          }
-        ],
-        "summary": "Надёжный отбор фиксирует поля, границы, сочетание условий и отношение к пропускам."
-      },
-      "documentationLinks": [
-        {
-          "label": "Список столбцов",
-          "url": "https://pandas.pydata.org/docs/user_guide/indexing.html"
-        },
-        {
-          "label": ".query()",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html"
-        },
-        {
-          "label": ".loc с маской",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
-        },
-        {
-          "label": ".isin()",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.isin.html"
-        }
-      ],
-      "relatedTaskIds": [
-        "market-selection-001"
-      ],
-      "version": 1,
-      "theoryArticleIds": [
-        "theory-market-selection-001"
-      ],
-      "taskIds": [
-        "market-selection-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -7122,8 +7154,8 @@
       "description": "3 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "23",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Сортировка",
         "sort_values",
@@ -7133,8 +7165,7 @@
       "methods": [
         "head",
         "sort_values",
-        "drop_duplicates",
-        "sum",
+        "idxmin",
         "groupby"
       ],
       "functions": [],
@@ -7145,9 +7176,9 @@
         "market-sorting",
         "head",
         "sort_values",
-        "drop_duplicates",
-        "sum",
-        "groupby"
+        "idxmin",
+        "groupby",
+        "drop_duplicates"
       ],
       "cheatSheet": {
         "entries": [
@@ -7186,6 +7217,15 @@
             "id": "cheat-market-sorting-04",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-sorting-v2-ties",
+            "group": "Практические приёмы",
+            "name": "Сортировка при равенстве",
+            "kind": "pattern",
+            "description": "Задаёт дополнительный ключ для воспроизводимого порядка.",
+            "example": "frame.sort_values(['amount','id'], ascending=[False,True]).head(3)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
           }
         ]
       },
@@ -7324,6 +7364,33 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-sorting-v2-ties",
+            "title": "Лидеры и равные значения",
+            "paragraphs": [
+              "Ограничение head после сортировки выбирает первые позиции, а не всех обладателей максимума. Для воспроизводимого рейтинга одинаковые суммы упорядочивают по дополнительному ключу, например идентификатору.",
+              "Если вопрос требует всех победителей, сравнивают сумму с максимумом и сохраняют все совпадения. idxmax возвращает только первую метку максимума и подходит лишь когда выбран именно один представитель."
+            ],
+            "covers": [
+              "cheat-market-sorting-v2-ties"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'id':[3,1,2],'amount':[100,100,80]})\nprint(frame.sort_values(['amount','id'],ascending=[False,True])['id'].tolist())\nprint(frame.loc[frame['amount'].eq(frame['amount'].max()),'id'].tolist())",
+                "result": "[1, 3, 2]\n[3, 1]",
+                "explanation": "Рейтинг определяет порядок, а фильтр максимума сохраняет обоих лидеров."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame.loc[[frame['amount'].idxmax()]]",
+                "why": "Возвращается только первый победитель при нескольких равных максимумах.",
+                "correctCode": "frame[frame['amount'].eq(frame['amount'].max())]"
+              }
+            ]
           }
         ],
         "summary": "Поле, направление, правило равенства и ограничение вместе определяют рейтинг."
@@ -7344,23 +7411,27 @@
         {
           "label": ".sort_index()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_index.html"
+        },
+        {
+          "label": "Сортировка при равенстве",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
         }
       ],
       "relatedTaskIds": [
         "market-sorting-001",
         "market-sorting-002",
-        "market-sorting-003"
+        "market-recent-orders-001"
       ],
       "version": 1,
       "theoryArticleIds": [
         "theory-market-sorting-001",
         "theory-market-sorting-002",
-        "theory-market-sorting-003"
+        "theory-market-recent-orders-001"
       ],
       "taskIds": [
         "market-sorting-001",
         "market-sorting-002",
-        "market-sorting-003"
+        "market-recent-orders-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -7372,8 +7443,8 @@
       "description": "3 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "24",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Новые колонки",
         "assign",
@@ -7387,7 +7458,9 @@
       "functions": [],
       "attributes": [],
       "operators": [
-        "+"
+        "+",
+        "-",
+        ">"
       ],
       "keywords": [
         "Новые колонки",
@@ -7433,6 +7506,15 @@
             "description": "Вычисляет показатель на единицу с выбранной точностью.",
             "example": "(sales['revenue'] / sales['quantity']).round(2)",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.round.html"
+          },
+          {
+            "id": "cheat-market-features-v2-boundary",
+            "group": "Практические приёмы",
+            "name": "Границы признаков и pd.cut",
+            "kind": "pattern",
+            "description": "Создаёт непересекающиеся категории с явными границами.",
+            "example": "frame['large'] = frame['amount'] >= 15000\npd.cut(frame['amount'], [-float('inf'),7000,15000,float('inf')], right=False)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.cut.html"
           }
         ]
       },
@@ -7567,6 +7649,33 @@
             "examples": [],
             "errors": [],
             "nuances": []
+          },
+          {
+            "id": "article-market-features-v2-boundary",
+            "title": "Граница — часть бизнес-правила",
+            "paragraphs": [
+              "Фраза «от суммы» включает нижнюю границу: сравнение >= сохраняет её. Фраза «дольше трёх дней» задаёт строгое >. Проверка значений ровно на границе предотвращает незаметное изменение правила.",
+              "cut делит числовые значения на интервалы. При right=False левая граница входит, правая не входит; метки должны соответствовать числу интервалов. Бесконечные края исключают пропуски для значений вне обычного диапазона."
+            ],
+            "covers": [
+              "cheat-market-features-v2-boundary"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\namount = pd.Series([6999,7000,14999,15000])\nprint((amount >= 15000).tolist())\nprint(pd.cut(amount,[-float('inf'),7000,15000,float('inf')],labels=['small','medium','large'],right=False).tolist())\nprint((pd.Series([3,4]) > 3).tolist())",
+                "result": "[False, False, False, True]\n['small', 'medium', 'medium', 'large']\n[False, True]",
+                "explanation": "Значения 7000 и 15000 получают следующую категорию; три дня не являются долгой доставкой."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "pd.cut(amount,[0,7000,15000,float('inf')],labels=['small','medium','large'])",
+                "why": "Правые границы включены по умолчанию: 7000 и 15000 попадут в предыдущую категорию.",
+                "correctCode": "pd.cut(amount,[-float('inf'),7000,15000,float('inf')],labels=['small','medium','large'],right=False)"
+              }
+            ]
           }
         ],
         "summary": "Стройте признаки через assign, проверяйте единицы и пороговые значения, а неопределённые отношения оставляйте явно неизвестными. Сначала корректная формула, затем округление и отчёт."
@@ -7577,290 +7686,37 @@
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.assign.html"
         },
         {
+          "label": "Пороговый булевый признак",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.assign.html"
+        },
+        {
           "label": "pd.cut()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.cut.html"
+        },
+        {
+          "label": "Деление и .round()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.round.html"
+        },
+        {
+          "label": "Границы признаков и pd.cut",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.cut.html"
         }
       ],
       "relatedTaskIds": [
         "market-features-001",
-        "market-features-002"
+        "market-features-002",
+        "market-delivery-flag-001"
       ],
       "version": 1,
       "theoryArticleIds": [
         "theory-market-features-001",
-        "theory-market-features-002"
+        "theory-market-features-002",
+        "theory-market-delivery-flag-001"
       ],
       "taskIds": [
         "market-features-001",
-        "market-features-002"
-      ],
-      "createdAt": "2026-10-07T00:00:00Z",
-      "updatedAt": "2026-10-07T00:00:00Z"
-    },
-    {
-      "id": "ku-market-date-filters",
-      "slug": "market-date-filters",
-      "title": "Фильтрация и даты",
-      "description": "4 шагов проекта KODA Market",
-      "category": "pandas",
-      "topicId": "25",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
-      "concepts": [
-        "Фильтрация и даты",
-        "dates",
-        "selection"
-      ],
-      "methods": [
-        "to_period",
-        "Timestamp",
-        "max",
-        "Timedelta"
-      ],
-      "functions": [],
-      "attributes": [
-        "dt"
-      ],
-      "operators": [
-        "-",
-        "==",
-        ">"
-      ],
-      "keywords": [
-        "Фильтрация и даты",
-        "market-date-filters",
-        "to_period",
-        "Timestamp",
-        "max",
-        "Timedelta",
-        "dates",
-        "selection"
-      ],
-      "cheatSheet": {
-        "entries": [
-          {
-            "id": "cheat-market-date-filters-parse",
-            "group": "Календарный отбор",
-            "name": "pd.to_datetime()",
-            "kind": "pattern",
-            "description": "Преобразует строковые даты в значения для календарных сравнений.",
-            "example": "dates = pd.to_datetime(['2026-01-31', '2026-02-01'])",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
-          },
-          {
-            "id": "cheat-market-date-filters-month",
-            "group": "Календарный отбор",
-            "name": ".dt.to_period(\"M\")",
-            "kind": "pattern",
-            "description": "Сопоставляет каждую дату с календарным месяцем.",
-            "example": "mask = sales['date'].dt.to_period('M') == '2026-01'",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html"
-          },
-          {
-            "id": "cheat-market-date-filters-after",
-            "group": "Календарный отбор",
-            "name": "Сравнение с Timestamp",
-            "kind": "pattern",
-            "description": "Отбирает даты строго позже указанной границы.",
-            "example": "mask = sales['date'] > pd.Timestamp('2026-02-10')",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Timestamp.html"
-          },
-          {
-            "id": "cheat-market-date-filters-and",
-            "group": "Календарный отбор",
-            "name": "Объединение масок через &",
-            "kind": "pattern",
-            "description": "Требует выполнения обоих построчных условий.",
-            "example": "mask = (sales['paid']) & (sales['rating'] >= 4)\nsales.loc[mask]",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
-          },
-          {
-            "id": "cheat-market-date-filters-window",
-            "group": "Календарный отбор",
-            "name": "Последние семь календарных дней",
-            "kind": "pattern",
-            "description": "Считает включительную границу от последней даты данных.",
-            "example": "start = sales['date'].max() - pd.Timedelta(days=6)\nsales.loc[sales['date'] >= start]",
-            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Timedelta.html"
-          }
-        ]
-      },
-      "article": {
-        "lead": "Календарный отбор требует точной границы и понятного правила включения строк. Научимся строить такие правила по датам и сочетать их с признаками заказа.",
-        "sections": [
-          {
-            "id": "article-market-date-filters-purpose",
-            "title": "Период и популяция — разные условия",
-            "paragraphs": [
-              "Временной отчёт отвечает на вопрос о конкретном календарном интервале. Отбор по дате определяет период, а статус, оценка или признак нового клиента определяют, какие наблюдения внутри периода интересны. Эти решения стоит записать словами до кода.",
-              "Последняя неделя данных и последняя неделя относительно сегодняшнего дня — разные периоды. Для исторического набора границу удобно выводить из максимальной наблюдаемой даты; это воспроизводимый выбор."
-            ],
-            "covers": [],
-            "examples": [],
-            "errors": [],
-            "nuances": []
-          },
-          {
-            "id": "article-market-date-filters-types",
-            "title": "Сначала сделать даты датами",
-            "paragraphs": [
-              "Колонка с текстом не даёт доступ к календарным свойствам .dt. pd.to_datetime преобразует её в datetime; для неоднозначных строк полезно явно задавать format. Ошибки по умолчанию прерывают преобразование, а errors=\"coerce\" делает неразобранные значения NaT.",
-              "Месяц — пара год и месяц. Проверка только .dt.month == 1 смешивает январь разных лет; .dt.to_period(\"M\") сохраняет обе части календарного ключа."
-            ],
-            "covers": [
-              "cheat-market-date-filters-parse",
-              "cheat-market-date-filters-month"
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nsales = pd.DataFrame({'date': ['2025-01-20','2026-01-31','2026-02-01'], 'amount': [10,20,30]})\nsales['date'] = pd.to_datetime(sales['date'])\nprint(sales.loc[sales['date'].dt.to_period('M') == '2026-01', 'amount'].tolist())",
-                "explanation": "Январь выбран вместе с годом, поэтому старая январская строка не проходит.",
-                "result": "[20]"
-              }
-            ],
-            "errors": [],
-            "nuances": []
-          },
-          {
-            "id": "article-market-date-filters-boundaries",
-            "title": "Строгие и включительные границы",
-            "paragraphs": [
-              "Оператор > исключает сам момент границы, >= включает его. Timestamp без времени обозначает полночь. Если колонка содержит часы, сравнение строго после полуночи допускает события того же календарного дня после 00:00; для отбора после всего дня нужна граница следующего дня.",
-              "С интервалами удобно использовать начало включительно и следующее начало исключительно: date >= начало и date < конец. Так не приходится угадывать последнюю долю секунды дня."
-            ],
-            "covers": [
-              "cheat-market-date-filters-after"
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nsales = pd.DataFrame({'date': pd.to_datetime(['2026-02-10','2026-02-11','2026-02-12']), 'amount': [40,50,60]})\nprint(sales.loc[sales['date'] > pd.Timestamp('2026-02-10'), 'amount'].tolist())",
-                "explanation": "Строгая граница убирает дату 10 февраля, когда все значения представлены полуночью.",
-                "result": "[50, 60]"
-              }
-            ],
-            "errors": [],
-            "nuances": []
-          },
-          {
-            "id": "article-market-date-filters-masks",
-            "title": "Несколько условий в одной маске",
-            "paragraphs": [
-              "Сравнение колонки с порогом возвращает Series булевых значений той же длины. Для построчного пересечения используют &, для объединения |, для отрицания ~. Каждое сравнение заключают в скобки, чтобы Python сначала вычислил его целиком.",
-              "Числовой порог доставки и удовлетворённость — самостоятельные фильтры. Нулевой срок не доказывает успешную быструю доставку: смысл зависит от статуса заказа. Если статус не ограничен, вывод должен честно описывать все наблюдения."
-            ],
-            "covers": [
-              "cheat-market-date-filters-and"
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nsales = pd.DataFrame({'paid': [True,False,True], 'rating': [5,5,None], 'id': [1,2,3]})\nmask = sales['paid'] & (sales['rating'] >= 4)\nprint(sales.loc[mask, 'id'].tolist())",
-                "explanation": "Неоплаченная строка и строка без известной высокой оценки исключены.",
-                "result": "[1]"
-              }
-            ],
-            "errors": [],
-            "nuances": []
-          },
-          {
-            "id": "article-market-date-filters-window",
-            "title": "Скользящее календарное окно",
-            "paragraphs": [
-              "Если включены последний день и шесть предшествующих, получается семь календарных дней. Вычитание семи дней при включительных концах даст восемь дат. Timedelta выражает длительность, а max находит опорный момент.",
-              "Для столбца с часами сначала нормализуйте последнюю дату через .normalize(), если речь именно о календарных днях. У пустого или полностью неизвестного столбца нет пригодной границы: это отдельное состояние отчёта."
-            ],
-            "covers": [
-              "cheat-market-date-filters-window"
-            ],
-            "examples": [
-              {
-                "code": "import pandas as pd\nsales = pd.DataFrame({'date': pd.to_datetime(['2026-02-03','2026-02-04','2026-02-10']), 'new': [True,True,True]})\nstart = sales['date'].max() - pd.Timedelta(days=6)\nprint(start.strftime('%Y-%m-%d'))\nprint(sales.loc[sales['new'] & (sales['date'] >= start), 'date'].dt.strftime('%Y-%m-%d').tolist())",
-                "explanation": "Опорная дата 10 февраля задаёт включительную нижнюю границу 4 февраля.",
-                "result": "2026-02-04\n['2026-02-04', '2026-02-10']"
-              }
-            ],
-            "errors": [],
-            "nuances": []
-          },
-          {
-            "id": "article-market-date-filters-mistakes",
-            "title": "Не смешивать Python и pandas",
-            "paragraphs": [
-              "Обычные and и or пытаются определить истинность целой Series. У набора строк нет одного очевидного ответа, поэтому такой код вызывает ошибку. Скобки вокруг сравнений устраняют и другую проблему — приоритет побитовых операторов."
-            ],
-            "covers": [],
-            "examples": [],
-            "errors": [
-              {
-                "wrongCode": "sales[(sales['paid'] == True) and (sales['rating'] >= 4)]",
-                "why": "and требует один bool, но оба сравнения возвращают Series.",
-                "correctCode": "sales.loc[sales['paid'] & (sales['rating'] >= 4)]"
-              },
-              {
-                "wrongCode": "sales[sales['date'].dt.month == 1]",
-                "why": "Январь разных лет попадёт в один отбор.",
-                "correctCode": "sales.loc[sales['date'].dt.to_period('M') == '2026-01']"
-              }
-            ],
-            "nuances": [
-              "NaT не проходит обычные сравнения с датой; неизвестные даты нужно отдельно посчитать.",
-              "Наивный Timestamp нельзя безоговорочно сравнивать с датами другого часового пояса."
-            ]
-          },
-          {
-            "id": "article-market-date-filters-application",
-            "title": "Как проверить временной срез",
-            "paragraphs": [
-              "Перед итоговым выводом проверьте минимальную и максимальную даты выбранной части и число исключённых строк. Затем убедитесь, что граница соответствует бизнес-фразе «после», «включая» или «за месяц».",
-              "Сохраняйте составную маску под осмысленным именем, если хотите отдельно проверить период и популяцию. Это помогает объяснить, почему конкретная строка включена, без ручного просмотра всей таблицы."
-            ],
-            "covers": [],
-            "examples": [],
-            "errors": [],
-            "nuances": []
-          }
-        ],
-        "summary": "Определите календарь, преобразуйте даты, выберите строгие или включительные границы и только затем добавляйте условия популяции. Проверка краёв периода делает отчёт воспроизводимым."
-      },
-      "documentationLinks": [
-        {
-          "label": "pd.to_datetime()",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
-        },
-        {
-          "label": ".dt.to_period(\"M\")",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html"
-        },
-        {
-          "label": "Сравнение с Timestamp",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Timestamp.html"
-        },
-        {
-          "label": "Объединение масок через &",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
-        },
-        {
-          "label": "Последние семь календарных дней",
-          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Timedelta.html"
-        }
-      ],
-      "relatedTaskIds": [
-        "market-date-filters-001",
-        "market-date-filters-002",
-        "market-date-filters-003",
-        "market-date-filters-004"
-      ],
-      "version": 1,
-      "theoryArticleIds": [
-        "theory-market-date-filters-001",
-        "theory-market-date-filters-002",
-        "theory-market-date-filters-003",
-        "theory-market-date-filters-004"
-      ],
-      "taskIds": [
-        "market-date-filters-001",
-        "market-date-filters-002",
-        "market-date-filters-003",
-        "market-date-filters-004"
+        "market-features-002",
+        "market-delivery-flag-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -7872,8 +7728,8 @@
       "description": "8 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "26",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Рабочий день: группировка",
         "groupby",
@@ -8133,6 +7989,22 @@
         {
           "label": "Именованная агрегация .agg()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.agg.html"
+        },
+        {
+          "label": "Группировка по нескольким ключам",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+        },
+        {
+          "label": "Среднее булева признака",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.mean.html"
+        },
+        {
+          "label": ".nunique()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.nunique.html"
+        },
+        {
+          "label": ".idxmax() после агрегации",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.idxmax.html"
         }
       ],
       "relatedTaskIds": [
@@ -8176,8 +8048,8 @@
       "description": "2 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "27",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Группировка: итоговый отчёт",
         "groupby",
@@ -8415,8 +8287,8 @@
       "description": "5 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "28",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Показатели на уровне заказа",
         "transform"
@@ -8431,6 +8303,7 @@
       "attributes": [],
       "operators": [
         "-",
+        "*",
         "/",
         ">"
       ],
@@ -8625,6 +8498,18 @@
         {
           "label": ".groupby().transform()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.api.typing.DataFrameGroupBy.transform.html"
+        },
+        {
+          "label": "Доля от группового итога",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.api.typing.SeriesGroupBy.transform.html"
+        },
+        {
+          "label": ".rank() внутри группы",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.api.typing.DataFrameGroupBy.rank.html"
+        },
+        {
+          "label": ".fillna() групповым значением",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.fillna.html"
         }
       ],
       "relatedTaskIds": [
@@ -8659,8 +8544,8 @@
       "description": "4 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "29",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Пропуски и качество",
         "isna"
@@ -8671,7 +8556,8 @@
         "mul",
         "mean",
         "groupby",
-        "any"
+        "any",
+        "sum"
       ],
       "functions": [],
       "attributes": [],
@@ -8684,7 +8570,8 @@
         "mul",
         "mean",
         "groupby",
-        "any"
+        "any",
+        "sum"
       ],
       "cheatSheet": {
         "entries": [
@@ -8869,23 +8756,38 @@
         {
           "label": ".isna()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.isna.html"
+        },
+        {
+          "label": ".mean()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.mean.html"
+        },
+        {
+          "label": ".fillna()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.fillna.html"
+        },
+        {
+          "label": ".dropna()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html"
         }
       ],
       "relatedTaskIds": [
         "market-quality-002",
         "market-quality-003",
-        "market-quality-004"
+        "market-quality-004",
+        "market-missing-counts-001"
       ],
       "version": 1,
       "theoryArticleIds": [
         "theory-market-quality-002",
         "theory-market-quality-003",
-        "theory-market-quality-004"
+        "theory-market-quality-004",
+        "theory-market-missing-counts-001"
       ],
       "taskIds": [
         "market-quality-002",
         "market-quality-003",
-        "market-quality-004"
+        "market-quality-004",
+        "market-missing-counts-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -8897,19 +8799,16 @@
       "description": "5 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "30",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Дубликаты",
         "duplicated",
         "drop_duplicates"
       ],
       "methods": [
-        "bool",
-        "any",
         "duplicated",
         "drop_duplicates",
-        "int",
         "sum"
       ],
       "functions": [],
@@ -8918,11 +8817,8 @@
       "keywords": [
         "Дубликаты",
         "market-duplicates",
-        "bool",
-        "any",
         "duplicated",
         "drop_duplicates",
-        "int",
         "sum"
       ],
       "cheatSheet": {
@@ -8971,6 +8867,15 @@
             "description": "Оценивает денежный вклад повторных появлений номера.",
             "example": "extra = sales['order_id'].duplicated()\nsales.loc[extra, 'revenue'].sum()",
             "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
+          },
+          {
+            "id": "cheat-market-duplicates-v2-row",
+            "group": "Практические приёмы",
+            "name": "duplicated() и drop_duplicates()",
+            "kind": "pattern",
+            "description": "Различает полные повторы строк и совпадения выбранного ключа.",
+            "example": "frame[frame.duplicated(keep=False)]\nframe.drop_duplicates()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html"
           }
         ]
       },
@@ -9106,6 +9011,35 @@
             "examples": [],
             "errors": [],
             "nuances": []
+          },
+          {
+            "id": "article-market-duplicates-v2-row",
+            "title": "Повтор строки и повтор ключа",
+            "paragraphs": [
+              "Без subset duplicated сравнивает все поля: полным дублем является строка с теми же значениями в каждом столбце. subset задаёт бизнес-ключ, например номер покупки или пару клиент–товар; одинаковый ключ ещё не означает одинаковую запись.",
+              "keep=False отмечает все участники повторения, keep=\"first\" — только последующие. drop_duplicates возвращает очищенную копию с сохранённым индексом. Удалять совпадения клиент–товар без проверки нельзя: повторная покупка может быть законной."
+            ],
+            "covers": [
+              "cheat-market-duplicates-v2-row"
+            ],
+            "syntax": null,
+            "nuances": [
+              "Для удаления с изменением исходника нужно осознанное решение; inplace не требуется для получения очищенной копии."
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'id':[1,1,1,2],'amount':[10,10,20,30]})\nprint(frame.duplicated(keep=False).tolist())\nprint(frame.duplicated('id',keep=False).tolist())\nprint(frame.drop_duplicates().shape)",
+                "result": "[True, True, False, False]\n[True, True, True, False]\n(3, 2)",
+                "explanation": "Одна строка дублируется полностью; три строки имеют общий ключ."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame.drop_duplicates('id')",
+                "why": "Удаляется отличающаяся запись с суммой 20; критерий не соответствует полному дублю.",
+                "correctCode": "frame.drop_duplicates()"
+              }
+            ]
           }
         ],
         "summary": "Сначала выберите ключ и исследуйте все совпадения. Затем сохраните нужную копию и проверьте изменение числа строк и суммы; повторная покупка сама по себе не причина удаления."
@@ -9126,29 +9060,37 @@
         {
           "label": ".drop_duplicates()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html"
+        },
+        {
+          "label": "Сумма выручки лишних копий",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
+        },
+        {
+          "label": "duplicated() и drop_duplicates()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html"
         }
       ],
       "relatedTaskIds": [
         "market-duplicates-001",
         "market-duplicates-002",
         "market-duplicates-003",
-        "market-duplicates-004",
-        "market-duplicates-005"
+        "market-duplicates-005",
+        "market-repeat-products-001"
       ],
       "version": 1,
       "theoryArticleIds": [
         "theory-market-duplicates-001",
         "theory-market-duplicates-002",
         "theory-market-duplicates-003",
-        "theory-market-duplicates-004",
-        "theory-market-duplicates-005"
+        "theory-market-duplicates-005",
+        "theory-market-repeat-products-001"
       ],
       "taskIds": [
         "market-duplicates-001",
         "market-duplicates-002",
         "market-duplicates-003",
-        "market-duplicates-004",
-        "market-duplicates-005"
+        "market-duplicates-005",
+        "market-repeat-products-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -9160,8 +9102,8 @@
       "description": "4 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "31",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Сводные и форма отчёта",
         "pivot_table",
@@ -9170,10 +9112,9 @@
       "methods": [
         "pivot_table",
         "assign",
-        "strftime",
-        "agg",
+        "to_period",
         "melt",
-        "groupby"
+        "reset_index"
       ],
       "functions": [],
       "attributes": [
@@ -9181,18 +9122,15 @@
         "columns",
         "dt"
       ],
-      "operators": [
-        "-"
-      ],
+      "operators": [],
       "keywords": [
         "Сводные и форма отчёта",
         "market-reshape",
         "pivot_table",
         "assign",
-        "strftime",
-        "agg",
+        "to_period",
         "melt",
-        "groupby"
+        "reset_index"
       ],
       "cheatSheet": {
         "entries": [
@@ -9231,6 +9169,24 @@
             "id": "cheat-market-reshape-04",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-reshape-v2-matrix",
+            "group": "Практические приёмы",
+            "name": "Сводная с несколькими метриками",
+            "kind": "pattern",
+            "description": "Размещает измерения на осях и рассчитывает несколько агрегатов.",
+            "example": "frame.pivot_table(index='city',columns='status',values='id',aggfunc='count',fill_value=0)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.pivot_table.html"
+          },
+          {
+            "id": "cheat-market-reshape-v2-long",
+            "group": "Практические приёмы",
+            "name": "melt после сводной",
+            "kind": "pattern",
+            "description": "Переводит каждую пару измерений в отдельную строку.",
+            "example": "wide.reset_index().melt(id_vars='city',var_name='category',value_name='amount')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html"
           }
         ]
       },
@@ -9369,6 +9325,60 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-reshape-v2-matrix",
+            "title": "Оси, метрики и контрольные итоги",
+            "paragraphs": [
+              "index отвечает за строки, columns — за столбцы, values — за числовую или считаемую колонку. Для структуры статусов города помещают в строки, статусы в столбцы; count номера считает непустые номера, sum выручки считает деньги.",
+              "Словарь aggfunc позволяет задать разные функции для разных полей. Список функций создаёт дополнительный уровень колонок: обращайтесь к полной паре имени показателя и функции. Общая сумма ячеек должна соответствовать метрике исходных данных, а не случайно выбранному числу строк."
+            ],
+            "covers": [
+              "cheat-market-reshape-v2-matrix"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'city':['A','A','B'],'status':['paid','cancel','paid'],'id':[1,2,3],'amount':[10,20,30]})\ncounts=frame.pivot_table(index='city',columns='status',values='id',aggfunc='count',fill_value=0)\nreport=frame.pivot_table(index='city',values=['id','amount'],aggfunc={'id':['count'],'amount':['sum']})\nprint(counts.to_numpy().sum())\nprint(report.columns.tolist())",
+                "result": "3\n[('amount', 'sum'), ('id', 'count')]",
+                "explanation": "Разные показатели имеют разные функции; дополнительный уровень хранит их названия."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame.pivot_table(index='status',columns='city',values='id',aggfunc='sum')",
+                "why": "Оси перевёрнуты, а сумма идентификаторов не является числом заказов.",
+                "correctCode": "frame.pivot_table(index='city',columns='status',values='id',aggfunc='count',fill_value=0)"
+              }
+            ]
+          },
+          {
+            "id": "article-market-reshape-v2-long",
+            "title": "Длинный формат сохраняет измерения",
+            "paragraphs": [
+              "После сводной город может храниться в индексе. reset_index возвращает его в обычный столбец; id_vars сохраняет этот идентификатор, остальные поля превращаются в пары имя–значение.",
+              "Число строк длинной таблицы равно произведению числа городов и категорий, если сохранены все ячейки. Нулевая ячейка — полноценная пара с нулевой метрикой; её не нужно автоматически удалять как пропуск."
+            ],
+            "covers": [
+              "cheat-market-reshape-v2-long"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nwide=pd.DataFrame({'food':[10,0],'books':[20,30]},index=pd.Index(['A','B'],name='city'))\nlong=wide.reset_index().melt(id_vars='city',var_name='category',value_name='amount')\nprint(long.shape)\nprint(long['amount'].sum())",
+                "result": "(4, 3)\n60",
+                "explanation": "Два города и две категории дают четыре строки и сохраняют общую сумму."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "wide.melt(var_name='category')",
+                "why": "Город из индекса теряется, поэтому значение нельзя однозначно связать с измерением.",
+                "correctCode": "wide.reset_index().melt(id_vars='city',var_name='category',value_name='amount')"
+              }
+            ]
           }
         ],
         "summary": "Сводная агрегирует наблюдения, melt перестраивает показатели. Обе операции требуют сохранения ключей и смысла агрегатов."
@@ -9379,7 +9389,23 @@
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
         },
         {
+          "label": "fill_value в сводной",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "label": "Словарь агрегатов",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
           "label": ".melt()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html"
+        },
+        {
+          "label": "Сводная с несколькими метриками",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.pivot_table.html"
+        },
+        {
+          "label": "melt после сводной",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.melt.html"
         }
       ],
@@ -9412,8 +9438,8 @@
       "description": "4 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "32",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Объединение таблиц",
         "merge"
@@ -9630,25 +9656,40 @@
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
         },
         {
+          "label": "validate=\"many_to_one\"",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
+        },
+        {
+          "label": "indicator=True",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
+        },
+        {
           "label": ".merge(how=\"inner\")",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
+        },
+        {
+          "label": "Группировка после обогащения",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
         }
       ],
       "relatedTaskIds": [
         "market-joins-002",
         "market-joins-003",
-        "market-joins-004"
+        "market-joins-004",
+        "market-product-enrichment-001"
       ],
       "version": 1,
       "theoryArticleIds": [
         "theory-market-joins-002",
         "theory-market-joins-003",
-        "theory-market-joins-004"
+        "theory-market-joins-004",
+        "theory-market-product-enrichment-001"
       ],
       "taskIds": [
         "market-joins-002",
         "market-joins-003",
-        "market-joins-004"
+        "market-joins-004",
+        "market-product-enrichment-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -9660,8 +9701,8 @@
       "description": "5 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "33",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Временные ряды",
         "dates",
@@ -9670,13 +9711,13 @@
       "methods": [
         "sum",
         "groupby",
-        "strftime",
-        "idxmax",
-        "cumsum",
+        "to_period",
+        "rename",
+        "ge",
+        "max",
         "DataFrame",
-        "resample",
-        "diff",
-        "set_index"
+        "cumsum",
+        "Timedelta"
       ],
       "functions": [],
       "attributes": [
@@ -9685,6 +9726,7 @@
       ],
       "operators": [
         "-",
+        "==",
         ">"
       ],
       "keywords": [
@@ -9692,13 +9734,13 @@
         "market-time",
         "sum",
         "groupby",
-        "strftime",
-        "idxmax",
-        "cumsum",
+        "to_period",
+        "rename",
+        "ge",
+        "max",
         "DataFrame",
-        "resample",
-        "diff",
-        "set_index",
+        "cumsum",
+        "Timedelta",
         "dates"
       ],
       "cheatSheet": {
@@ -9756,6 +9798,24 @@
             "id": "cheat-market-time-06",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-time-v2-daily",
+            "group": "Практические приёмы",
+            "name": "Дневной максимум и накопительный итог",
+            "kind": "pattern",
+            "description": "Сохраняет всех дневных лидеров и рассчитывает итог по хронологии.",
+            "example": "daily = frame.groupby('date')['amount'].sum().sort_index()\ndaily[daily.eq(daily.max())]\ndaily.cumsum()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.cumsum.html"
+          },
+          {
+            "id": "cheat-market-time-v2-last-seven",
+            "group": "Практические приёмы",
+            "name": "Включённый диапазон дат",
+            "kind": "pattern",
+            "description": "Выбирает семь календарных дней вместе с последним днём.",
+            "example": "end = frame['date'].max()\nframe[frame['date'].between(end-pd.Timedelta(days=6),end)]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.between.html"
           }
         ]
       },
@@ -9908,6 +9968,60 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-time-v2-daily",
+            "title": "Сначала день, затем сравнение и накопление",
+            "paragraphs": [
+              "Несколько покупок одной даты образуют один дневной результат. После группировки суммы сортируют по дате: накопление в порядке выгрузки может отличаться от хронологии.",
+              "Все дни с максимальной суммой выбирают булевым сравнением с max. Дневную и накопительную суммы удобно хранить рядом в DataFrame: последняя накопительная сумма должна совпадать с общей суммой продаж."
+            ],
+            "covers": [
+              "cheat-market-time-v2-daily"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'date':pd.to_datetime(['2026-01-02','2026-01-01','2026-01-01','2026-01-03']),'amount':[20,10,10,5]})\ndaily=frame.groupby('date')['amount'].sum().sort_index()\nreport=daily.to_frame('daily')\nreport['cumulative']=daily.cumsum()\nprint(daily[daily.eq(daily.max())].index.strftime('%Y-%m-%d').tolist())\nprint(report['cumulative'].tolist())",
+                "result": "['2026-01-01', '2026-01-02']\n[20, 40, 45]",
+                "explanation": "Два дня разделили максимум; хронологическое накопление сохраняет оба."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "daily.idxmax()",
+                "why": "При равенстве возвращается только одна дата.",
+                "correctCode": "daily[daily.eq(daily.max())]"
+              }
+            ]
+          },
+          {
+            "id": "article-market-time-v2-last-seven",
+            "title": "Семь дней и две границы",
+            "paragraphs": [
+              "Неделя относительно последней даты данных включает последний день и шесть предыдущих. Вычитание семи дней с включением обеих границ даёт восемь календарных дат.",
+              "Для временных отметок с часами сначала договоритесь о календарных границах и часовом поясе. between включает обе границы по умолчанию; верхняя граница не позволяет случайно включить записи из будущего при внешней опорной дате."
+            ],
+            "covers": [
+              "cheat-market-time-v2-last-seven"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'date':pd.date_range('2026-02-20','2026-02-28')})\nend=frame['date'].max()\nrecent=frame[frame['date'].between(end-pd.Timedelta(days=6),end)]\nprint(recent['date'].dt.strftime('%d').tolist())",
+                "result": "['22', '23', '24', '25', '26', '27', '28']",
+                "explanation": "Включены ровно семь дат."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame[frame['date'] >= end-pd.Timedelta(days=7)]",
+                "why": "Обе границы включены, поэтому получаются восемь дней.",
+                "correctCode": "frame[frame['date'].between(end-pd.Timedelta(days=6),end)]"
+              }
+            ]
           }
         ],
         "summary": "Календарное преобразование, регулярная агрегация и сравнение периодов должны работать на одном явно выбранном уровне."
@@ -9936,6 +10050,14 @@
         {
           "label": ".idxmax()",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.idxmax.html"
+        },
+        {
+          "label": "Дневной максимум и накопительный итог",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.cumsum.html"
+        },
+        {
+          "label": "Включённый диапазон дат",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.between.html"
         }
       ],
       "relatedTaskIds": [
@@ -9970,21 +10092,19 @@
       "description": "5 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "34",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Строки и категории",
         "strings",
         "map"
       ],
       "methods": [
+        "assign",
         "lower",
-        "strip",
         "contains",
-        "int",
-        "sum",
-        "ne",
-        "groupby",
+        "strip",
+        "value_counts",
         "upper"
       ],
       "functions": [],
@@ -9993,13 +10113,11 @@
       "keywords": [
         "Строки и категории",
         "market-strings",
+        "assign",
         "lower",
-        "strip",
         "contains",
-        "int",
-        "sum",
-        "ne",
-        "groupby",
+        "strip",
+        "value_counts",
         "upper",
         "strings",
         "map"
@@ -10041,6 +10159,24 @@
             "id": "cheat-market-strings-04",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-strings-v2-normalize",
+            "group": "Практические приёмы",
+            "name": "Копия, регистр и короткий код",
+            "kind": "pattern",
+            "description": "Преобразует текстовую колонку в копии таблицы.",
+            "example": "clean=frame.copy()\nclean['city']=clean['city'].str.lower()\nclean['code']=clean['channel'].str[:3].str.upper()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.str.lower.html"
+          },
+          {
+            "id": "cheat-market-strings-v2-spaces",
+            "group": "Практические приёмы",
+            "name": "strip и частоты первой буквы",
+            "kind": "pattern",
+            "description": "Обнаруживает внешние пробелы и считает начальные символы.",
+            "example": "frame[frame['name'].ne(frame['name'].str.strip())]\nframe['name'].str.strip().str[0].value_counts()",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.str.strip.html"
           }
         ]
       },
@@ -10179,6 +10315,60 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-strings-v2-normalize",
+            "title": "Текстовые признаки без потери таблицы",
+            "paragraphs": [
+              "Строковые операции возвращают Series: чтобы сохранить остальные поля, сначала копируют таблицу и присваивают результат нужной колонке. lower нормализует регистр, upper создаёт единый вид короткого кода.",
+              "Срез str[:3] берёт первые три символа каждой строки. Коды могут совпасть у разных длинных названий; перед использованием кода как ключа нужна отдельная проверка уникальности."
+            ],
+            "covers": [
+              "cheat-market-strings-v2-normalize"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'city':['Тула','МОСКВА'],'channel':['Приложение','Магазин']})\nclean=frame.copy()\nclean['city']=clean['city'].str.lower()\nclean['code']=clean['channel'].str[:3].str.upper()\nprint(clean['city'].tolist())\nprint(clean['code'].tolist())\nprint(frame['city'].tolist())",
+                "result": "['тула', 'москва']\n['ПРИ', 'МАГ']\n['Тула', 'МОСКВА']",
+                "explanation": "Новые значения находятся в копии, исходный регистр не изменён."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "clean=frame['city'].str.lower()",
+                "why": "Получается Series без остальных полей, а не преобразованная таблица.",
+                "correctCode": "clean=frame.copy()\nclean['city']=clean['city'].str.lower()"
+              }
+            ]
+          },
+          {
+            "id": "article-market-strings-v2-spaces",
+            "title": "Диагностика до исправления",
+            "paragraphs": [
+              "strip убирает только внешние пробелы; пробел внутри названия сохраняется. Сравнение исходной строки с очищенной показывает записи, которые изменятся. Для nullable-текста заполните пропуски маски False, чтобы отсутствие названия не считалось найденным пробелом.",
+              "После очистки первый символ можно получить str[0], а частоты — value_counts. Пустая строка не имеет первой буквы; отдельно учитывайте её как проблему качества, вместо создания случайной категории."
+            ],
+            "covers": [
+              "cheat-market-strings-v2-spaces"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\ns=pd.Series([' Тула','Тула ','Москва','Нижний Новгород'],dtype='string')\nmask=s.ne(s.str.strip()).fillna(False)\nprint(s[mask].tolist())\nprint(s.str.strip().str[0].value_counts().to_dict())",
+                "result": "[' Тула', 'Тула ']\n{'Т': 2, 'М': 1, 'Н': 1}",
+                "explanation": "Диагностика сохраняет реальные исходные строки; внутренний пробел не удаляется."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "s.str.replace(' ','')",
+                "why": "Удаляются и значимые внутренние пробелы, например в составном названии города.",
+                "correctCode": "s.str.strip()"
+              }
+            ]
           }
         ],
         "summary": "Нормализация должна иметь явные правила регистра, пробелов, поиска и пропусков. Сохраняйте исходный текст для проверки."
@@ -10199,26 +10389,37 @@
         {
           "label": "Составной текстовый ключ",
           "url": "https://pandas.pydata.org/docs/user_guide/text.html"
+        },
+        {
+          "label": "Копия, регистр и короткий код",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.str.lower.html"
+        },
+        {
+          "label": "strip и частоты первой буквы",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.str.strip.html"
         }
       ],
       "relatedTaskIds": [
         "market-strings-001",
         "market-strings-002",
         "market-strings-004",
-        "market-strings-005"
+        "market-strings-005",
+        "market-channel-code-001"
       ],
       "version": 1,
       "theoryArticleIds": [
         "theory-market-strings-001",
         "theory-market-strings-002",
         "theory-market-strings-004",
-        "theory-market-strings-005"
+        "theory-market-strings-005",
+        "theory-market-channel-code-001"
       ],
       "taskIds": [
         "market-strings-001",
         "market-strings-002",
         "market-strings-004",
-        "market-strings-005"
+        "market-strings-005",
+        "market-channel-code-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -10230,49 +10431,43 @@
       "description": "5 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "35",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Правила map и apply",
         "map",
         "apply"
       ],
       "methods": [
-        "DataFrame",
         "map",
         "nunique",
         "apply",
         "groupby",
-        "isna",
-        "set_index",
-        "equals",
-        "int",
-        "get",
-        "sum"
+        "fillna",
+        "cut",
+        "float",
+        "round"
       ],
       "functions": [],
-      "attributes": [
-        "index"
-      ],
+      "attributes": [],
       "operators": [
-        "==",
-        ">",
-        "<"
+        "+",
+        "-",
+        "*",
+        "/",
+        "=="
       ],
       "keywords": [
         "Правила map и apply",
         "market-mapping",
-        "DataFrame",
         "map",
         "nunique",
         "apply",
         "groupby",
-        "isna",
-        "set_index",
-        "equals",
-        "int",
-        "get",
-        "sum"
+        "fillna",
+        "cut",
+        "float",
+        "round"
       ],
       "cheatSheet": {
         "entries": [
@@ -10311,6 +10506,33 @@
             "id": "cheat-market-mapping-04",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-mapping-v2-segments",
+            "group": "Практические приёмы",
+            "name": "map и диапазоны apply",
+            "kind": "pattern",
+            "description": "Разделяет точный словарь и правила числовых сегментов.",
+            "example": "frame['code']=frame['status'].map({'Оплачен':'paid','Отменён':'cancelled','Возврат':'returned'})\nframe['segment']=frame['price'].apply(lambda p:'Бюджетный' if p<3000 else 'Средний' if p<10000 else 'Дорогой')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html"
+          },
+          {
+            "id": "cheat-market-mapping-v2-loyalty",
+            "group": "Практические приёмы",
+            "name": "Уровень по числу покупок",
+            "kind": "pattern",
+            "description": "Классифицирует клиента после подсчёта уникальных заказов.",
+            "example": "counts=frame.groupby('client')['id'].nunique()\ncounts.apply(lambda n:'Новый' if n==1 else 'Постоянный' if n==2 else 'VIP')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.api.typing.DataFrameGroupBy.nunique.html"
+          },
+          {
+            "id": "cheat-market-mapping-v2-discount",
+            "group": "Практические приёмы",
+            "name": "Скидка от исходной стоимости",
+            "kind": "pattern",
+            "description": "Делит скидку на стоимость до её применения.",
+            "example": "gross=frame['amount']+frame['discount']\n(frame['discount']/gross*100).round(1)",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html"
           }
         ]
       },
@@ -10449,6 +10671,87 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-mapping-v2-segments",
+            "title": "Справочник и функция решают разные вопросы",
+            "paragraphs": [
+              "map со словарём заменяет точные коды понятными подписями; неизвестный код даёт пропуск. После перевода категорий проверьте полноту словаря, чтобы новая бизнес-категория не исчезла незаметно.",
+              "Числовые диапазоны удобнее выражать функцией apply или векторным cut. Каждая ветвь должна вернуть одну категорию, а отдельное правило должно описывать пропуск: отсутствие оценки не равно низкой оценке. Границы 3000 и 10000 проверяют отдельно."
+            ],
+            "covers": [
+              "cheat-market-mapping-v2-segments"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nprice=pd.Series([2999,3000,9999,10000])\nprint(price.apply(lambda p:'Бюджетный' if p<3000 else 'Средний' if p<10000 else 'Дорогой').tolist())\nrating=pd.Series([5,None,2])\nprint(rating.apply(lambda r:'Нет оценки' if pd.isna(r) else 'Высокая' if r>=4 else 'Низкая').tolist())",
+                "result": "['Бюджетный', 'Средний', 'Средний', 'Дорогой']\n['Высокая', 'Нет оценки', 'Низкая']",
+                "explanation": "Граница относится к следующему диапазону; отсутствующая оценка имеет собственную подпись."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "rating.apply(lambda r:'Высокая' if r>=4 else 'Низкая')",
+                "why": "Сравнение NaN не истинно, поэтому пропуск ошибочно становится низкой оценкой.",
+                "correctCode": "rating.apply(lambda r:'Нет оценки' if pd.isna(r) else 'Высокая' if r>=4 else 'Низкая')"
+              }
+            ]
+          },
+          {
+            "id": "article-market-mapping-v2-loyalty",
+            "title": "Сначала клиентский показатель, затем подпись",
+            "paragraphs": [
+              "Клиентский уровень определяется числом покупок, а не готовым кодом справочника. Сначала группируют строки по клиенту и считают уникальные номера заказов; повтор строки товара не увеличивает число покупок.",
+              "Один заказ означает «Новый», два — «Постоянный», от трёх — «VIP». Функция map или apply преобразует агрегированную Series; применение той же функции к каждой исходной строке не знает всей истории клиента. Если включён справочник клиентов без покупок, для нуля требуется отдельное явно заданное правило."
+            ],
+            "covers": [
+              "cheat-market-mapping-v2-loyalty"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'client':['A','A','B','B','C','C','C'],'id':[1,1,2,3,4,5,6]})\ncounts=frame.groupby('client')['id'].nunique()\nlabels=counts.apply(lambda n:'Новый' if n==1 else 'Постоянный' if n==2 else 'VIP')\nprint(labels.to_dict())",
+                "result": "{'A': 'Новый', 'B': 'Постоянный', 'C': 'VIP'}",
+                "explanation": "Повтор номера клиента A не превратился во вторую покупку."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame.groupby('client')['id'].count()",
+                "why": "Считаются записи, поэтому дублированный заказ повышает клиентский уровень.",
+                "correctCode": "frame.groupby('client')['id'].nunique()"
+              }
+            ]
+          },
+          {
+            "id": "article-market-mapping-v2-discount",
+            "title": "Правильный знаменатель процента",
+            "paragraphs": [
+              "Если выручка уже учитывает скидку, стоимость до скидки равна выручке плюс скидка. Процент скидки сравнивает скидку именно с первоначальной стоимостью, а не с остатком после неё.",
+              "Построчная функция apply(axis=1) получает Series строки и может использовать несколько полей. Для простой арифметики векторное выражение понятнее и обычно быстрее; при нулевой первоначальной стоимости сначала задают правило неопределённого процента."
+            ],
+            "covers": [
+              "cheat-market-mapping-v2-discount"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'amount':[180,100],'discount':[20,0]})\npercent=frame.apply(lambda row:row['discount']/(row['amount']+row['discount'])*100,axis=1)\nprint(percent.round(1).tolist())",
+                "result": "[10.0, 0.0]",
+                "explanation": "20 рублей от исходных 200 — это 10%, а не 11,1%."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "frame['discount']/frame['amount']*100",
+                "why": "Знаменатель уже уменьшен на скидку, процент завышается.",
+                "correctCode": "frame['discount']/(frame['amount']+frame['discount'])*100"
+              }
+            ]
           }
         ],
         "summary": "map описывает соответствие, apply — функцию. Полнота словаря, границы и пропуски делают перевод проверяемым."
@@ -10461,6 +10764,26 @@
         {
           "label": ".apply() с функцией",
           "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.apply.html"
+        },
+        {
+          "label": "pd.isna в правиле",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.isna.html"
+        },
+        {
+          "label": ".equals()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.equals.html"
+        },
+        {
+          "label": "map и диапазоны apply",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.map.html"
+        },
+        {
+          "label": "Уровень по числу покупок",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.api.typing.DataFrameGroupBy.nunique.html"
+        },
+        {
+          "label": "Скидка от исходной стоимости",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html"
         }
       ],
       "relatedTaskIds": [
@@ -10468,7 +10791,7 @@
         "market-mapping-002",
         "market-mapping-003",
         "market-mapping-004",
-        "market-mapping-005"
+        "market-discount-percent-001"
       ],
       "version": 1,
       "theoryArticleIds": [
@@ -10476,14 +10799,14 @@
         "theory-market-mapping-002",
         "theory-market-mapping-003",
         "theory-market-mapping-004",
-        "theory-market-mapping-005"
+        "theory-market-discount-percent-001"
       ],
       "taskIds": [
         "market-mapping-001",
         "market-mapping-002",
         "market-mapping-003",
         "market-mapping-004",
-        "market-mapping-005"
+        "market-discount-percent-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -10495,46 +10818,45 @@
       "description": "3 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "36",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Визуализация продаж",
         "plot"
       ],
       "methods": [
-        "plot",
+        "bar",
+        "sort_values",
         "sum",
         "groupby",
-        "pivot_table",
-        "assign",
-        "strftime",
+        "round",
         "mean",
-        "idxmax",
-        "to_dict",
-        "round"
+        "min",
+        "subplots",
+        "tight_layout",
+        "count"
       ],
-      "functions": [],
-      "attributes": [
-        "index",
-        "columns",
-        "dt"
+      "functions": [
+        "subplots"
       ],
+      "attributes": [],
       "operators": [
-        "-"
+        "=="
       ],
       "keywords": [
         "Визуализация продаж",
         "market-charts",
-        "plot",
+        "bar",
+        "sort_values",
         "sum",
         "groupby",
-        "pivot_table",
-        "assign",
-        "strftime",
+        "round",
         "mean",
-        "idxmax",
-        "to_dict",
-        "round"
+        "min",
+        "subplots",
+        "tight_layout",
+        "count",
+        "plot"
       ],
       "cheatSheet": {
         "entries": [
@@ -10750,19 +11072,19 @@
       ],
       "relatedTaskIds": [
         "market-charts-001",
-        "market-charts-002",
-        "market-charts-003"
+        "market-charts-003",
+        "market-channel-charts-001"
       ],
       "version": 1,
       "theoryArticleIds": [
         "theory-market-charts-001",
-        "theory-market-charts-002",
-        "theory-market-charts-003"
+        "theory-market-charts-003",
+        "theory-market-channel-charts-001"
       ],
       "taskIds": [
         "market-charts-001",
-        "market-charts-002",
-        "market-charts-003"
+        "market-charts-003",
+        "market-channel-charts-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -10774,8 +11096,8 @@
       "description": "5 шагов проекта KODA Market",
       "category": "pandas",
       "topicId": "37",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "Итоговые pandas-кейсы",
         "pivot_table",
@@ -10785,59 +11107,50 @@
         "agg"
       ],
       "methods": [
-        "assign",
-        "reindex",
-        "pivot_table",
-        "strftime",
-        "mul",
-        "mean",
-        "round",
-        "DataFrame",
-        "groupby",
-        "eq",
-        "sum",
-        "idxmax",
-        "int",
-        "nunique",
-        "set_index",
         "agg",
-        "resample",
-        "float"
+        "eq",
+        "max",
+        "groupby",
+        "assign",
+        "mean",
+        "reset_index",
+        "merge",
+        "head",
+        "sort_values",
+        "sum",
+        "DataFrame",
+        "gt",
+        "idxmax"
       ],
-      "functions": [],
+      "functions": [
+        "merge"
+      ],
       "attributes": [
         "index",
-        "columns",
-        "dt"
+        "columns"
       ],
       "operators": [
         "-",
-        "*",
-        "==",
-        ">"
+        "*"
       ],
       "keywords": [
         "Итоговые pandas-кейсы",
         "market-cases",
-        "assign",
-        "reindex",
-        "pivot_table",
-        "strftime",
-        "mul",
-        "mean",
-        "round",
-        "DataFrame",
-        "groupby",
-        "eq",
-        "sum",
-        "idxmax",
-        "int",
-        "nunique",
-        "set_index",
         "agg",
-        "resample",
-        "float",
+        "eq",
+        "max",
+        "groupby",
+        "assign",
+        "mean",
+        "reset_index",
         "merge",
+        "head",
+        "sort_values",
+        "sum",
+        "DataFrame",
+        "gt",
+        "idxmax",
+        "pivot_table",
         "dates"
       ],
       "cheatSheet": {
@@ -11081,26 +11394,26 @@
         }
       ],
       "relatedTaskIds": [
-        "market-cases-001",
         "market-cases-002",
         "market-cases-003",
-        "market-cases-004",
-        "market-cases-005"
+        "market-cases-005",
+        "market-cases-006",
+        "market-category-profit-001"
       ],
       "version": 1,
       "theoryArticleIds": [
-        "theory-market-cases-001",
         "theory-market-cases-002",
         "theory-market-cases-003",
-        "theory-market-cases-004",
-        "theory-market-cases-005"
+        "theory-market-cases-005",
+        "theory-market-cases-006",
+        "theory-market-category-profit-001"
       ],
       "taskIds": [
-        "market-cases-001",
         "market-cases-002",
         "market-cases-003",
-        "market-cases-004",
-        "market-cases-005"
+        "market-cases-005",
+        "market-cases-006",
+        "market-category-profit-001"
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
@@ -11112,8 +11425,8 @@
       "description": "10 шагов проекта KODA Market",
       "category": "SQL",
       "topicId": "38",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "sql",
         "SQL"
@@ -11124,6 +11437,7 @@
       "operators": [
         "-",
         "*",
+        "/",
         ">",
         "<"
       ],
@@ -11196,6 +11510,33 @@
             "id": "cheat-market-sql-07",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-sql-v2-city-rank",
+            "group": "Практические приёмы",
+            "name": "ROW_NUMBER по группе",
+            "kind": "pattern",
+            "description": "Нумерует строки отдельно внутри каждого города.",
+            "example": "ROW_NUMBER() OVER (PARTITION BY city ORDER BY amount DESC,id)",
+            "documentationUrl": "https://www.sqlite.org/windowfunctions.html"
+          },
+          {
+            "id": "cheat-market-sql-v2-monthly-lag",
+            "group": "Практические приёмы",
+            "name": "LAG после месячной суммы",
+            "kind": "pattern",
+            "description": "Сопоставляет готовую месячную сумму с предыдущим месяцем.",
+            "example": "WITH monthly AS (SELECT strftime('%Y-%m',date) AS month,SUM(amount) AS total FROM sales GROUP BY month)\nSELECT month,total,LAG(total) OVER (ORDER BY month) AS previous FROM monthly;",
+            "documentationUrl": "https://www.sqlite.org/windowfunctions.html"
+          },
+          {
+            "id": "cheat-market-sql-v2-join-audit",
+            "group": "Практические приёмы",
+            "name": "Контроль до и после JOIN",
+            "kind": "pattern",
+            "description": "Сверяет строки, уникальные ключи и деньги после объединения.",
+            "example": "SELECT COUNT(*),COUNT(DISTINCT id),SUM(amount) FROM sales;",
+            "documentationUrl": "https://www.sqlite.org/lang_with.html"
           }
         ]
       },
@@ -11359,6 +11700,87 @@
             ],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-sql-v2-city-rank",
+            "title": "Три лидера каждого города",
+            "paragraphs": [
+              "PARTITION BY начинает рейтинг заново для каждой группы. ORDER BY внутри окна определяет место заказа, а дополнительный идентификатор даёт однозначный порядок равных сумм. ROW_NUMBER выдаёт последовательные позиции и позволяет выбрать ровно три строки каждого города при наличии трёх заказов.",
+              "Псевдоним окна нельзя использовать в WHERE того же уровня. Сначала вычисляют его в CTE или подзапросе, затем оставляют позиции не выше трёх и задают внешнюю сортировку. Внешний ORDER BY определяет порядок готового отчёта независимо от порядка расчёта окна."
+            ],
+            "covers": [
+              "cheat-market-sql-v2-city-rank"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "WITH sales(id,city,amount) AS (VALUES (1,'A',50),(2,'A',50),(3,'A',30),(4,'B',40),(5,'B',20)), ranked AS (SELECT city,id,amount,ROW_NUMBER() OVER (PARTITION BY city ORDER BY amount DESC,id) AS position FROM sales) SELECT city,id,amount,position FROM ranked WHERE position<=2 ORDER BY city,position;",
+                "result": "city | id | amount | position\nA | 1 | 50 | 1\nA | 2 | 50 | 2\nB | 4 | 40 | 1\nB | 5 | 20 | 2",
+                "explanation": "Два первых места выбраны отдельно для каждого города; идентификатор разрешает равенство."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "SELECT city,id,amount FROM sales ORDER BY amount DESC LIMIT 3;",
+                "why": "LIMIT выбирает три строки всей таблицы, а не три строки каждой группы.",
+                "correctCode": "WITH ranked AS (SELECT city,id,amount,ROW_NUMBER() OVER (PARTITION BY city ORDER BY amount DESC,id) AS position FROM sales) SELECT city,id,amount,position FROM ranked WHERE position<=3;"
+              }
+            ]
+          },
+          {
+            "id": "article-market-sql-v2-monthly-lag",
+            "title": "Агрегация перед сдвигом",
+            "paragraphs": [
+              "LAG обращается к предыдущей строке в указанном порядке. Если применить его к сырым заказам, предыдущей будет покупка, а не месяц. Сначала группируют календарный год и месяц, затем вычисляют предыдущую сумму и разницу.",
+              "Первый месяц не имеет предшественника и получает NULL. Текст YYYY-MM сортируется хронологически, а одно название месяца или номер без года смешивает разные годы. При отсутствии календарного месяца LAG обращается к предыдущему представленному месяцу; для строго календарного сравнения сначала дополняют календарь."
+            ],
+            "covers": [
+              "cheat-market-sql-v2-monthly-lag"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "WITH sales(date,amount) AS (VALUES ('2026-01-01',40),('2026-01-12',60),('2026-02-01',160)), monthly AS (SELECT strftime('%Y-%m',date) AS month,SUM(amount) AS total FROM sales GROUP BY month), shifted AS (SELECT month,total,LAG(total) OVER (ORDER BY month) AS previous FROM monthly) SELECT month,total,previous,total-previous AS change FROM shifted ORDER BY month;",
+                "result": "month | total | previous | change\n2026-01 | 100 | NULL | NULL\n2026-02 | 160 | 100 | 60",
+                "explanation": "Предыдущая сумма относится к месяцу, а не к отдельному заказу."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "SELECT date,amount,LAG(amount) OVER (ORDER BY date) FROM sales;",
+                "why": "Сравниваются покупки, хотя вопрос относится к месячным продажам.",
+                "correctCode": "WITH monthly AS (SELECT strftime('%Y-%m',date) AS month,SUM(amount) AS total FROM sales GROUP BY month) SELECT month,total,LAG(total) OVER (ORDER BY month) AS previous FROM monthly;"
+              }
+            ]
+          },
+          {
+            "id": "article-market-sql-v2-join-audit",
+            "title": "CTE делает контрольные этапы видимыми",
+            "paragraphs": [
+              "WITH даёт промежуточной таблице имя и позволяет отделить исходные показатели от соединённой таблицы. LEFT JOIN сохраняет покупки без совпадения в справочнике, но не защищает от нескольких совпадений одного ключа.",
+              "Контроль до и после содержит три числа на каждом этапе: число строк, уникальных заказов и сумму. Неизменное число уникальных ключей при выросших строках и сумме показывает размножение данных. DISTINCT всего результата не заменяет проверку ключа справочника: разные значения имени могут оставить оба совпадения."
+            ],
+            "covers": [
+              "cheat-market-sql-v2-join-audit"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "WITH sales(id,client,amount) AS (VALUES (1,7,10),(2,8,20)), clients(client,name) AS (VALUES (7,'Ann'),(8,'Ben')), joined AS (SELECT s.id,s.amount,c.name FROM sales AS s LEFT JOIN clients AS c ON s.client=c.client), before_values AS (SELECT COUNT(*) AS before_rows,COUNT(DISTINCT id) AS before_orders,SUM(amount) AS before_total FROM sales), after_values AS (SELECT COUNT(*) AS after_rows,COUNT(DISTINCT id) AS after_orders,SUM(amount) AS after_total FROM joined) SELECT * FROM before_values CROSS JOIN after_values;",
+                "result": "before_rows | before_orders | before_total | after_rows | after_orders | after_total\n2 | 2 | 30 | 2 | 2 | 30",
+                "explanation": "Шесть чисел показывают неизменность структуры и суммы."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "SELECT COUNT(DISTINCT s.id) FROM sales s LEFT JOIN clients c ON s.client=c.client;",
+                "why": "Одна уникальность не замечает повторённых сумм и строк.",
+                "correctCode": "WITH joined AS (SELECT s.id,s.amount FROM sales s LEFT JOIN clients c ON s.client=c.client) SELECT COUNT(*),COUNT(DISTINCT id),SUM(amount) FROM joined;"
+              }
+            ]
           }
         ],
         "summary": "Уровень группировки, этап фильтра и уникальность ключей определяют смысл SQL-отчёта. Оконные функции сохраняют строки, CTE делает этапы читаемыми."
@@ -11391,6 +11813,18 @@
         {
           "label": "COUNT DISTINCT",
           "url": "https://www.sqlite.org/lang_aggfunc.html"
+        },
+        {
+          "label": "ROW_NUMBER по группе",
+          "url": "https://www.sqlite.org/windowfunctions.html"
+        },
+        {
+          "label": "LAG после месячной суммы",
+          "url": "https://www.sqlite.org/windowfunctions.html"
+        },
+        {
+          "label": "Контроль до и после JOIN",
+          "url": "https://www.sqlite.org/lang_with.html"
         }
       ],
       "relatedTaskIds": [
@@ -11440,8 +11874,8 @@
       "description": "10 шагов проекта KODA Market",
       "category": "Excel",
       "topicId": "39",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "excel"
       ],
@@ -11453,7 +11887,9 @@
       "operators": [
         "-",
         "*",
-        "/"
+        "/",
+        ">",
+        "<"
       ],
       "keywords": [
         "Excel: учебный симулятор",
@@ -11533,6 +11969,51 @@
             "id": "cheat-market-excel-08",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-excel-v2-if",
+            "group": "Практические приёмы",
+            "name": "IF / ЕСЛИ",
+            "kind": "pattern",
+            "description": "Возвращает одну из двух подписей по логическому условию.",
+            "example": "=IF([@calculated]=[@revenue],\"ОК\",\"Ошибка\")",
+            "documentationUrl": "https://support.microsoft.com/en-us/office/if-function-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2"
+          },
+          {
+            "id": "cheat-market-excel-v2-conditional",
+            "group": "Практические приёмы",
+            "name": "COUNTIF и SUMIF",
+            "kind": "pattern",
+            "description": "Считает строки и суммирует значения по одному критерию.",
+            "example": "=COUNTIF(Orders[channel],A2)\n=SUMIF(Orders[channel],A2,Orders[revenue])",
+            "documentationUrl": "https://support.microsoft.com/en-us/office/sumif-function-169b8c99-c05c-4483-a712-1697a653039b"
+          },
+          {
+            "id": "cheat-market-excel-v2-quality",
+            "group": "Практические приёмы",
+            "name": "COUNTBLANK и проверки ключей",
+            "kind": "pattern",
+            "description": "Считает пустые ячейки отдельно от нулей и повторов.",
+            "example": "=COUNTBLANK(Orders[rating])\n=COUNTIF(Orders[revenue],\"<0\")",
+            "documentationUrl": "https://support.microsoft.com/en-us/office/countblank-function-6a92d772-675c-4bee-b346-24af6bd3ac22"
+          },
+          {
+            "id": "cheat-market-excel-v2-format",
+            "group": "Практические приёмы",
+            "name": "Условное форматирование строки",
+            "kind": "pattern",
+            "description": "Фиксирует колонку условия и меняет номер строки при проверке.",
+            "example": "=$K2=\"Отменён\"",
+            "documentationUrl": "https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-in-excel-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f"
+          },
+          {
+            "id": "cheat-market-excel-v2-countif",
+            "group": "Практические приёмы",
+            "name": "COUNTIF / СЧЁТЕСЛИ",
+            "kind": "pattern",
+            "description": "Считает ячейки, соответствующие одному условию.",
+            "example": "=COUNTIF(Orders[status],\"Отменён\")",
+            "documentationUrl": "https://support.microsoft.com/en-us/office/countif-function-e0de10c6-f885-4e71-abb4-1f464816df34"
           }
         ]
       },
@@ -11685,6 +12166,123 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-excel-v2-if",
+            "title": "Контрольная колонка и умная таблица",
+            "paragraphs": [
+              "Умная таблица Orders имеет заголовки и структурированные ссылки. [@price] обозначает цену текущей строки, Orders[price] — весь столбец; формула расчёта должна распространяться на все строки.",
+              "IF проверяет равенство расчётной и исходной суммы, возвращая разные подписи. Уточняйте правила округления денежных значений до сравнения. Примеры ниже показывают нативную формулу Excel: её можно перенести в книгу, но тренажёр исполняет только явно поддерживаемый учебный набор операций."
+            ],
+            "covers": [
+              "cheat-market-excel-v2-if"
+            ],
+            "syntax": null,
+            "nuances": [
+              "В русской локализации IF называется ЕСЛИ, а разделитель аргументов может быть точкой с запятой."
+            ],
+            "examples": [
+              {
+                "code": "=IF(100*2-20=180,\"ОК\",\"Ошибка\")",
+                "result": "ОК",
+                "explanation": "Исходная сумма совпала с расчётом: цена × количество − абсолютная скидка."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "=IF([@price]*[@quantity]*(1-[@discount])=[@revenue],\"ОК\",\"Ошибка\")",
+                "why": "Абсолютная скидка в рублях ошибочно трактуется как доля.",
+                "correctCode": "=IF([@price]*[@quantity]-[@discount]=[@revenue],\"ОК\",\"Ошибка\")"
+              }
+            ]
+          },
+          {
+            "id": "article-market-excel-v2-conditional",
+            "title": "Показатели каналов и контроль отмен",
+            "paragraphs": [
+              "COUNTIF считает ячейки, удовлетворяющие критерию; SUMIF проверяет один диапазон и складывает соответствующие ячейки другого. Диапазоны должны описывать одинаковые строки, иначе суммы относятся к чужим наблюдениям.",
+              "Для канала сначала получают количество и сумму, затем делят сумму на количество. IF с проверкой количества обрабатывает пустую группу. Сводная и формульный справочник должны сохранять один контрольный итог при одинаковых фильтрах."
+            ],
+            "covers": [
+              "cheat-market-excel-v2-conditional",
+              "cheat-market-excel-v2-countif"
+            ],
+            "syntax": null,
+            "nuances": [
+              "Русские имена функций: СЧЁТЕСЛИ и СУММЕСЛИ."
+            ],
+            "examples": [
+              {
+                "code": "=IF(COUNTIF(Orders[channel],A2)=0,0,SUMIF(Orders[channel],A2,Orders[revenue])/COUNTIF(Orders[channel],A2))",
+                "result": "Для канала с суммой 300 и двумя заказами: 150; для канала без заказов: 0.",
+                "explanation": "Средний чек вычисляется как отношение суммы и количества, а не среднее готовых средних."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "=SUMIF(Orders[channel],A2,Orders[discount])/COUNTIF(Orders[channel],A2)",
+                "why": "Числитель считает скидки, а не выручку: получается другой показатель.",
+                "correctCode": "=SUMIF(Orders[channel],A2,Orders[revenue])/COUNTIF(Orders[channel],A2)"
+              }
+            ]
+          },
+          {
+            "id": "article-market-excel-v2-quality",
+            "title": "Контроль качества перед отчётом",
+            "paragraphs": [
+              "COUNTBLANK считает пустые ячейки, включая формулы с результатом пустая строка; числовой ноль заполнен. Пустая оценка и пустой номер имеют разные последствия: первую исключают из среднего, второй мешает проверить уникальность заказа.",
+              "Отрицательные суммы проверяют отдельным критерием. Для повторов номера контрольная колонка COUNTIF по номеру должна быть больше единицы; затем определяют, хотят ли считать все строки повторяющихся номеров или только лишние записи. Таблица качества хранит правило, число находок и явный статус."
+            ],
+            "covers": [
+              "cheat-market-excel-v2-quality"
+            ],
+            "syntax": null,
+            "nuances": [
+              "Русское имя COUNTBLANK — СЧИТАТЬПУСТОТЫ; частичная пустота диапазона не означает нулевую бизнес-величину."
+            ],
+            "examples": [
+              {
+                "code": "=COUNTIF(Orders[order_id],[@order_id])>1",
+                "result": "Для номеров 1, 1, 2: TRUE, TRUE, FALSE.",
+                "explanation": "Оба участника повторяющегося ключа отмечены, а уникальный ключ — нет."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "=COUNTIF(Orders[rating],0)",
+                "why": "Нули не равны отсутствующим оценкам; проверка пропусков будет неверной.",
+                "correctCode": "=COUNTBLANK(Orders[rating])"
+              }
+            ]
+          },
+          {
+            "id": "article-market-excel-v2-format",
+            "title": "Правило цвета и область применения",
+            "paragraphs": [
+              "В правило условного форматирования передают логическое выражение для первой строки выделенного диапазона. Если статус находится в колонке K, знак $ фиксирует колонку, а относительный номер строки позволяет проверить каждый заказ.",
+              "Область применения должна включать все столбцы строк данных, а не заголовок и не только колонку статуса. Спокойный светло-красный фон помогает заметить отмену, но не заменяет фильтр или числовой показатель. Проверьте отменённую, оплаченную и возвращённую строки."
+            ],
+            "covers": [
+              "cheat-market-excel-v2-format"
+            ],
+            "syntax": null,
+            "nuances": [
+              "Буква K приведена для примера: в конкретной книге берите реальную колонку статуса."
+            ],
+            "examples": [
+              {
+                "code": "=$K2=\"Отменён\"",
+                "result": "TRUE только для строки, в которой ячейка K содержит «Отменён».",
+                "explanation": "При применении к диапазону A2:R31 каждая строка проверяет собственный статус."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "=$K$2=\"Отменён\"",
+                "why": "Фиксированная строка заставляет весь диапазон смотреть на один заказ.",
+                "correctCode": "=$K2=\"Отменён\""
+              }
+            ]
           }
         ],
         "summary": "Импорт, формула, сводная и график образуют последовательный отчёт. Проверяйте типы, знаменатель среднего и действие фильтра в выбранной среде."
@@ -11721,6 +12319,26 @@
         {
           "label": "Условное форматирование",
           "url": "https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-in-excel-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f"
+        },
+        {
+          "label": "IF / ЕСЛИ",
+          "url": "https://support.microsoft.com/en-us/office/if-function-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2"
+        },
+        {
+          "label": "COUNTIF и SUMIF",
+          "url": "https://support.microsoft.com/en-us/office/sumif-function-169b8c99-c05c-4483-a712-1697a653039b"
+        },
+        {
+          "label": "COUNTBLANK и проверки ключей",
+          "url": "https://support.microsoft.com/en-us/office/countblank-function-6a92d772-675c-4bee-b346-24af6bd3ac22"
+        },
+        {
+          "label": "Условное форматирование строки",
+          "url": "https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-in-excel-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f"
+        },
+        {
+          "label": "COUNTIF / СЧЁТЕСЛИ",
+          "url": "https://support.microsoft.com/en-us/office/countif-function-e0de10c6-f885-4e71-abb4-1f464816df34"
         }
       ],
       "relatedTaskIds": [
@@ -11770,15 +12388,18 @@
       "description": "10 шагов проекта KODA Market",
       "category": "Power BI",
       "topicId": "40",
-      "sourceTitle": "KODA Market — полный банк задач",
-      "sourceVersion": "2026-10-07",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
       "concepts": [
         "power-bi"
       ],
       "methods": [],
       "functions": [],
       "attributes": [],
-      "operators": [],
+      "operators": [
+        "-",
+        ">"
+      ],
       "keywords": [
         "Power BI: учебный симулятор",
         "market-power-bi",
@@ -11857,6 +12478,51 @@
             "id": "cheat-market-power-bi-08",
             "group": "Работа с данными",
             "kind": "pattern"
+          },
+          {
+            "id": "cheat-market-power-bi-v2-distinct",
+            "group": "Практические приёмы",
+            "name": "DISTINCTCOUNT",
+            "kind": "pattern",
+            "description": "Считает уникальные номера в текущем фильтре.",
+            "example": "Количество заказов = DISTINCTCOUNT(orders[order_id])",
+            "documentationUrl": "https://learn.microsoft.com/en-us/dax/distinctcount-function-dax"
+          },
+          {
+            "id": "cheat-market-power-bi-v2-dependencies",
+            "group": "Практические приёмы",
+            "name": "DIVIDE и зависимости мер",
+            "kind": "pattern",
+            "description": "Вычисляет отношение уже созданных мер в том же контексте.",
+            "example": "Выручка = SUM(orders[revenue])\nЗаказы = DISTINCTCOUNT(orders[order_id])\nСредний чек = DIVIDE([Выручка],[Заказы])",
+            "documentationUrl": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+          },
+          {
+            "id": "cheat-market-power-bi-v2-calculate",
+            "group": "Практические приёмы",
+            "name": "CALCULATE",
+            "kind": "pattern",
+            "description": "Меняет контекст фильтра для расчёта меры.",
+            "example": "Отмены = CALCULATE([Заказы],orders[status]=\"Отменён\")\nДоля отмен = DIVIDE([Отмены],[Заказы])",
+            "documentationUrl": "https://learn.microsoft.com/en-us/dax/calculate-function-dax"
+          },
+          {
+            "id": "cheat-market-power-bi-v2-calendar",
+            "group": "Практические приёмы",
+            "name": "Календарь и DATEADD",
+            "kind": "pattern",
+            "description": "Сдвигает непрерывный календарный контекст к предыдущему месяцу.",
+            "example": "Предыдущий месяц = CALCULATE([Выручка],DATEADD(Calendar[Date],-1,MONTH))\nИзменение = [Выручка]-[Предыдущий месяц]",
+            "documentationUrl": "https://learn.microsoft.com/en-us/dax/dateadd-function-dax"
+          },
+          {
+            "id": "cheat-market-power-bi-v2-interactions",
+            "group": "Практические приёмы",
+            "name": "Срезы и взаимодействия визуалов",
+            "kind": "pattern",
+            "description": "Проверяет, что выбор пересчитывает все нужные показатели.",
+            "example": "Выберите город → проверьте KPI → повторите выбор → очистите срез.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions"
           }
         ]
       },
@@ -12002,6 +12668,143 @@
             "covers": [],
             "syntax": null,
             "nuances": []
+          },
+          {
+            "id": "article-market-power-bi-v2-distinct",
+            "title": "Меры и уникальный заказ",
+            "paragraphs": [
+              "Мера рассчитывается заново для каждого фильтра и разреза. DISTINCTCOUNT нужен для уникальных номеров: если один заказ представлен несколькими строками товара, COUNTROWS посчитает строки, а не заказы.",
+              "В DAX пустое значение тоже входит в DISTINCTCOUNT; для отсутствующих номеров нужна отдельная политика качества или DISTINCTCOUNTNOBLANK. Общий итог уникальных значений не всегда равен сумме по категориям: один номер может попасть в несколько разрезов."
+            ],
+            "covers": [
+              "cheat-market-power-bi-v2-distinct"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "Заказы = DISTINCTCOUNT(orders[order_id])",
+                "result": "Для строк с номерами 1, 1, 2: 2 заказа.",
+                "explanation": "Уникальные номера отделяют сущность покупки от числа записей."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Заказы = COUNTROWS(orders)",
+                "why": "При нескольких строках одного заказа показатель завышает число покупок.",
+                "correctCode": "Заказы = DISTINCTCOUNT(orders[order_id])"
+              }
+            ]
+          },
+          {
+            "id": "article-market-power-bi-v2-dependencies",
+            "title": "Общий итог не складывает средние",
+            "paragraphs": [
+              "Связанные меры используют один фильтр: выручка и количество относятся к выбранному городу, каналу или периоду. DIVIDE заново делит показатели для каждого контекста; при нулевом знаменателе без альтернативы возвращает BLANK.",
+              "Вычисляемый столбец фиксируется при обновлении данных и не заменяет динамическую меру. Общий средний чек делит общую выручку на общие заказы; он не является суммой или простым средним городских средних. Числовой формат задают отдельно от вычисления."
+            ],
+            "covers": [
+              "cheat-market-power-bi-v2-dependencies"
+            ],
+            "syntax": null,
+            "nuances": [
+              "Примеры DAX — формулы модели; полноценный нативный движок Power BI в тренажёре не запускается."
+            ],
+            "examples": [
+              {
+                "code": "Средний чек = DIVIDE([Выручка],[Заказы])",
+                "result": "Группа A: 100 / 1 = 100; группа B: 900 / 3 = 300; общий итог: 1000 / 4 = 250.",
+                "explanation": "Каждый уровень заново использует свои числитель и знаменатель."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Средний чек = AVERAGE(orders[city_average])",
+                "why": "Средние групп усредняются без веса числа заказов.",
+                "correctCode": "Средний чек = DIVIDE([Выручка],[Заказы])"
+              }
+            ]
+          },
+          {
+            "id": "article-market-power-bi-v2-calculate",
+            "title": "Условная мера и контекст",
+            "paragraphs": [
+              "CALCULATE пересчитывает выражение с заданным условием. Фильтр статуса добавляется или заменяет существующий фильтр этого поля; город и канал продолжают ограничивать расчёт, если мера их явно не удаляет.",
+              "Доля использует количество отмен как числитель и все заказы текущего контекста как знаменатель. Формат процента только меняет отображение: значение 0,067 не должно предварительно умножаться на 100 и затем снова форматироваться процентом."
+            ],
+            "covers": [
+              "cheat-market-power-bi-v2-calculate"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "Медленные = CALCULATE([Заказы],orders[delivery_days]>3)",
+                "result": "Для сроков 2, 3, 4, 5: 2 медленные доставки.",
+                "explanation": "Строгое условие исключает срок ровно три дня."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Медленные = CALCULATE([Заказы],orders[delivery_days]>=3)",
+                "why": "Условие включает границу, которая по правилу ещё не считается нарушением.",
+                "correctCode": "Медленные = CALCULATE([Заказы],orders[delivery_days]>3)"
+              }
+            ]
+          },
+          {
+            "id": "article-market-power-bi-v2-calendar",
+            "title": "Временная модель до временной меры",
+            "paragraphs": [
+              "Календарь содержит по одной непрерывной дате без пропусков и связан активной связью Calendar[Date] → orders[order_date]. Группировка по календарному году и месяцу не смешивает январь разных лет.",
+              "DATEADD возвращает сдвинутый набор дат, а CALCULATE использует его как фильтр выручки. Сначала проверяют текущую и предыдущую суммы отдельно, затем абсолютное изменение; для первого месяца без предыдущих данных заранее выбирают BLANK или другое правило отображения."
+            ],
+            "covers": [
+              "cheat-market-power-bi-v2-calendar"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "Предыдущий месяц = CALCULATE([Выручка],DATEADD(Calendar[Date],-1,MONTH))",
+                "result": "При январской выручке 100 и февральской 160 предыдущий месяц для февраля равен 100; изменение равно 60.",
+                "explanation": "Сдвигается календарный контекст, а не имя месяца в текстовом поле."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Предыдущий месяц = CALCULATE([Выручка],orders[month]=\"Январь\")",
+                "why": "Зашитый месяц не меняется с текущей точкой и смешивает годы.",
+                "correctCode": "Предыдущий месяц = CALCULATE([Выручка],DATEADD(Calendar[Date],-1,MONTH))"
+              }
+            ]
+          },
+          {
+            "id": "article-market-power-bi-v2-interactions",
+            "title": "Фильтрация, подсветка и возврат",
+            "paragraphs": [
+              "Срез определяет набор выбранных значений; несколько каналов объединяются внутри одного поля, а город и канал совместно пересекаются. На карточке нужна фильтрация, чтобы значение отражало выбранные записи, а не оставалось общим итогом.",
+              "Подсветка сохраняет весь визуал и выделяет часть; фильтрация исключает остальное. Настройка взаимодействия должна быть проверена нажатием на элемент диаграммы, повторным нажатием и очисткой всех фильтров. После очистки восстанавливают контрольную сумму и число заказов."
+            ],
+            "covers": [
+              "cheat-market-power-bi-v2-interactions"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "Город A → Выручка 100; очистка → Выручка 300.",
+                "result": "Карточка и диаграммы показывают один выбранный контекст; очистка возвращает общий итог.",
+                "explanation": "Сценарий проверки поведения важнее самого наличия среза."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Срез добавлен; проверка карточки не выполнена.",
+                "why": "Взаимодействие может быть отключено: красивый срез не доказывает пересчёт.",
+                "correctCode": "Выбрать значение; сверить карточку и каждый связанный визуал; очистить и сверить общий итог."
+              }
+            ]
           }
         ],
         "summary": "Модель определяет наблюдения, мера — расчёт, контекст — выбранные строки. Срезы и взаимодействия должны пересчитывать понятные показатели на одном уровне."
@@ -12038,6 +12841,26 @@
         {
           "label": "Проверяемый вывод",
           "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/desktop-report-view"
+        },
+        {
+          "label": "DISTINCTCOUNT",
+          "url": "https://learn.microsoft.com/en-us/dax/distinctcount-function-dax"
+        },
+        {
+          "label": "DIVIDE и зависимости мер",
+          "url": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+        },
+        {
+          "label": "CALCULATE",
+          "url": "https://learn.microsoft.com/en-us/dax/calculate-function-dax"
+        },
+        {
+          "label": "Календарь и DATEADD",
+          "url": "https://learn.microsoft.com/en-us/dax/dateadd-function-dax"
+        },
+        {
+          "label": "Срезы и взаимодействия визуалов",
+          "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions"
         }
       ],
       "relatedTaskIds": [
@@ -12079,6 +12902,825 @@
       ],
       "createdAt": "2026-10-07T00:00:00Z",
       "updatedAt": "2026-10-07T00:00:00Z"
+    },
+    {
+      "id": "ku-market-final-report",
+      "slug": "market-final-report",
+      "title": "Итоговый отчёт аналитика",
+      "description": "Отчёт, проверка модели и записка руководителю",
+      "category": "Power BI",
+      "topicId": "41",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
+      "concepts": [
+        "power-bi"
+      ],
+      "methods": [],
+      "functions": [],
+      "attributes": [],
+      "operators": [
+        "-"
+      ],
+      "keywords": [
+        "Итоговый отчёт аналитика",
+        "market-final-report",
+        "power-bi"
+      ],
+      "cheatSheet": {
+        "entries": [
+          {
+            "id": "cheat-market-final-report-v2-structure",
+            "group": "Практические приёмы",
+            "name": "Итог → структура → динамика",
+            "kind": "pattern",
+            "description": "Размещает показатели в порядке вопросов пользователя.",
+            "example": "Итог: сумма и число → структура: категории → динамика: календарь.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+          },
+          {
+            "id": "cheat-market-final-report-v2-verify",
+            "group": "Практические приёмы",
+            "name": "Контроль отчёта",
+            "kind": "pattern",
+            "description": "Проверяет данные, модель и поведение по отдельности.",
+            "example": "Итоги → уникальность → пропуски → связи → выбор → очистка.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive"
+          },
+          {
+            "id": "cheat-market-final-report-v2-conclusions",
+            "group": "Практические приёмы",
+            "name": "Факт, гипотеза, следующая проверка",
+            "kind": "pattern",
+            "description": "Отделяет рассчитанное наблюдение от объяснения причины.",
+            "example": "Факт с числом → значение → гипотеза → конкретная проверка.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+          },
+          {
+            "id": "cheat-market-final-report-v2-definition",
+            "group": "Практические приёмы",
+            "name": "Определение показателя",
+            "kind": "pattern",
+            "description": "Фиксирует единицу, период, статусы и уровень расчёта.",
+            "example": "Выручка: рубли; дата заказа; выбранные статусы; одна строка на заказ.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+          },
+          {
+            "id": "cheat-market-final-report-v2-weighted",
+            "group": "Практические приёмы",
+            "name": "Среднее и доля в отчёте",
+            "kind": "pattern",
+            "description": "Пересчитывает отношение из суммарного числителя и знаменателя.",
+            "example": "Средний чек = сумма выручки / число заказов; доля = часть / целое.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+          },
+          {
+            "id": "cheat-market-final-report-v2-filter-check",
+            "group": "Практические приёмы",
+            "name": "Проверка фильтра на известном значении",
+            "kind": "pattern",
+            "description": "Сравнивает выбранный разрез и восстановленный общий итог.",
+            "example": "Выбрать один известный город → сверить → очистить → сверить общий итог.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions"
+          },
+          {
+            "id": "cheat-market-final-report-v2-readability",
+            "group": "Практические приёмы",
+            "name": "Единицы, подписи и спокойная иерархия",
+            "kind": "pattern",
+            "description": "Показывает число вместе с единицей и смыслом без лишнего декора.",
+            "example": "Заголовок вопроса; подпись единицы; единый формат; один акцент риска.",
+            "documentationUrl": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+          }
+        ]
+      },
+      "article": {
+        "lead": "Отчёт связывает проверенные расчёты с вопросами бизнеса: итог, структура, динамика, риск и следующая проверка.",
+        "sections": [
+          {
+            "id": "article-market-final-report-v2-structure",
+            "title": "Одна страница отвечает на вопросы",
+            "paragraphs": [
+              "Верх страницы сообщает общий масштаб, середина объясняет вклад городов и категорий, нижняя часть показывает изменение во времени. Каждый график должен отвечать на конкретный вопрос; повторение одного показателя в нескольких формах занимает место без нового ответа.",
+              "Одинаковое определение выручки и заказа используют во всех инструментах. Суммы городов и категорий сверяют с общим итогом, временные суммы — с тем же периодом. Фильтры канала и статуса сопровождают явно видимым состоянием выбора."
+            ],
+            "covers": [
+              "cheat-market-final-report-v2-structure"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'city':['A','A','B'],'category':['X','Y','X'],'amount':[10,20,30]})\ntotal=frame['amount'].sum()\nprint(total)\nprint(frame.groupby('city')['amount'].sum().sum()==total)\nprint(frame.groupby('category')['amount'].sum().sum()==total)",
+                "result": "60\nTrue\nTrue",
+                "explanation": "Два разреза сверены с одним итогом, а не с разными определениями продаж."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "График городов использует все статусы; KPI только оплаченные.",
+                "why": "Разрезы и общий итог отвечают на разные вопросы и не могут сверяться.",
+                "correctCode": "Применить одинаковые фильтры статуса и периода ко всем показателям."
+              }
+            ]
+          },
+          {
+            "id": "article-market-final-report-v2-verify",
+            "title": "Совпадение итога — начало проверки",
+            "paragraphs": [
+              "Числовой контроль включает число строк, уникальных номеров, общую выручку, суммы разрезов, отсутствие отрицательной суммы по выбранному правилу и число пустых оценок. Нули не подставляют вместо неизвестных оценок.",
+              "Модель проверяют на уникальность справочника и отношение многие-к-одному; после соединения сравнивают строки и сумму. Поведение проверяют отдельно: каждый город, канал и статус, несколько значений, клик диаграммы, повторный клик и очистка. Каждая проверка имеет ожидаемый показатель, наблюдаемый результат и статус, а не только общий флажок готовности."
+            ],
+            "covers": [
+              "cheat-market-final-report-v2-verify"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\norders=pd.DataFrame({'client':[1,1,2],'amount':[10,20,30]})\nclients=pd.DataFrame({'client':[1,2],'name':['Ann','Ben']})\njoined=orders.merge(clients,on='client',how='left',validate='many_to_one')\nprint(len(joined)==len(orders))\nprint(joined['amount'].sum()==orders['amount'].sum())",
+                "result": "True\nTrue",
+                "explanation": "Контроль связи предотвращает размножение покупок и денег."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "orders.merge(clients,on='client',how='left')",
+                "why": "Без проверки уникальности повторный ключ справочника может увеличить число строк.",
+                "correctCode": "orders.merge(clients,on='client',how='left',validate='many_to_one')"
+              }
+            ]
+          },
+          {
+            "id": "article-market-final-report-v2-conclusions",
+            "title": "Самодостаточный ответ руководителю",
+            "paragraphs": [
+              "Короткая записка описывает общий результат, изменение периода, сильный разрез, риск и следующее действие. У каждого факта есть показатель, период и единица: «выручка выросла на 60 рублей» точнее, чем «продажи стали лучше».",
+              "Рост суммы не доказывает рост прибыли, а большая доля отмен не доказывает причину. Гипотезу обозначают словами «возможно» и проверяют дополнительными данными: например причины отмен, наличие товара или последовательность статусов. Следующее действие должно назвать измеримую проверку и её разрез."
+            ],
+            "covers": [
+              "cheat-market-final-report-v2-conclusions"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nmonthly=pd.Series([100,160],index=['2026-01','2026-02'])\nprint(int(monthly.iloc[1]-monthly.iloc[0]))\nprint(round((monthly.iloc[1]/monthly.iloc[0]-1)*100,1))",
+                "result": "60\n60.0",
+                "explanation": "Абсолютное изменение 60 денежных единиц отличается от относительного изменения 60%."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Выручка выросла, значит рекламная кампания сработала.",
+                "why": "Без сравнения расходов, периода и других факторов причина не установлена.",
+                "correctCode": "Выручка выросла на 60; возможно влияние кампании. Сравнить заказы и расходы по рекламным каналам до и после запуска."
+              }
+            ]
+          },
+          {
+            "id": "article-market-final-report-v2-definition",
+            "title": "Паспорт расчёта",
+            "paragraphs": [
+              "До оформления отчёта определяют, что именно считается продажей. Сумма в выгрузке может оставаться положительной у отменённой покупки, поэтому включение статусов — отдельное бизнес-решение, а не следствие знака суммы.",
+              "У показателя фиксируют денежную единицу, поле времени, границы периода, используемые статусы и уровень детализации. Число строк равно числу заказов только при одном наблюдении на уникальный номер. Сравнивая Python, SQL, Excel и Power BI, используют одинаковый паспорт показателя; совпадение чисел без совпадения определений недостаточно."
+            ],
+            "covers": [
+              "cheat-market-final-report-v2-definition"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'status':['paid','cancelled'],'amount':[100,50]})\nprint(frame['amount'].sum())\nprint(frame.loc[frame['status'].eq('paid'),'amount'].sum())",
+                "result": "150\n100",
+                "explanation": "Оба итога правильны для разных определений; подпись должна объяснять выбор."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Все положительные суммы — оплаченные продажи.",
+                "why": "Статус не определяется знаком числа; отмена тоже может хранить исходную сумму.",
+                "correctCode": "Фильтровать по статусу явно и назвать набор статусов в паспорте показателя."
+              }
+            ]
+          },
+          {
+            "id": "article-market-final-report-v2-weighted",
+            "title": "Почему итог не усредняет строки",
+            "paragraphs": [
+              "Город с одним заказом и город со ста заказами не имеют одинакового веса в среднем чеке магазина. Для общего результата складывают выручку и количество, затем делят; округляют только представление результата.",
+              "Доля отмен требует согласованных статусов числителя и знаменателя. Пустая группа делает отношение неопределённым, поэтому заранее выбирают пустое отображение или понятную подпись, а не незаметную ошибку деления. Среднее оценок использует только заполненные оценки; число заказов не является его знаменателем."
+            ],
+            "covers": [
+              "cheat-market-final-report-v2-weighted"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nreport=pd.DataFrame({'amount':[100,900],'orders':[1,3]})\nprint(report['amount'].sum()/report['orders'].sum())\nprint((report['amount']/report['orders']).mean())",
+                "result": "250.0\n200.0",
+                "explanation": "Среднее городских средних расходится с корректным магазинным средним."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Итоговый средний чек = среднее городских средних.",
+                "why": "Группы имеют разное число заказов, поэтому простой средний даёт неверный вес.",
+                "correctCode": "Итоговый средний чек = сумма выручки городов / сумма заказов городов."
+              }
+            ]
+          },
+          {
+            "id": "article-market-final-report-v2-filter-check",
+            "title": "Фильтр — проверяемая операция",
+            "paragraphs": [
+              "Контрольный сценарий начинается с общего итога и заранее рассчитанного частного значения. После выбора города сверяют карточку, таблицу, структуру категорий и динамику; каждый элемент должен использовать тот же выбранный набор.",
+              "Несколько значений одного поля объединяются, а разные поля пересекаются. Поэтому отдельно проверяют выбор двух каналов и комбинацию города с каналом. После очистки всех фильтров восстановленный итог должен совпасть с исходным; повторный клик по элементу диаграммы должен снимать выбор, если это принятое поведение интерфейса."
+            ],
+            "covers": [
+              "cheat-market-final-report-v2-filter-check"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe=pd.DataFrame({'city':['A','A','B'],'channel':['web','app','web'],'amount':[10,20,30]})\nprint(frame.loc[frame['city'].eq('A') & frame['channel'].isin(['web','app']),'amount'].sum())\nprint(frame['amount'].sum())",
+                "result": "30\n60",
+                "explanation": "Комбинация фильтров даёт частный итог, очистка — общий."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "Выбрать город, но оставить старый канал после очистки.",
+                "why": "Видимый город очищен, однако скрытый фильтр продолжает ограничивать карточки.",
+                "correctCode": "Очистить каждое активное измерение и проверить восстановление исходной суммы."
+              }
+            ]
+          },
+          {
+            "id": "article-market-final-report-v2-readability",
+            "title": "Читатель не должен восстанавливать смысл",
+            "paragraphs": [
+              "Управленческий экран читается от главных KPI к сравнению и динамике. Подпись «выручка, руб.» понятнее голого числа, а «средняя оценка по заполненным ответам» объясняет знаменатель. Денежные суммы и проценты имеют разные форматы и не должны выглядеть одинаково.",
+              "Единый масштаб, начало столбчатой оси с нуля и сортировка помогают честно сравнивать категории. Один спокойный акцент выделяет проблемную область, остальные элементы остаются нейтральными. В текстовой записке достаточно нескольких проверяемых чисел и конкретного действия; декоративная сложность не добавляет достоверности."
+            ],
+            "covers": [
+              "cheat-market-final-report-v2-readability"
+            ],
+            "syntax": null,
+            "nuances": [],
+            "examples": [
+              {
+                "code": "Выручка — 1 000 руб.; заказы — 4; средний чек — 250 руб.; доля отмен — 25%.",
+                "result": "Каждый показатель имеет название и единицу; доля показана процентом.",
+                "explanation": "Четыре значения можно понять без исходных таблиц."
+              }
+            ],
+            "errors": [
+              {
+                "wrongCode": "1000 / 4 / 250 / 0.25",
+                "why": "Без названий и единиц читатель не знает, что относится к деньгам, количеству и доле.",
+                "correctCode": "Подписать каждую метрику, задать денежный и процентный формат, сохранить числовой расчёт отдельно от оформления."
+              }
+            ]
+          }
+        ],
+        "summary": "Сначала согласуйте определение метрик и сверяйте расчёты, затем стройте страницу от итога к структуре и динамике. Проверяйте связи, пропуски, каждый фильтр и возврат общего итога. В ответе отделяйте числовой факт от гипотезы и называйте конкретную следующую проверку."
+      },
+      "documentationLinks": [
+        {
+          "label": "Итог → структура → динамика",
+          "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+        },
+        {
+          "label": "Контроль отчёта",
+          "url": "https://learn.microsoft.com/en-us/power-bi/guidance/relationships-active-inactive"
+        },
+        {
+          "label": "Факт, гипотеза, следующая проверка",
+          "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+        },
+        {
+          "label": "Определение показателя",
+          "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+        },
+        {
+          "label": "Среднее и доля в отчёте",
+          "url": "https://learn.microsoft.com/en-us/dax/divide-function-dax"
+        },
+        {
+          "label": "Проверка фильтра на известном значении",
+          "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-reports-visual-interactions"
+        },
+        {
+          "label": "Единицы, подписи и спокойная иерархия",
+          "url": "https://learn.microsoft.com/en-us/power-bi/create-reports/service-dashboards-design-tips"
+        }
+      ],
+      "relatedTaskIds": [
+        "market-final-report-001",
+        "market-final-report-002",
+        "market-final-report-003"
+      ],
+      "version": 1,
+      "theoryArticleIds": [
+        "theory-market-final-report-001",
+        "theory-market-final-report-002",
+        "theory-market-final-report-003"
+      ],
+      "taskIds": [
+        "market-final-report-001",
+        "market-final-report-002",
+        "market-final-report-003"
+      ],
+      "createdAt": "2026-10-07T00:00:00Z",
+      "updatedAt": "2026-10-07T00:00:00Z"
+    },
+    {
+      "id": "ku-market-selection",
+      "slug": "market-selection",
+      "title": "Выбор данных",
+      "description": "Статья и шпаргалка для самостоятельного чтения; практика этой темы сохранена в архиве.",
+      "category": "pandas",
+      "topicId": "22",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
+      "concepts": [
+        "Выбор данных",
+        "head"
+      ],
+      "methods": [
+        "head"
+      ],
+      "functions": [],
+      "attributes": [],
+      "operators": [
+        "=="
+      ],
+      "keywords": [
+        "Выбор данных",
+        "market-selection",
+        "head"
+      ],
+      "cheatSheet": {
+        "entries": [
+          {
+            "name": "Список столбцов",
+            "description": "Сохраняет нужные поля в заданном порядке.",
+            "example": "frame[['city','amount']]",
+            "documentationUrl": "https://pandas.pydata.org/docs/user_guide/indexing.html",
+            "id": "cheat-market-selection-01",
+            "group": "Работа с данными",
+            "kind": "pattern"
+          },
+          {
+            "name": ".query()",
+            "description": "Отбирает строки по выражению.",
+            "example": "frame.query('amount > 100')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html",
+            "id": "cheat-market-selection-02",
+            "group": "Работа с данными",
+            "kind": "pattern"
+          },
+          {
+            "name": ".loc с маской",
+            "description": "Выбирает строки и поля одним обращением.",
+            "example": "frame.loc[frame.city.eq('A'), ['amount']]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html",
+            "id": "cheat-market-selection-03",
+            "group": "Работа с данными",
+            "kind": "pattern"
+          },
+          {
+            "name": ".isin()",
+            "description": "Проверяет принадлежность набору значений.",
+            "example": "frame.city.isin(['A','B'])",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.isin.html",
+            "id": "cheat-market-selection-04",
+            "group": "Работа с данными",
+            "kind": "pattern"
+          }
+        ]
+      },
+      "article": {
+        "lead": "Проекция выбирает поля, фильтр выбирает наблюдения. Разделяйте эти действия и называйте границы отбора явно.",
+        "sections": [
+          {
+            "title": "Ширина таблицы",
+            "paragraphs": [
+              "Двойные скобки со списком возвращают DataFrame, один строковый ключ — Series. Порядок списка определяет порядок полей; число строк при проекции сохраняется."
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'id':[1,2], 'city':['A','B'], 'amount':[100,200]})\nprint(frame[['city','amount']].to_dict('list'))",
+                "result": "{'city': ['A', 'B'], 'amount': [100, 200]}",
+                "explanation": "Проекция не исключает заказы."
+              }
+            ],
+            "errors": [],
+            "id": "article-market-selection-01",
+            "covers": [
+              "cheat-market-selection-01"
+            ],
+            "syntax": null,
+            "nuances": []
+          },
+          {
+            "title": "Строгий порог",
+            "paragraphs": [
+              "query использует имена полей внутри выражения. > исключает границу, >= включает. Сам фильтр не сортирует и не сбрасывает индекс."
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'amount':[100,200,300]})\nprint(frame.query('amount > 200').amount.tolist())",
+                "result": "[300]",
+                "explanation": "Строка на границе не входит в отбор."
+              }
+            ],
+            "errors": [],
+            "id": "article-market-selection-02",
+            "covers": [
+              "cheat-market-selection-02"
+            ],
+            "syntax": null,
+            "nuances": [
+              "Переменную окружения запроса можно передать через @threshold; текст значения не нужно вручную подставлять в выражение."
+            ]
+          },
+          {
+            "title": "Две оси loc",
+            "paragraphs": [
+              "Первый аргумент loc выбирает строки, второй — столбцы. Маска строится на том же индексе, что и таблица. Исходные метки строк сохраняются."
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'city':['A','B','A'], 'amount':[100,200,300]})\nprint(frame.loc[frame.city.eq('A'), ['amount']].to_dict('list'))",
+                "result": "{'amount': [100, 300]}",
+                "explanation": "Город отобран до вывода суммы."
+              }
+            ],
+            "errors": [],
+            "id": "article-market-selection-03",
+            "covers": [
+              "cheat-market-selection-03"
+            ],
+            "syntax": null,
+            "nuances": [
+              "loc выравнивает маску по меткам индекса, поэтому маска от другой таблицы может не соответствовать наблюдениям."
+            ]
+          },
+          {
+            "title": "Набор и пересечение",
+            "paragraphs": [
+              "isin создаёт маску для списка допустимых значений. & требует выполнения обоих условий, | допускает любое. Каждое сравнение заключают в скобки из-за приоритета операторов."
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nframe = pd.DataFrame({'city':['A','B','C'], 'amount':[100,200,300]})\nprint(frame.loc[frame.city.isin(['A','B']) & (frame.amount >= 150), 'city'].tolist())",
+                "result": "['B']",
+                "explanation": "Пересечение двух критериев оставляет один город."
+              }
+            ],
+            "errors": [],
+            "id": "article-market-selection-04",
+            "covers": [
+              "cheat-market-selection-04"
+            ],
+            "syntax": null,
+            "nuances": [
+              "После сброса индекса маска, созданная до преобразования, уже не обязательно относится к тем же строкам."
+            ]
+          },
+          {
+            "title": "Неизвестное и пустой отбор",
+            "paragraphs": [
+              "При nullable boolean маске неизвестность можно явно исключить через fillna(False). Пустая таблица допустима, если искали нарушения и не нашли их. Она отличается от ошибки вычисления."
+            ],
+            "examples": [],
+            "errors": [],
+            "id": "article-market-selection-05",
+            "covers": [],
+            "syntax": null,
+            "nuances": []
+          },
+          {
+            "title": "Ошибки скобок и логики",
+            "paragraphs": [
+              "Python and не выполняет поэлементное сравнение Series. Кортеж имён также не является списком полей."
+            ],
+            "examples": [],
+            "errors": [
+              {
+                "wrongCode": "(frame.amount > 100) and (frame.city == 'A')",
+                "why": "Нельзя свести целый столбец к одному логическому значению.",
+                "correctCode": "(frame.amount > 100) & (frame.city == 'A')"
+              },
+              {
+                "wrongCode": "frame['city','amount']",
+                "why": "Обычно ищется один составной ключ, а не два поля.",
+                "correctCode": "frame[['city','amount']]"
+              }
+            ],
+            "id": "article-market-selection-06",
+            "covers": [],
+            "syntax": null,
+            "nuances": []
+          },
+          {
+            "title": "Контроль условий",
+            "paragraphs": [
+              "Проверьте строку на границе, комбинацию одного подходящего и одного неподходящего признака, количество оставшихся строк и сохранность ключа. Используйте отдельный объект для отбора, чтобы исходный набор оставался доступен."
+            ],
+            "examples": [],
+            "errors": [],
+            "id": "article-market-selection-07",
+            "covers": [],
+            "syntax": null,
+            "nuances": []
+          }
+        ],
+        "summary": "Надёжный отбор фиксирует поля, границы, сочетание условий и отношение к пропускам."
+      },
+      "documentationLinks": [
+        {
+          "label": "Список столбцов",
+          "url": "https://pandas.pydata.org/docs/user_guide/indexing.html"
+        },
+        {
+          "label": ".query()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html"
+        },
+        {
+          "label": ".loc с маской",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
+        },
+        {
+          "label": ".isin()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.isin.html"
+        }
+      ],
+      "relatedTaskIds": [],
+      "version": 1,
+      "theoryArticleIds": [],
+      "taskIds": [],
+      "createdAt": "2026-10-07T00:00:00Z",
+      "updatedAt": "2026-10-07T00:00:00Z",
+      "knowledge_only": true
+    },
+    {
+      "id": "ku-market-date-filters",
+      "slug": "market-date-filters",
+      "title": "Фильтрация и даты",
+      "description": "Статья и шпаргалка для самостоятельного чтения; практика этой темы сохранена в архиве.",
+      "category": "pandas",
+      "topicId": "25",
+      "sourceTitle": "KODA Market — авторский курс",
+      "sourceVersion": "market-authored-v2",
+      "concepts": [
+        "Фильтрация и даты",
+        "dates",
+        "selection"
+      ],
+      "methods": [
+        "to_period",
+        "Timestamp",
+        "max",
+        "Timedelta"
+      ],
+      "functions": [],
+      "attributes": [
+        "dt"
+      ],
+      "operators": [
+        "-",
+        "==",
+        ">"
+      ],
+      "keywords": [
+        "Фильтрация и даты",
+        "market-date-filters",
+        "to_period",
+        "Timestamp",
+        "max",
+        "Timedelta",
+        "dates",
+        "selection"
+      ],
+      "cheatSheet": {
+        "entries": [
+          {
+            "id": "cheat-market-date-filters-parse",
+            "group": "Календарный отбор",
+            "name": "pd.to_datetime()",
+            "kind": "pattern",
+            "description": "Преобразует строковые даты в значения для календарных сравнений.",
+            "example": "dates = pd.to_datetime(['2026-01-31', '2026-02-01'])",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+          },
+          {
+            "id": "cheat-market-date-filters-month",
+            "group": "Календарный отбор",
+            "name": ".dt.to_period(\"M\")",
+            "kind": "pattern",
+            "description": "Сопоставляет каждую дату с календарным месяцем.",
+            "example": "mask = sales['date'].dt.to_period('M') == '2026-01'",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html"
+          },
+          {
+            "id": "cheat-market-date-filters-after",
+            "group": "Календарный отбор",
+            "name": "Сравнение с Timestamp",
+            "kind": "pattern",
+            "description": "Отбирает даты строго позже указанной границы.",
+            "example": "mask = sales['date'] > pd.Timestamp('2026-02-10')",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Timestamp.html"
+          },
+          {
+            "id": "cheat-market-date-filters-and",
+            "group": "Календарный отбор",
+            "name": "Объединение масок через &",
+            "kind": "pattern",
+            "description": "Требует выполнения обоих построчных условий.",
+            "example": "mask = (sales['paid']) & (sales['rating'] >= 4)\nsales.loc[mask]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
+          },
+          {
+            "id": "cheat-market-date-filters-window",
+            "group": "Календарный отбор",
+            "name": "Последние семь календарных дней",
+            "kind": "pattern",
+            "description": "Считает включительную границу от последней даты данных.",
+            "example": "start = sales['date'].max() - pd.Timedelta(days=6)\nsales.loc[sales['date'] >= start]",
+            "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Timedelta.html"
+          }
+        ]
+      },
+      "article": {
+        "lead": "Календарный отбор требует точной границы и понятного правила включения строк. Научимся строить такие правила по датам и сочетать их с признаками заказа.",
+        "sections": [
+          {
+            "id": "article-market-date-filters-purpose",
+            "title": "Период и популяция — разные условия",
+            "paragraphs": [
+              "Временной отчёт отвечает на вопрос о конкретном календарном интервале. Отбор по дате определяет период, а статус, оценка или признак нового клиента определяют, какие наблюдения внутри периода интересны. Эти решения стоит записать словами до кода.",
+              "Последняя неделя данных и последняя неделя относительно сегодняшнего дня — разные периоды. Для исторического набора границу удобно выводить из максимальной наблюдаемой даты; это воспроизводимый выбор."
+            ],
+            "covers": [],
+            "examples": [],
+            "errors": [],
+            "nuances": []
+          },
+          {
+            "id": "article-market-date-filters-types",
+            "title": "Сначала сделать даты датами",
+            "paragraphs": [
+              "Колонка с текстом не даёт доступ к календарным свойствам .dt. pd.to_datetime преобразует её в datetime; для неоднозначных строк полезно явно задавать format. Ошибки по умолчанию прерывают преобразование, а errors=\"coerce\" делает неразобранные значения NaT.",
+              "Месяц — пара год и месяц. Проверка только .dt.month == 1 смешивает январь разных лет; .dt.to_period(\"M\") сохраняет обе части календарного ключа."
+            ],
+            "covers": [
+              "cheat-market-date-filters-parse",
+              "cheat-market-date-filters-month"
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nsales = pd.DataFrame({'date': ['2025-01-20','2026-01-31','2026-02-01'], 'amount': [10,20,30]})\nsales['date'] = pd.to_datetime(sales['date'])\nprint(sales.loc[sales['date'].dt.to_period('M') == '2026-01', 'amount'].tolist())",
+                "explanation": "Январь выбран вместе с годом, поэтому старая январская строка не проходит.",
+                "result": "[20]"
+              }
+            ],
+            "errors": [],
+            "nuances": []
+          },
+          {
+            "id": "article-market-date-filters-boundaries",
+            "title": "Строгие и включительные границы",
+            "paragraphs": [
+              "Оператор > исключает сам момент границы, >= включает его. Timestamp без времени обозначает полночь. Если колонка содержит часы, сравнение строго после полуночи допускает события того же календарного дня после 00:00; для отбора после всего дня нужна граница следующего дня.",
+              "С интервалами удобно использовать начало включительно и следующее начало исключительно: date >= начало и date < конец. Так не приходится угадывать последнюю долю секунды дня."
+            ],
+            "covers": [
+              "cheat-market-date-filters-after"
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nsales = pd.DataFrame({'date': pd.to_datetime(['2026-02-10','2026-02-11','2026-02-12']), 'amount': [40,50,60]})\nprint(sales.loc[sales['date'] > pd.Timestamp('2026-02-10'), 'amount'].tolist())",
+                "explanation": "Строгая граница убирает дату 10 февраля, когда все значения представлены полуночью.",
+                "result": "[50, 60]"
+              }
+            ],
+            "errors": [],
+            "nuances": []
+          },
+          {
+            "id": "article-market-date-filters-masks",
+            "title": "Несколько условий в одной маске",
+            "paragraphs": [
+              "Сравнение колонки с порогом возвращает Series булевых значений той же длины. Для построчного пересечения используют &, для объединения |, для отрицания ~. Каждое сравнение заключают в скобки, чтобы Python сначала вычислил его целиком.",
+              "Числовой порог доставки и удовлетворённость — самостоятельные фильтры. Нулевой срок не доказывает успешную быструю доставку: смысл зависит от статуса заказа. Если статус не ограничен, вывод должен честно описывать все наблюдения."
+            ],
+            "covers": [
+              "cheat-market-date-filters-and"
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nsales = pd.DataFrame({'paid': [True,False,True], 'rating': [5,5,None], 'id': [1,2,3]})\nmask = sales['paid'] & (sales['rating'] >= 4)\nprint(sales.loc[mask, 'id'].tolist())",
+                "explanation": "Неоплаченная строка и строка без известной высокой оценки исключены.",
+                "result": "[1]"
+              }
+            ],
+            "errors": [],
+            "nuances": []
+          },
+          {
+            "id": "article-market-date-filters-window",
+            "title": "Скользящее календарное окно",
+            "paragraphs": [
+              "Если включены последний день и шесть предшествующих, получается семь календарных дней. Вычитание семи дней при включительных концах даст восемь дат. Timedelta выражает длительность, а max находит опорный момент.",
+              "Для столбца с часами сначала нормализуйте последнюю дату через .normalize(), если речь именно о календарных днях. У пустого или полностью неизвестного столбца нет пригодной границы: это отдельное состояние отчёта."
+            ],
+            "covers": [
+              "cheat-market-date-filters-window"
+            ],
+            "examples": [
+              {
+                "code": "import pandas as pd\nsales = pd.DataFrame({'date': pd.to_datetime(['2026-02-03','2026-02-04','2026-02-10']), 'new': [True,True,True]})\nstart = sales['date'].max() - pd.Timedelta(days=6)\nprint(start.strftime('%Y-%m-%d'))\nprint(sales.loc[sales['new'] & (sales['date'] >= start), 'date'].dt.strftime('%Y-%m-%d').tolist())",
+                "explanation": "Опорная дата 10 февраля задаёт включительную нижнюю границу 4 февраля.",
+                "result": "2026-02-04\n['2026-02-04', '2026-02-10']"
+              }
+            ],
+            "errors": [],
+            "nuances": []
+          },
+          {
+            "id": "article-market-date-filters-mistakes",
+            "title": "Не смешивать Python и pandas",
+            "paragraphs": [
+              "Обычные and и or пытаются определить истинность целой Series. У набора строк нет одного очевидного ответа, поэтому такой код вызывает ошибку. Скобки вокруг сравнений устраняют и другую проблему — приоритет побитовых операторов."
+            ],
+            "covers": [],
+            "examples": [],
+            "errors": [
+              {
+                "wrongCode": "sales[(sales['paid'] == True) and (sales['rating'] >= 4)]",
+                "why": "and требует один bool, но оба сравнения возвращают Series.",
+                "correctCode": "sales.loc[sales['paid'] & (sales['rating'] >= 4)]"
+              },
+              {
+                "wrongCode": "sales[sales['date'].dt.month == 1]",
+                "why": "Январь разных лет попадёт в один отбор.",
+                "correctCode": "sales.loc[sales['date'].dt.to_period('M') == '2026-01']"
+              }
+            ],
+            "nuances": [
+              "NaT не проходит обычные сравнения с датой; неизвестные даты нужно отдельно посчитать.",
+              "Наивный Timestamp нельзя безоговорочно сравнивать с датами другого часового пояса."
+            ]
+          },
+          {
+            "id": "article-market-date-filters-application",
+            "title": "Как проверить временной срез",
+            "paragraphs": [
+              "Перед итоговым выводом проверьте минимальную и максимальную даты выбранной части и число исключённых строк. Затем убедитесь, что граница соответствует бизнес-фразе «после», «включая» или «за месяц».",
+              "Сохраняйте составную маску под осмысленным именем, если хотите отдельно проверить период и популяцию. Это помогает объяснить, почему конкретная строка включена, без ручного просмотра всей таблицы."
+            ],
+            "covers": [],
+            "examples": [],
+            "errors": [],
+            "nuances": []
+          }
+        ],
+        "summary": "Определите календарь, преобразуйте даты, выберите строгие или включительные границы и только затем добавляйте условия популяции. Проверка краёв периода делает отчёт воспроизводимым."
+      },
+      "documentationLinks": [
+        {
+          "label": "pd.to_datetime()",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+        },
+        {
+          "label": ".dt.to_period(\"M\")",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html"
+        },
+        {
+          "label": "Сравнение с Timestamp",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Timestamp.html"
+        },
+        {
+          "label": "Объединение масок через &",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
+        },
+        {
+          "label": "Последние семь календарных дней",
+          "url": "https://pandas.pydata.org/docs/reference/api/pandas.Timedelta.html"
+        }
+      ],
+      "relatedTaskIds": [],
+      "version": 1,
+      "theoryArticleIds": [],
+      "taskIds": [],
+      "createdAt": "2026-10-07T00:00:00Z",
+      "updatedAt": "2026-10-07T00:00:00Z",
+      "knowledge_only": true
     }
   ]
 }

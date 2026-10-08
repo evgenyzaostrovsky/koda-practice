@@ -24,4 +24,6 @@ def init_db():
             c.execute("UPDATE hints SET exercise_id='v1:' || exercise_id WHERE exercise_id NOT LIKE 'v1:%'")
             c.execute("UPDATE reviews SET exercise_id='v1:' || exercise_id WHERE exercise_id NOT LIKE 'v1:%'")
             c.execute("INSERT INTO metadata(key,value) VALUES('content_bank_version','2')")
+        from .content_revision import apply_local_content_revision
+        apply_local_content_revision(c)
 def now(): return datetime.now(timezone.utc).isoformat()

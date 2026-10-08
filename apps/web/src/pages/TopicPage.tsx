@@ -24,6 +24,7 @@ export function TopicPage() {
   });
   if(error) return <QueryError retry={() => refetch()} pending={isFetching} />;
   if(!t) return <Loading />;
+  if (!t.exercises.length) return <main className="topic-page"><section className="topic-hero"><div className="topic-hero-main"><span className="topic-kicker">Материал для чтения</span><h1>{t.title}</h1><p>{t.summary}</p><p>Материал сохранён в базе знаний. Практические задачи доступны в актуальном маршруте курса.</p><div className="topic-hero-actions"><Link to={`/knowledge/${t.slug}`}>Читать статью <ArrowRight /></Link><Link to="/catalog?course=koda-market">Открыть KODA Market</Link></div></div></section></main>;
   const mp = p?.modules.find((x) => x.slug === slug),
     solvedIds = new Set(mp?.solved_ids || []),
     done = solvedIds.size,
