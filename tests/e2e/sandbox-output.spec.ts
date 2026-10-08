@@ -3,7 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 const runButton = (page: Page) => page.getByRole("button", { name: /^Запустить$/ });
 
 async function run(page: Page, code: string) {
-  const acknowledge = page.getByRole("button", { name: "Получить" });
+  const acknowledge = page.getByRole("button", { name: "Продолжить" });
   for (let count = 0; count < 30; count += 1) {
     const appeared = await acknowledge.waitFor({ state: "visible", timeout: 1_500 }).then(() => true).catch(() => false);
     if (!appeared) break;
@@ -49,7 +49,7 @@ test("real Pyodide output reaches the sandbox DOM", async ({ page }) => {
   await run(page, "import matplotlib.pyplot as plt\nplt.plot([1, 2, 3], [2, 4, 1])\nplt.show()");
   await expect(page.locator(".sandbox-plot")).toBeVisible();
   await expect(page.locator(".sandbox-plot")).toHaveAttribute("src", /^data:image\/png;base64,/);
-  const acknowledge = page.getByRole("button", { name: "Получить" });
+  const acknowledge = page.getByRole("button", { name: "Продолжить" });
   while (await acknowledge.isVisible().catch(() => false)) {
     await acknowledge.click();
     await page.waitForTimeout(250);

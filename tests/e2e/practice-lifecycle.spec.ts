@@ -6,13 +6,13 @@ async function edit(page: Page, code: string) {
   await page.keyboard.insertText(code);
 }
 async function prepare(page: Page) {
-  await page.addLocatorHandler(page.getByRole('button', { name: 'Получить', exact: true }), async () => { await dismissRewards(page); }, { noWaitAfter: true });
+  await page.addLocatorHandler(page.getByRole('button', { name: 'Продолжить', exact: true }), async () => { await dismissRewards(page); }, { noWaitAfter: true });
   await page.goto('/practice/start-001');
   await expect(page.locator('.monaco-editor textarea')).toBeVisible();
   await dismissRewards(page);
 }
 async function dismissRewards(page: Page) {
-  const button = page.getByRole('button', { name: 'Получить', exact: true });
+  const button = page.getByRole('button', { name: 'Продолжить', exact: true });
   for (let i = 0; i < 12; i += 1) {
     if (!(await button.isVisible().catch(() => false))) break;
     try {

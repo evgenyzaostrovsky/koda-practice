@@ -1,4 +1,10 @@
+export type ExerciseMode = "python" | "sql" | "excel" | "power-bi";
 export type Exercise = {
+  exercise_mode?: ExerciseMode;
+  response_spec?: {
+    initial: Record<string, unknown>;
+    fields: Array<{ key: string; label: string; type: "text" | "number" | "select" | "checkbox" | "multiselect" | "json"; options?: string[]; default?: unknown }>;
+  };
   id: string;
   difficulty: number;
   title: string;
@@ -10,6 +16,7 @@ export type Exercise = {
   theory_article_id: string;
   knowledge_unit_id: string;
   dataset: Record<string, unknown>;
+  preview_dataset?: Record<string, unknown>;
   hints: Array<{ level: number; text: string }>;
   is_control: boolean;
   xp: number;
@@ -132,6 +139,14 @@ export type RunResult = {
     data?: unknown;
     dtype?: string;
     name?: string | null;
+    image?: string;
+    title?: string;
+    xlabel?: string;
+    ylabel?: string;
+    insight?: {
+      best_category: string;
+      means: Record<string, number>;
+    };
   };
   error?: string;
   execution_ms: number;

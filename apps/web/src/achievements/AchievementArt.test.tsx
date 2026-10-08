@@ -14,7 +14,7 @@ describe("achievement family artwork", () => {
     const { container } = render(<>{manifest.families.map((family) => <AchievementArt key={family.slug} id={family.achievements[0].id} />)}</>);
     const artwork = [...container.querySelectorAll(".achievement-art")];
     expect(artwork).toHaveLength(50);
-    const motifs = artwork.map((art) => art.querySelector('path[stroke-width="2"]')?.getAttribute("d"));
+    const motifs = artwork.map((art) => art.querySelector(".art-motif")?.getAttribute("d"));
     expect(motifs.every(Boolean)).toBe(true);
     expect(new Set(motifs).size).toBe(50);
     artwork.forEach((art) => expect(art).toHaveAttribute("aria-hidden", "true"));
@@ -28,3 +28,11 @@ describe("achievement family artwork", () => {
     });
   });
 });
+
+ it("changes silhouette geometry for every milestone within a family",()=>{
+ for (const family of manifest.families) {
+ const view=render(<>{family.achievements.map(item=><AchievementArt key={item.id} id={item.id}/>)}</>);
+ const shapes=[...view.container.querySelectorAll(".art-shell")].map(el=>el.getAttribute("d"));
+ expect(new Set(shapes).size).toBe(family.achievements.length); view.unmount();
+ }
+ });

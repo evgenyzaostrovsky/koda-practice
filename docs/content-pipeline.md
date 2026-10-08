@@ -87,7 +87,45 @@ Content audit проверяет запрещённые обороты, непу
 
 ## Official sources
 
-Documentation links are restricted to `pandas.pydata.org`, `matplotlib.org`, `seaborn.pydata.org`, `numpy.org`, and `docs.python.org`. Link to a concrete method, function, or relevant section, not a project homepage.
+Documentation links are restricted to `pandas.pydata.org`, `matplotlib.org`, `seaborn.pydata.org`, `numpy.org`, and `docs.python.org`; the explicitly requested SQL, Excel and Power BI tracks additionally allow `sqlite.org`, `www.sqlite.org`, `learn.microsoft.com` and `support.microsoft.com`. Link to a concrete method, function, or relevant section, not a project homepage.
+
+## KODA Market source integration
+
+The unchanged canonical CSV files and complete imported source documents live in
+`content/datasets/koda-market/`. `scripts/integrate_market.py` defaults to those
+bundled sources; an optional first argument selects a replacement source directory
+for an explicitly authorized import. It reads separately authored teaching from
+`content/market_teaching_a.json` and `content/market_teaching_b.json` and fails when
+a required article is absent. It does not synthesize placeholder teaching.
+
+`reports/market-source-disposition.json` maps all 117 source objectives to 113
+distinct executable tasks, including all twelve groupby lesson objectives. Nineteen
+existing foundation tasks are extended without changing their IDs; four duplicate
+provisional additions are consolidated into shared tasks. The original 200 task IDs
+remain present. A source section may refer to an existing task in another topic.
+Task IDs are permanent and need not be consecutive presentation positions.
+
+The project course is an ordered projection in `apps/web/public/market-course.json`.
+Its nineteen lessons follow the full source bank, linking reused and newly authored
+tasks by their existing IDs. The first lesson starts with CSV loading, table size
+and the first five orders; the sixth lesson links all twelve groupby objectives in
+the original lesson order. Each lesson removes repeated links within that lesson;
+a shared task may serve objectives in different lessons. This projection creates
+no catalog task, KnowledgeUnit or progress identity. Regenerate it without changing
+content with `node scripts/python.mjs scripts/integrate_market.py --course-only`.
+
+Orders use the unchanged 30 × 18 CSV. Discounts are absolute rubles per order;
+cancelled and returned rows retain their positive source revenue. Financial tasks
+explicitly filter paid status. Python exercises expose only the lookup tables
+needed by their objective. SQL uses a private in-memory SQLite connection in the
+existing task worker; Excel and Power BI use allowlisted educational calculations
+in that worker. Free practice remains inside the isolated browser Pyodide worker.
+Native task request fields, simulator capabilities, and limitations are recorded
+in `docs/new-modes-contract.md`. Plot PNGs are transient display artifacts and are
+excluded from expected-answer identity and persisted content.
+
+After integration, run `npm run content:sync` and `npm run content:audit`; independent
+QA and the normal production checks remain required before reporting completion.
 
 ## Commands
 

@@ -29,6 +29,19 @@ beforeEach(() => {
 });
 afterEach(() => { cleanup(); setCloudUser(null); setStorageUser(null); });
 describe('Practice route lifecycle', () => {
+  it('shows CSV preview rows while submitting only the learner CSV-loading code', async () => {
+    const csvTask = { ...exercises[0], setup_code: "import pandas as pd\ncsv_path = 'orders.csv'", starter_code: "import pandas as pd\ncsv_path = 'orders.csv'\nresult = None", dataset: { files: { 'orders.csv': 'city,revenue\nPreview City,120\n' } }, preview_dataset: { variables: { orders: { city: ['Preview City'], revenue: [120] } } } };
+    const ordinaryApi = apiMock.getMockImplementation()!;
+    apiMock.mockImplementation((path: string, ...args: unknown[]) => path === '/exercises/start-001' ? Promise.resolve(csvTask) : path === '/executions/run' ? Promise.resolve({ ok: true, execution_ms: 1, result: { kind: 'scalar', data: 1 } }) : ordinaryApi(path, ...args));
+    renderPractice();
+    const editor = await screen.findByLabelText('Редактор Python');
+    expect(await screen.findByText('Preview City')).toBeInTheDocument();
+    expect((editor as HTMLTextAreaElement).value).toBe(csvTask.starter_code);
+    expect((editor as HTMLTextAreaElement).value).not.toContain('orders =');
+    fireEvent.click(screen.getByRole('button', { name: /^Запустить/ }));
+    await waitFor(() => expect(apiMock.mock.calls.some(([path]) => path === '/executions/run')).toBe(true));
+    expect(apiMock.mock.calls.find(([path]) => path === '/executions/run')?.[1].body).toBe(JSON.stringify({ exercise_id: 'start-001', code: csvTask.starter_code }));
+  });
   it('preserves the newest draft when leaving before the autosave delay', async () => {
     renderPractice();
     const editor = await screen.findByLabelText('Редактор Python');

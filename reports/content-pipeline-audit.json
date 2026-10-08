@@ -1,7 +1,7 @@
 {
-  "knowledgeUnits": 20,
-  "tasks": 200,
-  "theoryArticles": 200,
+  "knowledgeUnits": 40,
+  "tasks": 294,
+  "theoryArticles": 294,
   "duplicateCandidatesReviewed": [
     [
       "start-003",
@@ -20,8 +20,7 @@
     ],
     [
       "columns-005",
-      "columns-007",
-      "columns-010"
+      "columns-007"
     ],
     [
       "vectorization-003",
@@ -70,20 +69,16 @@
       "series-methods-010"
     ],
     [
-      "groupby-001",
       "groupby-002",
       "groupby-003",
       "groupby-010"
     ],
     [
       "filtering-001",
-      "filtering-002",
       "filtering-003",
       "filtering-004",
-      "filtering-005",
       "filtering-006",
       "filtering-007",
-      "filtering-008",
       "filtering-009",
       "filtering-010"
     ],
@@ -92,13 +87,13 @@
       "sorting-003"
     ],
     [
-      "sorting-005",
-      "sorting-010"
-    ],
-    [
       "merge-002",
       "merge-003",
       "merge-004"
+    ],
+    [
+      "pivot-006",
+      "market-reshape-002"
     ],
     [
       "dtypes-001",
@@ -123,6 +118,23 @@
     [
       "seaborn-001",
       "seaborn-008"
+    ],
+    [
+      "market-excel-006",
+      "market-power-bi-002"
+    ],
+    [
+      "market-excel-007",
+      "market-power-bi-004",
+      "market-power-bi-005"
+    ],
+    [
+      "market-excel-009",
+      "market-power-bi-006"
+    ],
+    [
+      "market-power-bi-003",
+      "market-power-bi-009"
     ]
   ],
   "status": "passed"

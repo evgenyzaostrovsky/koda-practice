@@ -6,18 +6,22 @@ import { TheoryPanel } from "../TheoryPanel";
 import { DataPreview, Loading, QueryError, ResultView } from "../components/practice-shared";
 import { usePracticeController } from "./usePracticeController";
 import { KodaCheck, KodaHint, KodaReset, KodaRun, KodaTheory } from "../koda-icons";
+import { ModeControls } from "./ModeControls";
+import { ModeReport } from "./ModeReport";
 export function Practice() {
   const { eid = "" } = useParams();
   const { user } = useAuth();
   return <PracticeSession key={`${user?.id ?? "anonymous"}:${eid}`} />;
 }
 function PracticeSession() {
-  const { routeTasks, e, exerciseError, refetchExercise, isFetching, code, updateCode, result, hints, hintsOpen, setHintsOpen, solution, theory, setTheory, left, editorH, splitRef, moduleTitle, number, total, action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist } = usePracticeController();
+  const { routeTasks, taskHref, e, exerciseError, refetchExercise, isFetching, code, updateCode, result, hints, hintsOpen, setHintsOpen, solution, theory, setTheory, left, editorH, splitRef, moduleTitle, number, total, action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist } = usePracticeController();
   if(exerciseError) return <QueryError retry={() => refetchExercise()} pending={isFetching} focus />;
   if(!e) return <Loading />;
+  const mode = e.exercise_mode ?? "python";
+  const label = { python: "PYTHON · PANDAS", sql: "SQL", excel: "EXCEL · УЧЕБНЫЙ СИМУЛЯТОР", "power-bi": "POWER BI · УЧЕБНЫЙ СИМУЛЯТОР" }[mode];
   return (
     <div className="practice">
-      <div className="air-practice-heading"><div><small>PYTHON · PANDAS</small><h1>{moduleTitle}</h1><p>{moduleTitle} · {number} из {total}</p></div><nav className="air-learning-route" aria-label="Задачи темы"><svg className="compact-route-wave" viewBox="0 0 480 48" preserveAspectRatio="none" aria-hidden="true"><path d={routeTasks.length > 1 ? `M0 24 L${240 / routeTasks.length} 24 ` + routeTasks.slice(1).map((_, i) => { const start = (i + 0.5) * 480 / routeTasks.length; const end = (i + 1.5) * 480 / routeTasks.length; const bend = i % 2 === 0 ? 8 : 40; return `C${start + (end-start)/3} ${bend} ${end - (end-start)/3} ${bend} ${end} 24`; }).join(" ") + " L480 24" : "M0 24 H480"} /></svg>{routeTasks.map((task, index) => <Link key={task.id} to={`/practice/${task.id}`} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}><span>{index + 1}</span></Link>)}</nav></div>
+      <div className="air-practice-heading"><div><small>{label}</small><h1>{moduleTitle}</h1><p>{moduleTitle} · {number} из {total}</p></div><nav className="air-learning-route" aria-label="Задачи темы"><svg className="compact-route-wave" viewBox="0 0 480 48" preserveAspectRatio="none" aria-hidden="true"><path d={routeTasks.length > 1 ? `M0 24 L${240 / routeTasks.length} 24 ` + routeTasks.slice(1).map((_, i) => { const start = (i + 0.5) * 480 / routeTasks.length; const end = (i + 1.5) * 480 / routeTasks.length; const bend = i % 2 === 0 ? 8 : 40; return `C${start + (end-start)/3} ${bend} ${end - (end-start)/3} ${bend} ${end} 24`; }).join(" ") + " L480 24" : "M0 24 H480"} /></svg>{routeTasks.map((task, index) => <Link key={task.id} to={taskHref(task.id)} title={task.title} aria-label={`Задача ${index + 1}: ${task.title}`} aria-current={task.id === e.id ? "step" : undefined}><span>{index + 1}</span></Link>)}</nav></div>
       <div className="focus-header">
         <button
           className="icon-btn"
@@ -75,13 +79,11 @@ function PracticeSession() {
             </button>
           </div>
           <p>{e.instructions}</p>
-          <div className="target">
-            Сохраните результат в <code>result</code>
-          </div>
+          <div className="target">{mode === "python" ? <>Сохраните результат в <code>result</code></> : mode === "sql" ? "Напишите SQL-запрос: его результат будет проверен." : "Настройте решение и нажмите «Проверить»."}</div>
           <div className="section-title">
             <h3>Исходные данные</h3>
           </div>
-          <DataPreview dataset={e.dataset} />
+          <DataPreview dataset={e.preview_dataset ?? e.dataset} />
           <div className="hints">
             <div className="hint-head">
               <span>
@@ -124,8 +126,8 @@ function PracticeSession() {
         <section className="solution">
           <div className="editor-head">
             <div>
-              <b>solution.py</b>
-              <small>Python 3.12 · pandas</small>
+              <b>{mode === "python" ? "solution.py" : mode === "sql" ? "solution.sql" : "Настройки решения"}</b>
+              <small>{mode === "python" ? "Python 3.12 · pandas" : label}</small>
             </div>
             <button
               className="ghost"
@@ -136,9 +138,9 @@ function PracticeSession() {
             </button>
           </div>
           <div className="editor-area" style={{ height: editorH }}>
-            <Editor
+            {mode === "excel" || mode === "power-bi" ? <ModeControls exercise={e} code={code} onChange={updateCode} disabled={action.isPending} /> : <Editor
               height="100%"
-              language="python"
+              language={mode === "sql" ? "sql" : "python"}
               theme={document.documentElement.dataset.theme === "airy" || document.documentElement.dataset.theme === "neutral-light" ? "light" : "vs-dark"}
               value={code}
               onChange={(x) => updateCode(x || "")}
@@ -149,7 +151,7 @@ function PracticeSession() {
                 padding: { top: 16 },
                 scrollBeyondLastLine: false,
               }}
-            />
+            />}
           </div>
           <div className="row-divider" onPointerDown={dragRows} />
           <div className="actions">
@@ -189,7 +191,7 @@ function PracticeSession() {
                   </div>
                 )}
                 {result ? (
-                  <>{action.isError && <small>Предыдущий результат</small>}<ResultView r={result} /></>
+                  <>{action.isError && <small>Предыдущий результат</small>}{(mode === "excel" || mode === "power-bi") && result.ok && result.passed !== false ? <ModeReport result={result} /> : <ResultView r={result} />}</>
                 ) : !action.isError ? (
                   <div className="empty">Результат выполнения появится здесь</div>
                 ) : null}

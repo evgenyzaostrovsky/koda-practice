@@ -2,13 +2,15 @@ import ast
 import json
 import re
 import sys
+import pandas as pd
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'apps/api'))
-from app.runner import run
+from app.runner import run, compare_results
+from urllib.parse import urlparse
 
 catalog=json.loads((ROOT/'content/catalog.json').read_text(encoding='utf-8'))
 theory_bank=json.loads((ROOT/'content/theory_bank.json').read_text(encoding='utf-8'))
@@ -29,15 +31,15 @@ def check(ok, eid, message):
     if not ok: errors.append(f'{eid}: {message}')
 
 check(catalog.get('bank_version')==2,'catalog','bank_version must be 2')
-check(len(topics)==20,'catalog',f'expected 20 topics, got {len(topics)}')
-check(len(exercises)==200,'catalog',f'expected 200 exercises, got {len(exercises)}')
-check(len(theory_articles)==200,'theory',f'expected 200 articles, got {len(theory_articles)}')
+check(len(topics)>=20,'catalog',f'foundation topics are missing: {len(topics)}')
+check(len(exercises)>=200,'catalog',f'foundation exercises are missing: {len(exercises)}')
+check(len(theory_articles)==len(exercises),'theory','every task requires its stable theory link')
 ids=[e['id'] for e in exercises]
 check(len(ids)==len(set(ids)),'catalog','exercise IDs are not unique')
 instructions=[e['instructions'] for e in exercises]
 check(len(instructions)==len(set(instructions)),'catalog','exercise instructions are duplicated')
 
-allowed_docs=('pandas.pydata.org','matplotlib.org','seaborn.pydata.org','numpy.org','docs.python.org')
+allowed_docs=('pandas.pydata.org','matplotlib.org','seaborn.pydata.org','numpy.org','docs.python.org','sqlite.org','www.sqlite.org','learn.microsoft.com','support.microsoft.com')
 serialized_articles=[]
 for exercise in exercises:
     article_id=exercise.get('theory_article_id')
@@ -52,13 +54,17 @@ for exercise in exercises:
     for method in article.get('methods',[]):
         article_text+=' '+json.dumps(method,ensure_ascii=False)
         url=method.get('documentationUrl','')
-        check(url.startswith('https://') and any(host in url for host in allowed_docs),exercise['id'],f'invalid official documentation URL: {url}')
-        check(url.rstrip('/').count('/')>=4,exercise['id'],'documentation URL is not a specific page')
+        check(urlparse(url).scheme=='https' and urlparse(url).hostname in allowed_docs,exercise['id'],f'invalid official documentation URL: {url}')
+        check(bool(urlparse(url).path.strip('/')) and (urlparse(url).hostname in {'sqlite.org','www.sqlite.org'} or url.rstrip('/').count('/')>=4),exercise['id'],'documentation URL is not a specific page')
         check(bool(method.get('description')) and bool(method.get('syntax')) and bool(method.get('example')),exercise['id'],'incomplete theory method')
-        try: ast.parse(method.get('example',''))
-        except SyntaxError as exc: errors.append(f"{exercise['id']}: theory example has invalid Python: {exc}")
+        if exercise.get('exercise_mode','python') == 'python':
+            try: ast.parse(method.get('example',''))
+            except SyntaxError as exc: errors.append(f"{exercise['id']}: theory example has invalid Python: {exc}")
     words=re.findall(r"\w+",article_text,flags=re.UNICODE)
-    check(150<=len(words)<=350,exercise['id'],f'theory length is {len(words)} words, expected 150..350')
+    if not exercise.get('source_title'):
+        check(150<=len(words)<=350,exercise['id'],f'theory length is {len(words)} words, expected 150..350')
+    else:
+        check(bool(article.get('knowledge_unit_id')),exercise['id'],'Market theory must link the separately authored complete KnowledgeUnit article')
     check(exercise['solution_code'].strip() not in article_text,exercise['id'],'theory contains the full solution')
     check(exercise['instructions'] not in article_text,exercise['id'],'theory repeats the task statement')
     for token in (token for token in exercise.get('required_tokens',[]) if token!='copy' and token not in runtime_identifiers):
@@ -66,11 +72,12 @@ for exercise in exercises:
 check(len(serialized_articles)==len(set(serialized_articles)),'theory','duplicate theory articles found')
 
 for topic in topics:
-    check(len(topic['exercises'])==10,topic['slug'],f"expected 10 exercises, got {len(topic['exercises'])}")
+    check(1<=len(topic['exercises'])<=10,topic['slug'],f"expected one to ten exercises, got {len(topic['exercises'])}")
     titles=[e['title'] for e in topic['exercises']]
     check(len(titles)==len(set(titles)),topic['slug'],'titles are duplicated inside topic')
     for position,e in enumerate(topic['exercises'],1):
-        check(e['id'].endswith(f'-{position:03d}'),e['id'],'wrong order/ID')
+        if not topic['slug'].startswith('market-'):
+            check(e['id'].endswith(f'-{position:03d}'),e['id'],'wrong order/ID')
         check(bool(e['starter_code'].strip()),e['id'],'starter code is empty')
         hints=e['hints']
         check(len(hints)==3 and all(isinstance(h,dict) and h.get('level')==i and h.get('text','').strip() for i,h in enumerate(hints,1)),e['id'],'must have three structured hints with levels 1..3')
@@ -88,10 +95,15 @@ for topic in topics:
         csv_path=e['dataset'].get('variables',{}).get('csv_path')
         if csv_path: check(csv_path in files,e['id'],f'CSV {csv_path!r} is unavailable')
         available=(set(e['dataset'])-{'variables','files','series'})|set(e['dataset'].get('variables',{}))|set(e['dataset'].get('series',{}))|{'pd','np','plt','sns','result','fig','ax'}
+        if e.get('exercise_mode','python') != 'python':
+            continue
         tree=ast.parse(e['solution_code'])
         local_args={arg.arg for node in ast.walk(tree) if isinstance(node,ast.Lambda) for arg in node.args.args}
         used={n.id for n in ast.walk(tree) if isinstance(n,ast.Name)}-local_args
-        builtins={'True','False','None'}
+        available |= {n.id for n in ast.walk(tree) if isinstance(n,ast.Name) and isinstance(n.ctx,ast.Store)}
+        setup_tree=ast.parse(e['setup_code'])
+        available |= {n.id for n in ast.walk(setup_tree) if isinstance(n,ast.Name) and isinstance(n.ctx,ast.Store)}
+        builtins={'True','False','None','int','float','bool','len','str','round'}
         check(not (used-available-builtins),e['id'],f"unknown variables: {sorted(used-available-builtins)}")
 
 check(len(all_hint_sequences)==len(set(all_hint_sequences)),'catalog','complete three-level hint sequences are duplicated')
@@ -116,6 +128,16 @@ for level in range(3):
 
 def execute(e):
     data=e['dataset']; setup=e['setup_code']
+    mode=e.get('exercise_mode','python')
+    if mode != 'python':
+        solution=run(e['solution_code'],data,exercise_mode=mode)
+        starter=run(e['starter_code'],data,exercise_mode=mode)
+        local=[]
+        if not solution.get('ok'):local.append(f"solution failed: {solution.get('error')}")
+        if starter.get('ok') and compare_results(starter,solution)[0]:local.append('starter already passes')
+        if e.get('expected_result') != solution.get('result'):local.append('stored expected result differs from reference calculation')
+        if mode != 'sql' and not e.get('response_spec'):local.append('report controls missing')
+        return e['id'],local
     expected_names=set(data.get('variables',{}))|set(data.get('series',{}))|(set(data)-{'variables','series','files'})
     setup_tree=ast.parse(setup)
     assigned={n.id for n in ast.walk(setup_tree) if isinstance(n,ast.Name) and isinstance(n.ctx,ast.Store)}
@@ -132,6 +154,15 @@ def execute(e):
     if e['starter_code'].strip()==e['solution_code'].strip(): local.append('starter already equals solution')
     for name,frame in [(k,v) for k,v in data.items() if k not in {'variables','series','files'}]:
         preview=run(f'result = {name}',data,'result',setup_code=setup)
+        if e.get('source_title'):
+            # Compare authored values with the independently normalized source frame.
+            source_frame=pd.DataFrame(frame)
+            if 'order_date' in source_frame:
+                source_frame['order_date']=pd.to_datetime(source_frame['order_date'])
+            expected_rows=json.loads(source_frame.to_json(orient='values',date_format='iso'))
+            if preview.get('result',{}).get('columns')!=list(frame) or preview.get('result',{}).get('data')!=expected_rows:
+                local.append(f'preview differs from canonical source DataFrame {name}')
+            continue
         expected_rows=[[frame[col][i] for col in frame] for i in range(len(next(iter(frame.values()),[])))]
         if preview.get('result',{}).get('columns')!=list(frame) or preview.get('result',{}).get('data')!=expected_rows:
             local.append(f'preview differs from runtime DataFrame {name}')
@@ -156,7 +187,8 @@ if errors:
     raise SystemExit(f'AUDIT FAILED: {len(errors)} error(s)')
 
 def normalized_solution(code, structural=False):
-    tree=ast.parse(code)
+    try: tree=ast.parse(code)
+    except SyntaxError:return 'declarative:'+' '.join(code.split()).casefold()
     if structural:
         for node in ast.walk(tree):
             if isinstance(node,ast.Name): node.id='VAR'
@@ -165,7 +197,7 @@ def normalized_solution(code, structural=False):
 
 def duplicate_groups(structural=False):
     groups=defaultdict(list)
-    for exercise in exercises: groups[normalized_solution(exercise['solution_code'],structural)].append(exercise['id'])
+    for exercise in exercises: groups[exercise.get('exercise_mode','python')+':'+normalized_solution(exercise['solution_code'],structural)].append(exercise['id'])
     return [ids for ids in groups.values() if len(ids)>1]
 
 exact_groups=duplicate_groups()
@@ -184,11 +216,11 @@ report={
     'runtime_input_checks_passed':len(exercises),
     'reference_solutions_passed':len(exercises),
     'theory_articles':len(theory_articles),
-    'theory_articles_word_range':'150-350',
+    'theory_articles_word_range':{'foundation':'150-350','market':'compatibility links into separately authored complete KnowledgeUnits'},
     'theory_official_links_checked':sum(len(article['methods']) for article in theory_articles.values()),
     'theory_duplicate_articles':len(serialized_articles)-len(set(serialized_articles)),
 }
 report_path=ROOT/'reports'/'task-bank-audit.json'
 report_path.parent.mkdir(exist_ok=True)
 report_path.write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-print('AUDIT PASSED: 200 exercises and 200 theory articles; each theory article has 150-350 words, a distinct example, and an exact official documentation link; objectives and completion summaries are unique; 600 structured hints are present in distinct three-level sequences; setup variables and previews match runtime; starters run without NameError and do not pass; solutions pass; inputs restore between runs')
+print(f'AUDIT PASSED: {len(exercises)} exercises and {len(theory_articles)} stable theory links; authored KnowledgeUnit teaching, exact official links, {sum(len(sequence) for sequence in all_hint_sequences)} structured hints, unique objectives and completion summaries; prepared inputs match source, references execute, starters do not pass, and inputs restore between runs')

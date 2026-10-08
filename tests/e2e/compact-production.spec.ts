@@ -7,7 +7,7 @@ for (const width of [1440, 1024, 390]) {
     await page.setViewportSize({ width, height: 900 });
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
-    await page.addLocatorHandler(page.getByRole('button', { name: 'Получить', exact: true }), async button => { await button.click(); });
+    await page.addLocatorHandler(page.getByRole('button', { name: 'Продолжить', exact: true }), async button => { for (let count = 0; count < 30 && await button.isVisible(); count += 1) { try { await button.click({ timeout: 2_000 }); } catch (error) { if (!(await button.isVisible())) break; throw error; } } }, { noWaitAfter: true });
     const response = await request.get('/api/knowledge');
     expect(response.ok()).toBeTruthy();
     const knowledge = await response.json();
@@ -49,7 +49,7 @@ for (const width of [1440, 1024, 390]) {
         await checkReadingSurfaces('.app *:not(.air-nav-backdrop)');
         await screenshot(route === articleRoute ? 'knowledge-detail' : route.replace(/\//g, '-') || 'dashboard');
         if (route === '/achievements' && width === 1440) {
-          await page.locator('button.family-preview').first().click();
+          await page.locator('button.room-trophy').first().click();
           const dialog = page.getByRole('dialog');
           await expect(dialog).toBeVisible();
           await checkReadingSurfaces('[role="dialog"] *');
@@ -88,7 +88,7 @@ for (const width of [1440, 1024, 390]) {
 
 test('compact sandbox preserves warnings, syntax errors, repeated output and manual Stop', async ({ page }, testInfo) => {
   test.setTimeout(300_000);
-  await page.addLocatorHandler(page.getByRole('button', { name: 'Получить', exact: true }), async button => { await button.click(); });
+  await page.addLocatorHandler(page.getByRole('button', { name: 'Продолжить', exact: true }), async button => { for (let count = 0; count < 30 && await button.isVisible(); count += 1) { try { await button.click({ timeout: 2_000 }); } catch (error) { if (!(await button.isVisible())) break; throw error; } } }, { noWaitAfter: true });
   await page.goto('/sandbox');
   await expect(page.locator('.sandbox-runtime.ready')).toContainText('Python готов', { timeout: 120_000 });
   async function edit(code: string) {

@@ -15,10 +15,13 @@ EXERCISES={e['id']:e for t in TOPICS.values() for e in t['exercises']}
 def validate_catalog():
     required={'id','topic_id','title','difficulty','instructions','dataset','setup_code','starter_code','expected_type','solution_code','theory_article_id','knowledge_unit_id','concepts','required_methods','documentation_urls','required_tokens','tests','hints','learning_objective','completion_summary','explanation','xp'}
     if CATALOG.get('bank_version')!=2: raise ValueError('Unsupported content bank version')
-    if len(TOPICS)!=20 or len(EXERCISES)!=200: raise ValueError('Catalog must contain 20 topics and 200 exercises')
+    if len(TOPICS)<20 or len(EXERCISES)<200: raise ValueError('Catalog must preserve the original foundation bank')
+    foundation = ('start','reading','columns','change-columns','vectorization','attributes','inspection','dataframe-methods','series-methods','groupby','filtering','sorting','merge','pivot','dtypes','datetime','recipes','pandas-plots','seaborn','matplotlib')
+    if any(f'{slug}-{number:03}' not in EXERCISES for slug in foundation for number in range(1,11)):
+        raise ValueError('Catalog is missing a stable foundation task ID')
     if len(KNOWLEDGE_UNITS)!=len(TOPICS): raise ValueError('Every topic must have a knowledge unit')
     for topic in TOPICS.values():
-        if len(topic['exercises'])!=10: raise ValueError(f"{topic['slug']}: expected 10 exercises")
+        if not 1 <= len(topic['exercises']) <= 10: raise ValueError(f"{topic['slug']}: expected one to ten exercises")
         for exercise in topic['exercises']:
             missing=required-set(exercise)
             if missing: raise ValueError(f"{exercise.get('id','unknown')}: missing {sorted(missing)}")
@@ -28,7 +31,7 @@ def validate_catalog():
 validate_catalog()
 
 def public_exercise(e):
-    return {k:v for k,v in e.items() if k not in ('solution_code',)}
+    return {k:v for k,v in e.items() if k not in ('solution_code','expected_result')}
 
 def public_module(m):
     return {**m,'topics':[{**t,'exercises':[public_exercise(e) for e in t['exercises']]} for t in m['topics']]}

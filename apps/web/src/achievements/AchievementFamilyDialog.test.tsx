@@ -77,7 +77,7 @@ afterEach(cleanup);
 describe("AchievementFamilyDialog selection", () => {
   it("selects the highest unlocked achievement on open", () => {
     open(["first", "warmup"]);
-    expect(step("Разогрев")).toHaveAttribute("aria-selected", "true");
+    expect(step("Разогрев")).toHaveAttribute("aria-pressed", "true");
     expect(
       screen.getByRole("heading", { name: "Разогрев", level: 3 }),
     ).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe("AchievementFamilyDialog selection", () => {
 
   it("selects the first step for an unstarted family", () => {
     open([]);
-    expect(step("Первопроходец")).toHaveAttribute("aria-selected", "true");
+    expect(step("Первопроходец")).toHaveAttribute("aria-pressed", "true");
   });
 
   it("moves selection and the blue-frame class to the clicked achievement", () => {
@@ -111,7 +111,7 @@ describe("AchievementFamilyDialog selection", () => {
     open();
     expect(step("Разогрев")).toHaveClass("next");
     expect(step("Разогрев")).not.toHaveClass("selected");
-    expect(step("Разогрев")).toHaveAttribute("aria-selected", "false");
+    expect(step("Разогрев")).toHaveAttribute("aria-pressed", "false");
     expect(step("Первопроходец")).toHaveClass("selected");
   });
 
@@ -136,12 +136,20 @@ describe("AchievementFamilyDialog selection", () => {
     open();
     fireEvent.keyDown(step("Первопроходец"), { key: "ArrowRight" });
     expect(step("Разогрев")).toHaveFocus();
-    expect(step("Разогрев")).toHaveAttribute("aria-selected", "true");
+    expect(step("Разогрев")).toHaveAttribute("aria-pressed", "true");
     fireEvent.keyDown(step("Разогрев"), { key: "ArrowRight" });
     fireEvent.keyDown(step("Практик"), { key: " " });
     fireEvent.keyDown(step("Практик"), { key: "Enter" });
     expect(
-      document.querySelectorAll('.family-step[aria-selected="true"]'),
+      document.querySelectorAll('.family-step[aria-pressed="true"]'),
     ).toHaveLength(1);
   });
 });
+
+ it("traps focus and restores the opening button", () => {
+ const opener = document.createElement("button"); document.body.append(opener); opener.focus();
+ const {unmount} = open(); const close = screen.getByRole("button",{name:"Закрыть окно"});
+ fireEvent.keyDown(document,{key:"Tab",shiftKey:true}); expect(step("Первопроходец")).toHaveFocus();
+ fireEvent.keyDown(document,{key:"Tab"}); expect(close).toHaveFocus();
+ unmount(); expect(opener).toHaveFocus(); opener.remove();
+ });

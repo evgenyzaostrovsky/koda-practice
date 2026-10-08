@@ -10,7 +10,7 @@ for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: 900 });
     const errors: string[] = [];
     page.on('pageerror', error => errors.push(error.message));
-    await page.addLocatorHandler(page.getByRole('button', { name: 'Получить', exact: true }), async button => { await button.click(); });
+    await page.addLocatorHandler(page.getByRole('button', { name: 'Продолжить', exact: true }), async button => { for (let count = 0; count < 30 && await button.isVisible(); count += 1) { try { await button.click({ timeout: 2_000 }); } catch (error) { if (!(await button.isVisible())) break; throw error; } } }, { noWaitAfter: true });
     const knowledge = await (await request.get('/api/knowledge')).json();
     const routes = ['/', '/catalog', '/topics/start', '/practice/start-001', '/knowledge', `/knowledge/${knowledge[0].slug}`, '/progress', '/errors', '/achievements', '/profile', '/sandbox'];
     for (const route of routes) {
@@ -35,7 +35,7 @@ for (const width of [1440, 390]) {
           expect(await page.locator('.module-card').first().evaluate(card => getComputedStyle(card).backgroundColor)).toBe('rgb(255, 255, 255)');
           await page.screenshot({ path: testInfo.outputPath(`air-catalog-${width}.png`), fullPage: true });
         }
-        if (route === '/achievements') await expect(page.locator('button.family-preview').first()).toBeVisible();
+        if (route === '/achievements') await expect(page.locator('button.room-trophy').first()).toBeVisible();
         if (route === '/knowledge') {
           await expect(page.locator('.knowledge-card').first()).toBeVisible();
           expect(await page.locator('.knowledge-card').first().evaluate(card => getComputedStyle(card).backgroundColor)).toBe('rgb(255, 255, 255)');
@@ -92,7 +92,7 @@ for (const width of [1440, 390]) {
 }
 
 test('Air sandbox displays a real Pyodide scalar expression', async ({ page }) => {
-  await page.addLocatorHandler(page.getByRole('button', { name: 'Получить', exact: true }), async button => { await button.click(); });
+  await page.addLocatorHandler(page.getByRole('button', { name: 'Продолжить', exact: true }), async button => { for (let count = 0; count < 30 && await button.isVisible(); count += 1) { try { await button.click({ timeout: 2_000 }); } catch (error) { if (!(await button.isVisible())) break; throw error; } } }, { noWaitAfter: true });
   await page.goto('/sandbox');
   await expect(page.locator('.sandbox-runtime.ready')).toContainText('Python готов', { timeout: 120_000 });
   await page.locator('.monaco-editor textarea').click({ force: true });

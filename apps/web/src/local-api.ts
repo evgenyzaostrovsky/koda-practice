@@ -6,7 +6,7 @@ const readProgress=()=>{try{return JSON.parse(localStorage.getItem(progressKey)|
 const writeProgress=(value:Json)=>localStorage.setItem(progressKey,JSON.stringify(value));
 const allTopics=(data:Json)=>data.modules.flatMap((module:Json)=>module.topics);
 const allExercises=(data:Json)=>allTopics(data).flatMap((topic:Json)=>topic.exercises);
-const publicExercise=(exercise:Json)=>Object.fromEntries(Object.entries(exercise).filter(([key])=>key!=='solution_code'));
+const publicExercise=(exercise:Json)=>Object.fromEntries(Object.entries(exercise).filter(([key])=>key!=='solution_code'&&key!=='expected_result'));
 const publicModule=(module:Json)=>({...module,topics:module.topics.map((topic:Json)=>({...topic,exercises:topic.exercises.map(publicExercise)}))});
 export async function localApi<T>(path:string,init?:RequestInit):Promise<T>{
  const data=await catalog(),topics=allTopics(data),exercises=allExercises(data),state=readProgress(),body=init?.body?JSON.parse(String(init.body)):{};

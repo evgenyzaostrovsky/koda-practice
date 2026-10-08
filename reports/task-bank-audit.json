@@ -1,6 +1,6 @@
 {
-  "total_exercises": 200,
-  "final_exercises": 200,
+  "total_exercises": 294,
+  "final_exercises": 294,
   "removed_exercises": [],
   "reworked_exercises": [
     "start-002",
@@ -43,8 +43,7 @@
     ],
     [
       "columns-005",
-      "columns-007",
-      "columns-010"
+      "columns-007"
     ],
     [
       "vectorization-003",
@@ -93,20 +92,16 @@
       "series-methods-010"
     ],
     [
-      "groupby-001",
       "groupby-002",
       "groupby-003",
       "groupby-010"
     ],
     [
       "filtering-001",
-      "filtering-002",
       "filtering-003",
       "filtering-004",
-      "filtering-005",
       "filtering-006",
       "filtering-007",
-      "filtering-008",
       "filtering-009",
       "filtering-010"
     ],
@@ -115,13 +110,13 @@
       "sorting-003"
     ],
     [
-      "sorting-005",
-      "sorting-010"
-    ],
-    [
       "merge-002",
       "merge-003",
       "merge-004"
+    ],
+    [
+      "pivot-006",
+      "market-reshape-002"
     ],
     [
       "dtypes-001",
@@ -146,16 +141,27 @@
     [
       "seaborn-001",
       "seaborn-008"
+    ],
+    [
+      "market-power-bi-003",
+      "market-power-bi-009"
+    ],
+    [
+      "market-power-bi-004",
+      "market-power-bi-005"
     ]
   ],
   "processing_note": "Совпадающие короткие выражения сохранены только там, где различаются учебная цель, входные данные или проверяемое поведение API.",
-  "unique_learning_objectives": 200,
-  "structured_hints": 600,
-  "completion_summaries": 200,
-  "runtime_input_checks_passed": 200,
-  "reference_solutions_passed": 200,
-  "theory_articles": 200,
-  "theory_articles_word_range": "150-350",
-  "theory_official_links_checked": 212,
+  "unique_learning_objectives": 294,
+  "structured_hints": 882,
+  "completion_summaries": 294,
+  "runtime_input_checks_passed": 294,
+  "reference_solutions_passed": 294,
+  "theory_articles": 294,
+  "theory_articles_word_range": {
+    "foundation": "150-350",
+    "market": "compatibility links into separately authored complete KnowledgeUnits"
+  },
+  "theory_official_links_checked": 673,
   "theory_duplicate_articles": 0
 }

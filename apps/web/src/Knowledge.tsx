@@ -14,7 +14,7 @@ import { Link, useParams } from "react-router-dom";
 import { api } from "./api";
 import type { KnowledgeUnit, Progress } from "./types";
 
-const categories = [
+const defaultCategories = [
   "Все",
   "Python",
   "pandas",
@@ -61,6 +61,10 @@ export function KnowledgeIndex() {
   });
   const [query, setQuery] = useState(""),
     [category, setCategory] = useState("Все");
+  const categories = useMemo(
+    () => [...new Set([...defaultCategories, ...units.map((unit) => unit.category)])],
+    [units],
+  );
   const filtered = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase("ru");
     return units.filter(

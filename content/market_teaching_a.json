@@ -1,0 +1,1528 @@
+{
+  "market-date-filters": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-date-filters-parse",
+          "group": "Календарный отбор",
+          "name": "pd.to_datetime()",
+          "kind": "pattern",
+          "description": "Преобразует строковые даты в значения для календарных сравнений.",
+          "example": "dates = pd.to_datetime(['2026-01-31', '2026-02-01'])",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.to_datetime.html"
+        },
+        {
+          "id": "cheat-market-date-filters-month",
+          "group": "Календарный отбор",
+          "name": ".dt.to_period(\"M\")",
+          "kind": "pattern",
+          "description": "Сопоставляет каждую дату с календарным месяцем.",
+          "example": "mask = sales['date'].dt.to_period('M') == '2026-01'",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html"
+        },
+        {
+          "id": "cheat-market-date-filters-after",
+          "group": "Календарный отбор",
+          "name": "Сравнение с Timestamp",
+          "kind": "pattern",
+          "description": "Отбирает даты строго позже указанной границы.",
+          "example": "mask = sales['date'] > pd.Timestamp('2026-02-10')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Timestamp.html"
+        },
+        {
+          "id": "cheat-market-date-filters-and",
+          "group": "Календарный отбор",
+          "name": "Объединение масок через &",
+          "kind": "pattern",
+          "description": "Требует выполнения обоих построчных условий.",
+          "example": "mask = (sales['paid']) & (sales['rating'] >= 4)\nsales.loc[mask]",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
+        },
+        {
+          "id": "cheat-market-date-filters-window",
+          "group": "Календарный отбор",
+          "name": "Последние семь календарных дней",
+          "kind": "pattern",
+          "description": "Считает включительную границу от последней даты данных.",
+          "example": "start = sales['date'].max() - pd.Timedelta(days=6)\nsales.loc[sales['date'] >= start]",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Timedelta.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "Календарный отбор требует точной границы и понятного правила включения строк. Научимся строить такие правила по датам и сочетать их с признаками заказа.",
+      "sections": [
+        {
+          "id": "article-market-date-filters-purpose",
+          "title": "Период и популяция — разные условия",
+          "paragraphs": [
+            "Временной отчёт отвечает на вопрос о конкретном календарном интервале. Отбор по дате определяет период, а статус, оценка или признак нового клиента определяют, какие наблюдения внутри периода интересны. Эти решения стоит записать словами до кода.",
+            "Последняя неделя данных и последняя неделя относительно сегодняшнего дня — разные периоды. Для исторического набора границу удобно выводить из максимальной наблюдаемой даты; это воспроизводимый выбор."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-date-filters-types",
+          "title": "Сначала сделать даты датами",
+          "paragraphs": [
+            "Колонка с текстом не даёт доступ к календарным свойствам .dt. pd.to_datetime преобразует её в datetime; для неоднозначных строк полезно явно задавать format. Ошибки по умолчанию прерывают преобразование, а errors=\"coerce\" делает неразобранные значения NaT.",
+            "Месяц — пара год и месяц. Проверка только .dt.month == 1 смешивает январь разных лет; .dt.to_period(\"M\") сохраняет обе части календарного ключа."
+          ],
+          "covers": [
+            "cheat-market-date-filters-parse",
+            "cheat-market-date-filters-month"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'date': ['2025-01-20','2026-01-31','2026-02-01'], 'amount': [10,20,30]})\nsales['date'] = pd.to_datetime(sales['date'])\nprint(sales.loc[sales['date'].dt.to_period('M') == '2026-01', 'amount'].tolist())",
+              "explanation": "Январь выбран вместе с годом, поэтому старая январская строка не проходит.",
+              "result": "[20]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-date-filters-boundaries",
+          "title": "Строгие и включительные границы",
+          "paragraphs": [
+            "Оператор > исключает сам момент границы, >= включает его. Timestamp без времени обозначает полночь. Если колонка содержит часы, сравнение строго после полуночи допускает события того же календарного дня после 00:00; для отбора после всего дня нужна граница следующего дня.",
+            "С интервалами удобно использовать начало включительно и следующее начало исключительно: date >= начало и date < конец. Так не приходится угадывать последнюю долю секунды дня."
+          ],
+          "covers": [
+            "cheat-market-date-filters-after"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'date': pd.to_datetime(['2026-02-10','2026-02-11','2026-02-12']), 'amount': [40,50,60]})\nprint(sales.loc[sales['date'] > pd.Timestamp('2026-02-10'), 'amount'].tolist())",
+              "explanation": "Строгая граница убирает дату 10 февраля, когда все значения представлены полуночью.",
+              "result": "[50, 60]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-date-filters-masks",
+          "title": "Несколько условий в одной маске",
+          "paragraphs": [
+            "Сравнение колонки с порогом возвращает Series булевых значений той же длины. Для построчного пересечения используют &, для объединения |, для отрицания ~. Каждое сравнение заключают в скобки, чтобы Python сначала вычислил его целиком.",
+            "Числовой порог доставки и удовлетворённость — самостоятельные фильтры. Нулевой срок не доказывает успешную быструю доставку: смысл зависит от статуса заказа. Если статус не ограничен, вывод должен честно описывать все наблюдения."
+          ],
+          "covers": [
+            "cheat-market-date-filters-and"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'paid': [True,False,True], 'rating': [5,5,None], 'id': [1,2,3]})\nmask = sales['paid'] & (sales['rating'] >= 4)\nprint(sales.loc[mask, 'id'].tolist())",
+              "explanation": "Неоплаченная строка и строка без известной высокой оценки исключены.",
+              "result": "[1]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-date-filters-window",
+          "title": "Скользящее календарное окно",
+          "paragraphs": [
+            "Если включены последний день и шесть предшествующих, получается семь календарных дней. Вычитание семи дней при включительных концах даст восемь дат. Timedelta выражает длительность, а max находит опорный момент.",
+            "Для столбца с часами сначала нормализуйте последнюю дату через .normalize(), если речь именно о календарных днях. У пустого или полностью неизвестного столбца нет пригодной границы: это отдельное состояние отчёта."
+          ],
+          "covers": [
+            "cheat-market-date-filters-window"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'date': pd.to_datetime(['2026-02-03','2026-02-04','2026-02-10']), 'new': [True,True,True]})\nstart = sales['date'].max() - pd.Timedelta(days=6)\nprint(start.strftime('%Y-%m-%d'))\nprint(sales.loc[sales['new'] & (sales['date'] >= start), 'date'].dt.strftime('%Y-%m-%d').tolist())",
+              "explanation": "Опорная дата 10 февраля задаёт включительную нижнюю границу 4 февраля.",
+              "result": "2026-02-04\n['2026-02-04', '2026-02-10']"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-date-filters-mistakes",
+          "title": "Не смешивать Python и pandas",
+          "paragraphs": [
+            "Обычные and и or пытаются определить истинность целой Series. У набора строк нет одного очевидного ответа, поэтому такой код вызывает ошибку. Скобки вокруг сравнений устраняют и другую проблему — приоритет побитовых операторов."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales[(sales['paid'] == True) and (sales['rating'] >= 4)]",
+              "why": "and требует один bool, но оба сравнения возвращают Series.",
+              "correctCode": "sales.loc[sales['paid'] & (sales['rating'] >= 4)]"
+            },
+            {
+              "wrongCode": "sales[sales['date'].dt.month == 1]",
+              "why": "Январь разных лет попадёт в один отбор.",
+              "correctCode": "sales.loc[sales['date'].dt.to_period('M') == '2026-01']"
+            }
+          ],
+          "nuances": [
+            "NaT не проходит обычные сравнения с датой; неизвестные даты нужно отдельно посчитать.",
+            "Наивный Timestamp нельзя безоговорочно сравнивать с датами другого часового пояса."
+          ]
+        },
+        {
+          "id": "article-market-date-filters-application",
+          "title": "Как проверить временной срез",
+          "paragraphs": [
+            "Перед итоговым выводом проверьте минимальную и максимальную даты выбранной части и число исключённых строк. Затем убедитесь, что граница соответствует бизнес-фразе «после», «включая» или «за месяц».",
+            "Сохраняйте составную маску под осмысленным именем, если хотите отдельно проверить период и популяцию. Это помогает объяснить, почему конкретная строка включена, без ручного просмотра всей таблицы."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Определите календарь, преобразуйте даты, выберите строгие или включительные границы и только затем добавляйте условия популяции. Проверка краёв периода делает отчёт воспроизводимым."
+    }
+  },
+  "market-duplicates": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-duplicates-key",
+          "group": "Контроль повторов",
+          "name": ".duplicated() по ключу",
+          "kind": "pattern",
+          "description": "Помечает лишние появления одного идентификатора после первого.",
+          "example": "sales['order_id'].duplicated()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.duplicated.html"
+        },
+        {
+          "id": "cheat-market-duplicates-all",
+          "group": "Контроль повторов",
+          "name": ".duplicated(keep=False)",
+          "kind": "pattern",
+          "description": "Помечает все строки каждой группы полных повторов.",
+          "example": "sales.loc[sales.duplicated(keep=False)]",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html"
+        },
+        {
+          "id": "cheat-market-duplicates-pair",
+          "group": "Контроль повторов",
+          "name": ".duplicated(subset=...)",
+          "kind": "pattern",
+          "description": "Ищет повторы указанной комбинации ключей.",
+          "example": "sales.duplicated(['customer_id', 'order_id'], keep=False)",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html"
+        },
+        {
+          "id": "cheat-market-duplicates-drop",
+          "group": "Контроль повторов",
+          "name": ".drop_duplicates()",
+          "kind": "pattern",
+          "description": "Создаёт таблицу без лишних полных копий.",
+          "example": "clean = sales.drop_duplicates()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html"
+        },
+        {
+          "id": "cheat-market-duplicates-cost",
+          "group": "Контроль повторов",
+          "name": "Сумма выручки лишних копий",
+          "kind": "pattern",
+          "description": "Оценивает денежный вклад повторных появлений номера.",
+          "example": "extra = sales['order_id'].duplicated()\nsales.loc[extra, 'revenue'].sum()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "Дубликат определяется смыслом записи, а не частотой появления клиента. Разберём три уровня совпадения и проверим, как лишние копии влияют на выручку.",
+      "sections": [
+        {
+          "id": "article-market-duplicates-purpose",
+          "title": "Повторная покупка и повторная запись",
+          "paragraphs": [
+            "Один клиент может делать много разных покупок. Это полезная повторяемость поведения, а не дефект данных. Дубликатом запись становится только относительно выбранного правила: одинаковая строка, одинаковый номер заказа или одинаковая пара ключей.",
+            "Перед удалением назовите единицу наблюдения. Если номер обозначает заказ, а таблица содержит отдельные товарные позиции, повтор номера может быть закономерным. Удалять его без понимания гранулярности опасно."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-duplicates-key",
+          "title": "Быстрая проверка номера",
+          "paragraphs": [
+            "Series.duplicated возвращает маску: первое появление значения False, последующие True. Маска показывает лишние записи при правиле «сохранить первое». .any() сворачивает её в ответ, существует ли хоть один повтор.",
+            "Индекс исходных строк не участвует в сравнении значений. Маска сохраняет этот индекс, поэтому пригодна для безопасного отбора через .loc."
+          ],
+          "covers": [
+            "cheat-market-duplicates-key"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'order_id': [11,12,11], 'revenue': [100,200,100]})\nprint(sales['order_id'].duplicated().tolist())\nprint(bool(sales['order_id'].duplicated().any()))",
+              "explanation": "Номер 11 повторяется, но первое появление сохранено.",
+              "result": "[False, False, True]\nTrue"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-duplicates-scope",
+          "title": "Полная строка или выбранные колонки",
+          "paragraphs": [
+            "DataFrame.duplicated без subset сравнивает все колонки. Для расследования keep=False полезнее правила «после первого»: он показывает обе стороны совпадения.",
+            "subset меняет определение равенства. Пара клиент–заказ отличает повторную запись одного заказа от двух заказов клиента; она не гарантирует совпадение остальных полей. Конфликтующие суммы нужно разбирать отдельно."
+          ],
+          "covers": [
+            "cheat-market-duplicates-all",
+            "cheat-market-duplicates-pair"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'customer_id': ['A','A','A'], 'order_id': [11,11,12], 'revenue': [100,105,200]})\nprint(sales.duplicated(keep=False).tolist())\nprint(sales.duplicated(['customer_id','order_id'], keep=False).tolist())",
+              "explanation": "Полных копий нет, но пара A–11 повторяется с разной суммой.",
+              "result": "[False, False, False]\n[True, True, False]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-duplicates-remove",
+          "title": "Удаление с понятным выбором копии",
+          "paragraphs": [
+            "drop_duplicates по умолчанию сохраняет первое появление и исходный индекс. Метод возвращает новую таблицу; исходный объект остаётся доступен для расследования.",
+            "Если выбираете последнюю версию по номеру, сначала сортируйте по достоверной дате обновления, затем используйте subset и keep=\"last\". Последняя строка файла без такой даты не обязательно новее."
+          ],
+          "covers": [
+            "cheat-market-duplicates-drop"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'order_id': [11,11,12], 'revenue': [100,100,200]}, index=[4,7,9])\nclean = sales.drop_duplicates()\nprint(clean.index.tolist())\nprint(clean['revenue'].sum())\nprint(len(sales))",
+              "explanation": "Полная копия удалена из clean; индексы 4 и 9 и все три исходные строки сохраняются.",
+              "result": "[4, 9]\n300\n3"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-duplicates-money",
+          "title": "Сколько денег дают лишние копии",
+          "paragraphs": [
+            "Сумма по маске повторных номеров оценивает вклад именно удаляемых появлений. Если keep=False, сумма включит и сохраняемую запись, поэтому это уже другая метрика.",
+            "При конфликтующих суммах оценка зависит от того, какая копия выбрана первой. Такое число нельзя автоматически назвать переплатой: это диагностическая оценка задвоения учётной суммы."
+          ],
+          "covers": [
+            "cheat-market-duplicates-cost"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'order_id': [11,12,11,11], 'revenue': [100,200,100,100]})\nextra = sales['order_id'].duplicated()\nprint(int(sales.loc[extra, 'revenue'].sum()))",
+              "explanation": "Два лишних появления номера 11 добавляют 200 к сумме.",
+              "result": "200"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-duplicates-mistakes",
+          "title": "Удалять только доказанные повторы",
+          "paragraphs": [
+            "Проверка повторов и решение об удалении — разные этапы. Сначала покажите строки и причины совпадения, затем применяйте согласованное правило хранения."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales.drop_duplicates('customer_id')",
+              "why": "Удаляются законные разные заказы одного клиента.",
+              "correctCode": "sales.drop_duplicates(['customer_id','order_id'])"
+            },
+            {
+              "wrongCode": "sales.loc[sales['order_id'].duplicated(keep=False), 'revenue'].sum()",
+              "why": "В денежный вклад лишних копий попадает и первое сохраняемое появление.",
+              "correctCode": "sales.loc[sales['order_id'].duplicated(), 'revenue'].sum()"
+            }
+          ],
+          "nuances": [
+            "Пропущенные ключи могут повторяться; неизвестный номер не стоит считать доказанным идентификатором заказа.",
+            "Удаление по ключу может скрыть конфликт статусов или сумм: проверьте остальные поля."
+          ]
+        },
+        {
+          "id": "article-market-duplicates-application",
+          "title": "Протокол очистки",
+          "paragraphs": [
+            "Зафиксируйте количество строк до очистки, маску удалённых строк и сумму до/после. Эти три проверки позволяют объяснить изменение отчёта конкретными записями.",
+            "Полные копии обычно проще обосновать, чем совпадения бизнес-ключа. Если данные содержат версии или товарные позиции, дополните ключ либо выберите другую единицу наблюдения."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Сначала выберите ключ и исследуйте все совпадения. Затем сохраните нужную копию и проверьте изменение числа строк и суммы; повторная покупка сама по себе не причина удаления."
+    }
+  },
+  "market-features": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-features-assign",
+          "group": "Производные признаки",
+          "name": ".assign()",
+          "kind": "pattern",
+          "description": "Возвращает копию таблицы с вычисленными колонками.",
+          "example": "sales.assign(gross=sales['revenue'] + sales['discount'])",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.assign.html"
+        },
+        {
+          "id": "cheat-market-features-flag",
+          "group": "Производные признаки",
+          "name": "Пороговый булевый признак",
+          "kind": "pattern",
+          "description": "Добавляет True там, где значение достигает порога.",
+          "example": "sales.assign(is_large=sales['revenue'] >= 15000)",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.assign.html"
+        },
+        {
+          "id": "cheat-market-features-cut",
+          "group": "Производные признаки",
+          "name": "pd.cut()",
+          "kind": "pattern",
+          "description": "Разделяет числовую колонку на подписанные интервалы.",
+          "example": "pd.cut(sales['revenue'], [0,5000,15000,float('inf')],\n       labels=['small','medium','large'])",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.cut.html"
+        },
+        {
+          "id": "cheat-market-features-unit",
+          "group": "Производные признаки",
+          "name": "Деление и .round()",
+          "kind": "pattern",
+          "description": "Вычисляет показатель на единицу с выбранной точностью.",
+          "example": "(sales['revenue'] / sales['quantity']).round(2)",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.round.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "Производные признаки сохраняют исходные наблюдения и добавляют к ним смысл. Важны формула, единицы, точные пороги и поведение на границах.",
+      "sections": [
+        {
+          "id": "article-market-features-purpose",
+          "title": "Из событий к признакам",
+          "paragraphs": [
+            "Производная колонка переводит исходные величины в полезный аналитический язык: сумма до скидки, выручка на единицу, крупный заказ или долгая доставка. Признак сохраняет число строк и описывает каждое исходное наблюдение.",
+            "Формула зависит от единиц измерения. Скидка в рублях на весь заказ прибавляется один раз, а процентная скидка требует другой формулы. Проверяйте это до вычисления."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-features-assign",
+          "title": "Новая таблица без потери исходной",
+          "paragraphs": [
+            "assign принимает именованные пары: имя новой колонки и Series или функцию. Он возвращает DataFrame, поэтому можно сравнить исходный и расширенный варианты.",
+            "Колонки выравниваются по индексу. Вычисления из той же таблицы обычно уже имеют правильный индекс; Series из другой таблицы нельзя подставлять только потому, что длина совпала."
+          ],
+          "covers": [
+            "cheat-market-features-assign"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'revenue': [90,180], 'discount': [10,20]})\nexpanded = sales.assign(gross=sales['revenue'] + sales['discount'])\nprint(expanded['gross'].tolist())\nprint(sales.columns.tolist())",
+              "explanation": "Скидка в рублях возвращена в сумму до скидки; исходная таблица не получила новую колонку.",
+              "result": "[100, 200]\n['revenue', 'discount']"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-features-flags",
+          "title": "Граница создаёт смысл признака",
+          "paragraphs": [
+            "Сравнение >= включает ровно пороговую сумму, > её исключает. Булевый тип удобен для фильтрации и вычисления долей через среднее.",
+            "Признак is_slow при delivery_days > 3 описывает записи с известной длительностью больше трёх. Он не доказывает нарушение обещания, если обещанный срок различается по заказам."
+          ],
+          "covers": [
+            "cheat-market-features-flag"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'revenue': [14999,15000,15001], 'delivery_days': [3,4,2]})\nexpanded = sales.assign(is_large=sales['revenue'] >= 15000, is_slow=sales['delivery_days'] > 3)\nprint(expanded[['is_large','is_slow']].to_dict('list'))",
+              "explanation": "Ровно 15000 включено в крупные; ровно три дня не считаются долгой доставкой.",
+              "result": "{'is_large': [False, True, True], 'is_slow': [False, True, False]}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-features-bins",
+          "title": "Категории и их границы",
+          "paragraphs": [
+            "cut получает границы bins и подписи labels; подписей должно быть на одну меньше, чем границ. По умолчанию интервалы закрыты справа: (0, 5000], (5000, 15000], (15000, ∞].",
+            "Следовательно, 5000 относится к small, 15000 к medium, а 0 при таких границах не входит никуда. include_lowest=True включает нижнюю границу первого интервала, если нулевые суммы должны иметь категорию. Выбор границ — часть определения отчёта."
+          ],
+          "covers": [
+            "cheat-market-features-cut"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\namounts = pd.Series([0,5000,15000,15001])\nsizes = pd.cut(amounts, bins=[0,5000,15000,float('inf')], labels=['small','medium','large'], include_lowest=True)\nprint(sizes.astype(str).tolist())",
+              "explanation": "Ноль включён явно, а точные верхние границы остаются в предыдущем интервале.",
+              "result": "['small', 'small', 'medium', 'large']"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-features-unit",
+          "title": "Показатель на единицу",
+          "paragraphs": [
+            "Выручка после скидки, делённая на количество, даёт среднюю выручку на единицу заказа. Она может отличаться от прайс-листовой цены из-за скидки. Округление — представление, а не исправление формулы.",
+            "Количество ноль делает показатель неопределённым. Замените нулевой знаменатель пропуском через where; тогда отсутствие значения видно, а бесконечность не попадает в дальнейшие средние."
+          ],
+          "covers": [
+            "cheat-market-features-unit"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'revenue': [100,80], 'quantity': [3,0]})\nquantity = sales['quantity'].where(sales['quantity'] != 0)\nunit = (sales['revenue'] / quantity).round(2)\nprint(unit.iloc[0])\nprint(bool(pd.isna(unit.iloc[1])))",
+              "explanation": "Первая стоимость округлена до 33.33; неопределённая вторая помечена пропуском.",
+              "result": "33.33\nTrue"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-features-errors",
+          "title": "Ошибки единиц и зависимостей",
+          "paragraphs": [
+            "Признак полезен только тогда, когда его определение можно объяснить. Проверьте одно наблюдение вручную, особенно если формула использует количество и скидку одновременно."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales.assign(gross=sales['revenue'] + sales['discount'] * sales['quantity'])",
+              "why": "Скидка на весь заказ повторно умножена на количество.",
+              "correctCode": "sales.assign(gross=sales['revenue'] + sales['discount'])"
+            },
+            {
+              "wrongCode": "sales.assign(gross=sales['revenue'] + sales['discount'], net_unit=sales['gross'] / sales['quantity'])",
+              "why": "В исходном sales ещё нет gross; зависимую колонку нужно вычислять из промежуточной таблицы.",
+              "correctCode": "sales.assign(gross=sales['revenue'] + sales['discount'], gross_unit=lambda frame: frame['gross'] / frame['quantity'])"
+            }
+          ],
+          "nuances": [
+            "Вызовы assign вычисляют пары по порядку; lambda получает таблицу с уже добавленными колонками.",
+            "Пропуск в исходной сумме обычно остаётся пропуском в арифметическом признаке."
+          ]
+        },
+        {
+          "id": "article-market-features-application",
+          "title": "Проверка признаков перед анализом",
+          "paragraphs": [
+            "После расширения убедитесь, что число строк и исходный индекс не изменились. Для категорий проверьте граничные значения, а для показателей на единицу — нули и пропуски в знаменателе.",
+            "Сохраните в названии или описании смысл: «после скидки», «рублей на единицу», «строго больше». Тогда следующий этап группировки не переопределит показатель незаметно."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Стройте признаки через assign, проверяйте единицы и пороговые значения, а неопределённые отношения оставляйте явно неизвестными. Сначала корректная формула, затем округление и отчёт."
+    }
+  },
+  "market-groupby": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-groupby-sum",
+          "group": "Групповые показатели",
+          "name": ".groupby().sum()",
+          "kind": "pattern",
+          "description": "Сворачивает числовые значения в сумму каждой группы.",
+          "example": "sales.groupby('city')['revenue'].sum()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+        },
+        {
+          "id": "cheat-market-groupby-mean",
+          "group": "Групповые показатели",
+          "name": ".groupby().mean()",
+          "kind": "pattern",
+          "description": "Вычисляет среднее известных значений внутри группы.",
+          "example": "sales.groupby('channel')['rating'].mean()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.mean.html"
+        },
+        {
+          "id": "cheat-market-groupby-agg",
+          "group": "Групповые показатели",
+          "name": "Именованная агрегация .agg()",
+          "kind": "pattern",
+          "description": "Даёт понятные имена нескольким групповым показателям.",
+          "example": "sales.groupby('manager').agg(\n    orders=('order_id','count'), revenue=('revenue','sum'))",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.agg.html"
+        },
+        {
+          "id": "cheat-market-groupby-multi",
+          "group": "Групповые показатели",
+          "name": "Группировка по нескольким ключам",
+          "kind": "pattern",
+          "description": "Создаёт отдельную группу для каждого сочетания ключей.",
+          "example": "sales.groupby(['city','category'])['revenue'].sum()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+        },
+        {
+          "id": "cheat-market-groupby-share",
+          "group": "Групповые показатели",
+          "name": "Среднее булева признака",
+          "kind": "pattern",
+          "description": "Преобразует условие в долю наблюдений внутри группы.",
+          "example": "sales['status'].eq('Отменён').groupby(sales['channel']).mean().mul(100)",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.mean.html"
+        },
+        {
+          "id": "cheat-market-groupby-unique",
+          "group": "Групповые показатели",
+          "name": ".nunique()",
+          "kind": "pattern",
+          "description": "Считает различные идентификаторы внутри каждой группы.",
+          "example": "sales.groupby('customer_id')['order_id'].nunique()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.nunique.html"
+        },
+        {
+          "id": "cheat-market-groupby-best",
+          "group": "Групповые показатели",
+          "name": ".idxmax() после агрегации",
+          "kind": "pattern",
+          "description": "Возвращает индекс строки с максимальным групповым итогом.",
+          "example": "totals.loc[totals.groupby('city')['revenue'].idxmax()]",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.idxmax.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "Группировка превращает записи в показатели городов, каналов и клиентов. Главное — выбрать уровень, функцию и знаменатель так, чтобы название метрики совпадало с её вычислением.",
+      "sections": [
+        {
+          "id": "article-market-groupby-purpose",
+          "title": "Сменить уровень наблюдения",
+          "paragraphs": [
+            "В исходной таблице одна строка может обозначать заказ. Группировка меняет уровень: сумма по городу уже описывает город, а сумма по паре город–категория описывает сочетание. Выбирая ключ, вы выбираете смысл каждой строки отчёта.",
+            "groupby разделяет записи по ключам, агрегация вычисляет показатель каждой части, затем pandas собирает итоги. Объект GroupBy сам по себе ещё не таблица итогов."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-reduce",
+          "title": "Выбрать колонку и функцию",
+          "paragraphs": [
+            "После groupby выберите измеряемую колонку и функцию. sum отвечает «сколько всего», mean — «сколько в среднем на известное наблюдение». При стандартной сортировке ключи расположены по возрастанию.",
+            "mean игнорирует пропуски; средняя оценка считается по известным оценкам, а не по числу всех заказов. Для доставки оплаченных заказов сначала исключают остальные статусы, иначе в знаменатель попадёт другая популяция."
+          ],
+          "covers": [
+            "cheat-market-groupby-sum",
+            "cheat-market-groupby-mean"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'city':['Б','А','А'], 'revenue':[50,20,40], 'rating':[None,5,3]})\nprint(sales.groupby('city')['revenue'].sum().to_dict())\nprint(sales.groupby('city')['rating'].mean().fillna(-1).to_dict())",
+              "explanation": "Выручка города А равна 60, средняя известная оценка — 4; -1 здесь только диагностическая подпись отсутствующего среднего города Б.",
+              "result": "{'А': 60, 'Б': 50}\n{'А': 4.0, 'Б': -1.0}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-columns",
+          "title": "Несколько показателей одной группы",
+          "paragraphs": [
+            "Именованная агрегация задаётся парами новое_имя=(колонка, функция). Так в отчёте появляются revenue и orders, а не многоуровневые технические заголовки.",
+            "count считает непустые значения указанной колонки. size считает строки независимо от пропусков, nunique — разные значения. Количество заказов равно count номера лишь при одном наблюдении на заказ и заполненных номерах."
+          ],
+          "covers": [
+            "cheat-market-groupby-agg",
+            "cheat-market-groupby-unique"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'customer_id':['A','A','A','B'], 'order_id':[1,1,2,3], 'revenue':[10,10,30,40]})\nreport = sales.groupby('customer_id').agg(rows=('order_id','count'), orders=('order_id','nunique'), money=('revenue','sum'))\nprint(report.to_dict('index'))",
+              "explanation": "У A три записи, но два различных номера. Сумма включает все записи, поэтому гранулярность нужно проверить до анализа.",
+              "result": "{'A': {'rows': 3, 'orders': 2, 'money': 50}, 'B': {'rows': 1, 'orders': 1, 'money': 40}}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-keys",
+          "title": "Два ключа и составной индекс",
+          "paragraphs": [
+            "Список ключей создаёт группу для каждой наблюдаемой пары. В Series итоги имеют MultiIndex: одна метка состоит из нескольких частей. as_index=False удобен, если ключи должны остаться обычными колонками DataFrame.",
+            "При выборе лучшей категории сначала получите сумму по паре, затем максимум внутри каждого города. idxmax выбирает первое появление максимума; для равных сумм заранее определите порядок категорий."
+          ],
+          "covers": [
+            "cheat-market-groupby-multi",
+            "cheat-market-groupby-best"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'city':['А','А','А','Б'], 'category':['Книги','Игры','Книги','Игры'], 'revenue':[20,50,30,40]})\ntotals = sales.groupby(['city','category'], as_index=False)['revenue'].sum()\nbest = totals.loc[totals.groupby('city')['revenue'].idxmax()]\nprint(best.to_dict('records'))",
+              "explanation": "У А категории дают по 50. Сортировка ключей ставит Игры раньше Книги, поэтому это явно определённый победитель при равенстве.",
+              "result": "[{'city': 'А', 'category': 'Игры', 'revenue': 50}, {'city': 'Б', 'category': 'Игры', 'revenue': 40}]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-share",
+          "title": "Доля и повторные клиенты",
+          "paragraphs": [
+            "True можно трактовать как 1, False как 0. Среднее признака отмены — число отмен, делённое на число строк канала; умножение на 100 переводит долю в проценты. Отбирать только отмены перед таким расчётом нельзя.",
+            "Повторного клиента определяет количество разных заказов, а не количество его строк. После nunique отберите значения >= 2; сортировка по убыванию покажет самых активных. Для воспроизводимых равенств применяйте стабильную сортировку к заранее упорядоченным ключам."
+          ],
+          "covers": [
+            "cheat-market-groupby-share",
+            "cheat-market-groupby-unique"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'channel':['web','web','shop'], 'status':['Отменён','Оплачен','Оплачен']})\ncancel_pct = sales['status'].eq('Отменён').groupby(sales['channel']).mean().mul(100)\nprint(cancel_pct.to_dict())",
+              "explanation": "Все заказы остаются в знаменателе: web имеет одну отмену из двух, shop — ноль из одного.",
+              "result": "{'shop': 0.0, 'web': 50.0}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-errors",
+          "title": "Проверить знаменатель и неизвестные ключи",
+          "paragraphs": [
+            "Одинаковая функция на другой популяции отвечает на другой вопрос. Лучше дать каждому фильтру и показателю отдельное имя, чем скрыть смену смысла в длинной цепочке."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales[sales['status'] == 'Отменён'].groupby('channel')['status'].count()",
+              "why": "Это количество отмен, а не процент: число всех заказов канала отсутствует.",
+              "correctCode": "sales['status'].eq('Отменён').groupby(sales['channel']).mean().mul(100)"
+            },
+            {
+              "wrongCode": "sales.groupby('customer_id')['order_id'].count()",
+              "why": "Число записей может быть больше числа заказов из-за товарных позиций или повторов.",
+              "correctCode": "sales.groupby('customer_id')['order_id'].nunique()"
+            }
+          ],
+          "nuances": [
+            "По умолчанию строки с неизвестным ключом исключаются; dropna=False сохраняет отдельную группу пропусков.",
+            "Полностью неизвестное среднее остаётся NaN. Ноль вместо него означал бы измеренное значение."
+          ]
+        },
+        {
+          "id": "article-market-groupby-application",
+          "title": "Проверить итог на исходных наблюдениях",
+          "paragraphs": [
+            "Сравните сумму групповых сумм с общей суммой той же популяции. Расхождение часто указывает на пропущенные ключи, другой фильтр или дубликаты.",
+            "Среднее групповых средних обычно не равно общему среднему: у групп разное число наблюдений. Для общего среднего вернитесь к строкам или используйте веса, соответствующие количеству известных значений."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Определите одну строку отчёта, выберите нужную популяцию и различайте сумму, среднее, количество строк и количество разных заказов. При максимумах договоритесь о равенствах, при процентах — о знаменателе."
+    }
+  },
+  "market-groupby-report": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-groupby-report-named",
+          "group": "Сборка управленческого отчёта",
+          "name": "Именованная .agg()",
+          "kind": "pattern",
+          "description": "Собирает несколько метрик с явными названиями колонок.",
+          "example": "sales.groupby('city').agg(\n    revenue=('revenue','sum'), average=('revenue','mean'))",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.agg.html"
+        },
+        {
+          "id": "cheat-market-groupby-report-new",
+          "group": "Сборка управленческого отчёта",
+          "name": "Доля новых по каналу",
+          "kind": "pattern",
+          "description": "Считает процент заказов с булевым признаком нового клиента.",
+          "example": "sales.groupby('channel')['is_new'].mean().mul(100)",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.mean.html"
+        },
+        {
+          "id": "cheat-market-groupby-report-precision",
+          "group": "Сборка управленческого отчёта",
+          "name": ".round() по колонкам",
+          "kind": "pattern",
+          "description": "Применяет указанную точность к выбранным показателям.",
+          "example": "report.round({'average':2, 'delivery':2})",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.round.html"
+        },
+        {
+          "id": "cheat-market-groupby-report-rank",
+          "group": "Сборка управленческого отчёта",
+          "name": ".sort_values()",
+          "kind": "pattern",
+          "description": "Упорядочивает группы по величине и дополнительному ключу.",
+          "example": "report.sort_values(['revenue','city'], ascending=[False,True])",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "Итоговый отчёт соединяет показатели в одну сравнимую таблицу. Он требует общей схемы, честных названий метрик и устойчивого порядка строк.",
+      "sections": [
+        {
+          "id": "article-market-groupby-report-purpose",
+          "title": "От отдельных чисел к договору отчёта",
+          "paragraphs": [
+            "Управленческая таблица должна отвечать на несколько связанных вопросов для одной единицы сравнения. Для города это могут быть объём продаж, количество заказов, средний чек и длительность доставки. Все колонки требуют согласованных определений.",
+            "Заранее запишите период, статусы, валюту, гранулярность строки и правила пропусков. Таблица с красивыми заголовками не становится сопоставимой, если доставка посчитана по другой популяции без пояснения."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-report-contract",
+          "title": "Гранулярность каждой метрики",
+          "paragraphs": [
+            "Сумма выручки складывает все записи. Средний чек — среднее по заказам, а не по товарным позициям. Если один заказ занимает несколько строк, перед отчётом соберите его сумму и только затем вычисляйте среднее.",
+            "Количество заказов можно считать по номеру через count при заполненных уникальных номерах, иначе нужна проверка ключа или nunique. Для среднего срока неизвестные значения исключаются, поэтому число измерений может отличаться от количества заказов."
+          ],
+          "covers": [
+            "cheat-market-groupby-report-named"
+          ],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-report-assemble",
+          "title": "Именованная агрегация делает схему явной",
+          "paragraphs": [
+            "Одна agg задаёт полную схему показателей: каждое имя связано с исходной колонкой и функцией. Это удобнее, чем соединять несколько Series с неявными названиями.",
+            "Сделайте ключ обычной колонкой через as_index=False, если отчёт будет выгружаться или сортироваться сразу по нескольким полям. Такой вид проще проверить глазами."
+          ],
+          "covers": [
+            "cheat-market-groupby-report-named"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'city':['А','А','Б'], 'order_id':[1,2,3], 'revenue':[100,200,90], 'delivery':[2,4,1]})\nreport = sales.groupby('city', as_index=False).agg(orders=('order_id','count'), revenue=('revenue','sum'), average=('revenue','mean'), delivery=('delivery','mean'))\nprint(report.to_dict('records'))",
+              "explanation": "Каждый город представлен одной строкой; у А два заказа, 300 выручки, средний чек 150 и доставка 3 дня.",
+              "result": "[{'city': 'А', 'orders': 2, 'revenue': 300, 'average': 150.0, 'delivery': 3.0}, {'city': 'Б', 'orders': 1, 'revenue': 90, 'average': 90.0, 'delivery': 1.0}]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-report-acquisition",
+          "title": "Новый клиент: доля заказов или доля людей",
+          "paragraphs": [
+            "Среднее булевой колонки нового клиента измеряет долю заказов с этим признаком. Название «доля новых клиентов» может быть неточным, если один человек создаёт несколько строк. Для доли уникальных людей нужен другой знаменатель.",
+            "Сначала выясните, отражает ли признак новизну именно этого заказа или постоянную характеристику клиента. Нельзя переносить такой флаг в отчёт о людях без проверки определения."
+          ],
+          "covers": [
+            "cheat-market-groupby-report-new"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'channel':['web','web','web','shop'], 'is_new':[True,False,False,True]})\nshare = sales.groupby('channel')['is_new'].mean().mul(100).round(1)\nprint(share.to_dict())",
+              "explanation": "Для web один новый заказ из трёх даёт 33.3%; это доля заказов, а не доля уникальных покупателей.",
+              "result": "{'shop': 100.0, 'web': 33.3}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-report-presentation",
+          "title": "Округление и устойчивый порядок",
+          "paragraphs": [
+            "Округляйте средние для чтения, а не исходную выручку до суммирования. Словарь в round позволяет оставить суммы и количество без изменений, округлив только дробные показатели.",
+            "Для ранжирования используйте выручку по убыванию и название города по возрастанию. Если отображаемые средние равны после округления, это не означает равенство исходных метрик. Сортировать лучше до округления значимой величины."
+          ],
+          "covers": [
+            "cheat-market-groupby-report-precision",
+            "cheat-market-groupby-report-rank"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'city':['Б','А','А'], 'revenue':[100,40,60], 'delivery':[1.555,2,3]})\nreport = sales.groupby('city', as_index=False).agg(revenue=('revenue','sum'), average=('revenue','mean'), delivery=('delivery','mean'))\nreport = report.sort_values(['revenue','city'], ascending=[False,True]).round({'average':2,'delivery':2})\nprint(report.to_dict('records'))",
+              "explanation": "Равные суммы упорядочены по городу; округление затрагивает средние показатели, не ключи и суммы.",
+              "result": "[{'city': 'А', 'revenue': 100, 'average': 50.0, 'delivery': 2.5}, {'city': 'Б', 'revenue': 100, 'average': 100.0, 'delivery': 1.56}]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-groupby-report-errors",
+          "title": "Когда отчёт вводит в заблуждение",
+          "paragraphs": [
+            "Метрика становится опасной, когда её название обещает больше, чем измеряет формула. Проверяйте соответствие бизнес-единицы и числа строк, а также состояние пропущенных значений."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales.groupby('city').agg(average=('revenue','sum'))",
+              "why": "Колонка названа средним, но содержит сумму.",
+              "correctCode": "sales.groupby('city').agg(average=('revenue','mean'))"
+            },
+            {
+              "wrongCode": "sales.groupby('channel')['is_new'].sum().mul(100)",
+              "why": "Число новых заказов умножено на 100 без деления на число заказов.",
+              "correctCode": "sales.groupby('channel')['is_new'].mean().mul(100)"
+            }
+          ],
+          "nuances": [
+            "Сроки отменённых заказов могут не означать доставку; ограничьте популяцию или явно назовите показатель.",
+            "Если bool-колонка допускает пропуски, mean считает долю среди известных флагов; отдельно показывайте покрытие."
+          ]
+        },
+        {
+          "id": "article-market-groupby-report-review",
+          "title": "Последняя проверка перед передачей",
+          "paragraphs": [
+            "Проверьте, что сумма выручки отчёта равна сумме выбранной части данных и что число ключей соответствует числу групп. Для одной группы пересчитайте показатели вручную.",
+            "Добавьте к отчёту словесное определение доли и среднего. Тогда изменение фильтра или источника можно заметить как изменение договора, а не как случайное колебание таблицы."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Соберите именованные показатели на согласованной гранулярности, вычислите проценты с явным знаменателем, округлите только представление и проверьте порядок при равенствах. Передавайте вместе с таблицей её определения."
+    }
+  },
+  "market-joins": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-joins-left",
+          "group": "Соединение по ключам",
+          "name": ".merge(how=\"left\")",
+          "kind": "pattern",
+          "description": "Добавляет справочные поля, сохраняя записи левой таблицы.",
+          "example": "sales.merge(clients, on='customer_id', how='left')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
+        },
+        {
+          "id": "cheat-market-joins-validate",
+          "group": "Соединение по ключам",
+          "name": "validate=\"many_to_one\"",
+          "kind": "pattern",
+          "description": "Требует уникального ключа в присоединяемом справочнике.",
+          "example": "sales.merge(clients, on='customer_id',\n            how='left', validate='many_to_one')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
+        },
+        {
+          "id": "cheat-market-joins-indicator",
+          "group": "Соединение по ключам",
+          "name": "indicator=True",
+          "kind": "pattern",
+          "description": "Добавляет признак источника совпадения ключей.",
+          "example": "joined = sales.merge(clients, on='customer_id', how='left', indicator=True)\njoined.loc[joined['_merge'] == 'left_only']",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
+        },
+        {
+          "id": "cheat-market-joins-inner",
+          "group": "Соединение по ключам",
+          "name": ".merge(how=\"inner\")",
+          "kind": "pattern",
+          "description": "Оставляет только записи с ключами в обеих таблицах.",
+          "example": "sales.merge(clients, on='customer_id', how='inner')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.merge.html"
+        },
+        {
+          "id": "cheat-market-joins-after",
+          "group": "Соединение по ключам",
+          "name": "Группировка после обогащения",
+          "kind": "pattern",
+          "description": "Вычисляет показатель по добавленной характеристике.",
+          "example": "joined = sales.merge(managers, on='manager', validate='many_to_one')\njoined.groupby('experience')['revenue'].sum()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.groupby.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "Соединение добавляет смысл к продажам через справочники. Научимся сохранять события, контролировать кратность ключей и видеть записи, которым не нашлось пары.",
+      "sections": [
+        {
+          "id": "article-market-joins-purpose",
+          "title": "Факты и справочники",
+          "paragraphs": [
+            "В таблице продаж хранится событие: заказ, сумма, код клиента. Справочник хранит характеристику сущности: город проживания, уровень лояльности или бренд. Соединение связывает эти уровни по ключу, не по порядку строк.",
+            "До merge выясните, какое поле идентифицирует сущность и должно ли оно быть уникальным. Уровень лояльности берётся из клиента, а город заказа и город клиента могут описывать разные вещи. Не заменяйте одно другим без основания."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-joins-left",
+          "title": "Сохранить все события",
+          "paragraphs": [
+            "left соединение сохраняет каждый ключ левой таблицы. Если справа нет совпадения, добавленные поля остаются неизвестными. on явно задаёт ключ; без него pandas может использовать все общие названия колонок, что редко соответствует намерению.",
+            "Выберите из справочника только ключ и нужные поля, чтобы не создавать лишние совпадения названий. Если одно имя нужно с обеих сторон, suffixes помогает различать происхождение."
+          ],
+          "covers": [
+            "cheat-market-joins-left"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'order_id':[1,2,3], 'customer_id':['A','A','Z']})\nclients = pd.DataFrame({'customer_id':['A'], 'level':['gold']})\njoined = sales.merge(clients, on='customer_id', how='left', validate='many_to_one')\nprint(joined['order_id'].tolist())\nprint(joined['level'].fillna('unknown').tolist())",
+              "explanation": "Все три заказа сохранены; уровень клиента Z явно неизвестен.",
+              "result": "[1, 2, 3]\n['gold', 'gold', 'unknown']"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-joins-cardinality",
+          "title": "Почему строки размножаются",
+          "paragraphs": [
+            "Если справа два совпадения ключа, одна левая строка соединяется с обоими. Поэтому число строк может вырасти даже при left. Для справочника обычное требование — многие заказы к одной записи сущности.",
+            "validate=\"many_to_one\" проверяет уникальность ключей справа и останавливает ошибочное соединение. Это лучше, чем обнаружить завышенную выручку уже в отчёте. validate не проверяет полноту покрытия: неизвестные ключи всё ещё возможны."
+          ],
+          "covers": [
+            "cheat-market-joins-validate"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'customer_id':['A'], 'revenue':[100]})\nclients = pd.DataFrame({'customer_id':['A','A'], 'level':['silver','gold']})\nprint(len(sales.merge(clients, on='customer_id', how='left')))\ntry:\n    sales.merge(clients, on='customer_id', how='left', validate='many_to_one')\nexcept pd.errors.MergeError:\n    print('Справочник содержит повтор ключа')",
+              "explanation": "Без контроля один заказ превращается в две строки; проверка кратности прерывает операцию.",
+              "result": "2\nСправочник содержит повтор ключа"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-joins-coverage",
+          "title": "Найти отсутствующие справочные записи",
+          "paragraphs": [
+            "indicator=True добавляет категориальную колонку _merge. Для left соединения значения left_only обозначают заказы без найденной сущности, both — совпадения. При outer дополнительно встречается right_only.",
+            "Количество inner и left помогает увидеть потерю покрытия при уникальном справочнике. Но само равенство длин не доказывает корректность: потерянные строки могут компенсироваться размноженными. Проверяйте ключи и validate вместе."
+          ],
+          "covers": [
+            "cheat-market-joins-indicator",
+            "cheat-market-joins-inner"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'order_id':[1,2], 'customer_id':['A','Z']})\nclients = pd.DataFrame({'customer_id':['A'], 'level':['gold']})\njoined = sales.merge(clients, on='customer_id', how='left', indicator=True, validate='many_to_one')\nprint(joined.loc[joined['_merge'] == 'left_only', 'order_id'].tolist())\nprint(len(sales.merge(clients, on='customer_id', how='inner')))\nprint(len(joined))",
+              "explanation": "Заказ 2 не находит клиента; inner оставляет один заказ, left сохраняет два.",
+              "result": "[2]\n1\n2"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-joins-aggregate",
+          "title": "Добавить характеристику и сгруппировать",
+          "paragraphs": [
+            "После надёжного соединения можно суммировать выручку по бренду или стажу менеджера. В таком отчёте ключ группы приходит из справочника, поэтому исключение неизвестных значений меняет сумму.",
+            "Если неизвестную характеристику надо показать отдельной группой, выбирайте left и groupby(..., dropna=False). Если разрешены только подтверждённые сущности, inner допустим, но потерянную выручку следует измерить и объяснить."
+          ],
+          "covers": [
+            "cheat-market-joins-after"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'manager':['Анна','Анна','Борис'], 'revenue':[100,50,80]})\nmanagers = pd.DataFrame({'manager':['Анна','Борис'], 'experience':[2,5]})\njoined = sales.merge(managers, on='manager', how='left', validate='many_to_one')\nprint(joined.groupby('experience')['revenue'].sum().to_dict())",
+              "explanation": "Стаж 2 связан с двумя продажами на 150, стаж 5 — с одной на 80.",
+              "result": "{2: 150, 5: 80}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-joins-errors",
+          "title": "Безопасность ключа",
+          "paragraphs": [
+            "Нормализуйте типы ключей до соединения. Строка \"001\" и число 1 могут обозначать разные коды; автоматическое числовое преобразование способно потерять ведущие нули."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales.merge(clients, how='left')",
+              "why": "Неявный ключ использует все совпадающие имена полей, включая возможный город.",
+              "correctCode": "sales.merge(clients, on='customer_id', how='left', validate='many_to_one')"
+            },
+            {
+              "wrongCode": "sales.merge(clients, on='customer_id').groupby('level')['revenue'].sum()",
+              "why": "Inner по умолчанию незаметно исключает продажи неизвестных клиентов.",
+              "correctCode": "sales.merge(clients, on='customer_id', how='left', validate='many_to_one').groupby('level', dropna=False)['revenue'].sum()"
+            }
+          ],
+          "nuances": [
+            "В pandas пропущенные ключи могут совпасть друг с другом; это отличается от обычного SQL JOIN. Проверяйте неизвестные ключи заранее.",
+            "Уникальный справочник с неполным покрытием и полный справочник с повторами — разные дефекты."
+          ]
+        },
+        {
+          "id": "article-market-joins-application",
+          "title": "Контроль до и после merge",
+          "paragraphs": [
+            "Запишите число строк, число разных номеров заказов и сумму выручки до соединения и после него. Для many_to_one left при одной строке на заказ все три величины должны сохраняться.",
+            "Затем отдельно измерьте долю left_only. Эти проверки отличают безопасность суммы от полноты справочника и помогают решать, можно ли использовать новую характеристику в отчёте."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Явно задавайте ключ, выбирайте left или inner по смыслу отчёта, проверяйте many_to_one и исследуйте indicator. Только после сохранности строк и суммы переходите к группировке по новым полям."
+    }
+  },
+  "market-charts": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-charts-bar",
+          "group": "Графики для вопросов о продажах",
+          "name": ".plot(kind=\"bar\")",
+          "kind": "pattern",
+          "description": "Сравнивает агрегированные значения категорий столбцами.",
+          "example": "totals.plot(kind='bar', title='Выручка городов',\n            xlabel='Город', ylabel='Рубли')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.plot.html"
+        },
+        {
+          "id": "cheat-market-charts-line",
+          "group": "Графики для вопросов о продажах",
+          "name": ".plot() для временной линии",
+          "kind": "pattern",
+          "description": "Показывает изменения показателя в порядке дат.",
+          "example": "daily.sort_index().plot(title='Динамика продаж',\n                        xlabel='Дата', ylabel='Рубли')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.plot.html"
+        },
+        {
+          "id": "cheat-market-charts-channels",
+          "group": "Графики для вопросов о продажах",
+          "name": "Таблица рядов и .plot()",
+          "kind": "pattern",
+          "description": "Рисует отдельную линию для каждой числовой колонки.",
+          "example": "monthly.plot(title='Каналы по месяцам',\n             xlabel='Месяц', ylabel='Рубли')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html"
+        },
+        {
+          "id": "cheat-market-charts-hist",
+          "group": "Графики для вопросов о продажах",
+          "name": ".plot(kind=\"hist\", bins=...)",
+          "kind": "pattern",
+          "description": "Показывает количество наблюдений в заданных интервалах.",
+          "example": "sales['delivery_days'].plot(kind='hist', bins=[0,1,2,3,4,5,6])",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.plot.html"
+        },
+        {
+          "id": "cheat-market-charts-rating",
+          "group": "Графики для вопросов о продажах",
+          "name": "Средние оценки перед .plot()",
+          "kind": "pattern",
+          "description": "Сравнивает категории по средним известным оценкам.",
+          "example": "means = sales.groupby('category')['rating'].mean()\nmeans.plot(kind='bar')",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.mean.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "График полезен, когда его форма соответствует вопросу, а числа уже проверены. Разберём сравнение категорий, временную динамику, несколько рядов и распределение сроков.",
+      "sections": [
+        {
+          "id": "article-market-charts-question",
+          "title": "Сначала вопрос, затем изображение",
+          "paragraphs": [
+            "Столбцы сравнивают категории, линия показывает последовательность во времени, гистограмма описывает распределение отдельных наблюдений. Эти формы нельзя менять произвольно: линия между городами создаёт впечатление непрерывности там, где её нет.",
+            "График наследует все решения расчёта — популяцию, пропуски, группировку и единицы. Построение не исправит задвоенные заказы или несогласованный средний чек. Сначала проверьте таблицу показателей, затем выбирайте визуальную форму."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-charts-bar",
+          "title": "Категории сравниваются агрегированными столбцами",
+          "paragraphs": [
+            "Сгруппируйте значения по категории и вычислите нужную метрику. В Series индекс станет подписью столбца. Подпишите оси и единицы, чтобы высота читалась как выручка, число заказов или оценка.",
+            "plot возвращает matplotlib Axes — объект области графика. Через него можно проверить заголовки и высоты столбцов, добавить оформление или сохранить figure; это не сама таблица показателей."
+          ],
+          "covers": [
+            "cheat-market-charts-bar"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nimport matplotlib.pyplot as plt\nsales = pd.DataFrame({'city':['А','Б','А'], 'revenue':[40,90,60]})\ntotals = sales.groupby('city')['revenue'].sum()\nax = totals.plot(kind='bar', title='Выручка городов', xlabel='Город', ylabel='Рубли')\nprint([float(bar.get_height()) for bar in ax.patches])\nprint(ax.get_xlabel(), ax.get_ylabel())",
+              "explanation": "Построены два столбца: А — 100 рублей, Б — 90; вывод проверяет высоты и подписи.",
+              "result": "[100.0, 90.0]\nГород Рубли"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-charts-time",
+          "title": "Линия требует порядка и регулярного календаря",
+          "paragraphs": [
+            "Для динамики сначала суммируйте продажи каждого дня, затем упорядочьте даты. Если исходные строки не отсортированы, непосредственный plot может соединять точки назад во времени.",
+            "Отсутствующая дата и измеренный ноль не одно и то же. Добавляйте нулевые дни только когда знаете, что источник полный и продаж действительно не было. Для нескольких каналов создайте таблицу: строки — периоды, колонки — каналы, ячейки — одинаковая метрика."
+          ],
+          "covers": [
+            "cheat-market-charts-line",
+            "cheat-market-charts-channels"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nimport matplotlib.pyplot as plt\nsales = pd.DataFrame({'date':pd.to_datetime(['2026-02-02','2026-02-01','2026-02-02']), 'revenue':[20,50,30]})\ndaily = sales.groupby('date')['revenue'].sum().sort_index()\nax = daily.plot(title='Дневная выручка', xlabel='Дата', ylabel='Рубли')\nprint(daily.index.strftime('%Y-%m-%d').tolist())\nprint(ax.lines[0].get_ydata().tolist())",
+              "explanation": "Линия соединяет 1 и 2 февраля в календарном порядке; обе суммы равны 50.",
+              "result": "['2026-02-01', '2026-02-02']\n[50, 50]"
+            },
+            {
+              "code": "import pandas as pd\nimport matplotlib.pyplot as plt\nsales = pd.DataFrame({'month':['2026-01','2026-02','2026-01'], 'channel':['web','web','shop'], 'revenue':[50,80,30]})\nmonthly = sales.pivot_table(index='month', columns='channel', values='revenue', aggfunc='sum', fill_value=0).sort_index()\nax = monthly.plot(title='Выручка каналов', xlabel='Месяц', ylabel='Рубли')\nprint(monthly.to_dict('list'))\nprint([line.get_label() for line in ax.lines])",
+              "explanation": "Две линии показывают shop 30→0 и web 50→80. Ноль допустим здесь как отсутствие продаж в полном маленьком наборе.",
+              "result": "{'shop': [30, 0], 'web': [50, 80]}\n['shop', 'web']"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-charts-distribution",
+          "title": "Гистограмма считает наблюдения",
+          "paragraphs": [
+            "В отличие от столбчатого графика итогов, гистограмма получает исходную числовую колонку. bins задаёт границы интервалов, высота показывает число наблюдений в каждом интервале при стандартном режиме частот.",
+            "Интервалы обычно включают левую границу и исключают правую; последний включает правый край. Значение вне заданных bins не учитывается. Поэтому границы должны покрывать нужную популяцию, а подпись оси Y — объяснять частоту."
+          ],
+          "covers": [
+            "cheat-market-charts-hist"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nimport matplotlib.pyplot as plt\ndays = pd.Series([0,1,1,2,3])\nax = days.plot(kind='hist', bins=[0,1,2,3], title='Доставка', xlabel='Дни', ylabel='Заказы')\nprint([float(bar.get_height()) for bar in ax.patches])",
+              "explanation": "В интервал [0,1) попадает один срок, в [1,2) два, в последний [2,3] два. График показывает частоты, не среднюю доставку.",
+              "result": "[1.0, 2.0, 2.0]"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-charts-ratings",
+          "title": "Средняя оценка и её покрытие",
+          "paragraphs": [
+            "Для сравнения удовлетворённости категорий сначала вычислите средние известных оценок, затем постройте столбцы. Неизвестный отзыв нельзя автоматически заменять нулём: это превратит отсутствие измерения в отрицательную оценку.",
+            "idxmax на Series средних возвращает категорию с наибольшим средним. Этот вывод ограничен доступными отзывами; маленькое число отзывов или неодинаковая доля пропусков могут сделать сравнение неустойчивым."
+          ],
+          "covers": [
+            "cheat-market-charts-rating"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nimport matplotlib.pyplot as plt\nsales = pd.DataFrame({'category':['Игры','Игры','Книги'], 'rating':[5,None,4]})\nmeans = sales.groupby('category')['rating'].mean()\nax = means.plot(kind='bar', title='Оценки', xlabel='Категория', ylabel='Оценка')\nprint(means.to_dict())\nprint(means.idxmax())",
+              "explanation": "Игры имеют одну известную оценку 5, Книги — 4; неизвестный отзыв не снижает среднее.",
+              "result": "{'Игры': 5.0, 'Книги': 4.0}\nИгры"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-charts-errors",
+          "title": "Ошибки, которые меняют смысл рисунка",
+          "paragraphs": [
+            "Проверяйте не только наличие графика, но и числа, порядок, единицы и легенду. Одинаковая форма изображения может скрывать разные расчёты."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales['city'].plot(kind='hist')",
+              "why": "Гистограмма распределяет числовые наблюдения; названия городов — категории.",
+              "correctCode": "sales.groupby('city')['revenue'].sum().plot(kind='bar')"
+            },
+            {
+              "wrongCode": "sales.groupby('category')['rating'].sum().plot(kind='bar')",
+              "why": "Сумма оценок растёт с количеством отзывов и не измеряет среднюю удовлетворённость.",
+              "correctCode": "sales.groupby('category')['rating'].mean().plot(kind='bar')"
+            }
+          ],
+          "nuances": [
+            "Срок ноль может обозначать отмену или самовывоз; для скорости выполненной доставки проверьте статусы.",
+            "Каждый график должен использовать свою Axes или figure; в повторных построениях закрывайте завершённые фигуры."
+          ]
+        },
+        {
+          "id": "article-market-charts-interpret",
+          "title": "Что можно утверждать по графику",
+          "paragraphs": [
+            "Формулируйте вывод теми же словами, что определяют расчёт: «сумма выручки», «средняя известная оценка», «частота сроков». По одной линии нельзя доказать причину роста, а по гистограмме всех статусов — качество доставки оплаченных заказов.",
+            "При передаче отчёта сохраните таблицу, на которой построен график. Она позволяет проверить каждую визуальную точку и пересчитать показатель при изменении фильтров."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Агрегируйте данные до графика сравнения, упорядочьте даты до линии и оставьте исходные наблюдения для гистограммы. Подпишите единицы и проверяйте вывод по тем же числам, что изображены."
+    }
+  },
+  "market-cases": {
+    "cheatSheet": {
+      "entries": [
+        {
+          "id": "cheat-market-cases-period",
+          "group": "Проверяемые аналитические выводы",
+          "name": "Сводная для сравнения периодов",
+          "kind": "pattern",
+          "description": "Разводит суммы по периодам и фиксирует нужные колонки.",
+          "example": "sales.pivot_table(index='channel', columns='month', values='revenue',\n                  aggfunc='sum', fill_value=0).reindex(columns=['2026-01','2026-02'], fill_value=0)",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.pivot_table.html"
+        },
+        {
+          "id": "cheat-market-cases-delta",
+          "group": "Проверяемые аналитические выводы",
+          "name": ".assign() для абсолютного изменения",
+          "kind": "pattern",
+          "description": "Вычисляет разность последующего и предыдущего показателя.",
+          "example": "report.assign(change=report['february'] - report['january'])",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.assign.html"
+        },
+        {
+          "id": "cheat-market-cases-cancel",
+          "group": "Проверяемые аналитические выводы",
+          "name": "Отмены по полной популяции",
+          "kind": "pattern",
+          "description": "Считает процент отмен среди всех заказов группы.",
+          "example": "sales['status'].eq('Отменён').groupby(sales['channel']).mean().mul(100)",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.mean.html"
+        },
+        {
+          "id": "cheat-market-cases-profile",
+          "group": "Проверяемые аналитические выводы",
+          "name": "Максимум и справочная метка",
+          "kind": "pattern",
+          "description": "Выбирает лучший ключ и извлекает его характеристику.",
+          "example": "best = totals.sort_index().idxmax()\nclients.set_index('customer_id').loc[best, 'home_city']",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.Series.idxmax.html"
+        },
+        {
+          "id": "cheat-market-cases-weeks",
+          "group": "Проверяемые аналитические выводы",
+          "name": ".resample(\"W-MON\")",
+          "kind": "pattern",
+          "description": "Группирует даты в недели с понедельника по заданным границам.",
+          "example": "sales.set_index('date').resample('W-MON', closed='left',\n                               label='left')['revenue'].sum()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.resample.html"
+        },
+        {
+          "id": "cheat-market-cases-repeat",
+          "group": "Проверяемые аналитические выводы",
+          "name": "Количество повторных клиентов",
+          "kind": "pattern",
+          "description": "Считает клиентов с несколькими разными номерами заказов.",
+          "example": "(sales.groupby('customer_id')['order_id'].nunique() >= 2).sum()",
+          "documentationUrl": "https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.DataFrameGroupBy.nunique.html"
+        }
+      ]
+    },
+    "article": {
+      "lead": "Составной анализ соединяет таблицы, периоды и метрики в проверяемые выводы. Каждая часть требует понятной популяции, календаря, ключа и правила сравнения.",
+      "sections": [
+        {
+          "id": "article-market-cases-question",
+          "title": "Анализ начинается с проверяемого вопроса",
+          "paragraphs": [
+            "Управленческий кейс соединяет несколько приёмов, но главный навык — согласовать вопрос и вычисление. Изменение выручки требует одинаковых разрезов двух периодов, профиль клиента — устойчивого ключа, качество доставки — правильной популяции.",
+            "Разделяйте измеренный факт и объяснение причины. «Канал потерял 30 рублей» проверяется таблицей; «падение вызвано рекламой» требует дополнительных данных и дизайна исследования."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-cases-period",
+          "title": "Сравнить периоды на общей сетке",
+          "paragraphs": [
+            "Сначала выделите нужный город или сегмент, затем сформируйте одинаковые ключи разреза. pivot_table раскладывает суммы по периодам; reindex фиксирует обязательные колонки даже тогда, когда период отсутствует целиком.",
+            "Ноль допустим для отсутствующих продаж в полном источнике. Если данные за месяц не поступили, ноль исказит сравнение. Абсолютное изменение — поздняя сумма минус ранняя; знак должен иметь заранее понятное направление."
+          ],
+          "covers": [
+            "cheat-market-cases-period",
+            "cheat-market-cases-delta"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'channel':['web','web','shop'], 'month':['2026-01','2026-02','2026-01'], 'revenue':[100,70,40]})\nreport = sales.pivot_table(index='channel', columns='month', values='revenue', aggfunc='sum', fill_value=0).reindex(columns=['2026-01','2026-02'], fill_value=0)\nreport.columns = ['january','february']\nreport = report.assign(change=report['february']-report['january'])\nprint(report.to_dict('index'))",
+              "explanation": "В полном наборе shop меняется 40→0, web 100→70. Отрицательная разность показывает падение соответствующей суммы.",
+              "result": "{'shop': {'january': 40, 'february': 0, 'change': -40}, 'web': {'january': 100, 'february': 70, 'change': -30}}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-cases-population",
+          "title": "У разных метрик могут быть разные популяции",
+          "paragraphs": [
+            "Отмены считают среди всех заказов, иначе процент станет 100. Среднюю фактическую доставку вычисляют по выполненным или оплаченным заказам согласно определению источника, не по отменам.",
+            "Series итогов можно объединить в DataFrame по именам каналов: pandas выравнивает индекс, а не позицию. Если у канала нет оплаченных наблюдений, среднее останется неизвестным; его нельзя трактовать как нулевую доставку."
+          ],
+          "covers": [
+            "cheat-market-cases-cancel"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'channel':['web','web','shop'], 'status':['Отменён','Оплачен','Оплачен'], 'days':[0,4,2]})\ncancel = sales['status'].eq('Отменён').groupby(sales['channel']).mean().mul(100)\npaid_days = sales.loc[sales['status'] == 'Оплачен'].groupby('channel')['days'].mean()\nreport = pd.DataFrame({'cancel_pct':cancel, 'paid_days':paid_days})\nprint(report.to_dict('index'))",
+              "explanation": "web имеет 50% отмен, но средний срок оплаченной части 4 дня, а не 2.",
+              "result": "{'shop': {'cancel_pct': 0.0, 'paid_days': 2.0}, 'web': {'cancel_pct': 50.0, 'paid_days': 4.0}}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-cases-person",
+          "title": "Профиль лидера требует одного ключа",
+          "paragraphs": [
+            "Сначала сложите выручку каждого клиента, затем найдите лучший ключ через idxmax. При равенстве idxmax берёт первую метку; сортировка индекса задаёт правило выбора первого кода.",
+            "Профиль берётся из справочника по тому же коду. set_index и loc делают эту связь явной; справочник должен иметь уникальные коды. Число заказов лидера считайте по разным номерам, если записи могут повторяться."
+          ],
+          "covers": [
+            "cheat-market-cases-profile"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'customer_id':['B','A','A'], 'order_id':[3,1,2], 'revenue':[100,40,60]})\nclients = pd.DataFrame({'customer_id':['A','B'], 'home_city':['Тула','Омск']})\ntotals = sales.groupby('customer_id')['revenue'].sum().sort_index()\nbest = totals.idxmax()\nprofile = {'customer':best, 'revenue':int(totals.loc[best]), 'orders':int(sales.loc[sales['customer_id'] == best, 'order_id'].nunique()), 'city':clients.set_index('customer_id').loc[best,'home_city']}\nprint(profile)",
+              "explanation": "Суммы A и B равны 100. Правило первого кода выбирает A; все сведения относятся к этому клиенту.",
+              "result": "{'customer': 'A', 'revenue': 100, 'orders': 2, 'city': 'Тула'}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-cases-calendar",
+          "title": "Неделя — договор о границах",
+          "paragraphs": [
+            "Для календарного отчёта преобразуйте даты и сделайте их временным индексом. W-MON задаёт недельные границы по понедельникам; closed=\"left\" включает начало интервала, label=\"left\" подписывает его началом. Вместе они дают интервалы понедельник–следующий понедельник.",
+            "Количество, сумма и среднее могут быть собраны именованной agg. Пустая неделя имеет ноль наблюдений и нулевую сумму при обычном sum, но среднее остаётся NaN: значение среднего там не измерено."
+          ],
+          "covers": [
+            "cheat-market-cases-weeks"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'date':pd.to_datetime(['2026-01-05','2026-01-11','2026-01-12']), 'order_id':[1,2,3], 'revenue':[20,40,90]})\nweekly = sales.set_index('date').resample('W-MON', closed='left', label='left').agg(orders=('order_id','count'), revenue=('revenue','sum'), average=('revenue','mean'))\nweekly.index = weekly.index.strftime('%Y-%m-%d')\nprint(weekly.to_dict('index'))",
+              "explanation": "5 и 11 января входят в неделю 5 января: 2 заказа, сумма 60, среднее 30. 12 января начинает следующую неделю.",
+              "result": "{'2026-01-05': {'orders': 2, 'revenue': 60, 'average': 30.0}, '2026-01-12': {'orders': 1, 'revenue': 90, 'average': 90.0}}"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-cases-facts",
+          "title": "Набор фактов вместо неподтверждённого рассказа",
+          "paragraphs": [
+            "Компактная сводка может включать общую сумму, долю отмен, лучший город, лучший канал и число повторных клиентов. У каждой величины должна быть отдельная формула и единица измерения.",
+            "Повторные клиенты — количество групп с двумя и более разными номерами. Оно не равно количеству повторных заказов: клиент с десятью заказами в этой метрике всё равно учитывается один раз."
+          ],
+          "covers": [
+            "cheat-market-cases-repeat"
+          ],
+          "examples": [
+            {
+              "code": "import pandas as pd\nsales = pd.DataFrame({'customer_id':['A','A','B','C','C'], 'order_id':[1,2,3,4,4]})\ncounts = sales.groupby('customer_id')['order_id'].nunique()\nprint(counts.to_dict())\nprint(int((counts >= 2).sum()))",
+              "explanation": "Только A имеет два различных заказа. Две записи номера 4 у C не создают повторную покупку.",
+              "result": "{'A': 2, 'B': 1, 'C': 1}\n1"
+            }
+          ],
+          "errors": [],
+          "nuances": []
+        },
+        {
+          "id": "article-market-cases-errors",
+          "title": "Ошибки составного анализа",
+          "paragraphs": [
+            "В цепочке нескольких операций легко незаметно сменить популяцию или календарь. Делайте промежуточные таблицы с осмысленными именами и проверяйте их до итогового вывода."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [
+            {
+              "wrongCode": "sales.resample('W-MON')['revenue'].sum()",
+              "why": "resample требует временной индекс либо явно указанную временную колонку.",
+              "correctCode": "sales.set_index('date').resample('W-MON', closed='left', label='left')['revenue'].sum()"
+            },
+            {
+              "wrongCode": "report.assign(change=report['january']-report['february'])",
+              "why": "Знак описывает обратное направление относительно изменения из января в февраль.",
+              "correctCode": "report.assign(change=report['february']-report['january'])"
+            }
+          ],
+          "nuances": [
+            "Средний чек общей популяции нельзя получить простым средним чеков городов без учёта количества заказов.",
+            "Если таблица содержит несколько строк заказа, сначала согласуйте денежную гранулярность и не суммируйте задвоенный итог."
+          ]
+        },
+        {
+          "id": "article-market-cases-conclusion",
+          "title": "Как представить доказательства",
+          "paragraphs": [
+            "Для каждого вывода приложите расчёт, определение популяции и ограничение интерпретации. Таблица вкладов объясняет, где изменилась сумма, но ещё не объясняет, почему произошло изменение.",
+            "Сохраняйте факты и гипотезы отдельно. Тогда руководитель может повторить расчёт и сформулировать следующий вопрос, вместо того чтобы принять предположение за установленную причину."
+          ],
+          "covers": [],
+          "examples": [],
+          "errors": [],
+          "nuances": []
+        }
+      ],
+      "summary": "Сначала сформулируйте вопрос, затем соберите сравнимые показатели и проверьте промежуточные таблицы. Представляйте вывод вместе с формулой и ограничениями: наблюдаемая разница ещё не доказывает причину."
+    }
+  }
+}

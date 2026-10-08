@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-08",
+  "content": {
+    "sourceObjectives": 117,
+    "distinctMarketTasks": 113,
+    "newTasks": 94,
+    "extendedStableTasks": 19,
+    "totalTasks": 294,
+    "knowledgeUnits": 40,
+    "hints": 882,
+    "projectLessons": 19,
+    "groupbyLessonSteps": 12,
+    "workingTreeAudit": "passed",
+    "stagedContentAudit": "passed"
+  },
+  "verification": {
+    "apiTests": {"passed": 211, "failed": 0},
+    "webTests": {"passed": 125, "failed": 0},
+    "teachingChecksIncludedInApiTests": 99,
+    "sandboxWorkerContract": "passed",
+    "lint": "passed",
+    "typecheck": "passed",
+    "productionBuild": "passed",
+    "finalBrowserTests": {"passed": 21, "failed": 0, "includesPreexistingLocalTimeoutTest": true},
+    "initialVerifyRun": "Failed on the preexisting local timeout test intercepted by a queued achievement dialog; its bounded dismissal was corrected and the complete browser phase passed on rerun. Other verify phases passed.",
+    "independentQa": "passed; no blocking finding remains"
+  },
+  "actualRuntime": {
+    "url": "http://127.0.0.1:8014",
+    "roomTrophies": 10,
+    "projectLessons": 19,
+    "modeControls": ["sql", "excel", "power-bi"],
+    "solvedIdsPreserved": true,
+    "attemptsPreserved": true,
+    "xpPreserved": true
+  },
+  "limitations": [
+    "Excel and Power BI are explicit educational simulators, not native Office/Power BI runtimes or xlsx/pbix exporters.",
+    "Ten Excel/DAX article examples were not executed in native engines; simulator reference solutions passed.",
+    "Room loading/error/empty states have automated coverage; browser network failure was not separately injected."
+  ]
+}

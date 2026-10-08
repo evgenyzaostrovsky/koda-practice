@@ -104,18 +104,21 @@ WORKER=PersistentWorker();atexit.register(WORKER.stop)
 def warmup():
     started=time.perf_counter();WORKER.start();return {'ready':True,'import_ms':WORKER.import_ms,'warmup_ms':round((time.perf_counter()-started)*1000)}
 
-def run(code,dataset,result_variable='result',timeout_ms=10000,setup_code=''):
+def run(code,dataset,result_variable='result',timeout_ms=10000,setup_code='',exercise_mode='python'):
     started=time.perf_counter()
     if len(code)>50_000:return {'ok':False,'error_type':'SecurityError','error':'Код превышает допустимый размер.','execution_ms':0}
-    try:ast.parse(code)
-    except SyntaxError as exc:
-        lines=code.splitlines();line=lines[exc.lineno-1] if exc.lineno and exc.lineno<=len(lines) else ''
-        return {'ok':False,'error_type':'SyntaxError','error':exc.msg,'line':exc.lineno,'offset':exc.offset,'code_line':line,
-          'execution_ms':round((time.perf_counter()-started)*1000),'timings':{'validation':0}}
-    err=validate(code)
-    if err:return {'ok':False,'error_type':'SecurityError','error':err,'execution_ms':round((time.perf_counter()-started)*1000)}
-    needs_plot=any(token in code for token in ('plt.','sns.','.plot(','hist(','scatter('))
-    data=WORKER.execute({'code':code,'dataset':dataset,'setup_code':setup_code,'result_variable':result_variable,'needs_plot':needs_plot},timeout_ms)
+    if exercise_mode == 'python':
+        try:ast.parse(code)
+        except SyntaxError as exc:
+            lines=code.splitlines();line=lines[exc.lineno-1] if exc.lineno and exc.lineno<=len(lines) else ''
+            return {'ok':False,'error_type':'SyntaxError','error':exc.msg,'line':exc.lineno,'offset':exc.offset,'code_line':line,
+              'execution_ms':round((time.perf_counter()-started)*1000),'timings':{'validation':0}}
+        err=validate(code)
+        if err:return {'ok':False,'error_type':'SecurityError','error':err,'execution_ms':round((time.perf_counter()-started)*1000)}
+        needs_plot=any(token in code for token in ('plt.','sns.','.plot(','hist(','scatter('))
+    else:
+        needs_plot=False
+    data=WORKER.execute({'code':code,'dataset':dataset,'setup_code':setup_code,'result_variable':result_variable,'needs_plot':needs_plot,'exercise_mode':exercise_mode},timeout_ms)
     data['execution_ms']=round((time.perf_counter()-started)*1000)
     return data
 
@@ -126,6 +129,10 @@ def explain(result):
 
 def compare_results(actual, expected):
     a,e=actual.get('result'),expected.get('result')
+    if a and e and a.get('kind')=='plot' and e.get('kind')=='plot':
+        # Rendering bytes are display artifacts, not an answer identity.
+        a={key:value for key,value in a.items() if key!='image'}
+        e={key:value for key,value in e.items() if key!='image'}
     if not a: return False,{'expected':'Корректная переменная result','actual':'Переменная result не создана','difference':'После выполнения кода result отсутствует.'}
     if a.get('kind')!=e.get('kind'):
         return False,{'expected':e.get('kind'),'actual':a.get('kind'),'difference':f"Ожидался тип {e.get('kind')}, получен {a.get('kind')}."}

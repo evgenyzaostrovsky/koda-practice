@@ -3,15 +3,19 @@ import { usePracticeLayout } from "./usePracticeLayout";
 import { getCloudUser } from "../cloud-sync";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { emitAchievementEvent } from "../achievements/engine";
 import { api } from "../api";
 import { attemptsAfterPracticeAction, visiblePracticeResult } from "../practice-action";
 import { modulesQ } from "../queries";
 import { loadTaskState, saveLastTask, saveTaskState } from "../task-storage";
 import type { Exercise, RunResult, TheoryArticle } from "../types";
+import { marketCourseQuery, marketLessonTasks, marketTaskHref } from "../market-course";
 export function usePracticeController() {
   const { eid = "" } = useParams();
+  const [search] = useSearchParams();
+  const courseRequested = search.get("course") === "koda-market";
+  const { data: course, error: courseError, isPending: courseLoading, refetch: refetchCourse, isFetching: courseFetching } = useQuery({ ...marketCourseQuery, enabled: courseRequested });
   const nav = useNavigate(),
     qc = useQueryClient();
   const {
@@ -31,9 +35,14 @@ export function usePracticeController() {
   const module = mods[moduleIndex];
   const topic = module?.topics.find((topic) => topic.exercises.some((exercise) => exercise.id === eid));
   const slug = topic?.slug ?? "";
-  const number = (topic?.exercises.findIndex((exercise) => exercise.id === eid) ?? -1) + 1;
-  const total = topic?.exercises.length ?? 0;
-  const moduleTitle = topic?.title ?? "";
+  const lesson = courseRequested ? course?.lessons.find(item => item.id === search.get("lesson")) : undefined;
+  const projectedTasks = lesson ? marketLessonTasks(lesson, mods) : [];
+  const invalidCourse = courseRequested && !courseLoading && !modulesLoading && (!lesson || !lesson.taskIds.includes(eid) || projectedTasks.some(task => !task));
+  const routeTasks = lesson ? projectedTasks.filter((task): task is Exercise => Boolean(task)) : topic?.exercises ?? [];
+  const number = routeTasks.findIndex(exercise => exercise.id === eid) + 1;
+  const total = routeTasks.length;
+  const moduleTitle = lesson?.title ?? topic?.title ?? "";
+  const taskHref = (taskId: string) => lesson ? marketTaskHref(taskId, lesson.id) : `/practice/${taskId}`;
   const [code, setCode] = useState(""),
     [result, setResult] = useState<RunResult | null>(null),
     [hints, setHints] = useState<string[]>([]),
@@ -120,6 +129,12 @@ export function usePracticeController() {
   },
     go = (n: number) => {
       persist();
+      if (lesson && course) {
+        if (n < 1) return nav("/catalog?course=koda-market");
+        if (n <= total) return nav(taskHref(routeTasks[n - 1].id));
+        const nextLesson = course.lessons[course.lessons.indexOf(lesson) + 1];
+        return nav(nextLesson ? marketTaskHref(nextLesson.taskIds[0], nextLesson.id) : "/catalog?course=koda-market");
+      }
       if(n < 1) return nav(`/topics/${slug}`);
       if(n <= total)
         return nav(`/practice/${topic!.exercises[n - 1].id}`);
@@ -164,13 +179,13 @@ export function usePracticeController() {
     setResult(null);
   };
   return {
-    e: topic ? e : undefined,
-    exerciseError: exerciseError ?? modulesError ?? (
+    e: topic && !(courseRequested && courseLoading) && !invalidCourse ? e : undefined,
+    exerciseError: exerciseError ?? modulesError ?? (courseRequested ? courseError : null) ?? (invalidCourse ? new Error("Задача отсутствует в выбранном уроке проекта") : null) ?? (
       !modulesLoading && e && !topic ? new Error("Task is missing from the catalog") : null
     ),
-    refetchExercise: () => Promise.all([refetchExercise(), refetchModules()]),
-    isFetching: isFetching || modulesFetching,
-    routeTasks: topic?.exercises ?? [],
+    refetchExercise: () => Promise.all([refetchExercise(), refetchModules(), ...(courseRequested ? [refetchCourse()] : [])]),
+    isFetching: isFetching || modulesFetching || (courseRequested && courseFetching),
+    routeTasks, taskHref,
     code, updateCode, result, hints, hintsOpen, setHintsOpen, solution,
     theory, setTheory, left, editorH, splitRef, moduleTitle, number, total,
     action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist,

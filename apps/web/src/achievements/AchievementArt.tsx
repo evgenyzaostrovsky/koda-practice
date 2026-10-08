@@ -54,14 +54,29 @@ const motifs: Record<number,string> = {
 };
 export function AchievementArt({ id, label }: { id:string; label?:string }) {
  const gradient=useId(); const {family,stage}=achievementArtMap[id]??{family:1,stage:1};
- // Each direction has a stable silhouette, each milestone has its own relief marks.
- const fallback = `M${32+family%9} 79L${42+family%7} ${41+family%13}Q60 ${21+family%17} ${80-family%8} ${46+family%11}L87 79Z M43 67Q${54+family%12} ${40+family%18} 77 67`;
- return <svg className="achievement-art" viewBox="0 0 120 120" role={label?"img":undefined} aria-label={label} aria-hidden={label?undefined:true}>
- <defs><linearGradient id={gradient} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#f8faf4"/><stop offset="1" stopColor="#d8e4d2"/></linearGradient></defs>
- <ellipse cx="60" cy="100" rx="27" ry="3" fill="#416d53" opacity=".06"/>
- <path d={`M${27+family%7} 36C${32+family%5} 17 79 16 91 ${34+family%9}S${99-family%7} 82 73 91 23 78 ${27+family%7} 36Z`} fill={`url(#${gradient})`} stroke="#c3d5be"/>
- <path d={motifs[family]??fallback} fill="none" stroke="#416d53" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
- {Array.from({length:Math.min(stage,8)},(_,i)=><circle key={i} cx={45+i*4} cy="94" r="1" fill="#416d53" opacity=".6"/>)}
+ const tier = Math.min(stage,8);
+ const shells = [
+ "M35 80Q22 49 44 34Q67 22 84 48Q97 79 67 88Q48 94 35 80Z",
+ "M29 77Q20 56 39 32Q59 12 82 35Q100 51 87 80Q58 100 29 77Z",
+ "M24 77Q26 41 45 27Q61 13 77 28Q98 45 96 76Q83 97 59 91Q35 98 24 77Z",
+ "M24 81Q16 58 28 36Q41 16 60 22Q82 12 94 39Q104 64 88 85L60 95Z",
+ "M19 79Q15 53 28 32Q35 17 53 23Q66 8 82 26Q105 31 99 66L90 89Q61 105 19 79Z",
+ "M18 82Q12 59 25 34L40 20Q56 27 63 14Q86 13 96 37Q109 56 99 85L74 98L46 94Z",
+ "M16 84L19 45Q19 23 39 19L58 25L74 12Q99 20 104 45L99 83L79 100L51 93L30 98Z",
+ "M13 85Q10 52 23 32L39 13L60 23L81 10Q107 29 108 58L100 89L76 103L54 93L30 102Z"
+ ];
+ return <svg className="achievement-art" data-tier={tier} viewBox="0 0 120 120" role={label?"img":undefined} aria-label={label} aria-hidden={label?undefined:true}>
+ <defs><linearGradient id={gradient} x1="0" y1="0" x2="1" y2="1"><stop stopColor={tier > 4 ? "#f6e7c8" : "#f3f1e8"}/><stop offset="1" stopColor={tier > 2 ? "#adc0ad" : "#d5ded0"}/></linearGradient></defs>
+ <ellipse className="art-shadow" cx="60" cy="105" rx={23+tier*2} ry="3" fill="#416d53" opacity=".09"/>
+ <path className="art-room-base" display="none" d="M46 82H74L72 99H79Q83 99 83 103V108H37V103Q37 99 41 99H48Z" fill="#c3c9b8" stroke="#a4b099" strokeWidth="1"/>
+ <path className="art-shell" d={shells[tier-1]} fill={`url(#${gradient})`} stroke="#9aac97" strokeWidth="1.5"/>
+ {tier >= 2 && <path d="M29 79Q55 98 89 77L88 86Q58 104 31 87Z" fill="#a8b79f" opacity=".6"/>}
+ {tier >= 3 && <path d="M27 42Q40 24 52 31M78 30Q90 37 92 52" fill="none" stroke="#fffaf0" strokeWidth="4" strokeLinecap="round"/>}
+ {tier >= 4 && <path d="M26 85L23 98H97L92 85Q60 103 26 85Z" fill="#c8bc9f" stroke="#a99c80"/>}
+ {tier >= 5 && <path d="M21 65Q4 46 18 31Q31 19 34 39M95 65Q114 47 103 29Q92 18 89 38" fill="none" stroke="#9daa95" strokeWidth="5" strokeLinecap="round"/>}
+ {tier >= 6 && <path d="M43 26Q38 7 54 12Q60 0 67 12Q85 5 79 25" fill="#d9c39a" stroke="#aa9270"/>}
+ {tier >= 7 && <path d="M24 97L18 107H103L96 97Z" fill="#a8b29f" stroke="#7f917e"/>}
+ {tier >= 8 && <path d="M17 30Q8 66 19 87M103 30Q115 67 101 88" fill="none" stroke="#d0b887" strokeWidth="4"/>}
+ <path className="art-motif" d={motifs[family]} fill="none" stroke="#416d53" strokeWidth={tier > 3 ? "2.8" : "2.3"} strokeLinecap="round" strokeLinejoin="round"/>
  </svg>;
 }
-

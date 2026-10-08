@@ -1,0 +1,254 @@
+{
+  "id": "koda-market",
+  "title": "KODA Market — проект аналитика",
+  "lessons": [
+    {
+      "id": "market-1",
+      "title": "Загрузка и обзор данных",
+      "exercise_mode": "python",
+      "taskIds": [
+        "reading-009",
+        "attributes-001",
+        "inspection-001",
+        "market-overview-001",
+        "market-overview-002"
+      ]
+    },
+    {
+      "id": "market-2",
+      "title": "Выбор данных",
+      "exercise_mode": "python",
+      "taskIds": [
+        "columns-010",
+        "filtering-001",
+        "filtering-008",
+        "market-selection-001",
+        "filtering-005"
+      ]
+    },
+    {
+      "id": "market-3",
+      "title": "Сортировка",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-sorting-001",
+        "sorting-002",
+        "market-sorting-002",
+        "market-sorting-003",
+        "sorting-005"
+      ]
+    },
+    {
+      "id": "market-4",
+      "title": "Новые колонки",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-features-001",
+        "change-columns-008",
+        "market-features-002",
+        "change-columns-006"
+      ]
+    },
+    {
+      "id": "market-5",
+      "title": "Фильтрация и даты",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-date-filters-001",
+        "market-date-filters-002",
+        "filtering-002",
+        "market-date-filters-003",
+        "market-date-filters-004"
+      ]
+    },
+    {
+      "id": "market-6",
+      "title": "GroupBy и агрегации",
+      "exercise_mode": "python",
+      "taskIds": [
+        "groupby-001",
+        "market-groupby-001",
+        "market-groupby-002",
+        "groupby-005",
+        "market-groupby-003",
+        "market-groupby-004",
+        "market-groupby-005",
+        "market-groupby-006",
+        "market-groupby-007",
+        "market-groupby-008",
+        "market-groupby-report-001",
+        "market-groupby-report-002"
+      ]
+    },
+    {
+      "id": "market-7",
+      "title": "`transform`",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-transform-001",
+        "market-transform-002",
+        "market-transform-003",
+        "market-transform-004",
+        "market-transform-005"
+      ]
+    },
+    {
+      "id": "market-8",
+      "title": "Пропуски и качество",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-overview-002",
+        "market-quality-002",
+        "recipes-003",
+        "market-quality-003",
+        "market-quality-004"
+      ]
+    },
+    {
+      "id": "market-9",
+      "title": "Дубликаты",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-duplicates-001",
+        "market-duplicates-002",
+        "market-duplicates-003",
+        "market-duplicates-004",
+        "market-duplicates-005"
+      ]
+    },
+    {
+      "id": "market-10",
+      "title": "Pivot и reshape",
+      "exercise_mode": "python",
+      "taskIds": [
+        "pivot-006",
+        "market-reshape-001",
+        "market-reshape-002",
+        "market-reshape-003",
+        "market-reshape-004"
+      ]
+    },
+    {
+      "id": "market-11",
+      "title": "Объединение таблиц",
+      "exercise_mode": "python",
+      "taskIds": [
+        "merge-009",
+        "market-joins-002",
+        "market-joins-003",
+        "market-joins-004"
+      ]
+    },
+    {
+      "id": "market-12",
+      "title": "Даты и временные ряды",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-time-001",
+        "market-time-002",
+        "market-time-003",
+        "market-time-004",
+        "market-time-005"
+      ]
+    },
+    {
+      "id": "market-13",
+      "title": "Строки и категории",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-strings-001",
+        "market-strings-002",
+        "market-mapping-001",
+        "market-strings-004",
+        "market-strings-005"
+      ]
+    },
+    {
+      "id": "market-14",
+      "title": "`map`, `apply`, `lambda`",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-mapping-001",
+        "market-mapping-002",
+        "market-mapping-003",
+        "market-mapping-004",
+        "market-mapping-005"
+      ]
+    },
+    {
+      "id": "market-15",
+      "title": "Визуализация",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-charts-001",
+        "pandas-plots-003",
+        "market-charts-002",
+        "pandas-plots-006",
+        "market-charts-003"
+      ]
+    },
+    {
+      "id": "market-16",
+      "title": "Итоговые pandas-кейсы",
+      "exercise_mode": "python",
+      "taskIds": [
+        "market-cases-001",
+        "market-cases-002",
+        "market-cases-003",
+        "market-cases-004",
+        "market-cases-005"
+      ]
+    },
+    {
+      "id": "market-17",
+      "title": "SQL на тех же данных",
+      "exercise_mode": "sql",
+      "taskIds": [
+        "market-sql-001",
+        "market-sql-002",
+        "market-sql-003",
+        "market-sql-004",
+        "market-sql-005",
+        "market-sql-006",
+        "market-sql-007",
+        "market-sql-008",
+        "market-sql-009",
+        "market-sql-010"
+      ]
+    },
+    {
+      "id": "market-18",
+      "title": "Excel",
+      "exercise_mode": "excel",
+      "taskIds": [
+        "market-excel-001",
+        "market-excel-002",
+        "market-excel-003",
+        "market-excel-004",
+        "market-excel-005",
+        "market-excel-006",
+        "market-excel-007",
+        "market-excel-008",
+        "market-excel-009",
+        "market-excel-010"
+      ]
+    },
+    {
+      "id": "market-19",
+      "title": "Power BI",
+      "exercise_mode": "power-bi",
+      "taskIds": [
+        "market-power-bi-001",
+        "market-power-bi-002",
+        "market-power-bi-003",
+        "market-power-bi-004",
+        "market-power-bi-005",
+        "market-power-bi-006",
+        "market-power-bi-007",
+        "market-power-bi-008",
+        "market-power-bi-009",
+        "market-power-bi-010"
+      ]
+    }
+  ]
+}

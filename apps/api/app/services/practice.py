@@ -8,7 +8,7 @@ from .progress import persist_attempt
 
 EXPECTED_RESULTS = {}
 
-def used_methods(code:str)->set[str]:
+def used_methods(code:str, calls_only=False)->set[str]:
     try: tree=ast.parse(code)
     except SyntaxError: return set()
     assignments={target.id:value for node in tree.body if isinstance(node,(ast.Assign,ast.AnnAssign)) for target in ([*node.targets] if isinstance(node,ast.Assign) else [node.target]) if isinstance(target,ast.Name) for value in [node.value]}
@@ -23,6 +23,17 @@ def used_methods(code:str)->set[str]:
                 if isinstance(child,ast.Name):include(child.id)
     include('result')
     relevant=ast.Module(body=[ast.Expr(value=x) for x in roots],type_ignores=[])
+    if calls_only:
+        def called_name(function):
+            seen_aliases=set()
+            while isinstance(function,ast.Name) and function.id in assignments and function.id not in seen_aliases:
+                seen_aliases.add(function.id)
+                assigned=assignments[function.id]
+                if not isinstance(assigned,(ast.Name,ast.Attribute)):break
+                function=assigned
+            return function.attr if isinstance(function,ast.Attribute) else function.id
+        return {called_name(node.func) for node in ast.walk(relevant)
+                if isinstance(node,ast.Call) and isinstance(node.func,(ast.Attribute,ast.Name))}
     return (
         {n.attr for n in ast.walk(relevant) if isinstance(n,ast.Attribute)}
         | {n.id for n in ast.walk(relevant) if isinstance(n,ast.Name)}
@@ -40,12 +51,13 @@ def attempt_dataset(e):
 def submit_attempt(body, account):
     e=EXERCISES.get(body.exercise_id)
     if not e: raise HTTPException(404,'Задача не найдена')
-    actual=run(body.code,attempt_dataset(e),e['result_variable'])
+    actual=run(body.code,attempt_dataset(e),e['result_variable'],exercise_mode=e.get('exercise_mode','python'))
     expected=EXPECTED_RESULTS.get(body.exercise_id)
     if expected is None:
-        expected=run(e['solution_code'],e['dataset'],e['result_variable'],setup_code=e['setup_code']);EXPECTED_RESULTS[body.exercise_id]=expected
+        expected=run(e['solution_code'],e['dataset'],e['result_variable'],setup_code=e['setup_code'],exercise_mode=e.get('exercise_mode','python'));EXPECTED_RESULTS[body.exercise_id]=expected
     equal,diff=compare_results(actual,expected) if actual.get('ok') else (False,{})
     missing=set(e.get('required_tokens',[]))-used_methods(body.code)
+    missing |= set(e.get('required_calls',[]))-used_methods(body.code,calls_only=True)
     passed=actual.get('ok') and equal and not actual.get('mutated_inputs') and not missing
     if actual.get('ok') and actual.get('mutated_inputs'):
         actual.update(diff); actual.update(error_type='WrongAnswer',error='Исходные данные были изменены.',difference=f"Не изменяйте входные переменные: {', '.join(actual['mutated_inputs'])}.")
@@ -57,5 +69,5 @@ def submit_attempt(body, account):
     details=explain(actual)
     if not passed:
         details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)]['text'])
-    evidence=achievement_evidence(body.code,e['solution_code']) if passed else None
+    evidence=achievement_evidence(body.code,e['solution_code']) if passed and e.get('exercise_mode','python') == 'python' else None
     return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e['completion_summary'],'completion_summary':e['completion_summary'],'achievement_evidence':evidence,'explanation':None if passed else details}

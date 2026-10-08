@@ -25,7 +25,10 @@ async function watchIsolation(page: Page) {
     expect(apiRequests).toEqual([]);
     expect(mutations).toEqual([]);
     const writes = await page.evaluate(() => (window as unknown as { __prototypeStorageWrites: string[] }).__prototypeStorageWrites);
-    expect(writes.filter(key => key !== 'koda:theme')).toEqual([]);
+    // Global theme initialization persists its migration marker before route isolation.
+    // Both preferences predate the prototype; all practice/progress writes stay forbidden.
+    expect(writes.filter(key => !['koda:theme', 'koda:air-migration:v1'].includes(key))).toEqual([]);
+    expect(await page.evaluate(() => localStorage.getItem('koda:air-migration:v1'))).toBe('done');
   };
 }
 

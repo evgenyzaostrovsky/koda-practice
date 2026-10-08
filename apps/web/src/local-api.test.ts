@@ -1,13 +1,25 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { localApi } from "./local-api";
 
-const exercise = { id: "task-001", solution_code: "result = 42", xp: 15, hints: ["Подсказка"], explanation: "Ответ" };
+const exercise = { id: "task-001", solution_code: "result = 42", expected_result: { kind: "scalar", data: 42 }, xp: 15, hints: ["Подсказка"], explanation: "Ответ" };
 const catalog = { modules: [{ slug: "module", title: "Модуль", topics: [{ slug: "topic", exercises: [exercise] }] }] };
 
 describe("local API run semantics", () => {
   beforeEach(() => {
     localStorage.clear();
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ json: () => Promise.resolve(catalog) }));
+  });
+
+  it("keeps answers private on public catalog and exercise routes", async () => {
+    for (const path of ["/modules", "/topics/topic", "/exercises/task-001"]) {
+      const response = await localApi(path);
+      const serialized = JSON.stringify(response);
+      expect(serialized, path).not.toContain('"solution_code"');
+      expect(serialized, path).not.toContain('"expected_result"');
+      expect(serialized, path).toContain('"task-001"');
+    }
+    const solution = await localApi<{ solution: string }>("/exercises/task-001/solution");
+    expect(solution.solution).toBe(exercise.solution_code);
   });
 
   it("does not grade code or increment attempts on Run", async () => {

@@ -210,6 +210,30 @@ export function ResultPreview({
         ))}
       </div>
     );
+  if(result.kind === "plot" && result.image?.startsWith("data:image/png;base64,")) {
+    const description = [result.title || "График", result.xlabel, result.ylabel]
+      .filter(Boolean)
+      .join(" — ");
+    return (
+      <figure style={{ margin: 0, minWidth: 0 }}>
+        <img
+          src={result.image}
+          alt={description}
+          style={{ display: "block", maxWidth: "100%", height: "auto", margin: "0 auto" }}
+        />
+        {result.insight && (
+          <figcaption>
+            <p>Категория с наибольшим средним: <strong>{result.insight.best_category}</strong>.</p>
+            <p>
+              Средние значения: {Object.entries(result.insight.means)
+                .map(([category, mean]) => `${category}: ${mean.toLocaleString("ru-RU", { maximumFractionDigits: 2 })}`)
+                .join("; ")}.
+            </p>
+          </figcaption>
+        )}
+      </figure>
+    );
+  }
   if(result.kind === "plot")
     return (
       <div className="feedback success compact">

@@ -14,8 +14,11 @@ def test_existing_bank_is_fully_linked_to_stable_knowledge_units():
     catalog=json.loads((ROOT/'content/catalog.json').read_text(encoding='utf-8'))
     units=json.loads((ROOT/'content/knowledge_units.json').read_text(encoding='utf-8'))['units']
     tasks={exercise['id']:exercise for module in catalog['modules'] for topic in module['topics'] for exercise in topic['exercises']}
-    assert len(units)==20
-    assert len(tasks)==200
+    original_ids=set(json.loads((Path(__file__).with_name('fixtures')/'koda_market/stable_task_ids.json').read_text(encoding='utf-8')))
+    topics=[topic for module in catalog['modules'] for topic in module['topics']]
+    assert len(units)==len(topics)
+    assert original_ids <= set(tasks)
+    assert all(1 <= len(unit['taskIds']) <= 10 for unit in units)
     assert {task_id for unit in units for task_id in unit['taskIds']}==set(tasks)
     assert all(tasks[task_id]['knowledge_unit_id']==unit['id'] for unit in units for task_id in unit['taskIds'])
 
@@ -38,7 +41,9 @@ def test_duplicate_normalization_ignores_renamed_data_and_literals():
 def test_knowledge_api_publishes_complete_materials():
     with TestClient(app) as client:
         units=client.get('/knowledge').json()
-        assert len(units)==20
+        expected_units=json.loads((ROOT/'content/knowledge_units.json').read_text(encoding='utf-8'))['units']
+        assert len(units)==len(expected_units)
+        assert {unit['slug'] for unit in units}=={unit['slug'] for unit in expected_units}
         detail=client.get(f"/knowledge/{units[0]['slug']}")
         assert detail.status_code==200
         material=detail.json()

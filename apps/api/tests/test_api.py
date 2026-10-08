@@ -1,3 +1,6 @@
+import csv
+import io
+import json
 import sys
 from pathlib import Path
 
@@ -5,7 +8,9 @@ sys.path.insert(0,str(Path(__file__).parents[1]))
 from fastapi.testclient import TestClient
 from app.main import app, used_methods
 from app.runner import compare_results
-from app.content import EXERCISES
+from app.content import CATALOG, EXERCISES
+
+BASELINE_IDS = set(json.loads((Path(__file__).with_name('fixtures') / 'koda_market/stable_task_ids.json').read_text(encoding='utf-8')))
 
 def prepared(eid,code):
     return f"{EXERCISES[eid]['setup_code']}\n\n{code}"
@@ -16,20 +21,28 @@ def test_catalog_and_private_solutions():
         response=client.get('/modules')
         assert response.status_code==200
         modules=response.json()
-        assert len(modules)==20
-        assert sum(len(t['exercises']) for m in modules for t in m['topics'])==200
-        assert all(len(t['exercises'])==10 for m in modules for t in m['topics'])
+        assert len(modules)==len(CATALOG['modules'])
+        published_ids=[e['id'] for m in modules for t in m['topics'] for e in t['exercises']]
+        assert len(published_ids)==len(EXERCISES)
+        assert set(published_ids)==set(EXERCISES)
+        assert BASELINE_IDS <= set(published_ids)
+        assert all(1 <= len(t['exercises']) <= 10 for m in modules for t in m['topics'])
         assert 'solution_code' not in str(modules)
 
 
 def test_groupby_full_cycle():
     with TestClient(app) as client:
         eid='groupby-001'
-        bad=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = df.groupby("store")["sales"].mean()')}).json()
-        assert bad['passed'] is False and bad['explanation']['check']
+        bad=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = orders.groupby("city")["revenue"].mean()')}).json()
+        assert bad['ok'] is True and bad['passed'] is False and bad['explanation']['check']
         assert client.post(f'/exercises/{eid}/hints/1').json()['content']
-        good=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = df.groupby("store")["sales"].sum()')}).json()
+        good=client.post('/attempts/submit',json={'exercise_id':eid,'code':prepared(eid,'result = orders.groupby("city")["revenue"].sum()')}).json()
         assert good['passed'] is True and good['tests_passed']==1
+        totals={}
+        rows=csv.DictReader(io.StringIO(EXERCISES[eid]['dataset']['files']['koda_market_orders.csv']))
+        for row in rows: totals[row['city']]=totals.get(row['city'],0)+int(row['revenue'])
+        assert good['result']['index']==sorted(totals)
+        assert good['result']['data']==[totals[city] for city in sorted(totals)]
 
 
 def test_runner_blocks_dangerous_import():
@@ -92,7 +105,9 @@ def test_every_exercise_has_retrievable_theory():
     with TestClient(app) as client:
         modules=client.get('/modules').json()
         exercises=[exercise for module in modules for topic in module['topics'] for exercise in topic['exercises']]
-        assert len(exercises)==200
+        assert len(exercises)==len(EXERCISES)
+        assert {exercise['id'] for exercise in exercises}==set(EXERCISES)
+        assert BASELINE_IDS <= {exercise['id'] for exercise in exercises}
         for exercise in exercises:
             response=client.get(f"/theory/{exercise['theory_article_id']}")
             assert response.status_code==200

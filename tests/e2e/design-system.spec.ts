@@ -22,11 +22,13 @@ for (const width of [1440, 390]) {
     await page.goto('/design-system');
     await expect(page.getByRole('heading', { name: 'Soft Line', exact: true })).toBeVisible();
     await expect(page.getByText('UI Kit · демо без сохранения')).toBeVisible();
-    await expect(page.locator('.kit-icon-tile')).toHaveCount(20);
+    await expect(page.locator('.kit-icon-tile')).toHaveCount(22);
+    await expect(page.locator('.kit-icon-tile').filter({ hasText: 'History' })).toHaveCount(1);
+    await expect(page.locator('.kit-icon-tile').filter({ hasText: 'Errors' })).toHaveCount(1);
     await page.getByRole('textbox', { name: 'Поиск иконок' }).fill('Hint');
     await expect(page.locator('.kit-icon-tile')).toHaveCount(1);
     await page.getByRole('button', { name: 'Очистить поиск', exact: true }).click();
-    await expect(page.locator('.kit-icon-tile')).toHaveCount(20);
+    await expect(page.locator('.kit-icon-tile')).toHaveCount(22);
     await page.getByRole('textbox', { name: 'Поиск иконок' }).fill('no-such-icon');
     await expect(page.getByText('Иконки не найдены.')).toBeVisible();
     await page.getByRole('button', { name: 'Очистить поиск', exact: true }).click();
@@ -66,6 +68,7 @@ for (const width of [1440, 390]) {
     expect(errors).toEqual([]);
     expect(traffic).toEqual([]);
     const writes = await page.evaluate(() => (window as unknown as { __kitStorageWrites: string[] }).__kitStorageWrites);
-    expect(writes.filter(key => key !== 'koda:theme')).toEqual([]);
+    expect(writes.filter(key => !['koda:theme', 'koda:air-migration:v1'].includes(key))).toEqual([]);
+    expect(await page.evaluate(() => localStorage.getItem('koda:air-migration:v1'))).toBe('done');
   });
 }

@@ -1,5 +1,5 @@
 import type { AchievementManifest } from "./types";
-const URL = "/achievements/manifest.json?v=2.1.1";
+const URL = "/achievements/manifest.json?v=2.2.0";
 let cached: AchievementManifest | null = null;
 let pending: Promise<AchievementManifest> | null = null;
 export function loadAchievementManifest() { if (cached) return Promise.resolve(cached); if (!pending) pending = fetch(URL, { cache: "no-store" }).then((response) => { if (!response.ok) throw new Error("Achievement manifest unavailable"); return response.json() as Promise<AchievementManifest>; }).then((manifest) => (cached = manifest)).finally(() => { pending = null; }); return pending; }

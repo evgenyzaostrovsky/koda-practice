@@ -1,8 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { KnowledgeArticle, KnowledgeIndex } from "./Knowledge";
+import { api } from "./api";
 
 const unit = {
   id: "ku-groupby",
@@ -90,7 +91,23 @@ const wrap = (ui: React.ReactNode, route = "/knowledge") =>
   );
 
 describe("knowledge base", () => {
-  beforeEach(() => localStorage.clear());
+  beforeEach(() => {
+    cleanup();
+    localStorage.clear();
+    vi.mocked(api).mockImplementation((path: string) => Promise.resolve(path === "/knowledge" ? [unit] : path === "/progress" ? progress : unit) as ReturnType<typeof api>);
+  });
+  it("exposes loaded SQL, Excel and Power BI category filters without mixing their units", async () => {
+    const extra = ["SQL", "Excel", "Power BI"].map(category => ({ ...unit, id: `ku-${category}`, slug: category, title: `${category} урок`, category }));
+    vi.mocked(api).mockImplementation((path: string) => Promise.resolve(path === "/knowledge" ? [unit, ...extra] : progress) as ReturnType<typeof api>);
+    wrap(<KnowledgeIndex />);
+    await screen.findByText("SQL урок");
+    for (const category of ["SQL", "Excel", "Power BI"]) {
+      fireEvent.click(screen.getByRole("button", { name: category }));
+      expect(screen.getByText(`${category} урок`)).toBeInTheDocument();
+      expect(screen.queryByText("Группировка")).not.toBeInTheDocument();
+      for (const other of extra.filter(item => item.category !== category)) expect(screen.queryByText(other.title)).not.toBeInTheDocument();
+    }
+  });
   it("searches real material and filters libraries", async () => {
     wrap(<KnowledgeIndex />);
     expect(await screen.findByText("Группировка")).toBeInTheDocument();

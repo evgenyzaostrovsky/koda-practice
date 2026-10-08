@@ -23,15 +23,23 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
   );
   useEffect(() => {
     const previous = document.body.style.overflow;
+    const opener = document.activeElement as HTMLElement | null;
     document.body.style.overflow = "hidden";
     dialog.current?.querySelector<HTMLElement>("button")?.focus();
     const key = (event: KeyboardEvent) => {
       if (event.key === "Escape") onClose();
+      if (event.key === "Tab") {
+        const buttons = Array.from(dialog.current?.querySelectorAll<HTMLElement>('button:not([disabled])') ?? []).filter(el => el.tabIndex >= 0);
+        const first = buttons[0], last = buttons[buttons.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+      }
     };
     document.addEventListener("keydown", key);
     return () => {
       document.body.style.overflow = previous;
       document.removeEventListener("keydown", key);
+      opener?.focus();
     };
   }, [onClose]);
 
@@ -140,7 +148,7 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
                   }
                 }}
                 key={item.def.id}
-                aria-selected={isSelected}
+                aria-pressed={isSelected}
                 tabIndex={isSelected ? 0 : -1}
                 aria-label={`${displayName}. ${state === "unlocked" ? "Получено" : state === "next" ? "Следующая цель" : "Будущая ступень"}`}
               >
@@ -151,11 +159,9 @@ export function AchievementFamilyDialog({ family, onClose }: Props) {
                 <small>
                   {concealed
                     ? "Условие скрыто"
-                    : state === "next"
-                    ? item.progress.text
-                    : item.unlock
-                      ? "Получено"
-                      : `${index + 1} ступень`}
+                    : item.def.secret && item.unlock
+                      ? item.def.condition_after_unlock || item.def.condition
+                      : item.def.condition}
                 </small>
               </button>
             );
