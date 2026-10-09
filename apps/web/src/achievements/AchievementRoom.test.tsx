@@ -19,7 +19,7 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 
 describe("achievement room behavior", () => {
-  it("limits the room to ten accessible objects and exposes all fifty families in the collection", async () => {
+  it("limits the room to ten accessible objects and exposes all fifty-one families in the collection", async () => {
     open();
     await screen.findByRole("button", { name: "Показать названия" });
     const roomObjects = [...document.querySelectorAll<HTMLButtonElement>(".room-trophy")];
@@ -33,7 +33,7 @@ describe("achievement room behavior", () => {
     expect(document.querySelectorAll(".room-trophy > span")).toHaveLength(10);
     expect(screen.getByRole("button", { name: "Показать названия" })).toHaveAttribute("aria-pressed", "true");
     fireEvent.click(screen.getByRole("button", { name: "Вся коллекция" }));
-    expect(document.querySelectorAll(".family-preview")).toHaveLength(50);
+    expect(document.querySelectorAll(".family-preview")).toHaveLength(51);
     expect(document.querySelector(".achievement-room")).toBeNull();
   });
 

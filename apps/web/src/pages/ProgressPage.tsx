@@ -1,9 +1,12 @@
+import { useMeasuredStudyTotals } from "../StudySessionControl";
+import { formatStudyDuration } from "../study-time";
 import { useQuery } from "@tanstack/react-query";
 import { Check, Code2, Trophy } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Card, Header } from "../components/practice-shared";
 import { progressQ } from "../queries";
 export function ProgressPage() {
+  const time=useMeasuredStudyTotals();
   const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
   return (
     <>
@@ -19,6 +22,8 @@ export function ProgressPage() {
           <Card label="Попыток" value={p?.attempts ?? 0} icon={<Code2 />} />
           <Card label="XP" value={p?.xp ?? 0} icon={<Trophy />} />
         </div>
+        <h2>Время занятий · по таймеру</h2>
+        <div className="study-time-summary"><div><strong>{formatStudyDuration(time.totalSeconds)}</strong><span>Всего</span></div><div><strong>{formatStudyDuration(time.todaySeconds)}</strong><span>Сегодня</span></div><div><strong>{formatStudyDuration(time.weekSeconds)}</strong><span>За последние 7 дней</span></div></div>
         <h2>Практика за неделю</h2>
         <div className="compact-week-card"><div className="compact-week-chart">{Array.from({length:7}, (_, i) => { const day = new Date(); day.setDate(day.getDate() - 6 + i); const count = p?.activity.find(a => a.day === day.toISOString().slice(0,10))?.solved ?? 0; const maximum = Math.max(1, ...(p?.activity.map(a => a.solved) ?? [])); return <div key={i}><span title={`${count} решённых задач`} style={{height: `${Math.max(2, count / maximum * 120)}px`}}/><small>{day.toLocaleDateString("ru", {weekday:"short"})}</small></div>; })}</div></div>
         <h2>Прогресс по темам</h2>

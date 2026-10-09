@@ -41,7 +41,8 @@ export type AchievementEventType =
   | "eda_completed"
   | "project_scored"
   | "solution_revealed"
-  | "session_completed";
+  | "session_completed"
+  | "study_interval_recorded";
 export type AchievementEvent = {
   eventId: string;
   type: AchievementEventType;

@@ -454,5 +454,10 @@ export const achievementArtMap: Record<string, { family: number; stage: number }
   "proven_by_time": {
     "family": 50,
     "stage": 1
-  }
+  },
+  study_first_immersion: { family: 51, stage: 1 },
+  study_found_rhythm: { family: 51, stage: 2 },
+  study_engaged_practice: { family: 51, stage: 3 },
+  study_attentive_research: { family: 51, stage: 4 },
+  study_long_journey: { family: 51, stage: 5 },
 };

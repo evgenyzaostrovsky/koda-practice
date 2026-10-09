@@ -1,3 +1,4 @@
+import { StudySessionControl } from "./StudySessionControl";
 import { useQuery } from "@tanstack/react-query";
 import { useAuth } from "./auth";
 import { AlertTriangle, Award, BookOpen, ChartNoAxesCombined, Circle, Code2, Flame, FlaskConical, Home, Layers3, Menu, PanelLeftClose, PanelLeftOpen, X } from "lucide-react";
@@ -125,10 +126,11 @@ function Layout() {
         </>
       )}
       <main className={`compact-main compact-${pathname.startsWith("/practice/") ? "practice" : pathname.startsWith("/topics/") ? "topic" : pathname.startsWith("/knowledge/") ? "material" : pathname === "/" ? "home" : pathname.split("/").filter(Boolean).join("-")}`}>
+        <div className="compact-header-actions"><StudySessionControl/>
         <Link className="compact-profile-link" to="/profile" aria-label="Открыть профиль">
           <span className="compact-profile-avatar">{(user?.user_metadata?.display_name || user?.email || "П").trim().charAt(0).toLocaleUpperCase("ru")}</span>
           <span><b>{user?.user_metadata?.display_name || user?.email?.split("@")[0] || "Ваш профиль"}</b><small>Профиль →</small></span>
-        </Link>
+        </Link></div>
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/catalog" element={<Catalog />} />

@@ -7,6 +7,7 @@ const root = path.resolve("public/achievements");
 const manifest = JSON.parse(
   fs.readFileSync(path.join(root, "manifest.json"), "utf8"),
 ) as AchievementManifest;
+const baseline = JSON.parse(fs.readFileSync(path.resolve("src/achievements/fixtures/manifest-before-study-time.json"), "utf8")) as AchievementManifest;
 const definitions = manifest.families.flatMap((family) => family.achievements);
 const originalIds = [
   "first_task",
@@ -67,22 +68,26 @@ const originalIds = [
 ];
 
 describe("achievement manifest v2", () => {
-  it("contains 114 unique achievements in 50 ordered families", () => {
-    expect(manifest.achievement_count).toBe(114);
-    expect(manifest.family_count).toBe(50);
-    expect(new Set(definitions.map((item) => item.id)).size).toBe(114);
+  it("preserves114 original achievements and adds five study-time stages in51 ordered families", () => {
+    const prior = baseline.families.flatMap(family => family.achievements);
+    expect(prior).toHaveLength(114);
+    for (const definition of prior) expect(definitions.find(item => item.id === definition.id), definition.id).toEqual(definition);
+    expect(definitions.filter(item => item.id.startsWith("study_"))).toHaveLength(5);
+    expect(manifest.achievement_count).toBe(119);
+    expect(manifest.family_count).toBe(51);
+    expect(new Set(definitions.map((item) => item.id)).size).toBe(119);
     expect(new Set(manifest.families.map((family) => family.slug)).size).toBe(
-      50,
+      51,
     );
     expect(
       manifest.families.map((family) => Number(family.slug.slice(0, 2))),
-    ).toEqual(Array.from({ length: 50 }, (_, index) => index + 1));
+    ).toEqual(Array.from({ length: 51 }, (_, index) => index + 1));
   });
 
   it("preserves original stable ids and resolves every unique icon", () => {
     const ids = new Set(definitions.map((item) => item.id));
     originalIds.forEach((id) => expect(ids.has(id), id).toBe(true));
-    expect(new Set(definitions.map((item) => item.icon)).size).toBe(114);
+    expect(new Set(definitions.map((item) => item.icon)).size).toBe(119);
     definitions.forEach((item) =>
       expect(fs.existsSync(path.join(root, item.icon)), item.icon).toBe(true),
     );

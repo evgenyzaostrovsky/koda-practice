@@ -1,3 +1,4 @@
+import { formatStudyDuration, measuredStudySeconds } from "../study-time";
 import type { AchievementEvent, AchievementProgress } from "./types";
 
 type Result = { current: number; target: number; text?: string };
@@ -350,6 +351,20 @@ export function v2Progress(
   id: string,
   events: AchievementEvent[],
 ): AchievementProgress | null {
+  const studyTargets: Record<string, number> = {
+    study_first_immersion: 900,
+    study_found_rhythm: 3600,
+    study_engaged_practice: 18000,
+    study_attentive_research: 54000,
+    study_long_journey: 144000,
+  };
+  if (studyTargets[id]) {
+    const current = measuredStudySeconds(events);
+    const target = studyTargets[id];
+    const goal = target < 3600 ? `${target / 60} мин` : `${target / 3600} ч`;
+    const elapsed = formatStudyDuration(Math.min(current, target));
+    return progress({ current, target, text: `${elapsed} / ${goal}` });
+  }
   const target = targets[id];
   if (!target) return null;
   events = events.filter((event) => !event.eventId.includes("backfill"));

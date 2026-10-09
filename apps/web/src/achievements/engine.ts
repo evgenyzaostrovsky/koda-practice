@@ -6,6 +6,8 @@ import type {
   AchievementSnapshot,
   AchievementStats,
 } from "./types";
+import { appendStudyJournal, readStudyJournal } from "../study-journal";
+import { validStudyInterval, type StudyInterval } from "../study-time";
 import { achievementRules } from "./rules";
 import { scheduleAchievementCloudSave } from "./cloud";
 import { v2Progress } from "./v2-evaluator";
@@ -13,8 +15,14 @@ const LEGACY_KEY = "koda:achievements:v1";
 let storageUserId: string | null = null;
 const storageKey = () => storageUserId ? `${LEGACY_KEY}:${storageUserId}` : LEGACY_KEY;
 export function setAchievementStorageUser(userId: string | null) {
+  if(storageUserId!==userId)window.dispatchEvent(new CustomEvent("koda-study-account-leaving",{detail:userId}));
   storageUserId = userId;
-  if (userId && !localStorage.getItem(storageKey()) && localStorage.getItem(LEGACY_KEY)) localStorage.setItem(storageKey(), localStorage.getItem(LEGACY_KEY)!);
+  if (userId && !localStorage.getItem(storageKey()) && localStorage.getItem(LEGACY_KEY)) {
+    try { const legacy=JSON.parse(localStorage.getItem(LEGACY_KEY)!);
+    legacy.events=(legacy.events||[]).filter((event:AchievementEvent)=>event.type!=="study_interval_recorded");
+    legacy.unlocked=Object.fromEntries(Object.entries(legacy.unlocked||{}).filter(([id,unlock])=>!id.startsWith("study_")&&!String((unlock as {sourceEventId?:string}).sourceEventId).startsWith("study_interval_recorded:")));
+    localStorage.setItem(storageKey(),JSON.stringify(legacy)); } catch { /* corrupted legacy cache is not imported */ }
+  }  window.dispatchEvent(new CustomEvent("koda-study-account-changed",{detail:userId}));
 }
 const KEY = LEGACY_KEY,
   BACKFILL = 2;
@@ -28,16 +36,29 @@ const blank = (): AchievementSnapshot => ({
 });
 export const loadSnapshot = (): AchievementSnapshot => {
   try {
-    return { ...blank(), ...JSON.parse(localStorage.getItem(storageKey()) || "{}") };
+    const snapshot={ ...blank(), ...JSON.parse(localStorage.getItem(storageKey()) || "{}") } as AchievementSnapshot;
+    snapshot.events=[...new Map([...snapshot.events,...readStudyJournal(storageUserId)].map(event=>[event.eventId,event])).values()];
+    return snapshot;
   } catch {
-    return blank();
+    return {...blank(),events:readStudyJournal(storageUserId)};
   }
 };
 export const saveSnapshot = (s: AchievementSnapshot) => {
-  localStorage.setItem(storageKey(), JSON.stringify(s));
-  scheduleAchievementCloudSave(s);
+  // Migrate before omitting: a failed durable journal write must retain the cache.
+  for(const event of s.events)if(event.type==="study_interval_recorded")appendStudyJournal(storageUserId,event);
+  localStorage.setItem(storageKey(), JSON.stringify({...s,events:s.events.filter(event=>event.type!=="study_interval_recorded")}));
+  scheduleAchievementCloudSave(s,storageUserId);
   window.dispatchEvent(new CustomEvent("koda-achievements-updated"));
 };
+export function recordStudyInterval(interval:StudyInterval,expectedUserId:string|null){
+  if(storageUserId!==expectedUserId||!validStudyInterval(interval))return false;
+  const snapshot=loadSnapshot(),eventId=`study_interval_recorded:${interval.id}`;
+  if(snapshot.events.some(event=>event.eventId===eventId))return true;
+  const event:AchievementEvent={eventId,type:"study_interval_recorded",payload:{...interval},occurredAt:interval.end,localDate:new Intl.DateTimeFormat("en-CA",{timeZone:interval.timezone}).format(new Date(interval.end)),version:1};
+  appendStudyJournal(storageUserId,event);
+  snapshot.events.push(event);
+  saveSnapshot(snapshot);return true;
+}
 export const stableCodeFingerprint = (code: string) => {
   let hash = 2166136261;
   for (const character of code.replace(/\s+/g, " ").trim()) {
@@ -376,8 +397,10 @@ export function evaluate(manifest: AchievementManifest, s = loadSnapshot()) {
     }
   }
   if (changed) {
-    localStorage.setItem(storageKey(), JSON.stringify(s));
-    scheduleAchievementCloudSave(s);
+    // Migrate before omitting: a failed durable journal write must retain the cache.
+  for(const event of s.events)if(event.type==="study_interval_recorded")appendStudyJournal(storageUserId,event);
+  localStorage.setItem(storageKey(), JSON.stringify({...s,events:s.events.filter(event=>event.type!=="study_interval_recorded")}));
+    scheduleAchievementCloudSave(s,storageUserId);
   }
   return {
     snapshot: s,

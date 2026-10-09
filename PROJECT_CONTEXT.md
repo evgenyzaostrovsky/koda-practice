@@ -119,3 +119,9 @@ Release validation: working and staged content audits passed for 295 tasks/41 un
 ## Shared sidebar-to-content spacing
 
 The compact theme now uses a consistent 20px desktop leading gutter, with readable page/article width caps aligned left; mobile keeps its 18px gutter. Sandbox fills available main width without changing stacked code/result flow, editor height, data, progress or execution. See docs/content-spacing-review.md for the eight-role decision and independent geometry acceptance.
+
+## Manual study time and ivory room (2026-10-09)
+
+An optional global study timer beside the profile supports Start, Pause, Resume and Finish. Hidden pages and ownership/account transitions pause it; durable account-scoped immutable intervals supply Progress, Dashboard and a five-stage time achievement. Intervals are unioned, never inferred from old task sessions. Five-second visibility heartbeats and one-minute journal persistence avoid excessive storage; normal pause/close flushes immediately, while an abrupt crash may lose the unflushed minute. Observer hydration never rewrites the timer owner's metadata. Cloud sync uploads only unacknowledged intervals and preserves anonymous/account separation.
+
+The achievement room uses the Founder’s cream architectural reference as an edited empty backdrop, interactive tier-specific glass objects on two shelves and a clock on the table, with a mobile grid. Existing 114 definitions remain unchanged; there are now 119 achievements in 51 families. Review, asset provenance, final prompt and verification limits: docs/study-time-room-review.md.

@@ -13,10 +13,10 @@ describe("achievement family artwork", () => {
   it("renders a distinct motif for every family preview", () => {
     const { container } = render(<>{manifest.families.map((family) => <AchievementArt key={family.slug} id={family.achievements[0].id} />)}</>);
     const artwork = [...container.querySelectorAll(".achievement-art")];
-    expect(artwork).toHaveLength(50);
+    expect(artwork).toHaveLength(51);
     const motifs = artwork.map((art) => art.querySelector(".art-motif")?.getAttribute("d"));
     expect(motifs.every(Boolean)).toBe(true);
-    expect(new Set(motifs).size).toBe(50);
+    expect(new Set(motifs).size).toBe(51);
     artwork.forEach((art) => expect(art).toHaveAttribute("aria-hidden", "true"));
   });
 

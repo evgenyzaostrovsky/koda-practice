@@ -1,5 +1,5 @@
 {
-  "version": "2.3.0",
+  "version": "2.2.0",
   "product": "KODA Practice",
   "icon_format": {
     "type": "PNG",
@@ -7,8 +7,8 @@
     "height": 512,
     "background": "transparent"
   },
-  "achievement_count": 119,
-  "family_count": 51,
+  "achievement_count": 114,
+  "family_count": 50,
   "families": [
     {
       "slug": "01_solved_tasks",
@@ -1457,72 +1457,6 @@
           "xp": 1200,
           "reward": "Титул «Доказано временем» и уникальная рамка профиля",
           "icon": "icons/50_proven_by_time/01_proven_by_time.png"
-        }
-      ]
-    },
-    {
-      "slug": "51_study_time",
-      "name": "Время погружения",
-      "achievements": [
-        {
-          "id": "study_first_immersion",
-          "name": "Первое погружение",
-          "condition": "Накопить 15 минут учебного времени с таймером.",
-          "condition_after_unlock": "Вы накопили 15 минут учебного времени с таймером.",
-          "secret": false,
-          "rarity": "common",
-          "rarity_ru": "Обычное",
-          "xp": 50,
-          "reward": "",
-          "icon": "icons/51_study_time/01_study_first_immersion.png"
-        },
-        {
-          "id": "study_found_rhythm",
-          "name": "Найденный ритм",
-          "condition": "Накопить 1 час учебного времени с таймером.",
-          "condition_after_unlock": "Вы накопили 1 час учебного времени с таймером.",
-          "secret": false,
-          "rarity": "uncommon",
-          "rarity_ru": "Необычное",
-          "xp": 100,
-          "reward": "",
-          "icon": "icons/51_study_time/02_study_found_rhythm.png"
-        },
-        {
-          "id": "study_engaged_practice",
-          "name": "Вовлечённый практик",
-          "condition": "Накопить 5 часов учебного времени с таймером.",
-          "condition_after_unlock": "Вы накопили 5 часов учебного времени с таймером.",
-          "secret": false,
-          "rarity": "rare",
-          "rarity_ru": "Редкое",
-          "xp": 150,
-          "reward": "",
-          "icon": "icons/51_study_time/03_study_engaged_practice.png"
-        },
-        {
-          "id": "study_attentive_research",
-          "name": "Внимательный исследователь",
-          "condition": "Накопить 15 часов учебного времени с таймером.",
-          "condition_after_unlock": "Вы накопили 15 часов учебного времени с таймером.",
-          "secret": false,
-          "rarity": "epic",
-          "rarity_ru": "Эпическое",
-          "xp": 250,
-          "reward": "",
-          "icon": "icons/51_study_time/04_study_attentive_research.png"
-        },
-        {
-          "id": "study_long_journey",
-          "name": "Долгий путь",
-          "condition": "Накопить 40 часов учебного времени с таймером.",
-          "condition_after_unlock": "Вы накопили 40 часов учебного времени с таймером.",
-          "secret": false,
-          "rarity": "legendary",
-          "rarity_ru": "Легендарное",
-          "xp": 400,
-          "reward": "",
-          "icon": "icons/51_study_time/05_study_long_journey.png"
         }
       ]
     }

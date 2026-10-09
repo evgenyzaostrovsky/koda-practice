@@ -20,7 +20,7 @@ export function buildAchievementFamilies(manifest: AchievementManifest, snapshot
       slug: family.slug, name: family.name, achievements, unlockedAchievements, highestUnlockedAchievement, nextAchievement,
       currentProgress: (nextAchievement || highestUnlockedAchievement || achievements[0]).progress,
       completedCount: unlockedAchievements.length, totalCount: achievements.length,
-      isStarted: unlockedAchievements.length > 0, isCompleted: unlockedAchievements.length === achievements.length,
+      isStarted: unlockedAchievements.length > 0 || (family.slug === "51_study_time" && achievements[0].progress.current > 0), isCompleted: unlockedAchievements.length === achievements.length,
     };
   });
 }

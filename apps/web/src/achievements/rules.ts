@@ -1,5 +1,11 @@
 import type { Rule } from "./types";
 export const achievementRules: Record<string, Rule> = {
+  study_first_immersion: { metric: "v2", target: 900 },
+  study_found_rhythm: { metric: "v2", target: 3600 },
+  study_engaged_practice: { metric: "v2", target: 18000 },
+  study_attentive_research: { metric: "v2", target: 54000 },
+  study_long_journey: { metric: "v2", target: 144000 },
+
   first_task: { metric: "solved", target: 1 },
   warmup: { metric: "solved", target: 10 },
   working_set: { metric: "solved", target: 25 },

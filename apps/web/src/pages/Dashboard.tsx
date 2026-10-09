@@ -1,3 +1,5 @@
+import { useMeasuredStudyTotals } from "../StudySessionControl";
+import { formatStudyDuration } from "../study-time";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -5,6 +7,7 @@ import { useAuth } from "../auth";
 import { progressQ } from "../queries";
 import { loadLastTask } from "../task-storage";
 export function Dashboard() {
+  const time=useMeasuredStudyTotals();
   const nav = useNavigate();
   const { user } = useAuth();
   const name = user?.user_metadata?.display_name || user?.email?.split("@")[0];
@@ -32,7 +35,7 @@ export function Dashboard() {
           </div>
           <svg className="hero-art" viewBox="0 0 160 130" fill="none" aria-hidden="true"><circle cx="80" cy="65" r="54" stroke="currentColor" opacity=".12"/><circle cx="80" cy="65" r="38" stroke="currentColor" opacity=".2"/><path d="M18 65C40 12 48 118 72 65S103 12 127 65" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/><circle cx="140" cy="65" r="3" fill="currentColor"/><path d="M45 108h70" stroke="currentColor" opacity=".2"/></svg>
         </div>
-        <div className="stats"><div className="stat"><strong>{p?.solved ?? 0}</strong><span>задачи решены</span></div><div className="stat"><strong>—</strong><span>время практики</span></div><div className="stat"><strong>{p?.modules.filter(m => m.solved === m.total).length ?? 0} из {p?.modules.length ?? 0}</strong><span>темы освоены</span></div></div>
+        <div className="stats"><div className="stat"><strong>{p?.solved ?? 0}</strong><span>задачи решены</span></div><div className="stat"><strong>{formatStudyDuration(time.totalSeconds)}</strong><span>время занятий · по таймеру</span></div><div className="stat"><strong>{p?.modules.filter(m => m.solved === m.total).length ?? 0} из {p?.modules.length ?? 0}</strong><span>темы освоены</span></div></div>
         <div className="compact-section-head"><h2>Ваши темы</h2><Link to="/catalog">Все темы →</Link></div>
         <div className="compact-module-grid">
           {p?.modules.slice(0, 2).map((m, index) => (

@@ -55,6 +55,7 @@ const motifs: Record<number,string> = {
 export function AchievementArt({ id, label }: { id:string; label?:string }) {
  const gradient=useId(); const {family,stage}=achievementArtMap[id]??{family:1,stage:1};
  const tier = Math.min(stage,8);
+ if (family === 51) return <StudyClockArt tier={tier} gradient={gradient} label={label}/>;
  const shells = [
  "M35 80Q22 49 44 34Q67 22 84 48Q97 79 67 88Q48 94 35 80Z",
  "M29 77Q20 56 39 32Q59 12 82 35Q100 51 87 80Q58 100 29 77Z",
@@ -66,7 +67,7 @@ export function AchievementArt({ id, label }: { id:string; label?:string }) {
  "M13 85Q10 52 23 32L39 13L60 23L81 10Q107 29 108 58L100 89L76 103L54 93L30 102Z"
  ];
  return <svg className="achievement-art" data-tier={tier} viewBox="0 0 120 120" role={label?"img":undefined} aria-label={label} aria-hidden={label?undefined:true}>
- <defs><linearGradient id={gradient} x1="0" y1="0" x2="1" y2="1"><stop stopColor={tier > 4 ? "#f6e7c8" : "#f3f1e8"}/><stop offset="1" stopColor={tier > 2 ? "#adc0ad" : "#d5ded0"}/></linearGradient></defs>
+ <defs><linearGradient id={gradient} x1="0" y1="0" x2="1" y2="1"><stop stopColor={tier > 4 ? "#f4e5bf" : "#eff4e7"} stopOpacity=".65"/><stop offset=".55" stopColor="#b7cbbb" stopOpacity=".28"/><stop offset="1" stopColor={tier > 2 ? "#7d9a86" : "#a5b8a0"} stopOpacity=".8"/></linearGradient></defs>
  <ellipse className="art-shadow" cx="60" cy="105" rx={23+tier*2} ry="3" fill="#416d53" opacity=".09"/>
  <path className="art-room-base" display="none" d="M46 82H74L72 99H79Q83 99 83 103V108H37V103Q37 99 41 99H48Z" fill="#c3c9b8" stroke="#a4b099" strokeWidth="1"/>
  <path className="art-shell" d={shells[tier-1]} fill={`url(#${gradient})`} stroke="#9aac97" strokeWidth="1.5"/>
@@ -78,5 +79,28 @@ export function AchievementArt({ id, label }: { id:string; label?:string }) {
  {tier >= 7 && <path d="M24 97L18 107H103L96 97Z" fill="#a8b29f" stroke="#7f917e"/>}
  {tier >= 8 && <path d="M17 30Q8 66 19 87M103 30Q115 67 101 88" fill="none" stroke="#d0b887" strokeWidth="4"/>}
  <path className="art-motif" d={motifs[family]} fill="none" stroke="#416d53" strokeWidth={tier > 3 ? "2.8" : "2.3"} strokeLinecap="round" strokeLinejoin="round"/>
+ </svg>;
+}
+
+function StudyClockArt({ tier, gradient, label }: { tier: number; gradient: string; label?: string }) {
+ const clockShells = [
+  "M35 101Q47 83 39 61Q28 38 41 26Q61 12 79 29Q91 43 79 62Q71 80 88 100Q64 113 35 101Z",
+  "M32 101Q45 81 36 61Q25 37 39 24Q61 7 82 28Q95 43 82 62Q73 78 92 100Q65 117 32 101Z",
+  "M29 101Q43 79 33 60Q22 34 39 22Q63 4 85 26Q100 43 85 64Q76 82 95 101Q63 119 29 101Z",
+  "M27 102Q41 79 31 60Q21 32 40 19Q65 2 88 26Q103 45 88 65Q79 83 97 102Q62 120 27 102Z",
+  "M25 102Q39 78 29 60Q19 30 40 17Q67 0 90 25Q106 45 90 65Q80 83 99 102L94 111H29Z"
+ ];
+ return <svg className="achievement-art study-clock-art" data-tier={tier} viewBox="0 0 120 120" role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : true}>
+  <defs><linearGradient id={gradient} x1="0" y1="0" x2="1" y2="1"><stop stopColor="#f5f7eb" stopOpacity=".9"/><stop offset=".45" stopColor="#a6c3ae" stopOpacity=".3"/><stop offset="1" stopColor="#6f9984" stopOpacity=".85"/></linearGradient></defs>
+  <ellipse className="art-shadow" cx="60" cy="108" rx="36" ry="4" fill="#697c61" opacity=".15"/>
+  <path className="art-shell" d={clockShells[Math.min(tier,5)-1]} fill={`url(#${gradient})`} stroke="#91ab97" strokeWidth="1.4"/>
+  <path d="M40 32Q48 17 65 22M39 48Q34 63 45 81" fill="none" stroke="#fffdf0" strokeWidth="3" opacity=".85" strokeLinecap="round"/>
+  <path d="M38 98Q63 108 85 98" fill="none" stroke="#62846e" strokeWidth="3" opacity=".6"/>
+  <circle cx="60" cy="49" r="22" fill="#edf3e4" fillOpacity=".5" stroke="#628970" strokeWidth="2"/>
+  <path className="art-motif" d="M60 34V49L72 56M60 28v4M81 49h-4M60 70v-4M39 49h4" fill="none" stroke="#426951" strokeWidth="2.4" strokeLinecap="round"/>
+  {tier >= 2 && <path d="M47 83Q60 73 74 84M48 89Q60 79 77 90" fill="none" stroke="#769c80" strokeWidth="2"/>}
+  {tier >= 3 && <path d="M33 59Q21 79 32 93M84 61Q101 76 91 94" fill="none" stroke="#8da78f" strokeWidth="4" strokeLinecap="round"/>}
+  {tier >= 4 && <path d="M48 20Q43 9 53 13Q60 4 66 13Q79 8 74 22" fill="#d8d5b4" fillOpacity=".8" stroke="#98a486"/>}
+  {tier >= 5 && <><path d="M31 103L26 110H97L91 103" fill="#a1b49d" stroke="#78917c"/><circle cx="60" cy="49" r="26" fill="none" stroke="#c6ba87" strokeWidth="2"/><path d="M88 24v10M83 29h10" stroke="#b6a56f" strokeWidth="2"/></>}
  </svg>;
 }
