@@ -50,7 +50,7 @@ html[data-theme="airy"] .compact-profile-link b { font-size: 12px; font-weight: 
 html[data-theme="airy"] .compact-profile-link small { color: var(--muted); font-size: 10px; }
 html[data-theme="airy"] .compact-app .side-foot { display: none; }
 html[data-theme="airy"] .compact-main { --compact-width: 960px; }
-html[data-theme="airy"] .compact-home { --compact-width: 880px; }
+html[data-theme="airy"] .compact-home { --compact-width: 100%; }
 html[data-theme="airy"] .compact-topic { --compact-width: 900px; }
 html[data-theme="airy"] :is(.compact-practice,.compact-sandbox) { --compact-width: 1180px; }
 html[data-theme="airy"] :is(.compact-progress,.compact-errors) { --compact-width: 800px; }
@@ -430,7 +430,7 @@ html[data-theme="airy"] .compact-app > .compact-main { padding-top: 76px; }
 html[data-theme="airy"] .compact-profile-link { max-width: 220px; }
 html[data-theme="airy"] .compact-profile-link b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 170px; }
 /* Home uses the approved mockup composition and exact visual tokens. */
-html[data-theme="airy"] .compact-home .dashboard-mockup { max-width: 880px; font-family: Arial,Helvetica,sans-serif; }
+html[data-theme="airy"] .compact-home .dashboard-mockup { max-width: 100%; font-family: Arial,Helvetica,sans-serif; }
 html[data-theme="airy"] .dashboard-mockup .dashboard-greeting { margin-bottom: 26px; }
 html[data-theme="airy"] .dashboard-mockup .eyebrow { font-size: 10px; line-height: 15.5px; letter-spacing: 1.8px; font-weight: 600; color: #416d53; margin: 0 0 10px; }
 html[data-theme="airy"] .dashboard-mockup h1 { font: 400 32px/38px Georgia,serif; letter-spacing: -.6px; margin: 0 0 10px; }

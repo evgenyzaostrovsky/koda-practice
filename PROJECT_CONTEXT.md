@@ -135,3 +135,5 @@ Room composition preview: docs/design/achievement-glass-room-all10-v2.png places
 ## Production glass trophies (2026-10-09)
 
 The approved glass direction is now implemented through a shared transparent raster renderer for the forty existing milestones in the ten room families. Room positions are fixed at four upper trophies, five lower trophies and the study clock on the table; the full 51-family collection remains accessible. Each trophy selects the highest earned stage, with locked stages muted. Stable identifiers, reward conditions, XP and measured study intervals remain unchanged. Image failures also propagate to later-mounted dialog stages through a cached load probe and retain the existing vector fallback. Asset provenance, integrated review and verification are recorded in docs/design/achievement-glass-implementation.md.
+
+Home now fills the available main-column width instead of retaining two 880px caps, removing the large unused right strip. Typography, text line limits, outer gutters and other sections remain unchanged. Scope and proportional verification: docs/home-width-adjustment.md.
