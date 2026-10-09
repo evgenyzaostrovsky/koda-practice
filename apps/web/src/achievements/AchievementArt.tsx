@@ -1,4 +1,6 @@
-import { useId } from "react";
+import { useId, useState } from "react";
+import { GlassAchievementArt } from "./GlassAchievementArt";
+import { glassAchievementAtlas } from "./glass-atlas-map";
 import { achievementArtMap } from "./art-map";
 const motifs: Record<number,string> = {
   9: "M34 37h52v45H34Z M34 52h52 M51 37v45 M68 37v45",
@@ -53,6 +55,12 @@ const motifs: Record<number,string> = {
   45: "M36 79V41 M36 79h49 M46 67l13-15 11 6 13-22 M76 36h7v7"
 };
 export function AchievementArt({ id, label }: { id:string; label?:string }) {
+ const [failedSource, setFailedSource] = useState<string | null>(null);
+ const region = glassAchievementAtlas[id];
+ if (region && region.src !== failedSource) return <GlassAchievementArt region={region} label={label} onError={() => setFailedSource(region.src)}/>;
+ return <VectorAchievementArt id={id} label={label}/>;
+}
+function VectorAchievementArt({ id, label }: { id:string; label?:string }) {
  const gradient=useId(); const {family,stage}=achievementArtMap[id]??{family:1,stage:1};
  const tier = Math.min(stage,8);
  if (family === 51) return <StudyClockArt tier={tier} gradient={gradient} label={label}/>;

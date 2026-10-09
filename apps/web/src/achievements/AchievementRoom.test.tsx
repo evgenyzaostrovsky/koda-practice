@@ -19,6 +19,16 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 
 describe("achievement room behavior", () => {
+  it("keeps the ten room families in fixed slots even when another family is earned",async()=>{
+    const slugs=['01_solved_tasks','03_course_progress','05_error_recovery','07_sandbox','08_own_data','19_comeback','20_flexible_rhythm','37_panorama','45_first_mini_analysis','51_study_time'];
+    const outsider=manifest.families.find(f=>!slugs.includes(f.slug))!;
+    localStorage.setItem('koda:achievements:v1',JSON.stringify({events:[],unlocked:{[outsider.achievements[0].id]:{unlockedAt:'2026-01-01',sourceEventId:'qa-outside-room',xp:10,seen:true,celebrated:true}},activeCosmetics:{},backfillVersion:2,timezone:'UTC'}));
+    open();await screen.findByRole('button',{name:'Показать названия'});
+    const buttons=[...document.querySelectorAll<HTMLButtonElement>('.room-trophy')];
+    expect(buttons).toHaveLength(10);
+    buttons.forEach((button,index)=>{const family=manifest.families.find(f=>f.slug===slugs[index])!;expect(button.getAttribute('aria-label')).toBe(`${family.name}. Не начато`);expect(button.style.getPropertyValue('--room-x')).toBeTruthy();expect(button.style.getPropertyValue('--room-y')).toBeTruthy();expect(button.querySelector('image')).not.toBeNull();});
+    expect(buttons.some(button=>button.getAttribute('aria-label')?.startsWith(outsider.name+'.'))).toBe(false);
+  });
   it("limits the room to ten accessible objects and exposes all fifty-one families in the collection", async () => {
     open();
     await screen.findByRole("button", { name: "Показать названия" });
