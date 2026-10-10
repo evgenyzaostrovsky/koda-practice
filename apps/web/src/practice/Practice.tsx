@@ -14,7 +14,7 @@ export function Practice() {
   return <PracticeSession key={`${user?.id ?? "anonymous"}:${eid}`} />;
 }
 function PracticeSession() {
-  const { routeTasks, taskHref, sourceCourseTotal, e, exerciseError, refetchExercise, isFetching, code, updateCode, result, hints, hintsOpen, setHintsOpen, solution, theory, setTheory, left, editorH, splitRef, moduleTitle, number, total, action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist } = usePracticeController();
+  const { routeTasks, taskHref, sourceCourseTotal, e, exerciseError, refetchExercise, isFetching, code, updateCode, result, hints, hintsOpen, setHintsOpen, solution, theory, setTheory, left, editorH, splitRef, moduleTitle, number, total, action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist, journalNotice } = usePracticeController();
   if(exerciseError) return <QueryError retry={() => refetchExercise()} pending={isFetching} focus />;
   if(!e) return <Loading />;
   const mode = e.exercise_mode ?? "python";
@@ -176,7 +176,7 @@ function PracticeSession() {
               <kbd>Ctrl/Cmd+Shift+Enter</kbd>
             </button>
           </div>
-          <div className="result">
+          <div className="result">{journalNotice && <p role="status">{journalNotice}</p>}
             <div className="tabs">
               <b>Результат</b>
             </div>
@@ -243,4 +243,3 @@ function PracticeSession() {
     </div>
   );
 }
-

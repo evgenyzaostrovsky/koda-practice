@@ -1,0 +1,18 @@
+.history-page>header{margin-bottom:24px}.history-page>header h1{font:32px Georgia,serif;margin:12px 0}.history-page>header small{font-size:10px;letter-spacing:1.5px}.history-filters{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}.history-filters label,.history-detail label{display:grid;gap:6px;font-size:12px}.history-filters input,.history-filters select,.history-detail select{border:1px solid #dfe7dc;border-radius:6px;background:white;padding:9px;font:inherit;color:#24332b}.history-list{display:grid;gap:7px;margin-bottom:20px}.history-list>button{display:flex;justify-content:space-between;text-align:left;gap:12px;background:white;color:#24332b;border:1px solid #dfe7dc;padding:12px;border-radius:8px}.history-list>button.selected{border-color:#416d53;background:#f0f5ed}.history-list small{display:block;margin-top:5px;font-size:11px;color:#617066}.history-detail h2{font:25px Georgia,serif}.history-detail h3{font-size:14px;margin-top:20px}.history-detail p,.history-page .context-aside p,.history-page .context-aside li{font-size:13px;line-height:1.65}.history-code,.history-message{white-space:pre-wrap;overflow-wrap:anywhere;max-height:440px;overflow:auto;background:#f5f7f2;border:1px solid #e3e9e1;padding:14px;font-size:12px;line-height:1.6;border-radius:6px}.history-muted,.history-page .context-aside small{font-size:11px;color:#617066}.history-page .context-aside a,.history-page .context-aside button{display:block;margin:14px 0}.history-page .context-aside h2{font:21px Georgia,serif}.history-page .context-aside ol{padding-left:20px}.history-page button:focus-visible,.history-page a:focus-visible{outline:2px solid #416d53;outline-offset:3px}
+
+.history-page .context-main{display:flex;flex-direction:column;gap:16px}.history-filters{order:0}.history-page .context-main>button{order:4}.history-page .context-main>p{order:1}
+/* Scoped overrides must outrank legacy page and button theme rules. */
+html[data-theme="airy"] .compact-app .page.history-page{width:100%;max-width:none;min-width:0;box-sizing:border-box;color:#24332b}
+html[data-theme="airy"] .compact-app .history-page :is(label,ol,li,strong,h2,h3,code){color:#24332b}
+html[data-theme="airy"] .compact-app .history-page :is(p,small,.history-muted){color:#53645a}
+html[data-theme="airy"] .compact-app .history-page .history-list>button{background:#fff;color:#24332b;border:1px solid #dfe7dc;box-shadow:none}
+html[data-theme="airy"] .compact-app .history-page .history-list>button.selected{background:#edf3e8;color:#24332b;border:1px solid #416d53}
+html[data-theme="airy"] .compact-app .history-page .history-list>button :is(strong,span){color:#24332b}
+html[data-theme="airy"] .compact-app .history-page .history-list>button small{color:#53645a}
+html[data-theme="airy"] .compact-app .history-page :is(input,select){background:#fff;color:#24332b}
+html[data-theme="airy"] .compact-app .history-page .context-aside :is(ol,li){color:#24332b}
+html[data-theme="airy"] .compact-app .history-page>header{display:block;min-width:0}
+html[data-theme="airy"] .compact-app .history-page>header :is(h1,p,small){display:block;max-width:100%;overflow-wrap:anywhere}
+html[data-theme="airy"] .compact-app .history-page>header h1{margin:12px 0}
+html[data-theme="airy"] .compact-app .history-page>header p{margin:0;line-height:1.65}
+html[data-theme="airy"] .compact-app .history-page>header{height:auto;min-height:0;max-height:none;margin-bottom:24px;overflow:visible}

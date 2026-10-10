@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { progressQ } from "../queries";
 import type { RunResult } from "../types";
+import { useAuth } from "../auth";
 export function Header({
   title,
   crumb = "pandas",
@@ -11,7 +12,8 @@ export function Header({
   title: string;
   crumb?: string;
 }) {
-  const { data: p } = useQuery({ queryKey: ["progress"], queryFn: progressQ });
+  const { user } = useAuth();
+  const { data: p } = useQuery({ queryKey: ["progress", user?.id ?? "anonymous"], queryFn: progressQ });
   return (
     <header>
       <div>
@@ -22,10 +24,10 @@ export function Header({
       </div>
       <div className="metrics">
         <span>
-          <Flame /> серия <b>{p?.activity.length ?? 0}</b>
+          <Flame /> дней активности <b>{p?.activity ? p.activity.filter(day => day.attempts > 0).length : "—"}</b>
         </span>
         <span>
-          <Trophy /> <b>{p?.xp ?? 0}</b> XP
+          <Trophy /> <b>{p?.xp ?? "—"}</b> XP
         </span>
       </div>
     </header>

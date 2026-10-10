@@ -7,11 +7,13 @@ import { buildAchievementFamilies, type AchievementFamilyView } from "./families
 import { api } from "../api";
 import type { Progress } from "../types";
 import "./achievement-room.css";
+import { useSearchParams } from "react-router-dom";
 import { getCachedAchievementManifest, loadAchievementManifest } from "./manifest";
 
 const AchievementFamilyDialog = lazy(() => import("./AchievementFamilyDialog").then((module) => ({ default: module.AchievementFamilyDialog })));
 
 export function AchievementsPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [filter, setFilter] = useState("overview");
   const [showNames, setShowNames] = useState(false);
   const [tick, setTick] = useState(0);
@@ -23,7 +25,10 @@ export function AchievementsPage() {
   const manifest = manifestQuery.data ?? null;
   const model = useMemo(() => manifest ? evaluate(manifest) : null, [manifest, tick]);
   const families = useMemo(() => manifest && model ? buildAchievementFamilies(manifest, model.snapshot, model) : [], [manifest, model]);
-  const openFamily = useCallback((slug: string) => setSelectedSlug(slug), []);
+  const requestedFamily = searchParams.get("family");
+  useEffect(() => { setSelectedSlug(requestedFamily && families.some(family => family.slug === requestedFamily) ? requestedFamily : null); }, [requestedFamily, families]);
+  const openFamily = useCallback((slug: string) => { setSelectedSlug(slug); setSearchParams(previous => { const next = new URLSearchParams(previous); next.set("family", slug); return next; }); }, [setSearchParams]);
+  const closeFamily = () => { setSelectedSlug(null); setSearchParams(previous => { const next = new URLSearchParams(previous); next.delete("family"); return next; }, { replace: true }); };
   if (manifestQuery.isError && !manifest) return <section className="ach-page"><h1>Комната достижений</h1><p role="alert">Не удалось загрузить коллекцию.</p><button onClick={() => void manifestQuery.refetch()}>Повторить</button></section>;
   if (!manifest || !model) return <AchievementSkeleton />;
   const visible = families.filter((family) => filter === "all" || (filter === "overview" && (["01_solved_tasks","03_course_progress","05_error_recovery","07_sandbox","08_own_data","19_comeback","20_flexible_rhythm","31_memory_echo","37_panorama","45_first_mini_analysis"].includes(family.slug) || family.isStarted)) || (filter === "started" && family.isStarted && !family.isCompleted) || (filter === "not-started" && !family.isStarted) || (filter === "completed" && family.isCompleted));
@@ -37,7 +42,7 @@ export function AchievementsPage() {
   return <section className="ach-page">
     <header className="ach-head"><div><small>ВАШИ ДОСТИЖЕНИЯ</small><h1>Маленькие шаги, заметные результаты</h1></div><div className="ach-summary"><span><b>{unlocked}</b> получено</span><span><b>{totalXp}</b> XP</span><span><b>{model.stats.currentStreak}</b> серия</span><span><b>{model.stats.maxStreak}</b> максимум</span><span><Shield/>{model.stats.stabilizer ? "Стабилизатор" : "Нет стабилизатора"}</span></div></header>
     <div className="ach-body"><div className="ach-section-head"><h2>Комната достижений</h2><div className="ach-filters" aria-label="Фильтры линеек">{[["overview","Главное"],["all","Вся коллекция"],["started","Начатые"],["not-started","Не начатые"],["completed","Завершённые"]].map(([id,label])=><button key={id} className={filter===id?"active":""} aria-pressed={filter===id} onClick={()=>setFilter(id)}>{label}</button>)}</div></div>{filter === "overview" ? <><button className="room-name-toggle" aria-pressed={showNames} onClick={() => setShowNames(value => !value)}>Показать названия</button><div className="achievement-room" aria-label="Комната с вашей коллекцией"><div className="room-trophies">{roomFamilies.map(family => { const item=family.highestUnlockedAchievement || family.achievements[0]; const concealed=Boolean(item.def.secret && !item.unlock); return <button key={family.slug} className={`room-trophy ${family.slug === "51_study_time" ? "room-clock" : ""} ${item.unlock ? "earned" : "locked"}`} style={roomPosition(roomFamilySlugs.indexOf(family.slug))} aria-label={`${concealed ? "Секретное достижение" : family.name}. ${family.isStarted ? item.def.name : "Не начато"}`} onClick={() => openFamily(family.slug)}><AchievementArt id={item.def.id}/>{showNames && <span>{concealed ? "Секретное достижение" : item.def.name}</span>}</button>; })}</div>{!roomFamilies.length && <p className="room-empty">Коллекция пока пуста. Ваши открытия появятся здесь.</p>}</div></> : <div className="family-grid">{visible.length === 0 && <p role="status">В этой части коллекции пока нет достижений.</p>}{visible.map((family)=><FamilyPreview key={family.slug} family={family} onOpen={openFamily}/>)}</div>}</div>
-    {active && <Suspense fallback={null}><AchievementFamilyDialog family={active} onClose={()=>setSelectedSlug(null)}/></Suspense>}
+    {active && <Suspense fallback={null}><AchievementFamilyDialog family={active} onClose={closeFamily}/></Suspense>}
   </section>;
 }
 

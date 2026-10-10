@@ -1,3 +1,4 @@
+import { MemoryRouter } from "react-router-dom";
 import fs from "node:fs";
 import path from "node:path";
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
@@ -10,7 +11,7 @@ import type { AchievementManifest } from "./types";
 vi.mock("../api", () => ({ api: vi.fn().mockResolvedValue({ solved_ids: [], modules: [], total: 200 }) }));
 vi.mock("./cloud", () => ({ scheduleAchievementCloudSave: vi.fn() }));
 const manifest = JSON.parse(fs.readFileSync(path.resolve("public/achievements/manifest.json"), "utf8")) as AchievementManifest;
-const open = () => render(<QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}><AchievementsPage /></QueryClientProvider>);
+const open = () => render(<QueryClientProvider client={new QueryClient({ defaultOptions: { queries: { retry: false } } })}><MemoryRouter><AchievementsPage /></MemoryRouter></QueryClientProvider>);
 beforeEach(() => {
   clearAchievementManifestCache();
   localStorage.clear();

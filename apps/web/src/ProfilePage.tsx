@@ -14,6 +14,7 @@ import { api } from "./api";
 import type { Progress } from "./types";
 import { ProfileAchievements } from "./achievements/ProfileAchievements";
 import "./profile.css";
+import { AttemptHistory } from './pages/AttemptHistory';
 
 const progressQuery = () => api<Progress>("/progress");
 const formatDate = (value?: string | null, withTime = false) =>
@@ -132,9 +133,7 @@ export function ProfilePage() {
 }
 
 export function ProfileHistoryPage() {
-  const { user, attempts } = useProfileData(100);
-  if (!user) return <section className="page"><h1>Профиль доступен после входа</h1></section>;
-  return <><ProfileBack title="История решений"/><section className="profile-detail-page">{attempts.isLoading ? <div className="profile-skeleton-list"><i/><i/><i/></div> : attempts.isError ? <div className="profile-error-panel"><p>Историю не удалось загрузить.</p><button onClick={() => attempts.refetch()}>Повторить</button></div> : <ActivityRows attempts={attempts.data ?? []}/>}</section></>;
+  return <AttemptHistory />;
 }
 
 type SectionStatus = { kind: "idle" | "loading" | "success" | "error"; text?: string };

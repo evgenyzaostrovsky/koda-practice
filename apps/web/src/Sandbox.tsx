@@ -12,13 +12,14 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { api, apiResponse } from "./api";
-import { getAccessToken } from "./auth";
+import { getAccessToken, useAuth } from "./auth";
 import {
   SandboxRuntime,
   type RuntimeMetrics,
   type SandboxResult,
 } from "./sandbox-runtime";
 import { emitAchievementEvent } from "./achievements/engine";
+import { currentJournalOwner, recordRunFailure, sandboxCodeKey } from './attempt-journal';
 
 export type SandboxFile = {
   id: string;
@@ -34,7 +35,6 @@ const STARTER = `import pandas as pd
 
 # Загрузите CSV и прочитайте его через pd.read_csv()
 `;
-const STORAGE_KEY = "koda:sandbox-code:v1";
 const filesQuery = () => api<SandboxFile[]>("/sandbox/files");
 const bytes = (size: number) =>
   size < 1024
@@ -74,14 +74,17 @@ function uploadCsv(
 }
 
 export function Sandbox() {
+  const { user } = useAuth();
+  const ownerId = user?.id ?? null;
+  const [draftOwner, setDraftOwner] = useState(ownerId);
   const {
     data: files = [],
     isLoading,
     error,
     refetch,
-  } = useQuery({ queryKey: ["sandbox-files"], queryFn: filesQuery });
+  } = useQuery({ queryKey: ["sandbox-files", ownerId], queryFn: filesQuery });
   const [code, setCode] = useState(
-      () => localStorage.getItem(STORAGE_KEY) ?? STARTER,
+      () => localStorage.getItem(sandboxCodeKey()) ?? STARTER,
     ),
     [result, setResult] = useState<SandboxResult | null>(null),
     [runtimeState, setRuntimeState] = useState<
@@ -141,10 +144,27 @@ export function Sandbox() {
     const activeRuntime = createRuntime();
     return () => {
       activeRuntime.terminate();
+      if (runtime.current !== activeRuntime) runtime.current?.terminate();
+      runtime.current = null;
       if (copyTimer.current) clearTimeout(copyTimer.current);
     };
   }, []);
-  useEffect(() => localStorage.setItem(STORAGE_KEY, code), [code]);
+  useEffect(() => {
+    if (draftOwner === ownerId && currentJournalOwner() === ownerId) localStorage.setItem(sandboxCodeKey(ownerId), code);
+  }, [code, ownerId, draftOwner]);
+  useEffect(() => { const failed = () => setFileError('Не удалось сохранить ошибку в истории этого устройства. Результат выполнения остаётся доступен.'); window.addEventListener('koda-run-observation-failed', failed); return () => window.removeEventListener('koda-run-observation-failed', failed); }, []);
+  useEffect(() => {
+    if (draftOwner === ownerId) return;
+    runtime.current?.terminate();
+    running.current = false;
+    setCode(localStorage.getItem(sandboxCodeKey(ownerId)) ?? STARTER);
+    setResult(null);
+    setFileError('');
+    setCopied('');
+    filesDialog.current?.close();
+    setDraftOwner(ownerId);
+    createRuntime();
+  }, [ownerId, draftOwner]);
   const selectFiles = async (list: FileList | File[]) => {
     for (const file of Array.from(list)) {
       setUploadProgress(0);
@@ -203,6 +223,7 @@ export function Sandbox() {
       return;
     }
     const activeRuntime = runtime.current;
+    const ownerId = currentJournalOwner(), requestId = crypto.randomUUID(), submittedCode = code, createdAt = new Date().toISOString();
     const clickAt = performance.now();
     running.current = true;
     setRuntimeState("running");
@@ -229,9 +250,10 @@ export function Sandbox() {
           };
         }));
       setMessage("Выполнение…");
-      const output = await activeRuntime.run(code, mountedFiles, loadFiles);
+      const output = await activeRuntime.run(submittedCode, mountedFiles, loadFiles);
       const resultReceivedAt = performance.now();
-      if (runtime.current !== activeRuntime) return;
+      if (runtime.current !== activeRuntime || currentJournalOwner() !== ownerId) return;
+      if (!output.ok) recordRunFailure({ id: requestId, ownerId, task_id: 'sandbox', code: submittedCode, mode: 'python', created_at: createdAt, execution_ms: output.executionMs ?? 0, error: output.message ?? 'Выполнение не завершилось', error_type: output.errorType ?? 'RuntimeError', source: 'sandbox-run' });
       setResult(output);
       setMobileTab("result");
       // Release the imperative guard before the UI advertises the runtime as
@@ -318,7 +340,8 @@ export function Sandbox() {
       requestAnimationFrame(() => void recordAchievement());
     } catch (e) {
       const text = e instanceof Error ? e.message : String(e);
-      if (runtime.current === activeRuntime) {
+      if (runtime.current === activeRuntime && currentJournalOwner() === ownerId) {
+        recordRunFailure({ id: requestId, ownerId, task_id: 'sandbox', code: submittedCode, mode: 'python', created_at: createdAt, execution_ms: 0, error: text, error_type: 'Сбой среды', source: 'system' });
         setResult({
           ok: false,
           stdout: "",

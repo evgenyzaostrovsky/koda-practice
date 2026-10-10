@@ -114,7 +114,7 @@ export type Progress = {
   total: number;
   attempts: number;
   first_try_accuracy: number;
-  independent_rate: number;
+  independent_rate: number | null;
   hints_used: number;
   xp: number;
   due: number;
@@ -136,6 +136,8 @@ export type Progress = {
   }>;
 };
 export type RunResult = {
+  error_type?: string | null;
+  line?: number | null;
   ok: boolean;
   passed?: boolean;
   stdout?: string;

@@ -1,0 +1,20 @@
+import {cleanup,fireEvent,render,screen,waitFor} from '@testing-library/react';
+import {QueryClient,QueryClientProvider} from '@tanstack/react-query';
+import {MemoryRouter} from 'react-router-dom';
+import {afterEach,beforeEach,expect,it,vi} from 'vitest';
+import {ProgressPage} from './ProgressPage';
+const api=vi.fn();let owner:string|null=null;
+const now=new Date().toISOString(),start=new Date(Date.parse(now)-600000).toISOString();
+const snapshot={events:[{eventId:'study-interval:i',occurredAt:now,localDate:now.slice(0,10),version:1,type:'study_interval_recorded',payload:{id:'i',sessionId:'s',start,end:now,timezone:'UTC',schema:1}}],unlocked:{},timezone:'UTC',backfillVersion:2};
+vi.mock('../api',()=>({api:(...args:unknown[])=>api(...args)}));
+vi.mock('../auth',()=>({useAuth:()=>({user:owner?{id:owner}:null})}));
+vi.mock('./useAchievementEvidence',()=>({useAchievementEvidence:()=>snapshot}));
+vi.mock('../task-storage',()=>({loadLastTask:()=>null,loadTaskState:()=>undefined}));
+vi.mock('../achievements/manifest',()=>({getCachedAchievementManifest:()=>({families:[]}),loadAchievementManifest:()=>Promise.resolve({families:[]})}));
+const progress={solved:1,total:3,solved_ids:['one'],attempts:14,xp:15,activity:[],modules:[{slug:'topic',title:'Тема',solved:1,total:3}]};
+const modules=[{topics:[{slug:'topic',title:'Тема',exercises:[{id:'one',title:'Решённая'},{id:'two',title:'Следующая',learning_objective:'Продолжить'}]}]}];
+function view(){const client=new QueryClient({defaultOptions:{queries:{retry:false}}});const content=()=> <QueryClientProvider client={client}><MemoryRouter><ProgressPage/></MemoryRouter></QueryClientProvider>;const rendered=render(content());return {...rendered,refresh:()=>rendered.rerender(content())};}
+beforeEach(()=>{owner=null;api.mockReset().mockImplementation((path:string)=>Promise.resolve(path==='/progress'?progress:modules));});afterEach(cleanup);
+it('uses measured timer intervals rather than attempt count and links actual unsolved task',async()=>{view();const link=await screen.findByRole('link',{name:'Продолжить практику →'});expect(link).toHaveAttribute('href','/practice/two');expect(screen.getAllByText('10 мин').length).toBeGreaterThan(0);expect(screen.getByLabelText('Измеренное время занятий за семь дней')).toBeInTheDocument();});
+it('reports a failed progress request with retry instead of fake zero statistics',async()=>{api.mockImplementation((path:string)=>path==='/progress'?Promise.reject(new Error('offline')):Promise.resolve(modules));view();expect((await screen.findAllByRole('alert'))[0]).toHaveTextContent('Не удалось загрузить прогресс');expect(screen.queryByText('0 / 60')).not.toBeInTheDocument();fireEvent.click(screen.getAllByRole('button',{name:'Повторить'})[0]);await waitFor(()=>expect(api.mock.calls.filter(([path])=>path==='/progress').length).toBeGreaterThan(1));});
+it('does not display old account counts when its late response arrives after switching',async()=>{owner='a';let finish!:(x:unknown)=>void;api.mockImplementation((path:string)=>path==='/progress'?owner==='a'?new Promise(resolve=>{finish=resolve}):Promise.resolve({...progress,solved:0,solved_ids:[]}):Promise.resolve(modules));const rendered=view();owner='b';rendered.refresh();finish({...progress,solved:987});await screen.findByText('0 / 3');expect(screen.queryByText('987 / 3')).not.toBeInTheDocument();});

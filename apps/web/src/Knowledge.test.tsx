@@ -94,11 +94,11 @@ describe("knowledge base", () => {
   beforeEach(() => {
     cleanup();
     localStorage.clear();
-    vi.mocked(api).mockImplementation((path: string) => Promise.resolve(path === "/knowledge" ? [unit] : path === "/progress" ? progress : unit) as ReturnType<typeof api>);
+    vi.mocked(api).mockImplementation((path: string) => Promise.resolve(path === "/modules" ? [] : path === "/knowledge" ? [unit] : path === "/progress" ? progress : unit) as ReturnType<typeof api>);
   });
   it("exposes loaded SQL, Excel and Power BI category filters without mixing their units", async () => {
     const extra = ["SQL", "Excel", "Power BI"].map(category => ({ ...unit, id: `ku-${category}`, slug: category, title: `${category} урок`, category }));
-    vi.mocked(api).mockImplementation((path: string) => Promise.resolve(path === "/knowledge" ? [unit, ...extra] : progress) as ReturnType<typeof api>);
+    vi.mocked(api).mockImplementation((path: string) => Promise.resolve(path === "/modules" ? [] : path === "/knowledge" ? [unit, ...extra] : progress) as ReturnType<typeof api>);
     wrap(<KnowledgeIndex />);
     await screen.findByText("SQL урок");
     for (const category of ["SQL", "Excel", "Power BI"]) {
@@ -157,7 +157,7 @@ describe("knowledge base", () => {
   });
   it("links article sections and visible cheat groups to existing targets in the contextual navigation",async()=>{
     const expanded={...unit,cheatSheet:{entries:[...unit.cheatSheet.entries,{...unit.cheatSheet.entries[0],id:'cheat-check',group:'Проверка',name:'.size()',description:'Подсчитывает строки.'}]},article:{...unit.article,sections:[...unit.article.sections,{...unit.article.sections[0],id:'check-section',title:'Проверка результата'}]}};
-    vi.mocked(api).mockImplementation((path:string)=>Promise.resolve(path==='/knowledge'?[expanded]:path==='/progress'?progress:expanded) as ReturnType<typeof api>);
+    vi.mocked(api).mockImplementation((path:string)=>Promise.resolve(path==='/modules'?[]:path==='/knowledge'?[expanded]:path==='/progress'?progress:expanded) as ReturnType<typeof api>);
     wrap(<Routes><Route path="/knowledge/:articleSlug" element={<KnowledgeArticle/>}/></Routes>,'/knowledge/groupby');
     const nav=await screen.findByRole('complementary',{name:'Навигация по материалу'});
     for(const link of within(nav).getAllByRole('link')){const href=link.getAttribute('href')!;if(href.startsWith('#'))expect(document.getElementById(href.slice(1))).not.toBeNull();}
@@ -167,7 +167,7 @@ describe("knowledge base", () => {
   });
   it("offers only existing other materials from the same declared category",async()=>{
     const same={...unit,id:'ku-filter',slug:'filter',title:'Фильтрация'},other={...unit,id:'ku-numpy',slug:'arrays',title:'Массивы',category:'NumPy'};
-    vi.mocked(api).mockImplementation((path:string)=>Promise.resolve(path==='/knowledge'?[unit,same,other]:path==='/progress'?progress:unit) as ReturnType<typeof api>);
+    vi.mocked(api).mockImplementation((path:string)=>Promise.resolve(path==='/modules'?[]:path==='/knowledge'?[unit,same,other]:path==='/progress'?progress:unit) as ReturnType<typeof api>);
     wrap(<Routes><Route path="/knowledge/:articleSlug" element={<KnowledgeArticle/>}/></Routes>,'/knowledge/groupby');
     const nav=await screen.findByRole('complementary',{name:'Навигация по материалу'});expect(await within(nav).findByRole('link',{name:'Фильтрация'})).toHaveAttribute('href','/knowledge/filter');expect(within(nav).queryByRole('link',{name:'Массивы'})).not.toBeInTheDocument();expect(within(nav).queryByRole('link',{name:'Группировка'})).toHaveAttribute('href','#cheat-group-cheat-groupby-001');
   });

@@ -11,6 +11,7 @@ import { modulesQ } from "../queries";
 import { loadTaskState, saveLastTask, saveTaskState } from "../task-storage";
 import type { Exercise, RunResult, TheoryArticle } from "../types";
 import { marketCourseQuery, marketLessonTasks, marketTaskHref } from "../market-course";
+import { recordRunFailure } from '../attempt-journal';
 export function usePracticeController() {
   const { eid = "" } = useParams();
   const [search] = useSearchParams();
@@ -67,12 +68,14 @@ export function usePracticeController() {
     if(e) saveTaskState(e.id, { code: value });
   };
   const mounted = useRef(true);
+  const [journalNotice, setJournalNotice] = useState('');
+  useEffect(() => { const failed = () => setJournalNotice('Не удалось сохранить ошибку в истории этого устройства. Результат выполнения остаётся ниже.'); window.addEventListener('koda-run-observation-failed', failed); return () => window.removeEventListener('koda-run-observation-failed', failed); }, []);
   useEffect(() => {
     mounted.current = true;
     return () => { mounted.current = false; };
   }, []);
   const action = useMutation({
-    mutationFn: ({ submit, taskId, submittedCode }: { submit: boolean; taskId: string; submittedCode: string; exercise: Exercise; topicId: string; accountId: string | null }) => {
+    mutationFn: ({ submit, taskId, submittedCode }: { submit: boolean; taskId: string; submittedCode: string; exercise: Exercise; topicId: string; accountId: string | null; requestId: string; createdAt: string }) => {
       return api<RunResult>(submit ? "/attempts/submit" : "/executions/run", {
         method: "POST",
         body: JSON.stringify({ exercise_id: taskId, code: submittedCode }),
@@ -81,6 +84,7 @@ export function usePracticeController() {
     onSuccess: (r, vars) => {
       if((getCloudUser()?.id ?? null) !== vars.accountId) return;
       const visibleResult = visiblePracticeResult(r, vars.submit);
+      if (!vars.submit && !r.ok) recordRunFailure({ id: vars.requestId, ownerId: vars.accountId, task_id: vars.taskId, code: vars.submittedCode, mode: vars.exercise.exercise_mode ?? 'python', created_at: vars.createdAt, execution_ms: r.execution_ms, error: r.error ?? r.explanation?.what ?? 'Выполнение не завершилось', error_type: r.error_type ?? r.explanation?.python_error ?? r.explanation?.kind ?? 'RuntimeError', line: r.line ?? r.explanation?.line, explanation: r.explanation, source: 'practice-run' });
       if(mounted.current) setResult(visibleResult);
       const eid = vars.taskId;
       const e = vars.exercise;
@@ -98,6 +102,7 @@ export function usePracticeController() {
       if(vars.submit) {
         recordPracticeSubmission(e, code, r, saved, vars.topicId);
         qc.invalidateQueries({ queryKey: ["progress"] });
+        qc.invalidateQueries({ queryKey: ["attempt-history"] });
       }
     },
     onError: () => {
@@ -106,7 +111,7 @@ export function usePracticeController() {
     },
   });
   const run = (submit: boolean, submittedCode = code) => {
-    if(e) action.mutate({ submit, taskId: e.id, submittedCode, exercise: e, topicId: slug, accountId: getCloudUser()?.id ?? null });
+    if(e) action.mutate({ submit, taskId: e.id, submittedCode, exercise: e, topicId: slug, accountId: getCloudUser()?.id ?? null, requestId: crypto.randomUUID(), createdAt: new Date().toISOString() });
   };
   useEffect(() => {
     const f = (x: KeyboardEvent) => {
@@ -187,7 +192,7 @@ export function usePracticeController() {
     isFetching: isFetching || modulesFetching || (courseRequested && courseFetching),
     routeTasks, taskHref,
     sourceCourseTotal: courseRequested && course ? course.lessons.reduce((count, item) => count + item.taskIds.length, 0) : undefined,
-    code, updateCode, result, hints, hintsOpen, setHintsOpen, solution,
+    code, updateCode, result, hints, hintsOpen, setHintsOpen, solution, journalNotice,
     theory, setTheory, left, editorH, splitRef, moduleTitle, number, total,
     action, run, go, hint, reveal, openTheory, reset, dragColumns, dragRows, persist,
   };

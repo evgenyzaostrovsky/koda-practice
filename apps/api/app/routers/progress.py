@@ -1,10 +1,18 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Query
 from pydantic import BaseModel
 from ..auth_backend import current_user
-from ..services.progress import get_progress
+from ..services.progress import get_progress, attempt_history, attempt_detail
 from ..db import connect, now
 
 router = APIRouter()
+@router.get('/attempts/history')
+def history(request:Request,offset:int=Query(0,ge=0,le=100000),limit:int=Query(30,ge=1,le=100)):
+    return attempt_history(current_user(request),offset,limit)
+
+@router.get('/attempts/history/{attempt_id}')
+def history_detail(attempt_id:str,request:Request):
+    return attempt_detail(current_user(request),attempt_id)
+
 class ReviewIn(BaseModel): result: str = 'success'
 
 @router.get('/reviews/due')

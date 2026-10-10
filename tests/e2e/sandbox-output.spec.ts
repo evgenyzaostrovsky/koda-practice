@@ -41,6 +41,15 @@ test("real Pyodide output reaches the sandbox DOM", async ({ page }) => {
   await expect(page.locator(".sandbox-stdout")).toHaveText("KODA_STDOUT_TEST");
   await run(page, "6 * 7");
   await expect(page.locator(".sandbox-value")).toHaveText("42");
+  await run(page, 'answer = 17\nanswer');
+  await expect(page.locator('.sandbox-value')).toHaveText('17');
+  await run(page, 'print("first")\nprint("second")');
+  await expect(page.locator('.sandbox-stdout')).toHaveText('first\nsecond');
+  await run(page, 'import warnings\nwarnings.warn("QA_WARNING")\n1 + 1');
+  await expect(page.locator('.sandbox-value')).toHaveText('2');
+  await expect(page.locator('.sandbox-result')).toContainText('QA_WARNING');
+  await run(page, 'if True print("invalid")');
+  await expect(page.locator('.sandbox-traceback')).toContainText('SyntaxError');
   await run(page, 'print("ROWS", len(df))\ndf.head(1)');
   await expect(page.locator(".sandbox-stdout")).toHaveText("ROWS 3");
   await expect(page.locator(".sandbox-table-wrap tbody tr")).toHaveCount(1);
@@ -62,4 +71,22 @@ test("real Pyodide output reaches the sandbox DOM", async ({ page }) => {
   await expect(page.locator(".sandbox-runtime.ready")).toContainText("Python готов", { timeout: 120_000 });
   await runButton(page).click();
   await expect(page.locator(".sandbox-table-wrap tbody tr")).toHaveCount(3);
+});
+
+test('CSV upload UI with mocked private storage feeds real isolated Python worker',async({page})=>{
+  test.setTimeout(180000);
+  const filename='qa_context.csv',content='city,sales\nМосква,12\nКазань,8\n';
+  const file={id:'qa-upload',name:filename,logicalPath:`/datasets/${filename}`,sizeBytes:Buffer.byteLength(content),mimeType:'text/csv',createdAt:'2026-10-11T00:00:00Z',updatedAt:'2026-10-11T00:00:00Z',version:'qa-v1'};
+  let uploaded=false;
+  await page.route('**/api/sandbox/files',route=>{if(route.request().method()==='POST'){uploaded=true;return route.fulfill({status:201,json:file});}return route.fulfill({json:uploaded?[file]:[]});});
+  await page.route('**/api/sandbox/files/qa-upload/content',route=>route.fulfill({contentType:'text/csv',body:content}));
+  await page.goto('/sandbox');await expect(page.locator('.sandbox-runtime.ready')).toContainText('Python готов',{timeout:120000});
+  await page.getByRole('button',{name:'Загрузить файл',exact:true}).click();
+  await page.locator('input[type="file"]').setInputFiles({name:filename,mimeType:'text/csv',buffer:Buffer.from('city,sales\nМосква,12\nКазань,8\n')});
+  await expect(page.locator('.sandbox-file-list')).toContainText(filename);
+  await page.getByRole('button',{name:'Закрыть файлы'}).click();
+  await run(page,`import pandas as pd\nuploaded = pd.read_csv('/datasets/${filename}')\nprint(uploaded['sales'].sum())\nuploaded.head(1)`);
+  await expect(page.locator('.sandbox-stdout')).toHaveText('20');
+  await expect(page.locator('.sandbox-table-wrap tbody tr')).toHaveCount(1);
+  await expect(page.locator('.sandbox-table-wrap')).toContainText('Москва');
 });

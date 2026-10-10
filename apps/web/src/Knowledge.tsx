@@ -1,9 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   ArrowLeft,
   ArrowRight,
-  BookOpen,
   Check,
   CheckCheck,
   Copy,
@@ -13,6 +12,9 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { api } from "./api";
 import type { KnowledgeUnit, Progress } from "./types";
+import { useAuth } from "./auth";
+import { modulesQ } from "./queries";
+import { knowledgePractice } from "./pages/context-support";
 
 const defaultCategories = [
   "Все",
@@ -40,7 +42,7 @@ function UnitProgress({
       <div>
         <span>Практика</span>
         <b>
-          {done}/{total}
+          {progress ? `${done}/${total}` : "—"}
         </b>
       </div>
       <i>
@@ -51,14 +53,17 @@ function UnitProgress({
 }
 
 export function KnowledgeIndex() {
-  const { data: units = [], isLoading } = useQuery({
+  const { user } = useAuth();
+  const unitsQuery = useQuery({
     queryKey: ["knowledge"],
     queryFn: knowledgeQuery,
   });
-  const { data: progress } = useQuery({
-    queryKey: ["progress"],
+  const { data: units = [], isLoading } = unitsQuery;
+  const progressState = useQuery({
+    queryKey: ["progress", user?.id ?? "anonymous"],
     queryFn: progressQuery,
   });
+  const progress = progressState.data;
   const [query, setQuery] = useState(""),
     [category, setCategory] = useState("Все");
   const categories = useMemo(
@@ -106,6 +111,7 @@ export function KnowledgeIndex() {
         <p className="knowledge-lead">
           Короткий путь от «почему не работает» до ясного понимания.
         </p>
+        {progressState.isError && <p role="status">Не удалось загрузить прогресс практики. <button onClick={() => void progressState.refetch()}>Повторить</button></p>}
         <div className="knowledge-controls">
           <label>
             <Search />
@@ -127,7 +133,8 @@ export function KnowledgeIndex() {
             ))}
           </div>
         </div>
-        {isLoading ? (
+        <div className="context-page-layout knowledge-index-context"><div className="context-main">
+        {unitsQuery.isError ? <div role="alert">Не удалось загрузить материалы. <button onClick={() => void unitsQuery.refetch()}>Повторить</button></div> : isLoading ? (
           <div className="empty">Загрузка материалов…</div>
         ) : grouped.length === 0 ? (
           <div className="knowledge-empty">
@@ -135,7 +142,7 @@ export function KnowledgeIndex() {
           </div>
         ) : (
           grouped.map(([group, items]) => (
-            <section className="knowledge-group" key={group}>
+            <section className="knowledge-group" key={group} id={`knowledge-category-${group}`}>
               <div className="knowledge-group-title">
                 <h2>{group}</h2>
                 <span>{items.length} материалов</span>
@@ -168,18 +175,22 @@ export function KnowledgeIndex() {
               </div>
             </section>
           ))
-        )}
+        )}</div><aside className="context-aside" aria-label="Навигация по базе знаний"><section className="context-card"><h2>Разделы</h2>{grouped.map(([group, items]) => <a key={group} href={`#knowledge-category-${encodeURIComponent(group)}`}>{group} · {items.length}</a>)}{!grouped.length && <p>Разделы появятся после загрузки материалов или изменения поиска.</p>}</section><section className="context-card"><h2>Под рукой</h2>{filtered.slice(0,3).map(unit => <Link key={unit.id} to={`/knowledge/${unit.slug}`}>{unit.title} →</Link>)}<p>Материалы соответствуют выбранному фильтру.</p></section></aside></div>
       </section>
     </>
   );
 }
 
 export function KnowledgeArticle() {
+  const { user } = useAuth();
   const { articleSlug = "" } = useParams();
-  const { data: unit, isLoading } = useQuery({
+  const unitQuery = useQuery({
     queryKey: ["knowledge", articleSlug],
     queryFn: () => api<KnowledgeUnit>(`/knowledge/${articleSlug}`),
   });
+  const { data: unit, isLoading } = unitQuery;
+  const progress = useQuery({ queryKey: ["progress", user?.id ?? "anonymous"], queryFn: progressQuery });
+  const catalog = useQuery({ queryKey: ["modules"], queryFn: modulesQ });
   const { data: units = [] } = useQuery({ queryKey: ["knowledge"], queryFn: knowledgeQuery });
   const [mode, setMode] = useState<"cheat" | "article">(() =>
     localStorage.getItem("koda:knowledge-mode") === "article"
@@ -188,10 +199,22 @@ export function KnowledgeArticle() {
   );
   const [cheatQuery, setCheatQuery] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [activeAnchor, setActiveAnchor] = useState("");
+  useEffect(() => {
+    if (!unit) return;
+    const update = () => {
+      const elements = Array.from(document.querySelectorAll<HTMLElement>(mode === "article" ? ".knowledge-reading article > section[id]" : ".cheat-group[id]"));
+      const current = [...elements].reverse().find(element => element.getBoundingClientRect().top <= 150) ?? elements[0];
+      setActiveAnchor(current?.id ?? "");
+    };
+    update(); window.addEventListener("scroll", update, true); window.addEventListener("resize", update);
+    return () => { window.removeEventListener("scroll", update, true); window.removeEventListener("resize", update); };
+  }, [unit, mode, cheatQuery]);
   const change = (value: "cheat" | "article") => {
     setMode(value);
     localStorage.setItem("koda:knowledge-mode", value);
   };
+  if (unitQuery.isError) return <div role="alert">Не удалось загрузить материал. <button onClick={() => void unitQuery.refetch()}>Повторить</button><Link to="/knowledge">База знаний</Link></div>;
   if (isLoading || !unit)
     return <div className="empty">Загрузка материала…</div>;
   const needle = cheatQuery.trim().toLocaleLowerCase("ru");
@@ -208,6 +231,7 @@ export function KnowledgeArticle() {
     }, {}),
   );
   const relatedUnits = units.filter(other => other.id !== unit.id && other.category === unit.category).slice(0, 3);
+  const practice = progress.data && catalog.data ? knowledgePractice(unit, catalog.data, progress.data.solved_ids) : null;
   const groupAnchor = (group: string) => `cheat-group-${unit.cheatSheet.entries.find(entry => entry.group === group)!.id}`;
   const copyExample = async (id: string, example: string) => {
     await navigator.clipboard.writeText(example);
@@ -360,22 +384,11 @@ export function KnowledgeArticle() {
       )}
       </div><aside className="knowledge-context-column" aria-label="Навигация по материалу">
         <nav aria-label="Содержание"><h2>Содержание</h2>
-          {mode === "article" ? unit.article.sections.map(section => <a key={section.id} href={`#${encodeURIComponent(section.id)}`}>{section.title}</a>) : cheatGroups.length ? cheatGroups.map(([group]) => <a key={group} href={`#${encodeURIComponent(groupAnchor(group))}`}>{group}</a>) : <p>Нет разделов по этому запросу.</p>}
+          {mode === "article" ? unit.article.sections.map(section => <a key={section.id} href={`#${encodeURIComponent(section.id)}`} aria-current={activeAnchor === section.id ? "location" : undefined}>{section.title}</a>) : cheatGroups.length ? cheatGroups.map(([group]) => <a key={group} href={`#${encodeURIComponent(groupAnchor(group))}`} aria-current={activeAnchor === groupAnchor(group) ? "location" : undefined}>{group}</a>) : <p>Нет разделов по этому запросу.</p>}
         </nav>
         {relatedUnits.length > 0 && <section><h2>Материалы раздела</h2><small>{unit.category}</small>{relatedUnits.map(other => <Link key={other.id} to={`/knowledge/${other.slug}`}>{other.title}</Link>)}</section>}
+        <section className="context-practice"><h2>Закрепить практикой</h2>{progress.isError || catalog.isError ? <><p>Не удалось загрузить задачи.</p><button onClick={() => { void progress.refetch(); void catalog.refetch(); }}>Повторить</button></> : !progress.data || !catalog.data ? <p role="status">Загрузка задач…</p> : practice ? <><p>{practice.task.title}</p><small>{practice.task.learning_objective}</small><Link to={`/practice/${practice.task.id}`}>{practice.repeat ? "Повторить задачу" : "Начать задачу"} →</Link><Link to={`/topics/${practice.topic.slug}`}>Все задачи темы →</Link></> : <p>В действующем каталоге нет связанных задач.</p>}</section>
       </aside></div>
-      {unit.relatedTaskIds.length > 0 && <div className="knowledge-practice">
-        <div>
-          <BookOpen />
-          <span>
-            <b>Закрепите материал практикой</b>
-            <small>{unit.relatedTaskIds.length} заданий по теме</small>
-          </span>
-        </div>
-        <Link to={`/topics/${unit.slug}`}>
-          Перейти к практике <ArrowRight />
-        </Link>
-      </div>}
     </main>
   );
 }

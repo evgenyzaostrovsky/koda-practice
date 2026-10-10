@@ -4,7 +4,7 @@ from fastapi import HTTPException
 from ..content import EXERCISES
 from ..runner import run, explain, compare_results
 from ..achievement_evidence import achievement_evidence
-from .progress import persist_attempt
+from .progress import persist_attempt, hints_opened
 
 EXPECTED_RESULTS = {}
 
@@ -66,16 +66,21 @@ def submit_attempt(body, account):
     elif actual.get('ok') and not passed: actual.update(error_type='WrongAnswer',error='Код выполнен, но result не совпал с ожидаемым.',**diff)
     if interaction_missing:
         actual.update(error_type='WrongMethod',error='Проверьте взаимодействия отчёта.',difference='; '.join(interaction_missing))
-    num,hints=persist_attempt(account,body.exercise_id,body.code,passed,actual,None if passed else explain(actual))
     if missing and actual.get('ok') and equal:
         calls=', '.join(f"pd.{name}()" if name.startswith('read_') else f"{name}()" for name in sorted(missing))
         actual.update(error_type='WrongMethod',error='Результат верный, но задача проверяет конкретный приём.',difference=f"Используйте вызов {calls}, не раскрывая готовое решение.")
     details=explain(actual)
+    hints=hints_opened(account,body.exercise_id)
     mode=e.get('exercise_mode','python')
     if mode != 'python' and details.get('kind') == 'runtime_error':
         label={'sql':'SQL','excel':'Excel','power-bi':'Power BI'}.get(mode,'симулятора')
         details.update(title=f'Ошибка {label}',python_error=None,check='Проверьте запрос и поля таблиц.' if mode == 'sql' else 'Проверьте формулы и настройки учебного отчёта.')
     if not passed:
         details.update(expected=actual.get('expected') or json_preview(expected.get('result')),actual=actual.get('actual') or json_preview(actual.get('result')),hint=e['hints'][min(hints,2)]['text'])
+    feedback={'version':1,'mode':mode,'hints_used':hints,'error':None if passed else actual.get('error'),
+              'error_type':None if passed else actual.get('error_type'),
+              'line':None if passed else actual.get('line'),'explanation':None if passed else details}
     evidence=achievement_evidence(body.code,e['solution_code']) if passed and e.get('exercise_mode','python') == 'python' else None
-    return {**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'attempt_number':num,'hints_used':hints,'xp_earned':e['xp'] if passed else 0,'approach':e['completion_summary'],'completion_summary':e['completion_summary'],'achievement_evidence':evidence,'explanation':None if passed else details}
+    response={**actual,'passed':passed,'tests_passed':int(passed),'tests_total':1,'xp_earned':e['xp'] if passed else 0,'approach':e['completion_summary'],'completion_summary':e['completion_summary'],'achievement_evidence':evidence,'explanation':None if passed else details}
+    num,hints=persist_attempt(account,body.exercise_id,body.code,passed,actual,feedback,final_run_result=response)
+    return {**response,'attempt_number':num,'hints_used':hints}

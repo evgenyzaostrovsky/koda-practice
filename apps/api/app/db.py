@@ -16,6 +16,9 @@ def init_db():
         CREATE TABLE IF NOT EXISTS activity(day TEXT PRIMARY KEY, attempts INTEGER DEFAULT 0, solved INTEGER DEFAULT 0);
         CREATE TABLE IF NOT EXISTS metadata(key TEXT PRIMARY KEY, value TEXT NOT NULL);
         ''')
+        # Additive migration: preserve every historical attempt and identifier.
+        if 'feedback' not in {row['name'] for row in c.execute('PRAGMA table_info(attempts)')}:
+            c.execute('ALTER TABLE attempts ADD COLUMN feedback TEXT')
         version=c.execute("SELECT value FROM metadata WHERE key='content_bank_version'").fetchone()
         if version is None:
             # Preserve attempts from the original 60-task bank without applying
