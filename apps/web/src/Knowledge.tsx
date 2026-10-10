@@ -180,6 +180,7 @@ export function KnowledgeArticle() {
     queryKey: ["knowledge", articleSlug],
     queryFn: () => api<KnowledgeUnit>(`/knowledge/${articleSlug}`),
   });
+  const { data: units = [] } = useQuery({ queryKey: ["knowledge"], queryFn: knowledgeQuery });
   const [mode, setMode] = useState<"cheat" | "article">(() =>
     localStorage.getItem("koda:knowledge-mode") === "article"
       ? "article"
@@ -206,6 +207,8 @@ export function KnowledgeArticle() {
       return result;
     }, {}),
   );
+  const relatedUnits = units.filter(other => other.id !== unit.id && other.category === unit.category).slice(0, 3);
+  const groupAnchor = (group: string) => `cheat-group-${unit.cheatSheet.entries.find(entry => entry.group === group)!.id}`;
   const copyExample = async (id: string, example: string) => {
     await navigator.clipboard.writeText(example);
     setCopiedId(id);
@@ -243,6 +246,7 @@ export function KnowledgeArticle() {
           Статья
         </button>
       </div>
+      <div className="knowledge-context-layout"><div className="knowledge-main-column">
       {mode === "cheat" ? (
         <div className="cheat-sheet">
           <label className="cheat-search">
@@ -257,7 +261,7 @@ export function KnowledgeArticle() {
           {cheatGroups.length === 0 ? (
             <div className="knowledge-empty">В этой шпаргалке ничего не найдено.</div>
           ) : cheatGroups.map(([group, entries]) => (
-            <section className="cheat-group" key={group}>
+            <section className="cheat-group" key={group} id={groupAnchor(group)}>
               <h2>{group}</h2>
               <div className="cheat-table" role="table" aria-label={group}>
                 <div className="cheat-row cheat-head" role="row">
@@ -302,14 +306,6 @@ export function KnowledgeArticle() {
         </div>
       ) : (
         <div className="knowledge-reading">
-          <aside>
-            <b>Содержание</b>
-            {unit.article.sections.map((section) => (
-              <a href={`#${section.id}`} key={section.id}>
-                {section.title}
-              </a>
-            ))}
-          </aside>
           <article>
             <p className="reading-lead">{unit.article.lead}</p>
             {unit.article.sections.map((section) => (
@@ -362,6 +358,12 @@ export function KnowledgeArticle() {
           </article>
         </div>
       )}
+      </div><aside className="knowledge-context-column" aria-label="Навигация по материалу">
+        <nav aria-label="Содержание"><h2>Содержание</h2>
+          {mode === "article" ? unit.article.sections.map(section => <a key={section.id} href={`#${encodeURIComponent(section.id)}`}>{section.title}</a>) : cheatGroups.length ? cheatGroups.map(([group]) => <a key={group} href={`#${encodeURIComponent(groupAnchor(group))}`}>{group}</a>) : <p>Нет разделов по этому запросу.</p>}
+        </nav>
+        {relatedUnits.length > 0 && <section><h2>Материалы раздела</h2><small>{unit.category}</small>{relatedUnits.map(other => <Link key={other.id} to={`/knowledge/${other.slug}`}>{other.title}</Link>)}</section>}
+      </aside></div>
       {unit.relatedTaskIds.length > 0 && <div className="knowledge-practice">
         <div>
           <BookOpen />

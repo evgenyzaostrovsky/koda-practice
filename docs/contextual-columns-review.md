@@ -1,0 +1,13 @@
+# Contextual page columns
+
+The Founder approved `docs/design/home-support-column-v1.png` for implementation.
+
+Integrated eight-role decision: PM/strategy approve useful navigation within existing data; UX requires a 280px contextual column and responsive stacking; learning requires honest continuation without claims of mastery or invented related units; behavioral review requires one primary action and no urgency; architecture requires read-only achievement snapshot access (evaluate is a mutating operation), shared manifest/art, existing KnowledgeUnit sections; analytics requires account-scoped actual unlock dates and unchanged events/XP/time; QA requires real responsive geometry, accessible anchors, empty/error states and no incidental progress writes.
+
+Implementation: home shows a short recommended session plan and latest actually earned award. Existing article TOC moves right; cheat-sheet navigation follows visible groups. Other materials are labeled as belonging to the same declared category rather than invented prerequisites. Practice, Sandbox, Progress and achievements use available width; readable article paragraphs retain their line-length cap. No new learning content or catalog identifiers.
+
+Acceptance matrix: valid continuation links; no fabricated award or duration; current-account refresh; no evaluate/backfill for the sidebar; loading/error/empty states; existing article/group anchors; keyboard/focus and 390px overflow; wide editor/results/room at 1280/1440px; unchanged compact typography; unchanged storage evidence and timer state.
+
+Verification: lint/typecheck and production build pass. Independent targeted tests pass 17 cases, including late account-A progress responses after switching to B. The full frontend run passes 185 of 186 tests; the pre-existing celebration focus case failed under load, then its entire 13-test file passed in isolation without production changes. Six independent browser scenarios pass on 1280/1440/390px: home/knowledge preserve stored evidence, real links and filtered anchors work, wide working pages have no document overflow. Initial two browser assertions read the catalog fallback before data finished loading; the test now waits for the real continuation, with no production change.
+
+Evidence: reports/contextual-lint.log, contextual-build.log, contextual-web.log, contextual-celebration-rerun.log, qa-context-unit-complete.log, qa-context-runtime-final.log and qa-context page screenshots. QA uses isolated port 8017. The previously stopped actual port 8014 server was restored against its existing historical database after a backup; no new user progress was created. The existing oversized prototype bundle warning remains outside this scope.

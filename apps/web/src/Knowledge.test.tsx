@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter, Route, Routes } from "react-router-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -154,5 +154,21 @@ describe("knowledge base", () => {
       }),
     );
     expect(writeText).toHaveBeenCalledWith("orders.groupby('region').sum()");
+  });
+  it("links article sections and visible cheat groups to existing targets in the contextual navigation",async()=>{
+    const expanded={...unit,cheatSheet:{entries:[...unit.cheatSheet.entries,{...unit.cheatSheet.entries[0],id:'cheat-check',group:'Проверка',name:'.size()',description:'Подсчитывает строки.'}]},article:{...unit.article,sections:[...unit.article.sections,{...unit.article.sections[0],id:'check-section',title:'Проверка результата'}]}};
+    vi.mocked(api).mockImplementation((path:string)=>Promise.resolve(path==='/knowledge'?[expanded]:path==='/progress'?progress:expanded) as ReturnType<typeof api>);
+    wrap(<Routes><Route path="/knowledge/:articleSlug" element={<KnowledgeArticle/>}/></Routes>,'/knowledge/groupby');
+    const nav=await screen.findByRole('complementary',{name:'Навигация по материалу'});
+    for(const link of within(nav).getAllByRole('link')){const href=link.getAttribute('href')!;if(href.startsWith('#'))expect(document.getElementById(href.slice(1))).not.toBeNull();}
+    expect(within(nav).getByRole('link',{name:'Проверка'})).toBeInTheDocument();
+    fireEvent.change(screen.getByLabelText('Поиск по шпаргалке'),{target:{value:'суммирует'}});expect(within(nav).queryByRole('link',{name:'Проверка'})).not.toBeInTheDocument();expect(within(nav).getByRole('link',{name:'Группировка'})).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button',{name:'Статья'}));for(const section of expanded.article.sections){expect(within(nav).getByRole('link',{name:section.title})).toHaveAttribute('href',`#${section.id}`);expect(document.getElementById(section.id)).not.toBeNull();}
+  });
+  it("offers only existing other materials from the same declared category",async()=>{
+    const same={...unit,id:'ku-filter',slug:'filter',title:'Фильтрация'},other={...unit,id:'ku-numpy',slug:'arrays',title:'Массивы',category:'NumPy'};
+    vi.mocked(api).mockImplementation((path:string)=>Promise.resolve(path==='/knowledge'?[unit,same,other]:path==='/progress'?progress:unit) as ReturnType<typeof api>);
+    wrap(<Routes><Route path="/knowledge/:articleSlug" element={<KnowledgeArticle/>}/></Routes>,'/knowledge/groupby');
+    const nav=await screen.findByRole('complementary',{name:'Навигация по материалу'});expect(await within(nav).findByRole('link',{name:'Фильтрация'})).toHaveAttribute('href','/knowledge/filter');expect(within(nav).queryByRole('link',{name:'Массивы'})).not.toBeInTheDocument();expect(within(nav).queryByRole('link',{name:'Группировка'})).toHaveAttribute('href','#cheat-group-cheat-groupby-001');
   });
 });
